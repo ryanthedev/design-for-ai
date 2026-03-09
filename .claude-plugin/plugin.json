@@ -1,7 +1,7 @@
 {
   "name": "design-for-ai",
-  "version": "1.0.0",
-  "description": "Visual design principles for AI and developers — typography, color, composition, proportions, and visual hierarchy",
+  "version": "2.0.0",
+  "description": "Visual design principles for AI and developers — typography, color, composition, proportions, visual hierarchy, motion, interaction, and responsive design. Includes 8 commands: /design-for-ai, /design, /exam, /brand, /fonts, /color, /flow, /hone.",
   "author": {
     "name": "r"
   },
