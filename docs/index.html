@@ -471,9 +471,68 @@
       }
     }
 
+    /* ── Scroll reveal base ── */
+    .reveal {
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+    }
+
+    /* Fade + translate up (default for most elements) */
+    .reveal-up {
+      transform: translateY(20px);
+    }
+    .reveal-up.visible {
+      transform: translateY(0);
+      transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Fade + translate from left (tell-list items) */
+    .reveal-left {
+      transform: translateX(-16px);
+    }
+    .reveal-left.visible {
+      transform: translateX(0);
+      transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Fade + scale (the 75% stat) */
+    .reveal-scale {
+      transform: scale(0.92);
+    }
+    .reveal-scale.visible {
+      transform: scale(1);
+      transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Fade only, slow (quote — stillness as contrast) */
+    .reveal-fade {
+      /* no transform, just opacity */
+    }
+    .reveal-fade.visible {
+      transition: opacity 500ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Fade in place (command grid items) */
+    .reveal-in.visible {
+      transition: opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
     /* ── Reduced motion ── */
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+        will-change: auto !important;
+      }
     }
   </style>
 </head>
@@ -495,20 +554,20 @@
         <div>
           <h2>The convergence problem</h2>
           <p style="color: var(--text-mid); margin-bottom: var(--space-lg);">Every AI produces the same &ldquo;clean, modern&rdquo; output. That sameness is now a signal. Users register the generic feeling even when they can&rsquo;t name the patterns.</p>
-          <div class="problem-stat">75%</div>
+          <div class="problem-stat reveal reveal-scale">75%</div>
           <p class="problem-stat-label">of website credibility judgments are design-based<br><span style="font-size: var(--s-xs);">B.J. Fogg, Stanford Web Credibility Research</span></p>
         </div>
         <div>
           <p style="font-family: var(--serif); font-size: var(--s-md); font-weight: 600; margin-bottom: var(--space-md);">Common AI design tells</p>
           <ul class="tell-list">
-            <li>Inter, Roboto, or Open Sans as the default font</li>
-            <li>Cyan-on-dark or purple-to-blue gradient palette</li>
-            <li>Identical card grids: icon + heading + text, repeated</li>
-            <li>Everything centered, no asymmetry, no left-aligned blocks</li>
-            <li>Same spacing everywhere (no rhythm, no grouping)</li>
-            <li>Glassmorphism and gradient text used decoratively</li>
-            <li>Dark mode by default with glowing neon accents</li>
-            <li>Everything fades in from below with the same timing</li>
+            <li class="reveal reveal-left">Inter, Roboto, or Open Sans as the default font</li>
+            <li class="reveal reveal-left">Cyan-on-dark or purple-to-blue gradient palette</li>
+            <li class="reveal reveal-left">Identical card grids: icon + heading + text, repeated</li>
+            <li class="reveal reveal-left">Everything centered, no asymmetry, no left-aligned blocks</li>
+            <li class="reveal reveal-left">Same spacing everywhere (no rhythm, no grouping)</li>
+            <li class="reveal reveal-left">Glassmorphism and gradient text used decoratively</li>
+            <li class="reveal reveal-left">Dark mode by default with glowing neon accents</li>
+            <li class="reveal reveal-left">Everything fades in from below with the same timing</li>
           </ul>
         </div>
       </div>
@@ -521,7 +580,7 @@
       <h2>Eight commands, one design workflow</h2>
       <p class="commands-intro">From purpose through final pixel-level QA. Each command teaches the theory behind its decisions.</p>
 
-      <div class="cmd-featured">
+      <div class="cmd-featured reveal reveal-up">
         <span class="cmd-featured-name">/design-for-ai</span>
         <div>
           <h3>The router</h3>
@@ -530,37 +589,37 @@
       </div>
 
       <div class="cmd-grid">
-        <div class="cmd-item">
+        <div class="cmd-item reveal reveal-in">
           <p class="cmd-name">/design</p>
           <p class="cmd-title">Foundations</p>
           <p class="cmd-desc">Purpose, audience, aesthetic direction. The decisions that frame everything else.</p>
         </div>
-        <div class="cmd-item">
+        <div class="cmd-item reveal reveal-in">
           <p class="cmd-name">/exam</p>
           <p class="cmd-title">Design audit</p>
           <p class="cmd-desc">Theory-backed diagnosis. Finds what&rsquo;s wrong and explains <em>why</em> it violates design principles.</p>
         </div>
-        <div class="cmd-item">
+        <div class="cmd-item reveal reveal-in">
           <p class="cmd-name">/brand</p>
           <p class="cmd-title">Strip AI tells</p>
           <p class="cmd-desc">Find the convergent defaults. Replace them with choices that have character.</p>
         </div>
-        <div class="cmd-item">
+        <div class="cmd-item reveal reveal-in">
           <p class="cmd-name">/fonts</p>
           <p class="cmd-title">Typography</p>
           <p class="cmd-desc">Pick a body font, pair it, configure the scale. The squint test, the n-test, medium-form relationships.</p>
         </div>
-        <div class="cmd-item">
+        <div class="cmd-item reveal reveal-in">
           <p class="cmd-name">/color</p>
           <p class="cmd-title">Color system</p>
           <p class="cmd-desc">Build a palette from color science. Mood to base hue to color wheel scheme. Accessible by default.</p>
         </div>
-        <div class="cmd-item">
+        <div class="cmd-item reveal reveal-in">
           <p class="cmd-name">/flow</p>
           <p class="cmd-title">Motion &amp; interaction</p>
           <p class="cmd-desc">Animation that means something. All eight interaction states mapped. Responsive behavior and reduced-motion.</p>
         </div>
-        <div class="cmd-item">
+        <div class="cmd-item reveal reveal-in">
           <p class="cmd-name">/hone</p>
           <p class="cmd-title">Final quality pass</p>
           <p class="cmd-desc">Every design principle checked before shipping. The last gate.</p>
@@ -580,16 +639,16 @@
             Reviewing existing designs
           </h3>
           <ol class="mode-steps">
-            <li>Purpose and foundation: is intent clear?</li>
-            <li>Typography: appropriate for the medium?</li>
-            <li>Proportions and layout: intentional ratios?</li>
-            <li>Composition: one dominant element?</li>
-            <li>Visual hierarchy: white space, weight, size?</li>
-            <li>Color: follows a color wheel scheme? Accessible?</li>
-            <li>SEO: semantic HTML? Heading hierarchy?</li>
-            <li>Motion and interaction: all 8 states defined?</li>
-            <li>Responsive: fluid type? Touch targets?</li>
-            <li>Design identity: any AI tells?</li>
+            <li class="reveal reveal-up">Purpose and foundation: is intent clear?</li>
+            <li class="reveal reveal-up">Typography: appropriate for the medium?</li>
+            <li class="reveal reveal-up">Proportions and layout: intentional ratios?</li>
+            <li class="reveal reveal-up">Composition: one dominant element?</li>
+            <li class="reveal reveal-up">Visual hierarchy: white space, weight, size?</li>
+            <li class="reveal reveal-up">Color: follows a color wheel scheme? Accessible?</li>
+            <li class="reveal reveal-up">SEO: semantic HTML? Heading hierarchy?</li>
+            <li class="reveal reveal-up">Motion and interaction: all 8 states defined?</li>
+            <li class="reveal reveal-up">Responsive: fluid type? Touch targets?</li>
+            <li class="reveal reveal-up">Design identity: any AI tells?</li>
           </ol>
         </div>
         <div class="mode-block">
@@ -598,15 +657,15 @@
             Building from scratch
           </h3>
           <ol class="mode-steps">
-            <li>Gather design context and constraints</li>
-            <li>Define purpose, personas, wireframes</li>
-            <li>Choose proportional system and type scale</li>
-            <li>Select body font, pair, set leading</li>
-            <li>Establish dominance and hierarchy</li>
-            <li>Build color palette from color wheel</li>
-            <li>Semantic HTML, meta, heading structure</li>
-            <li>Define animation timing and state transitions</li>
-            <li>Mobile-first, fluid typography, touch targets</li>
+            <li class="reveal reveal-up">Gather design context and constraints</li>
+            <li class="reveal reveal-up">Define purpose, personas, wireframes</li>
+            <li class="reveal reveal-up">Choose proportional system and type scale</li>
+            <li class="reveal reveal-up">Select body font, pair, set leading</li>
+            <li class="reveal reveal-up">Establish dominance and hierarchy</li>
+            <li class="reveal reveal-up">Build color palette from color wheel</li>
+            <li class="reveal reveal-up">Semantic HTML, meta, heading structure</li>
+            <li class="reveal reveal-up">Define animation timing and state transitions</li>
+            <li class="reveal reveal-up">Mobile-first, fluid typography, touch targets</li>
           </ol>
         </div>
       </div>
@@ -619,35 +678,35 @@
       <h2>What it teaches</h2>
       <p class="principles-intro">The design theory behind every recommendation.</p>
 
-      <div class="principle-row">
+      <div class="principle-row reveal reveal-up">
         <span class="principle-label">Three layers</span>
         <p class="principle-text"><strong>Purpose, medium, and aesthetics</strong> must reinforce each other. The Pantheon&rsquo;s coffers exist because the dome needed them. They&rsquo;re also beautiful. Technology constraints are design opportunities.</p>
       </div>
-      <div class="principle-row">
+      <div class="principle-row reveal reveal-up">
         <span class="principle-label">Typography</span>
         <p class="principle-text">Garamond is timeless in print but blurs on screen. <strong>Medium matters.</strong> The squint test, the n-test for font pairing, max two families, no fake bold, smart quotes.</p>
       </div>
-      <div class="principle-row">
+      <div class="principle-row reveal reveal-up">
         <span class="principle-label">Proportions</span>
         <p class="principle-text">Dimensions should relate through <strong>intentional ratios</strong> (2:3, 3:4, golden), not arbitrary pixel values. Tschichold&rsquo;s method derives margins from the page itself.</p>
       </div>
-      <div class="principle-row">
+      <div class="principle-row reveal reveal-up">
         <span class="principle-label">Composition</span>
         <p class="principle-text"><strong>Dominance, direction, depth, similarity, contrast, rhythm.</strong> One element commands attention. The eye is guided, not scattered. Not everything gets a card.</p>
       </div>
-      <div class="principle-row">
+      <div class="principle-row reveal reveal-up">
         <span class="principle-label">Hierarchy</span>
         <p class="principle-text">White space is the most powerful tool. Then weight, then size, then color. <strong>Proportional spacing</strong>: tight within groups, generous between. Tufte&rsquo;s 1+1=3.</p>
       </div>
-      <div class="principle-row">
+      <div class="principle-row reveal reveal-up">
         <span class="principle-label">Color</span>
         <p class="principle-text"><strong>Mood drives hue. Hue drives scheme.</strong> Color wheel relationships (analogous, complementary, triadic). Hue-shifted shadows for depth. Colorblind-safe with redundant cues.</p>
       </div>
-      <div class="principle-row">
+      <div class="principle-row reveal reveal-up">
         <span class="principle-label">Motion</span>
         <p class="principle-text">Remove an animation. Did you lose information? If not, it was decorative. <strong>100ms micro, 300ms standard, 500ms complex.</strong> Ease-out for entries. Respect reduced-motion.</p>
       </div>
-      <div class="principle-row">
+      <div class="principle-row reveal reveal-up">
         <span class="principle-label">Interaction</span>
         <p class="principle-text">Eight states every element needs: <strong>default, hover, focus, active, disabled, loading, error, success.</strong> 44&times;44px touch targets. Focus-visible. No placeholder-only labels.</p>
       </div>
@@ -657,7 +716,7 @@
   <!-- ════ Quote ════ -->
   <section class="quote-section">
     <div class="container">
-      <blockquote>
+      <blockquote class="reveal reveal-fade">
         &ldquo;To truly be adept at designing something, you have to understand how it works. Otherwise, you aren&rsquo;t designing. You&rsquo;re creating a veneer. You&rsquo;re drawing ponies.&rdquo;
         <cite>&mdash; David Kadavy</cite>
       </blockquote>
@@ -685,5 +744,35 @@
     </div>
   </footer>
 
+  <script>
+    // Scroll-triggered reveals with stagger for grouped siblings
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      var reveals = document.querySelectorAll('.reveal');
+      var seen = new Set();
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting || seen.has(entry.target)) return;
+          seen.add(entry.target);
+
+          // Find siblings in the same parent that entered together
+          var parent = entry.target.parentElement;
+          var siblings = parent.querySelectorAll(':scope > .reveal');
+          var siblingIndex = Array.prototype.indexOf.call(siblings, entry.target);
+
+          // Stagger: 60ms per item within a group
+          var delay = siblingIndex * 60;
+          entry.target.style.transitionDelay = delay + 'ms';
+          entry.target.classList.add('visible');
+
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+      reveals.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
 </body>
 </html>
