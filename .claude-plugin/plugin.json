@@ -1,0 +1,10 @@
+{
+  "name": "design-for-ai",
+  "version": "1.0.0",
+  "description": "Visual design principles for AI and developers — typography, color, composition, proportions, and visual hierarchy",
+  "author": {
+    "name": "r"
+  },
+  "license": "MIT",
+  "keywords": ["design", "typography", "color-theory", "visual-hierarchy", "composition", "proportions", "ui-design"]
+}
