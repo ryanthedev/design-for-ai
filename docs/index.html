@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>design-for-ai — Visual design principles for Claude Code</title>
+  <meta name="description" content="A Claude Code plugin that teaches visual design from Design for Hackers. Stop shipping AI slop. Start making intentional design decisions.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Design tokens — perfect fourth scale (1.333) ── */
+    :root {
+      --bg:        #faf7f2;
+      --bg-alt:    #f0ebe3;
+      --text:      #2a2520;
+      --text-mid:  #5c544c;
+      --text-light:#8a8279;
+      --accent:    #c45d3e;
+      --accent-hover: #a84d33;
+      --sage:      #6b7c6e;
+      --rule:      #d8d0c6;
+
+      --serif: 'Source Serif 4', 'Georgia', 'Times New Roman', serif;
+      --sans:  -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      --mono:  'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
+
+      /* Perfect fourth scale: 13, 16, 21, 28, 37, 50, 67 */
+      --s-xs:  0.8125rem;  /* 13px */
+      --s-sm:  1rem;       /* 16px */
+      --s-md:  1.333rem;   /* 21px */
+      --s-lg:  1.777rem;   /* 28px */
+      --s-xl:  2.369rem;   /* 37px */
+      --s-2xl: 3.157rem;   /* 50px */
+      --s-3xl: 4.209rem;   /* 67px */
+
+      --space-xs:  0.5rem;
+      --space-sm:  1rem;
+      --space-md:  1.5rem;
+      --space-lg:  2.5rem;
+      --space-xl:  4rem;
+      --space-2xl: 6.5rem;
+      --space-3xl: 10rem;
+    }
+
+    /* ── Base ── */
+    html {
+      font-size: clamp(15px, 1vw + 12px, 18px);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--sans);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 72rem;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    .narrow {
+      max-width: 42rem;
+    }
+
+    /* ── Typography ── */
+    h1, h2, h3 {
+      font-family: var(--serif);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    p {
+      max-width: 38em;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.15em;
+      transition: color 0.15s ease-out;
+    }
+    a:hover { color: var(--accent-hover); }
+
+    /* ── Hero ── */
+    .hero {
+      padding: var(--space-3xl) 0 var(--space-2xl);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: var(--s-xs);
+      color: var(--text-light);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-md);
+    }
+
+    .hero h1 {
+      font-size: clamp(var(--s-2xl), 5vw + 1rem, var(--s-3xl));
+      max-width: 16em;
+      margin-bottom: var(--space-lg);
+      color: var(--text);
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: var(--s-md);
+      color: var(--text-mid);
+      max-width: 32em;
+      line-height: 1.5;
+    }
+
+    /* ── Problem section ── */
+    .problem {
+      padding: var(--space-2xl) 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .problem h2 {
+      font-size: var(--s-xl);
+      margin-bottom: var(--space-md);
+    }
+
+    .problem-stat {
+      font-family: var(--serif);
+      font-size: var(--s-2xl);
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: var(--space-xs);
+    }
+
+    .problem-stat-label {
+      font-size: var(--s-sm);
+      color: var(--text-mid);
+      margin-bottom: var(--space-lg);
+    }
+
+    .tell-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .tell-list li {
+      font-size: var(--s-sm);
+      color: var(--text-mid);
+      padding-left: 1.5em;
+      position: relative;
+    }
+
+    .tell-list li::before {
+      content: "\2715";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* ── Commands section ── */
+    .commands {
+      padding: var(--space-2xl) 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .commands h2 {
+      font-size: var(--s-xl);
+      margin-bottom: var(--space-xs);
+    }
+
+    .commands-intro {
+      color: var(--text-mid);
+      margin-bottom: var(--space-xl);
+      font-size: var(--s-md);
+    }
+
+    .cmd-featured {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--space-md) var(--space-lg);
+      margin-bottom: var(--space-xl);
+      padding: var(--space-lg);
+      background: var(--bg-alt);
+      border-left: 3px solid var(--accent);
+    }
+
+    .cmd-featured-name {
+      font-family: var(--mono);
+      font-size: var(--s-md);
+      font-weight: 600;
+      color: var(--accent);
+      grid-row: 1 / 3;
+      align-self: start;
+      padding-top: 0.15em;
+    }
+
+    .cmd-featured h3 {
+      font-size: var(--s-lg);
+      margin-bottom: var(--space-xs);
+    }
+
+    .cmd-featured p {
+      color: var(--text-mid);
+    }
+
+    .cmd-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+      gap: var(--space-sm);
+    }
+
+    .cmd-item {
+      padding: var(--space-md) 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .cmd-name {
+      font-family: var(--mono);
+      font-size: var(--s-xs);
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: var(--space-xs);
+    }
+
+    .cmd-title {
+      font-family: var(--serif);
+      font-size: var(--s-md);
+      font-weight: 600;
+      margin-bottom: var(--space-xs);
+    }
+
+    .cmd-desc {
+      font-size: var(--s-sm);
+      color: var(--text-mid);
+      line-height: 1.5;
+    }
+
+    /* ── Modes section ── */
+    .modes {
+      padding: var(--space-2xl) 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .modes h2 {
+      font-size: var(--s-xl);
+      margin-bottom: var(--space-xl);
+    }
+
+    .modes-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+    }
+
+    .mode-block h3 {
+      font-size: var(--s-lg);
+      margin-bottom: var(--space-sm);
+    }
+
+    .mode-block h3 span {
+      font-family: var(--mono);
+      font-size: var(--s-xs);
+      font-weight: 600;
+      color: var(--text-light);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+
+    .mode-steps {
+      list-style: none;
+      counter-reset: step;
+    }
+
+    .mode-steps li {
+      counter-increment: step;
+      padding: var(--space-sm) 0;
+      border-top: 1px solid var(--rule);
+      font-size: var(--s-sm);
+      color: var(--text-mid);
+      display: flex;
+      gap: var(--space-sm);
+      align-items: baseline;
+    }
+
+    .mode-steps li::before {
+      content: counter(step);
+      font-family: var(--serif);
+      font-size: var(--s-md);
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+      width: 1.5em;
+    }
+
+    /* ── Principles section ── */
+    .principles {
+      padding: var(--space-2xl) 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .principles h2 {
+      font-size: var(--s-xl);
+      margin-bottom: var(--space-xs);
+    }
+
+    .principles-intro {
+      color: var(--text-mid);
+      font-size: var(--s-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .principle-row {
+      display: grid;
+      grid-template-columns: 10rem 1fr;
+      gap: var(--space-md);
+      padding: var(--space-md) 0;
+      border-top: 1px solid var(--rule);
+      align-items: baseline;
+    }
+
+    .principle-label {
+      font-family: var(--serif);
+      font-size: var(--s-md);
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .principle-text {
+      font-size: var(--s-sm);
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    .principle-text strong {
+      color: var(--text);
+    }
+
+    /* ── Quote ── */
+    .quote-section {
+      padding: var(--space-2xl) 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    blockquote {
+      font-family: var(--serif);
+      font-size: var(--s-lg);
+      font-style: italic;
+      color: var(--text);
+      max-width: 32em;
+      line-height: 1.4;
+      margin-bottom: var(--space-sm);
+    }
+
+    blockquote cite {
+      display: block;
+      font-style: normal;
+      font-family: var(--sans);
+      font-size: var(--s-xs);
+      color: var(--text-light);
+      margin-top: var(--space-sm);
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Install section ── */
+    .install {
+      padding: var(--space-2xl) 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .install h2 {
+      font-size: var(--s-xl);
+      margin-bottom: var(--space-lg);
+    }
+
+    .install-code {
+      background: var(--text);
+      color: var(--bg);
+      font-family: var(--mono);
+      font-size: var(--s-sm);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: 3px;
+      display: inline-block;
+      max-width: 100%;
+      overflow-x: auto;
+      line-height: 2;
+    }
+
+    .install-code .dim { opacity: 0.5; }
+
+    .install-note {
+      color: var(--text-mid);
+      font-size: var(--s-sm);
+      margin-top: var(--space-md);
+    }
+
+    /* ── Footer ── */
+    .footer {
+      padding: var(--space-xl) 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .footer-left {
+      font-size: var(--s-xs);
+      color: var(--text-light);
+    }
+
+    .footer-right {
+      font-size: var(--s-xs);
+      color: var(--text-light);
+    }
+
+    .footer-right a {
+      color: var(--text-mid);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 48rem) {
+      .problem-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modes-split {
+        grid-template-columns: 1fr;
+      }
+
+      .principle-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-xs);
+      }
+
+      .cmd-featured {
+        grid-template-columns: 1fr;
+      }
+
+      .cmd-featured-name {
+        grid-row: auto;
+      }
+
+      .hero {
+        padding: var(--space-2xl) 0 var(--space-xl);
+      }
+    }
+
+    /* ── Reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════ Hero ════ -->
+  <section class="hero">
+    <div class="container">
+      <p class="hero-eyebrow">Claude Code Plugin &middot; v2.0.0</p>
+      <h1>Stop shipping designs that scream <em>&ldquo;AI made this.&rdquo;</em></h1>
+      <p class="hero-sub">design-for-ai teaches visual design principles from <em>Design for Hackers</em> by David Kadavy &mdash; typography, color theory, composition, hierarchy, motion &mdash; so your interfaces have intention, not just defaults.</p>
+    </div>
+  </section>
+
+  <!-- ════ Problem ════ -->
+  <section class="problem">
+    <div class="container">
+      <div class="problem-grid">
+        <div>
+          <h2>The convergence problem</h2>
+          <p style="color: var(--text-mid); margin-bottom: var(--space-lg);">Every AI produces the same &ldquo;clean, modern&rdquo; output. That sameness is now a signal &mdash; users register the generic feeling even when they can&rsquo;t name the specific patterns.</p>
+          <div class="problem-stat">75%</div>
+          <p class="problem-stat-label">of website credibility judgments are design-based<br><span style="font-size: var(--s-xs);">&mdash; B.J. Fogg, Stanford Web Credibility Research</span></p>
+        </div>
+        <div>
+          <p style="font-family: var(--serif); font-size: var(--s-md); font-weight: 600; margin-bottom: var(--space-md);">Common AI design tells</p>
+          <ul class="tell-list">
+            <li>Inter, Roboto, or Open Sans as the default font</li>
+            <li>Cyan-on-dark or purple-to-blue gradient palette</li>
+            <li>Identical card grids: icon + heading + text, repeated</li>
+            <li>Everything centered, no asymmetry, no left-aligned blocks</li>
+            <li>Same spacing everywhere &mdash; no rhythm, no grouping</li>
+            <li>Glassmorphism and gradient text used decoratively</li>
+            <li>Dark mode by default with glowing neon accents</li>
+            <li>Everything fades in from below with the same timing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ Commands ════ -->
+  <section class="commands">
+    <div class="container">
+      <h2>Eight commands, one design workflow</h2>
+      <p class="commands-intro">From establishing purpose through final pixel-level QA. Each command teaches the theory behind its decisions.</p>
+
+      <div class="cmd-featured">
+        <span class="cmd-featured-name">/design-for-ai</span>
+        <div>
+          <h3>The router</h3>
+          <p>Entry point to the full workflow. Choose <strong>CHECKER</strong> mode to audit an existing design across 10 dimensions, or <strong>APPLIER</strong> mode to build from scratch through 8 gated phases. Every recommendation traces to a specific chapter of <em>Design for Hackers</em>.</p>
+        </div>
+      </div>
+
+      <div class="cmd-grid">
+        <div class="cmd-item">
+          <p class="cmd-name">/design</p>
+          <p class="cmd-title">Foundations</p>
+          <p class="cmd-desc">Purpose, audience, aesthetic direction. The decisions that frame everything else.</p>
+        </div>
+        <div class="cmd-item">
+          <p class="cmd-name">/exam</p>
+          <p class="cmd-title">Design audit</p>
+          <p class="cmd-desc">Theory-backed diagnosis. Finds what&rsquo;s wrong and explains <em>why</em> it violates design principles.</p>
+        </div>
+        <div class="cmd-item">
+          <p class="cmd-name">/brand</p>
+          <p class="cmd-title">Strip AI tells</p>
+          <p class="cmd-desc">Identify convergent defaults. Replace them with intentional choices that have character.</p>
+        </div>
+        <div class="cmd-item">
+          <p class="cmd-name">/fonts</p>
+          <p class="cmd-title">Typography</p>
+          <p class="cmd-desc">Select, pair, and configure type. Medium-form relationships, the squint test, and real font pairing.</p>
+        </div>
+        <div class="cmd-item">
+          <p class="cmd-name">/color</p>
+          <p class="cmd-title">Color system</p>
+          <p class="cmd-desc">Build a palette from color science. Mood to base hue to color wheel scheme. Accessible by default.</p>
+        </div>
+        <div class="cmd-item">
+          <p class="cmd-name">/flow</p>
+          <p class="cmd-title">Motion &amp; interaction</p>
+          <p class="cmd-desc">Purposeful animation. Eight interaction states. Responsive behavior. Reduced-motion respect.</p>
+        </div>
+        <div class="cmd-item">
+          <p class="cmd-name">/hone</p>
+          <p class="cmd-title">Final quality pass</p>
+          <p class="cmd-desc">Every design principle checked before shipping. The comprehensive QA gate.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ How it works ════ -->
+  <section class="modes">
+    <div class="container">
+      <h2>Two modes of operation</h2>
+      <div class="modes-split">
+        <div class="mode-block">
+          <h3>
+            <span>Checker</span>
+            Reviewing existing designs
+          </h3>
+          <ol class="mode-steps">
+            <li>Purpose and foundation &mdash; is intent clear?</li>
+            <li>Typography &mdash; appropriate for medium?</li>
+            <li>Proportions and layout &mdash; intentional ratios?</li>
+            <li>Composition &mdash; one dominant element?</li>
+            <li>Visual hierarchy &mdash; white space, weight, size?</li>
+            <li>Color &mdash; color wheel scheme? Accessible?</li>
+            <li>SEO &mdash; semantic HTML? Heading hierarchy?</li>
+            <li>Motion and interaction &mdash; all 8 states?</li>
+            <li>Responsive &mdash; fluid type? Touch targets?</li>
+            <li>Design identity &mdash; no AI tells?</li>
+          </ol>
+        </div>
+        <div class="mode-block">
+          <h3>
+            <span>Applier</span>
+            Building from scratch
+          </h3>
+          <ol class="mode-steps">
+            <li>Gather design context and constraints</li>
+            <li>Define purpose, personas, wireframes</li>
+            <li>Choose proportional system and type scale</li>
+            <li>Select body font, pair, set leading</li>
+            <li>Establish dominance and hierarchy</li>
+            <li>Build color palette from color wheel</li>
+            <li>Semantic HTML, meta, heading structure</li>
+            <li>Define animation timing and state transitions</li>
+            <li>Mobile-first, fluid typography, touch targets</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ Principles ════ -->
+  <section class="principles">
+    <div class="container">
+      <h2>What it teaches</h2>
+      <p class="principles-intro">Every recommendation traces to a chapter of <em>Design for Hackers</em>.</p>
+
+      <div class="principle-row">
+        <span class="principle-label">Three layers</span>
+        <p class="principle-text"><strong>Purpose, medium, and aesthetics</strong> must reinforce each other. Like the Pantheon&rsquo;s coffers &mdash; engineering necessity that became visual impact. Technology constraints are design opportunities.</p>
+      </div>
+      <div class="principle-row">
+        <span class="principle-label">Typography</span>
+        <p class="principle-text">Garamond is timeless in print but blurs on screen. <strong>Medium matters.</strong> The squint test, the n-test for font pairing, max two families, no fake bold, smart quotes.</p>
+      </div>
+      <div class="principle-row">
+        <span class="principle-label">Proportions</span>
+        <p class="principle-text">Key dimensions should relate through <strong>intentional ratios</strong> (2:3, 3:4, golden) rather than arbitrary pixels. Tschichold&rsquo;s method for deriving proportional margins.</p>
+      </div>
+      <div class="principle-row">
+        <span class="principle-label">Composition</span>
+        <p class="principle-text"><strong>Dominance, direction, depth, similarity, contrast, rhythm.</strong> One element commands attention. The eye is guided, not scattered. Not everything gets a card.</p>
+      </div>
+      <div class="principle-row">
+        <span class="principle-label">Hierarchy</span>
+        <p class="principle-text">White space is the most powerful tool. Then weight, then size, then color. <strong>Proportional spacing</strong> &mdash; tight within groups, generous between. Tufte&rsquo;s 1+1=3.</p>
+      </div>
+      <div class="principle-row">
+        <span class="principle-label">Color</span>
+        <p class="principle-text"><strong>Mood drives hue. Hue drives scheme.</strong> Color wheel relationships (analogous, complementary, triadic). Hue-shifted shadows for depth. Colorblind-safe with redundant cues.</p>
+      </div>
+      <div class="principle-row">
+        <span class="principle-label">Motion</span>
+        <p class="principle-text">If removing an animation loses no information, it&rsquo;s decorative. <strong>100ms micro, 300ms standard, 500ms complex.</strong> Ease-out for entries. Always respect reduced-motion.</p>
+      </div>
+      <div class="principle-row">
+        <span class="principle-label">Interaction</span>
+        <p class="principle-text">Eight states every element needs: <strong>default, hover, focus, active, disabled, loading, error, success.</strong> 44&times;44px touch targets. Focus-visible. No placeholder-only labels.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ Quote ════ -->
+  <section class="quote-section">
+    <div class="container">
+      <blockquote>
+        &ldquo;To truly be adept at designing something, you have to understand how it works. Otherwise, you aren&rsquo;t designing. You&rsquo;re creating a veneer. You&rsquo;re drawing ponies.&rdquo;
+        <cite>&mdash; David Kadavy, Design for Hackers</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ════ Install ════ -->
+  <section class="install">
+    <div class="container">
+      <h2>Get started</h2>
+      <div class="install-code">
+        <span class="dim">$</span> claude <span class="dim">&ldquo;</span>/install-plugin https://github.com/ryanthedev/design-for-ai<span class="dim">&rdquo;</span>
+      </div>
+      <p class="install-note">Requires Claude Code. Once installed, type <code style="font-family: var(--mono); color: var(--accent);">/design-for-ai</code> in any project to start.</p>
+    </div>
+  </section>
+
+  <!-- ════ Footer ════ -->
+  <footer>
+    <div class="container">
+      <div class="footer">
+        <p class="footer-left">design-for-ai &middot; MIT License</p>
+        <p class="footer-right">Based on <a href="https://designforhackers.com" rel="noopener">Design for Hackers</a> by David Kadavy</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
