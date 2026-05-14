@@ -4,71 +4,42 @@ This file provides guidance to Claude Code when working with this repository.
 
 ## Repository Purpose
 
-This is a Claude Code plugin that teaches visual design principles from *Design for Hackers* — helping AI and developers make informed decisions about typography, color, composition, proportions, visual hierarchy, motion, interaction, and responsive design.
+A Claude Code plugin that teaches visual design principles from *Design for Hackers* — helping AI and developers make informed decisions about typography, color, composition, proportions, visual hierarchy, motion, interaction, and responsive design.
 
-## Commands
+## Usage
 
-| Command | What it does |
-|---------|-------------|
-| `/design-for-ai` | Full design workflow (CHECKER or APPLIER mode) |
-| `/design` | Establish design foundations — purpose, audience, aesthetic direction |
-| `/exam` | Theory-backed design audit — find what's wrong and explain WHY |
-| `/brand` | Strip AI design tells, add intentional character |
-| `/fonts` | Select, pair, and configure typography |
-| `/color` | Build a color system from color science up |
-| `/flow` | Add motion, interaction states, responsive behavior |
-| `/hone` | Final quality pass — every principle checked |
+Single entry point: `/design-for-ai`. The skill routes to the right mode based on what the user asks for.
+
+| Mode | What it does |
+|------|-------------|
+| design | Establish foundations — purpose, audience, aesthetic direction |
+| fonts | Select, pair, and configure typography |
+| color | Build a color system from color science up |
+| audit | Find what's wrong and explain WHY |
+| polish | Motion, interaction, responsive, identity — final pass |
 
 ## Structure
 
 ```
 design-for-ai/
 ├── .claude-plugin/
-│   └── plugin.json           # Plugin manifest (v2.0.0)
-├── commands/
-│   ├── design-for-ai.md      # Main command (router)
-│   ├── design.md             # /design
-│   ├── exam.md               # /exam
-│   ├── brand.md              # /brand
-│   ├── fonts.md              # /fonts
-│   ├── color.md              # /color
-│   ├── flow.md               # /flow
-│   └── hone.md               # /hone
+│   └── plugin.json
 └── skills/
-    └── design-for-ai/        # Visual design principles skill
-        ├── SKILL.md
-        └── references/
-            ├── chapter-01 through 09  # Design for Hackers chapters
+    └── design-for-ai/
+        ├── SKILL.md               # Router — determines mode, loads references
+        └── references/            # Loaded progressively per mode
+            ├── chapter-01 through 09
             ├── appendix-fonts-and-typography.md
-            ├── checklists.md          # Decision trees, red flags, master checklists
-            ├── foundations.md         # Core philosophy, credibility science
-            ├── techniques.md          # 94 techniques, transformation patterns
-            ├── motion.md              # NEW — timing, easing, GPU, reduced motion
-            ├── interaction.md         # NEW — 8 states, focus, forms, loading
-            ├── responsive.md          # NEW — fluid, container queries, breakpoints
-            └── ai-tells.md            # NEW — AI design fingerprints, how to avoid
+            ├── checklists.md
+            ├── foundations.md
+            ├── techniques.md
+            ├── motion.md
+            ├── interaction.md
+            ├── responsive.md
+            └── ai-tells.md
 ```
-
-## Skill File Format
-
-Each skill is a Markdown file with YAML frontmatter:
-
-```markdown
----
-name: skillname
-description: When to use this skill - triggers skill selection
----
-
-# Skill Title
-
-[Workflow steps, phases, decision tables, output formats]
-```
-
-The `description` field is critical — it tells Claude when to invoke the skill.
 
 ## Installation
-
-Install via the RTD marketplace:
 
 ```bash
 /plugin marketplace add ryanthedev/rtd-claude-inn
