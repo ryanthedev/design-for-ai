@@ -1,68 +1,109 @@
 ---
 name: design-for-ai
-description: "Visual design principles from Design for Hackers. Use when building or improving UI/frontend design — choosing fonts, building color systems, establishing design direction, auditing existing designs, or polishing before shipping. Also use when something 'looks wrong' or 'feels off' about a UI, when designs look generic or AI-generated, or when the user wants theory-backed design guidance rather than vibes."
+description: "Visual design principles from Design for Hackers. Use when building or improving UI/frontend design — choosing fonts, building color systems, establishing design direction, auditing existing designs, or polishing before shipping. Also use when something 'looks wrong' or 'feels off' about a UI, when designs look generic or AI-generated, or when the user wants theory-backed design guidance rather than vibes. Triggers on: pick fonts, type scale, color palette, design audit, visual hierarchy, spacing feels wrong, looks like a template, redesign, improve the UI, make it look good, needs personality. Not for: graphic design tools (Figma/Sketch), print layout, logo design, illustration, or CSS framework selection."
 user-invocable: true
 argument-hint: "[design|fonts|color|audit|polish] [context]"
 ---
 
 Apply visual design principles from *Design for Hackers*. Every recommendation traces to a specific principle — never "it looks better" without the why.
 
+## Preflight
+
+Before any mode, gather context:
+
+1. **Scan the codebase** — look for CSS/style files, existing fonts, color tokens, component libraries, PRODUCT.md, DESIGN.md, or a `## Design Context` section in CLAUDE.md.
+2. **Determine register** — is this surface **brand** (design IS the product: landing pages, marketing, portfolios) or **product** (design SERVES the product: app UI, dashboards, tools)? Cues: route structure, component types, content density.
+3. **Note what exists** — fonts already loaded, colors already defined, spacing scale in use. Modes build on what's there, not from scratch.
+
+If no design context exists and the user hasn't specified a mode, route to **design** first.
+
+## Rules
+
+Apply to every mode. Kept separate from mode workflows so they don't dissolve.
+
+- **Register shapes advice.** Brand surfaces get bolder typography, committed color strategies, entrance motion. Product surfaces get system fonts, restrained color, state-only motion.
+- **Cite the principle.** Every recommendation names the source: "squint test (ch03)", "dominance (ch06)", "warm advances, cool recedes (ch09)." No unsourced opinions.
+- **Severity scale** (audit/polish): Critical (breaks purpose/readability/accessibility) · Major (visible impact) · Minor (missed opportunity).
+- **Interview pacing**: 2-3 questions per round. Wait for answers before continuing. Never dump all questions at once.
+- **Scope boundary**: If the request is about tooling, frameworks, or implementation mechanics rather than visual design, say so and suggest where to look instead.
+
 ## Routing
 
-Determine what the user needs from their words and route to the right mode.
+Determine what the user needs from their words.
 
 | Mode | User says something like |
 |------|-------------------------|
 | design | "Starting a project" / "what direction" / "who is this for" / "purpose" |
-| fonts | "Pick fonts" / "typography" / "type scale" / "pairing" / "font" |
-| color | "Colors" / "palette" / "color scheme" / "too many colors" |
-| audit | "Something's off" / "review this" / "what's wrong" / "check" / "audit" |
-| polish | "Almost done" / "final pass" / "motion" / "responsive" / "looks generic" / "AI" |
+| fonts | "Pick fonts" / "typography" / "type scale" / "pairing" / "font" / "choose a typeface" |
+| color | "Colors" / "palette" / "color scheme" / "too many colors" / "build a palette" |
+| audit | "Something's off" / "review this" / "what's wrong" / "check" / "audit" / "redesign" / "improve" / "fix" / "no hierarchy" / "nothing holds the eye" / "why does it look AI" / "diagnose" |
+| polish | "Almost done" / "final pass" / "motion" / "responsive" / "make it less generic" / "add states" / "interaction" |
 
 No mode clear → ask what they need, presenting the table.
+
+When audit triggers match but no existing design work is found in the codebase, suggest running **design** first to establish foundations.
 
 ---
 
 ## design
 
+> Context needed: what the user is building and who it's for.
+
 Establish design foundations before visual work.
 
 Read:
-- `${CLAUDE_PLUGIN_ROOT}/skills/design-for-ai/references/chapter-01-why-design-matters.md`
-- `${CLAUDE_PLUGIN_ROOT}/skills/design-for-ai/references/chapter-02-purpose-of-design.md`
-- `${CLAUDE_PLUGIN_ROOT}/skills/design-for-ai/references/foundations.md`
+- `${CLAUDE_SKILL_DIR}/references/chapter-01-why-design-matters.md`
+- `${CLAUDE_SKILL_DIR}/references/chapter-02-purpose-of-design.md`
+- `${CLAUDE_SKILL_DIR}/references/foundations.md`
 
-Gather through conversation:
-1. What are you building? What problem does it solve?
-2. Who is the audience?
-3. Pick 3 words for the personality/feeling.
-4. Constraints? Framework? Accessibility requirements?
-5. Reference site (feel like this) and anti-reference (NOT like this).
+Gather through conversation (2-3 questions per round, wait for answers):
 
-Build: purpose statement, user personas, primary use cases, aesthetic direction.
+**Round 1:** What are you building? Who is the audience? What problem does it solve?
+
+**Round 2:** Pick 3 words for the personality/feeling. Constraints — framework, accessibility?
+
+**Round 3:** Reference site (feel like this) and anti-reference (NOT like this).
+
+Build: purpose statement, user personas, primary use cases, aesthetic direction, register (brand/product).
 
 Gate: purpose and personas defined before moving to visual work.
 
-Output: design context block. Offer to save to project's CLAUDE.md. Suggest next step — fonts or color.
+Output: save a `## Design Context` block to the project's CLAUDE.md. Example:
+
+```markdown
+## Design Context
+- **Register**: product
+- **Purpose**: help home cooks discover and save recipes
+- **Audience**: busy parents, 30-45, cooking 4x/week, phone-first
+- **Personality**: warm, practical, unhurried
+- **Anti-references**: Pinterest (too noisy), AllRecipes (too ad-heavy)
+- **Constraints**: React, WCAG AA, mobile-first
+```
+
+Suggest next step — fonts or color.
 
 ---
 
 ## fonts
 
-Read before making typography decisions:
-- `${CLAUDE_PLUGIN_ROOT}/skills/design-for-ai/references/chapter-03-typography.md`
-- `${CLAUDE_PLUGIN_ROOT}/skills/design-for-ai/references/appendix-fonts-and-typography.md`
+> Context needed: rendering medium (screen/print), target devices, desired mood.
 
-Consult the font decision tree in `${CLAUDE_PLUGIN_ROOT}/skills/design-for-ai/references/checklists.md`.
+Read:
+- `${CLAUDE_SKILL_DIR}/references/chapter-03-typography.md`
+- `${CLAUDE_SKILL_DIR}/references/appendix-fonts-and-typography.md`
+
+Consult the font decision tree in `${CLAUDE_SKILL_DIR}/references/checklists.md`.
 
 Walk through:
 1. **Medium** — screen or print? Resolution/devices?
 2. **Body font** — select based on medium-form relationship
 3. **The "n" test** — identify letter structure (humanist, geometric, realist)
 4. **Pairing** — match structures for harmony or use extreme contrast
-5. **Scale** — build proportional type scale. Read `${CLAUDE_PLUGIN_ROOT}/skills/design-for-ai/references/chapter-05-proportions.md` for ratios.
+5. **Scale** — build proportional type scale. Read `${CLAUDE_SKILL_DIR}/references/chapter-05-proportions.md` for ratios.
 6. **Leading** — 1.2–1.4em for body
 7. **Characters** — smart quotes, proper dashes, no fake bold/italic
+
+Register adjusts advice: brand gets display fonts, fluid clamp() scales. Product gets system fonts, fixed rem scales.
 
 Output: font stack, type scale, CSS custom properties, rationale for each choice.
 
@@ -70,11 +111,13 @@ Output: font stack, type scale, CSS custom properties, rationale for each choice
 
 ## color
 
-Read before making color decisions:
-- `${CLAUDE_PLUGIN_ROOT}/skills/design-for-ai/references/chapter-08-color-science.md`
-- `${CLAUDE_PLUGIN_ROOT}/skills/design-for-ai/references/chapter-09-color-theory.md`
+> Context needed: desired mood, content density, existing brand colors (if any).
 
-Consult the color decision tree in `${CLAUDE_PLUGIN_ROOT}/skills/design-for-ai/references/checklists.md`.
+Read:
+- `${CLAUDE_SKILL_DIR}/references/chapter-08-color-science.md`
+- `${CLAUDE_SKILL_DIR}/references/chapter-09-color-theory.md`
+
+Consult the color decision tree in `${CLAUDE_SKILL_DIR}/references/checklists.md`.
 
 Walk through:
 1. **Mood** — what should the design feel like?
@@ -86,22 +129,24 @@ Walk through:
 7. **Shadows** — hue-shifted, not pure black
 8. **Accessibility** — colorblindness testing, redundant cues
 
+Register adjusts advice: brand can use Committed/Drenched color strategies. Product defaults to Restrained.
+
 Output: color tokens (CSS custom properties), accessibility notes, rationale.
 
 ---
 
 ## audit
 
-Systematic design review. For each finding: name the problem, cite the violated principle, show the fix.
+> Context needed: the codebase or design files to review.
 
-Severity: **Critical** (breaks purpose/readability/accessibility) · **Major** (visible impact) · **Minor** (missed opportunity)
+Systematic design review.
 
-Read `${CLAUDE_PLUGIN_ROOT}/skills/design-for-ai/references/checklists.md` for the full checklist and decision trees.
+Read `${CLAUDE_SKILL_DIR}/references/checklists.md` for the full checklist and decision trees.
 
-Work through each section. Load chapter references only for sections where issues are found:
+Work through each section. For the **top 2-3 sections with the worst findings**, load the chapter reference to ground the diagnosis:
 
-| Section | If issues, read |
-|---------|----------------|
+| Section | Reference file |
+|---------|---------------|
 | Purpose & foundation | `chapter-01-why-design-matters.md`, `chapter-02-purpose-of-design.md` |
 | Typography | `chapter-03-typography.md`, `appendix-fonts-and-typography.md` |
 | Proportions & layout | `chapter-05-proportions.md` |
@@ -113,23 +158,31 @@ Work through each section. Load chapter references only for sections where issue
 | Responsive | `responsive.md` |
 | Design identity | `ai-tells.md` |
 
-All paths relative to `${CLAUDE_PLUGIN_ROOT}/skills/design-for-ai/references/`.
+All paths relative to `${CLAUDE_SKILL_DIR}/references/`.
 
-For cross-cutting issues, also consult `${CLAUDE_PLUGIN_ROOT}/skills/design-for-ai/references/techniques.md` for transformation patterns.
+For cross-cutting issues, consult `${CLAUDE_SKILL_DIR}/references/techniques.md` for transformation patterns.
 
-Output: findings table by severity, then suggest the right mode to fix each issue.
+Output: findings table by severity. Example row:
+
+| Severity | Problem | Principle | Fix |
+|----------|---------|-----------|-----|
+| Critical | Body text uses Garamond at 14px on screen | Medium-form mismatch (ch03): angled axis blurs at low ppi | Switch to Georgia or Source Serif Pro; bump to 16px minimum |
+
+Then suggest the right mode to fix each issue.
 
 ---
 
 ## polish
 
+> Context needed: the running interface or built code to review.
+
 Final quality pass before shipping.
 
-Read all four:
-- `${CLAUDE_PLUGIN_ROOT}/skills/design-for-ai/references/motion.md`
-- `${CLAUDE_PLUGIN_ROOT}/skills/design-for-ai/references/interaction.md`
-- `${CLAUDE_PLUGIN_ROOT}/skills/design-for-ai/references/responsive.md`
-- `${CLAUDE_PLUGIN_ROOT}/skills/design-for-ai/references/ai-tells.md`
+Run the checklist below first. Then load reference files **only for sections with WARN or FAIL items**:
+- `${CLAUDE_SKILL_DIR}/references/motion.md`
+- `${CLAUDE_SKILL_DIR}/references/interaction.md`
+- `${CLAUDE_SKILL_DIR}/references/responsive.md`
+- `${CLAUDE_SKILL_DIR}/references/ai-tells.md`
 
 For each item: **PASS**, **WARN**, or **FAIL** with rationale.
 
@@ -158,6 +211,6 @@ For each item: **PASS**, **WARN**, or **FAIL** with rationale.
 - No AI tells (cyan-on-dark, card-everything, glassmorphism, bounce easing, uniform spacing)
 - Memorable character traceable to purpose
 
-If identity issues found, also read `${CLAUDE_PLUGIN_ROOT}/skills/design-for-ai/references/chapter-01-why-design-matters.md` and `${CLAUDE_PLUGIN_ROOT}/skills/design-for-ai/references/chapter-04-technology-and-culture.md`.
+If identity issues found, also read `${CLAUDE_SKILL_DIR}/references/chapter-01-why-design-matters.md` and `${CLAUDE_SKILL_DIR}/references/chapter-04-technology-and-culture.md`.
 
 Output: scorecard by section, fixes for WARN/FAIL items.

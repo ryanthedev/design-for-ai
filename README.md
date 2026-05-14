@@ -1,36 +1,36 @@
 # design-for-ai
 
-A Claude Code plugin that teaches visual design. Based on principles from *Design for Hackers* by David Kadavy.
+Claude builds interfaces that look like Claude built them. Cyan-on-dark hero sections. Cards in a grid, all the same size. Glassmorphism on everything. Bounce easing. Inter at 16px. You've seen it. You've shipped it. Your users noticed.
 
-Most AI-generated interfaces look the same: safe colors, uniform spacing, no visual anchor. This plugin gives Claude the vocabulary and checklists to do better — proportional systems, type scales, color theory, composition rules that working designers actually use.
+This plugin teaches Claude the design vocabulary it's missing. Not "make it pretty" — the actual frameworks working designers use: proportional systems that make element sizing feel right instead of arbitrary, type scales built from ratios instead of guessing, color palettes constructed from the color wheel instead of vibes, composition rules that create a visual anchor instead of uniform mush.
 
-## Usage
+Based on *Design for Hackers* by David Kadavy. Nine chapters of design theory, distilled into reference files that Claude loads on demand.
+
+## One command, five modes
 
 ```
 /design-for-ai
 ```
 
-One entry point. The skill figures out what you need and routes to the right mode.
+Tell it what you need. It figures out the mode.
 
-| Mode | What it does |
+| Mode | What happens |
 |------|-------------|
-| design | Establish foundations — purpose, audience, aesthetic direction |
-| fonts | Select, pair, and configure typography with theory backing |
-| color | Build a color system from color science up |
-| audit | Find what's wrong and explain WHY |
-| polish | Motion, interaction, responsive, identity — final quality pass |
+| **design** | Walks you through purpose, audience, and aesthetic direction before any visual work starts |
+| **fonts** | Picks typefaces by analyzing the rendering medium, letter structure, and pairing compatibility — not by reaching for Inter |
+| **color** | Builds a palette from color science: color wheel relationships, warm/cool depth, hue-shifted shadows, colorblind safety |
+| **audit** | Runs a 10-section design review. Names the problem, cites the principle, shows the fix |
+| **polish** | Final pass: motion timing, all 8 interaction states, responsive behavior, and the AI-tells sweep |
 
-### Examples
+### Direct mode
 
 ```
-/design-for-ai design       # starting a new project
-/design-for-ai fonts        # pick and pair typefaces
-/design-for-ai color        # build a palette
-/design-for-ai audit        # something looks off — find out why
-/design-for-ai polish       # final pass before shipping
+/design-for-ai fonts
+/design-for-ai audit
+/design-for-ai polish
 ```
 
-Or just describe what you need:
+### Or just talk
 
 ```
 /design-for-ai the typography feels wrong
@@ -38,18 +38,22 @@ Or just describe what you need:
 /design-for-ai this looks like every other AI site
 ```
 
-## Installation
+The router matches your words to the right mode. If it can't tell, it asks.
+
+## What changes
+
+Without this plugin, Claude picks safe defaults. With it, Claude can explain *why* Garamond breaks on screen (angled axis, 100 ppi, moire), *why* your layout has no focal point (no dominant element — the eye has nowhere to land), *why* your shadows look flat (pure black overlay instead of hue-shifted darker tones).
+
+The difference: every design decision traces back to a principle. Not taste. Not "it looks better." A specific, citable reason from a specific chapter.
+
+## Install
 
 ```bash
-# Add the marketplace
 /plugin marketplace add ryanthedev/rtd-claude-inn
-
-# Install
 /plugin install design-for-ai@rtd
-
-# Update
-/plugin update design-for-ai@rtd
 ```
+
+Update: `/plugin update design-for-ai@rtd`
 
 ## License
 
