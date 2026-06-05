@@ -1,5 +1,12 @@
 # Design for Hackers: Consolidated Techniques Reference
 
+## Table of Contents
+
+1. [Master Technique Lookup Table](#1-master-technique-lookup-table)
+2. [Design Transformation Patterns](#2-design-transformation-patterns)
+3. [Tools Reference](#3-tools-reference)
+4. [Cross-Chapter Technique Chains](#4-cross-chapter-technique-chains)
+
 ---
 
 ## 1. Master Technique Lookup Table

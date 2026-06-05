@@ -12,7 +12,7 @@ Single entry point: `/design-for-ai`. The skill routes to the right mode based o
 
 | Mode | What it does |
 |------|-------------|
-| design | Establish foundations — purpose, audience, aesthetic direction |
+| design | Establish foundations, then generate a unique design DNA — archetype → family remix → contrast-checked tokens → DESIGN.md gate |
 | fonts | Select, pair, and configure typography |
 | color | Build a color system from color science up |
 | audit | Find what's wrong and explain WHY |
@@ -27,9 +27,13 @@ design-for-ai/
 └── skills/
     └── design-for-ai/
         ├── SKILL.md               # Router — determines mode, loads references
+        ├── scripts/
+        │   └── palette.mjs        # OKLCH token generator — WCAG contrast by construction
         └── references/            # Loaded progressively per mode
             ├── chapter-01 through 09
             ├── appendix-fonts-and-typography.md
+            ├── archetypes.md      # 12 brand archetypes + aesthetic families + mapping tables
+            ├── design-dna.md      # Remix rules, 3-candidate protocol, DESIGN.md template
             ├── checklists.md
             ├── foundations.md
             ├── techniques.md

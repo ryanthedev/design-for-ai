@@ -2,6 +2,16 @@
 **Source:** Chapters 1-2, Design for Hackers (David Kadavy)
 **Purpose:** Core philosophy and universal principles that underpin every other chapter in the book.
 
+## Table of Contents
+
+1. [Core Philosophy: What Design IS and ISN'T](#1-core-philosophy-what-design-is-and-isnt)
+2. [The Three Layers of Design](#2-the-three-layers-of-design)
+3. [Design and Credibility: The Fogg Stanford Study](#3-design-and-credibility-the-fogg-stanford-study)
+4. [Key Definitions](#4-key-definitions-verbatim-quotes)
+5. [The UX Design Process](#5-the-ux-design-process)
+6. [When Visual Design Is Your Advantage vs. Just Good Enough](#6-when-visual-design-is-your-advantage-vs-just-good-enough)
+7. [Universal Principles](#7-universal-principles)
+
 ---
 
 ## 1. Core Philosophy: What Design IS and ISN'T

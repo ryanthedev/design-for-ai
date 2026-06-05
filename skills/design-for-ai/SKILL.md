@@ -1,6 +1,6 @@
 ---
 name: design-for-ai
-description: "Visual design principles from Design for Hackers. Use when building or improving UI/frontend design — choosing fonts, building color systems, establishing design direction, auditing existing designs, or polishing before shipping. Also use when something 'looks wrong' or 'feels off' about a UI, when designs look generic or AI-generated, or when the user wants theory-backed design guidance rather than vibes. Triggers on: pick fonts, type scale, color palette, design audit, visual hierarchy, spacing feels wrong, looks like a template, redesign, improve the UI, make it look good, needs personality. Not for: graphic design tools (Figma/Sketch), print layout, logo design, illustration, or CSS framework selection."
+description: "Visual design principles from Design for Hackers. Use when building or improving UI/frontend design — choosing fonts, building color systems, establishing design direction, generating a unique design system, auditing existing designs, or polishing before shipping. Also use when something 'looks wrong' or 'feels off' about a UI, when designs look generic or AI-generated, or when the user wants theory-backed design guidance rather than vibes. Triggers on: pick fonts, type scale, color palette, design audit, visual hierarchy, spacing feels wrong, looks like a template, redesign, improve the UI, make it look good, needs personality, unique design, design DNA, every design looks the same. Not for: graphic design tools (Figma/Sketch), print layout, logo design, illustration, or CSS framework selection."
 user-invocable: true
 argument-hint: "[design|fonts|color|audit|polish] [context]"
 ---
@@ -22,6 +22,7 @@ If no design context exists and the user hasn't specified a mode, route to **des
 Apply to every mode. Kept separate from mode workflows so they don't dissolve.
 
 - **Register shapes advice.** Brand surfaces get bolder typography, committed color strategies, entrance motion. Product surfaces get system fonts, restrained color, state-only motion.
+- **DESIGN.md is law once locked.** When the project has a DESIGN.md, re-read it before any implementation or review pass. Deviations edit DESIGN.md first, then code. audit and polish treat drift from it as Major.
 - **Cite the principle.** Every recommendation names the source: "squint test (ch03)", "dominance (ch06)", "warm advances, cool recedes (ch09)." No unsourced opinions.
 - **Severity scale** (audit/polish): Critical (breaks purpose/readability/accessibility) · Major (visible impact) · Minor (missed opportunity).
 - **Interview pacing**: 2-3 questions per round. Wait for answers before continuing. Never dump all questions at once.
@@ -33,7 +34,7 @@ Determine what the user needs from their words.
 
 | Mode | User says something like |
 |------|-------------------------|
-| design | "Starting a project" / "what direction" / "who is this for" / "purpose" |
+| design | "Starting a project" / "what direction" / "who is this for" / "purpose" / "unique design" / "new design system" / "make it not look AI-generated" (from scratch) |
 | fonts | "Pick fonts" / "typography" / "type scale" / "pairing" / "font" / "choose a typeface" |
 | color | "Colors" / "palette" / "color scheme" / "too many colors" / "build a palette" |
 | audit | "Something's off" / "review this" / "what's wrong" / "check" / "audit" / "redesign" / "improve" / "fix" / "no hierarchy" / "nothing holds the eye" / "why does it look AI" / "diagnose" |
@@ -49,26 +50,54 @@ When audit triggers match but no existing design work is found in the codebase, 
 
 > Context needed: what the user is building and who it's for.
 
-Establish design foundations before visual work.
+Establish foundations, then generate a **unique design DNA** — archetype-driven, remixed across aesthetic families, never the distributional default.
 
-Read:
+Read first:
 - `${CLAUDE_SKILL_DIR}/references/chapter-01-why-design-matters.md`
 - `${CLAUDE_SKILL_DIR}/references/chapter-02-purpose-of-design.md`
 - `${CLAUDE_SKILL_DIR}/references/foundations.md`
+
+### 1. Interview
 
 Gather through conversation (2-3 questions per round, wait for answers):
 
 **Round 1:** What are you building? Who is the audience? What problem does it solve?
 
-**Round 2:** Pick 3 words for the personality/feeling. Constraints — framework, accessibility?
+**Round 2:** Pick 3 words for the personality/feeling. Constraints — framework, accessibility, existing brand assets?
 
 **Round 3:** Reference site (feel like this) and anti-reference (NOT like this).
 
-Build: purpose statement, user personas, primary use cases, aesthetic direction, register (brand/product).
+Question like a collaborator, not a form:
+- **Think in hypotheses.** Generate 2-3 plausible directions from their answers; ask the question that best separates them.
+- **Concrete over abstract.** Offer differential examples — "for ops engineers it reads dense and technical; for execs, airy and narrative" — and let them pick by observable outcome.
+- **Switch to confirmatory mode** when the user goes terse ("whatever works", one-word answers): supply your best guess and let them object. "Audience sounds like ops engineers, so I'll treat density as a feature — push back if it's for execs."
+- **Ask about intent and taste** (their knowledge). Derive everything visual yourself (your job).
 
-Gate: purpose and personas defined before moving to visual work.
+Gate: purpose, audience, personality words, and register (brand/product) established before continuing.
 
-Output: save a `## Design Context` block to the project's CLAUDE.md. Example:
+### 2. Archetype
+
+Read `${CLAUDE_SKILL_DIR}/references/archetypes.md`.
+
+Map the interview onto 2-3 candidate brand archetypes (Part C: personality-word table, filtered by content pressure). Confirm with ONE confirmatory question — lead with your recommendation and why: "This reads Sage — measured, evidence-led. Or should it feel more Hero?"
+
+### 3. Design DNA — 3 candidates
+
+Read `${CLAUDE_SKILL_DIR}/references/design-dna.md` and follow its protocol:
+
+1. Build 3 candidates — honest default, tension, dark horse — under the remix rules. Seed hues come from the content, ≥60° apart unless brand assets lock the hue.
+2. Run the palette script for **each** candidate BEFORE presenting, so swatches are real, contrast-checked hexes:
+   `node ${CLAUDE_SKILL_DIR}/scripts/palette.mjs --seed <hue|#hex> --chroma <muted|balanced|vivid> --harmony <mono|analogous|complementary|split|triadic|tetradic> --scheme light`
+   (`--scheme light` keeps previews small; the final run in step 4 uses `--scheme both`.)
+3. Present via `AskUserQuestion` with one preview per candidate (format in design-dna.md). Invite "none of these" explicitly.
+
+### 4. DESIGN.md — the gate
+
+For the chosen candidate:
+
+1. Run the palette script with `--scheme both`; paste its token output and contrast report into DESIGN.md (template in design-dna.md) at the project root.
+2. Confirm via `AskUserQuestion`: "Lock this in?" / "Adjust". **No UI code until locked.**
+3. Save a short `## Design Context` block to the project's CLAUDE.md pointing at DESIGN.md:
 
 ```markdown
 ## Design Context
@@ -76,11 +105,11 @@ Output: save a `## Design Context` block to the project's CLAUDE.md. Example:
 - **Purpose**: help home cooks discover and save recipes
 - **Audience**: busy parents, 30-45, cooking 4x/week, phone-first
 - **Personality**: warm, practical, unhurried
-- **Anti-references**: Pinterest (too noisy), AllRecipes (too ad-heavy)
+- **DNA**: Warm Editorial + type voice from Editorial Minimalism — see DESIGN.md
 - **Constraints**: React, WCAG AA, mobile-first
 ```
 
-Suggest next step — fonts or color.
+Suggest next step — fonts to finalize the type scale, or straight to implementation against DESIGN.md.
 
 ---
 
@@ -131,7 +160,11 @@ Walk through:
 
 Register adjusts advice: brand can use Committed/Drenched color strategies. Product defaults to Restrained.
 
-Output: color tokens (CSS custom properties), accessibility notes, rationale.
+Generate the tokens with the bundled script — never invent hex ramps by hand:
+`node ${CLAUDE_SKILL_DIR}/scripts/palette.mjs --seed <hue|#hex> --chroma <muted|balanced|vivid> --harmony <rule> --scheme both`
+It emits 12-step neutral + accent ramps, harmony accents, functional colors, and a WCAG contrast report (contrast solved by construction). Adjust seeds and re-run rather than editing hexes.
+
+Output: color tokens (CSS custom properties from the script), accessibility notes, rationale.
 
 ---
 
