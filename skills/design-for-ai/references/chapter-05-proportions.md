@@ -5,30 +5,19 @@
 
 ---
 
-## DECISION GATE
+## Table of Contents
 
-**Apply this knowledge when ALL are true:**
-- [ ] You are making decisions about sizing, spacing, or dimensional relationships between visual elements
-- [ ] The design involves rectangles, containers, margins, or element sizes that need to relate to each other
-- [ ] You want to move beyond arbitrary pixel values toward intentional proportional relationships
-
-**Do NOT apply when ANY are true:**
-- [ ] You are working on purely functional/technical layout with no aesthetic concern (e.g., data dump tables)
-- [ ] The design system already provides a well-established proportional scale you must follow
-- [ ] You are obsessing over exact golden ratio compliance rather than using proportions as a flexible guideline
-
----
-
-## PROBLEM --> FIT TABLE
-
-| Symptom/Situation | This Applies? | Why / Use Instead |
-|-------------------|---------------|-------------------|
-| Layout elements feel randomly sized with no visual harmony | Yes | Proportional systems create coherent size relationships between elements |
-| Need to determine margins or content area for a page/screen | Yes | Tschichold's margin method or proportional content areas create geometric relationships between canvas and content |
-| Believe golden ratio is a magic formula that guarantees beauty | Partial | Golden ratio is one of several pleasing proportions; simpler ratios like 2:3 or 3:4 are equally effective and easier to use |
-| Need to create a type scale or icon size system | Yes | Varied scale technique (multiply by a constant factor like 0.75) creates harmonious size progressions |
-| Choosing exact colors or typefaces | No | Use color theory and typography principles instead; proportions address size/spatial relationships |
-| Design already looks good but want to understand why | Yes | Analyzing proportional relationships reveals hidden geometric structure |
+1. [KEY DEFINITIONS](#key-definitions)
+2. [DETECTION CHECKLIST](#detection-checklist)
+3. [DESIGN REVIEW CRITERIA](#design-review-criteria)
+4. [RED FLAGS](#red-flags)
+5. [IMPLEMENTATION CHECKLIST](#implementation-checklist)
+6. [DESIGN TRANSFORMATION PATTERNS](#design-transformation-patterns)
+7. [CORE PRINCIPLES](#core-principles)
+8. [THIS VS THAT](#this-vs-that)
+9. [DESIGN DECISION TABLE](#design-decision-table)
+10. [TECHNIQUE REFERENCE](#technique-reference)
+11. [COMMON MISTAKES](#common-mistakes)
 
 ---
 
@@ -255,58 +244,3 @@ When creating or modifying a design, ensure:
 | Ignoring proportions entirely, using arbitrary sizes | Not knowing proportional systems exist, or thinking they are too complex | Start simple: pick one ratio and derive a few key dimensions from it |
 | Making all elements the same size for "consistency" | Confusing consistency with uniformity | Varied sizes with proportional relationships create more visual interest than uniformity |
 | Applying golden ratio to internal elements but not the canvas | Starting with details before establishing the overall framework | Start with canvas proportions, then derive internal dimensions |
-
----
-
-## RATIONALIZATION COUNTERS
-
-| Excuse | Reality |
-|--------|---------|
-| "Proportions don't matter for web/app design" | Device screens themselves use these proportions (3:4, 2:3, 16:9); designers who understand them create more harmonious layouts |
-| "The golden ratio is the only ratio I need to know" | There is no one ratio universally superior to all others; 2:3 and 3:4 are equally attractive and far more practical |
-| "I can't do the math for irrational numbers in CSS" | Use simpler ratios like 2:3 (multiply by 0.66) or 3:4 (multiply by 0.75); these are trivial to calculate |
-| "This is too subtle for anyone to notice" | Proportional relationships are perceived subconsciously; two compositions with the same shapes but different proportions look dramatically different (Figure 5-3) |
-| "I'll just eyeball it" | Eyeballing often works because experienced designers internalize proportional intuition, but having a system gives you a reliable starting point |
-| "Proportions are only for print design" | Kadavy demonstrates proportions in web design (Twitter redesign), mobile apps (iPhone screen), logos (MailChimp), and digital compositions |
-
----
-
-## TRIGGERS
-
-Invoke this chapter's knowledge when:
-- [ ] Developer is sizing UI elements (containers, cards, images, icons) and choosing dimensions
-- [ ] Layout margins or padding need to be determined for a page or screen
-- [ ] Developer asks "how big should this be relative to that?"
-- [ ] A design feels "off" despite correct colors and typography -- proportions may be the issue
-- [ ] Developer mentions the golden ratio or asks about "ideal" proportions
-- [ ] Creating a type scale, icon size system, or image hierarchy
-- [ ] Reviewing a design where element sizes appear random or disconnected
-- [ ] Adapting a design across different screen sizes or aspect ratios
-
-Prerequisite state:
-- Basic understanding of the design context (what medium, what purpose)
-- Awareness that visual design decisions can be systematic, not just intuitive
-
----
-
-## PRODUCES
-
-After applying this knowledge:
-- State: Design elements are sized and spaced using intentional proportional relationships rather than arbitrary values
-- Artifacts: A chosen proportional system (ratio), derived dimensions for key elements, a varied scale for recurring elements, proportional margins/content areas
-- Understanding: Developer knows that pleasing proportions cluster in the 0.618-0.75 range, that simpler ratios are equally effective, and that proportions are guidelines not formulas
-
-## NEXT CAPABILITY NEEDED
-
-| If | Then Need | Because |
-|----|-----------|---------|
-| Proportional system is chosen and element sizes determined | Composition and layout principles capability | Proportions define sizes; composition principles (Chapter 6) determine arrangement, visual weight, and hierarchy |
-| Need to organize information within the proportional layout | Grid and information hierarchy capability | Chapter 7 covers using proportions to build grids that organize content |
-| Proportions are set but design still lacks visual interest | Color theory and typography capability | Proportions are one layer; color, type, and other visual properties complete the design |
-| Building a design system with consistent proportional scales | Type scale and modular scale capability | Varied scales need to be systematized across the full design language |
-
----
-
-## CSO KEYWORDS
-
-proportion, golden ratio, phi, Fibonacci sequence, root 2 rectangle, 2:3 ratio, 3:4 ratio, aspect ratio, varied scale, Tschichold margins, composition, visual harmony, Le Corbusier Modulor, Vitruvian Man, logarithmic spiral, rule of thirds, ISO paper sizes, canvas proportions, element sizing, proportional grid, MailChimp logo, geometric relationships, irrational numbers, self-similar subdivision, size progression, margin method, diagonal-line method, visual interest, design proportions, screen aspect ratio

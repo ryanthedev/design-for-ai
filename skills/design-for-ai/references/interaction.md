@@ -4,34 +4,19 @@
 
 ---
 
-## DECISION GATE
+## Table of Contents
 
-**Apply this knowledge when ALL are true:**
-- [ ] You are designing or reviewing interactive UI elements (buttons, forms, modals, menus)
-- [ ] The interface accepts user input or triggers actions with outcomes
-- [ ] Users need feedback about what they can do, what's happening, and what happened
-
-**Do NOT apply when ANY are true:**
-- [ ] The design is purely static content with no interactive elements
-- [ ] You are only choosing colors, typography, or layout with no interactive components
-- [ ] The interface is a read-only data display with no user-initiated actions
-
----
-
-## PROBLEM -> FIT TABLE
-
-| Symptom/Situation | This Applies? | Why / Use Instead |
-|-------------------|---------------|-------------------|
-| Users click a button and nothing visibly happens | Yes | Missing loading or success state; users can't tell if their action registered |
-| Form submissions fail silently or show cryptic errors | Yes | Error states need to explain what happened, why, and how to fix it |
-| Keyboard users can't navigate the interface | Yes | Missing focus management, focus indicators, or logical tab order |
-| Users accidentally trigger destructive actions | Yes | Destructive actions need confirmation or undo patterns |
-| Modal opens but user can't close it with keyboard | Yes | Focus trap and escape key handling are missing |
-| Placeholder text disappears when user starts typing | Yes | Placeholder-only labels remove context during input |
-| Page shows a blank white screen while loading | Yes | Missing skeleton screens or loading indicators |
-| Touch targets are too small on mobile | Yes | Touch targets need minimum 44x44px for reliable interaction |
-| Choosing a color palette or typeface | No | Use color theory or typography principles instead |
-| Optimizing page load performance | No | Use performance engineering principles instead |
+1. [KEY DEFINITIONS](#key-definitions)
+2. [DETECTION CHECKLIST](#detection-checklist)
+3. [DESIGN REVIEW CRITERIA](#design-review-criteria)
+4. [RED FLAGS](#red-flags)
+5. [IMPLEMENTATION CHECKLIST](#implementation-checklist)
+6. [DESIGN TRANSFORMATION PATTERNS](#design-transformation-patterns)
+7. [CORE PRINCIPLES](#core-principles)
+8. [THIS VS THAT](#this-vs-that)
+9. [DESIGN DECISION TABLE](#design-decision-table)
+10. [TECHNIQUE REFERENCE](#technique-reference)
+11. [COMMON MISTAKES](#common-mistakes)
 
 ---
 
@@ -351,61 +336,3 @@ When creating or modifying a design, ensure:
 | Showing a full-page spinner for all loading states | Spinner is the simplest implementation | Use skeleton screens for predictable content; optimistic UI for quick actions; reserve spinners for unpredictable loads |
 | Implementing modals without focus management | Developer focuses on visual overlay, not keyboard behavior | Trap focus inside the modal; set background `inert`; restore focus to trigger on close; handle Escape key |
 | Generic error messages ("Something went wrong") | Developer catches errors but doesn't differentiate them | Map error types to specific messages: what happened, why, and how the user can fix it |
-
----
-
-## RATIONALIZATION COUNTERS
-
-| Excuse | Reality |
-|--------|---------|
-| "Users know how to use forms" | Users abandon forms that don't provide clear labels, helpful validation, and format expectations; 67% of users who hit a form error will leave rather than try to fix it |
-| "Focus rings are ugly" | Ugly focus rings are a design failure, not a reason to remove them; use `:focus-visible` to show rings only for keyboard users, and style them to match your design system |
-| "We'll add error states later" | Error states reveal edge cases, validation rules, and data requirements; designing them later means retrofitting logic that should have shaped the architecture |
-| "Placeholder text is enough for labels" | Placeholder text disappears on input, has insufficient contrast by default, and isn't reliably announced by all screen readers; it fails as a label on every dimension |
-| "Spinners are fine for loading" | Spinners communicate "something is happening" but not what or how long; skeleton screens provide spatial context; optimistic UI eliminates perceived wait entirely |
-
----
-
-## TRIGGERS
-
-Invoke this knowledge when:
-- [ ] Designing or reviewing buttons, forms, modals, or other interactive components
-- [ ] Users report confusion about whether an action worked
-- [ ] Keyboard navigation does not work or shows no visible focus
-- [ ] Forms have high abandonment or error rates
-- [ ] Loading states are absent or uninformative
-- [ ] Empty states provide no guidance or next steps
-- [ ] Destructive actions have no safety net
-- [ ] Developer asks "how should this button/form/modal behave?"
-- [ ] Touch targets are too small on mobile devices
-- [ ] Accessibility audit flags missing labels, focus management, or ARIA attributes
-
-Prerequisite state:
-- Interactive elements exist or are being planned in the interface
-- Understanding of basic HTML form elements and CSS pseudo-classes
-- Awareness that the interface will be used with both mouse/touch and keyboard
-
----
-
-## PRODUCES
-
-After applying this knowledge:
-- State: All interactive elements communicate their current state across the full 8-state lifecycle; forms are labeled, validated, and accessible; focus management is intentional; loading and error states are informative
-- Artifacts: State inventory for each interactive element type, focus management plan, error message copy, loading pattern selection, button hierarchy definition
-- Understanding: Developer can articulate why each interactive state matters, implement focus management for modals and composite widgets, and design error experiences that help users recover
-
-## NEXT CAPABILITY NEEDED
-
-| If | Then Need | Because |
-|----|-----------|---------|
-| Interactive states are designed but visual hierarchy is unclear | Visual hierarchy and composition capability | Interaction states exist within a larger visual system that guides the eye |
-| Forms are functional but typography feels off | Typography and type scale capability | Form labels, helper text, and error messages need proper typographic hierarchy |
-| Focus indicators and button colors are set but contrast is insufficient | Color theory and accessibility contrast capability | Interactive states rely on color to communicate, which requires both aesthetic harmony and WCAG compliance |
-| Interface works but feels static or lifeless | Animation and motion design capability | State transitions benefit from micro-animations (150-300ms) to help users track changes |
-| Components work individually but the system is inconsistent | Design system and component library capability | Interaction patterns should be standardized across an interface for learnability |
-
----
-
-## CSO KEYWORDS
-
-interaction design, interactive states, button states, hover state, focus state, active state, disabled state, loading state, error state, success state, focus ring, focus indicator, focus-visible, focus trap, inert attribute, keyboard navigation, tab order, tabindex, roving tabindex, touch target, 44x44px, form design, form validation, input labels, placeholder text, aria-describedby, aria-invalid, fieldset legend, error messages, inline validation, validate on blur, optimistic UI, skeleton screen, progress indicator, spinner, loading pattern, empty state, destructive action, confirmation dialog, undo pattern, modal dialog, dialog focus management, progressive disclosure, affordance, button hierarchy, primary button, secondary button, popover attribute, micro-animation, state transition, form accessibility, WCAG 2.5.8, screen reader, assistive technology

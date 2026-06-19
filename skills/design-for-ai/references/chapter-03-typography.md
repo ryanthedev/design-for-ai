@@ -5,31 +5,19 @@
 
 ---
 
-## DECISION GATE
+## Table of Contents
 
-**Apply this knowledge when ALL are true:**
-- [ ] You are selecting typefaces or evaluating typographic choices for a design
-- [ ] The design will be rendered on a specific medium (screen, print, low-res, high-res)
-- [ ] You need to understand why certain typefaces work better in certain contexts
-
-**Do NOT apply when ANY are true:**
-- [ ] You are only choosing colors, layout, or non-typographic design elements
-- [ ] The design has no text content whatsoever
-- [ ] You are working exclusively with iconography or illustration without letterforms
-
----
-
-## PROBLEM -> FIT TABLE
-
-| Symptom/Situation | This Applies? | Why / Use Instead |
-|-------------------|---------------|-------------------|
-| Body text looks muddy or illegible on screen | Yes | Typeface may have been designed for print; its subtle curves create moire patterns on pixel grids |
-| A typeface "feels wrong" but you can't explain why | Yes | The font may be used outside its intended medium or context (like Comic Sans on a business card) |
-| Text blocks have uneven "color" (dark/light patches) | Yes | Poor visual weight management or texture issues in the typeface's letterforms |
-| Need to pick between serif and sans-serif for web | Yes | Understand how medium (screen) constraints favor certain typeface structures (vertical axis, sharp serifs, larger x-height) |
-| Choosing fonts for a logo or headline only | Partial | Medium/form principles apply to display sizes, but the constraints are less severe at large sizes where details render well |
-| Designing a color palette | No | Use color theory principles instead |
-| Choosing layout grid or spacing system | No | Use proportion and layout principles instead |
+1. [KEY DEFINITIONS](#key-definitions)
+2. [DETECTION CHECKLIST](#detection-checklist)
+3. [DESIGN REVIEW CRITERIA](#design-review-criteria)
+4. [RED FLAGS](#red-flags)
+5. [IMPLEMENTATION CHECKLIST](#implementation-checklist)
+6. [DESIGN TRANSFORMATION PATTERNS](#design-transformation-patterns)
+7. [CORE PRINCIPLES](#core-principles)
+8. [THIS VS THAT](#this-vs-that)
+9. [DESIGN DECISION TABLE](#design-decision-table)
+10. [TECHNIQUE REFERENCE](#technique-reference)
+11. [COMMON MISTAKES](#common-mistakes)
 
 ---
 
@@ -302,62 +290,3 @@ When creating or modifying a design, ensure:
 | Using geometric sans-serifs (Futura) for body text on screen | Attracted to clean geometric forms | Geometric forms with perfect circles render poorly on pixel grids at body sizes; use realist sans-serifs (Arial, Helvetica) instead |
 | Ignoring font fallback stacks | Assuming embedded fonts will always load | Always define CSS fallback fonts that share structural properties with the primary choice |
 | Using print fonts in digital interfaces | Seeing the typeface used beautifully in print and wanting to replicate that | Recognize that print and screen are fundamentally different media with different rendering constraints |
-
----
-
-## RATIONALIZATION COUNTERS
-
-| Excuse | Reality |
-|--------|---------|
-| "Garamond is a timeless classic, it works everywhere" | Garamond is timeless for print. On screen at body sizes (~100-150 ppi), its angled axis and subtle curves create moire patterns and blur. Georgia was designed to fill exactly this gap. |
-| "I just need to pick something that looks nice" | Font selection without understanding medium compatibility is a guessing game. A font that "looks nice" in a design tool may look terrible in the final rendering context. |
-| "All sans-serifs are basically the same for screen" | Sans-serifs vary enormously. Geometric forms (Futura) render poorly at body sizes on screen. Realist forms (Arial, Helvetica) fare better. Screen-designed fonts (Verdana) are best. |
-| "Font technology doesn't matter anymore with high-DPI screens" | Even with improving resolution, understanding medium-form relationships remains essential. Each new technology brings new constraints -- and new opportunities to match form to medium. |
-| "Comic Sans is always wrong" | Comic Sans was designed for low-res aliased display and actually outperforms Garamond in that context (Figure 3-7). The lesson isn't "Comic Sans bad" -- it's "match the typeface to the medium." |
-| "Typography history isn't relevant to modern web design" | Modern letterforms descend directly from forms shaped by ancient tools (flat brush -> serifs, punchcutting -> rounded corners). Understanding this history explains why certain structural properties work in certain media. |
-| "I can use any font now that we have web font embedding" | Font embedding solves availability, not compatibility. A typeface designed for print will still render poorly on screen at body sizes regardless of how it's delivered. |
-
----
-
-## TRIGGERS
-
-Invoke this chapter's knowledge when:
-- [ ] Selecting typefaces for any design project (web, mobile, print)
-- [ ] Body text appears muddy, illegible, or "off" at target rendering size
-- [ ] Developer asks "which font should I use?" without specifying the medium
-- [ ] A print-quality design comp doesn't translate well to screen implementation
-- [ ] Reviewing typography choices in a design audit
-- [ ] Developer is choosing between serif and sans-serif for a web project
-- [ ] Classic/prestigious typeface looks poor when implemented on screen
-- [ ] Text blocks have uneven "color" or texture
-- [ ] Someone dismisses a font categorically (e.g., "never use serif on web") without nuance
-
-Prerequisite state:
-- Basic understanding of what typefaces/fonts are
-- Awareness that the design will be rendered in a specific medium (screen, print, etc.)
-- Access to view the design at actual rendering size in the target medium
-
----
-
-## PRODUCES
-
-After applying this knowledge:
-- State: Design has typeface choices that are intentionally matched to the target rendering medium, with defensible rationale based on the medium-form relationship
-- Artifacts: Typeface selection with documented rationale, font fallback stack, squint-test validation of texture quality
-- Understanding: Developer now knows why certain typefaces work in certain media, can evaluate any typeface by analyzing its structural properties against medium constraints, and can explain their typographic choices
-
-## NEXT CAPABILITY NEEDED
-
-| If | Then Need | Because |
-|----|-----------|---------|
-| Typeface is selected but hierarchy needs to be established | Capability to create typographic hierarchy (size, weight, spacing) | Chapter covers typeface selection, not how to create visual hierarchy with type |
-| Need to pair heading and body typefaces | Capability for typeface pairing and classification knowledge | This chapter explains medium-form but Appendix A covers pairing and classification in more depth |
-| Typography is set but layout feels unbalanced | Capability for proportion systems and spatial relationships | Type exists within a layout; proportion and spacing principles govern overall composition |
-| Color choices need to complement typographic decisions | Capability for color theory and application | Typography works within a broader visual system that includes color |
-| Design needs to work across multiple screen sizes | Capability for responsive design and breakpoint management | Medium constraints change across devices and viewport sizes |
-
----
-
-## CSO KEYWORDS
-
-typography, typeface selection, medium and form, font choice, letterforms, visual weight, texture, kerning, letterfit, stroke modulation, modulated stroke, unmodulated stroke, serif, sans-serif, anti-aliasing, hinting, x-height, counter, eye, aperture, screen typography, web fonts, print typography, Garamond, Georgia, Helvetica, Comic Sans, Arial, Verdana, Futura, Bodoni, Baskerville, Jenson, Trajan, Chicago, pixel fonts, subpixel rendering, TrueType, font embedding, Typekit, Google Fonts, punchcutting, incunabula, cuneiform, Carolingian minuscule, textura, blackletter, transitional typeface, humanist typeface, geometric typeface, realist typeface, Romain du Roi, squint test, font fallback, CSS font-family, web-safe fonts, readability, legibility, typographic history, medium constraints, form follows medium

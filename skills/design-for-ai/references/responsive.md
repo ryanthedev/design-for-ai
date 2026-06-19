@@ -4,33 +4,19 @@
 
 ---
 
-## DECISION GATE
+## Table of Contents
 
-**Apply this knowledge when ALL are true:**
-- [ ] You are building or reviewing a UI that must work across different screen sizes or devices
-- [ ] The interface has layout, typography, or interactive elements that change with viewport or container size
-- [ ] You need to ensure usability across touch and pointer input methods
-
-**Do NOT apply when ANY are true:**
-- [ ] The design is exclusively for a single fixed-size context (e.g., embedded kiosk display with known dimensions)
-- [ ] You are working on server-side logic with no visual presentation layer
-- [ ] The output is a static image or PDF with no interactive or reflowable content
-
----
-
-## PROBLEM -> FIT TABLE
-
-| Symptom/Situation | This Applies? | Why / Use Instead |
-|-------------------|---------------|-------------------|
-| Layout breaks or overflows on narrow screens | Yes | Likely missing mobile-first breakpoints or fluid sizing |
-| Buttons and links are hard to tap on mobile | Yes | Touch targets need minimum 44x44px sizing and adequate spacing |
-| Large images load slowly on mobile connections | Yes | Images need srcset/sizes or picture element for responsive delivery |
-| Text is too small or too large at certain viewport widths | Yes | Fluid typography with clamp() provides smooth scaling with guardrails |
-| A component looks wrong when placed in a narrow sidebar vs. main content | Yes | Container queries allow component-level responsiveness independent of viewport |
-| Content is hidden on mobile with display:none | Yes | Content should be adapted for mobile, not amputated |
-| Design uses hardcoded breakpoints like 768px or 1024px | Yes | Breakpoints should be driven by where content breaks, not device dimensions |
-| Choosing colors or typefaces | No | Use color theory or typography principles instead |
-| Optimizing server response times | No | Use performance engineering principles instead |
+1. [KEY DEFINITIONS](#key-definitions)
+2. [DETECTION CHECKLIST](#detection-checklist)
+3. [DESIGN REVIEW CRITERIA](#design-review-criteria)
+4. [RED FLAGS](#red-flags)
+5. [IMPLEMENTATION CHECKLIST](#implementation-checklist)
+6. [DESIGN TRANSFORMATION PATTERNS](#design-transformation-patterns)
+7. [CORE PRINCIPLES](#core-principles)
+8. [THIS VS THAT](#this-vs-that)
+9. [DESIGN DECISION TABLE](#design-decision-table)
+10. [TECHNIQUE REFERENCE](#technique-reference)
+11. [COMMON MISTAKES](#common-mistakes)
 
 ---
 
@@ -344,61 +330,3 @@ When creating or modifying a design, ensure:
 | Ignoring touch target sizing | Testing only with a mouse where small targets are easy to click | Apply minimum 44x44px to all interactive elements on touch devices via @media (pointer: coarse) |
 | Relying on hover states for essential information | Desktop-centric design patterns; hover feels natural with a mouse | Provide non-hover alternatives; use @media (hover: none) to show information inline instead of on hover |
 | Using fixed-width containers (width: 960px) | Legacy pattern from fixed-width design era | Use `width: min(100%, 960px)` or `max-width: 960px` with `width: 100%` |
-
----
-
-## RATIONALIZATION COUNTERS
-
-| Excuse | Reality |
-|--------|---------|
-| "We'll make it responsive later" | Retrofitting responsiveness costs far more than building mobile-first from the start. The desktop-first CSS cascade fights you; you end up overriding everything at smaller widths. Start mobile-first and the wide layout becomes additive. |
-| "Nobody uses mobile for this" | Analytics consistently show mobile traffic exceeding 50% globally. Even enterprise tools see significant mobile and tablet usage. If you don't measure it, you don't know -- and even niche audiences use mobile more than developers assume. |
-| "Bootstrap breakpoints are fine" | Bootstrap breakpoints were chosen for common devices circa 2013. Devices change constantly. Your content has its own natural break points that don't align with any framework's defaults. Set breakpoints where your content breaks. |
-| "We can just hide that on mobile" | Hiding content on mobile means mobile users get a lesser product. Adapt the presentation instead: collapse, reorder, or use progressive disclosure. Every user deserves the same functionality regardless of their device. |
-| "Container queries aren't well supported" | Container queries have been supported in all major browsers (Chrome, Firefox, Safari, Edge) since early 2023. Baseline support is well established. There's no technical reason to avoid them for new projects. |
-
----
-
-## TRIGGERS
-
-Invoke this knowledge when:
-- [ ] Building a new interface that must work across screen sizes
-- [ ] A design or layout breaks on mobile or narrow viewports
-- [ ] Developer asks how to handle different screen sizes
-- [ ] Reviewing CSS that uses max-width media queries or fixed breakpoints
-- [ ] Components look wrong when placed in different-width containers
-- [ ] Images are loading slowly on mobile devices
-- [ ] Interactive elements are hard to tap on touch screens
-- [ ] Content is hidden on mobile instead of adapted
-- [ ] Typography jumps abruptly between breakpoints instead of scaling smoothly
-- [ ] Developer asks about container queries, fluid typography, or responsive images
-
-Prerequisite state:
-- Basic understanding of CSS layout (flexbox, grid)
-- Awareness that the interface will be used on multiple device types and screen sizes
-- Access to resize the browser or test on multiple viewports
-
----
-
-## PRODUCES
-
-After applying this knowledge:
-- State: Interface adapts fluidly across all supported viewport widths and input methods, with no content loss, no horizontal overflow, and intentional breakpoints driven by content needs
-- Artifacts: Mobile-first CSS with min-width breakpoints, fluid typography scale using clamp(), container query definitions for reusable components, responsive image markup with srcset/sizes, input adaptation via pointer/hover queries
-- Understanding: Developer can articulate why each breakpoint exists, how fluid sizing works, when to use container queries vs. media queries, and why content should be adapted rather than hidden
-
-## NEXT CAPABILITY NEEDED
-
-| If | Then Need | Because |
-|----|-----------|---------|
-| Layout is responsive but typography hierarchy is weak | Typography and type scale design capability | Responsive layout handles spatial adaptation but typographic hierarchy (size, weight, spacing) is a separate design decision |
-| Responsive images are set up but color palette needs work | Color theory and application capability | Responsive delivery handles performance but color choices require design theory |
-| Layout adapts but visual hierarchy is unclear at different sizes | Visual hierarchy and composition capability | Elements may reflow correctly but lose their intended emphasis or reading order |
-| Responsive design is solid but performance is still poor | Performance optimization capability | Responsive images help but overall performance involves bundling, lazy loading, caching, and more |
-| Components are responsive but design feels inconsistent across breakpoints | Design system and component library capability | Individual responsiveness needs a systematic approach to maintain consistency at scale |
-
----
-
-## CSO KEYWORDS
-
-responsive design, mobile-first, progressive enhancement, breakpoint, media query, container query, fluid typography, clamp(), min(), max(), viewport unit, vw, vh, dvh, container unit, cqw, srcset, sizes, picture element, art direction, touch target, 44px, pointer media query, hover media query, safe area, env(), intrinsic design, auto-fit, auto-fill, minmax, CSS Grid, flexbox, responsive images, content-driven breakpoints, mobile layout, adaptive interface, input adaptation, pointer coarse, pointer fine, hover none, progressive disclosure, display none mobile, max-width query, min-width query, fluid spacing, responsive navigation, responsive table, viewport overflow, horizontal scroll

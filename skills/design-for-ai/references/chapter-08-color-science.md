@@ -5,31 +5,19 @@
 
 ---
 
-## DECISION GATE
+## Table of Contents
 
-**Apply this knowledge when ALL are true:**
-- [ ] You are choosing, specifying, or adjusting colors in a design or data visualization
-- [ ] The design will be rendered on screen (web/app) or across multiple media (screen + print)
-- [ ] You need to understand why colors appear the way they do, or why colors don't match across devices
-
-**Do NOT apply when ANY are true:**
-- [ ] You are working purely with black-and-white / grayscale output with no color decisions
-- [ ] You need color harmony or emotional/cultural color theory guidance (see Chapter 9 instead)
-- [ ] The task is purely about layout, typography, or non-color visual design concerns
-
----
-
-## PROBLEM --> FIT TABLE
-
-| Symptom/Situation | This Applies? | Why / Use Instead |
-|-------------------|---------------|-------------------|
-| Colors on printed business card don't match the website | Yes | RGB (additive, screen) vs CMYK (subtractive, print) have different gamuts; use ICC profiles and color management |
-| Data visualization colors make some categories look more important than others | Yes | HSB/HSL color pickers produce perceptually uneven lightness; use Lab color space or Colorbrewer |
-| Need to pick a specific hex color without a color picker | Yes | Learn the hexadecimal RGB cube and the 0, 3, 6, 9, C, F progression for mental navigation |
-| Colors look different on different monitors | Yes | Different devices have different gamuts; use sRGB for web images and understand ICC profiles |
-| Users report colorblindness issues | Yes | ~10% of males are red-green colorblind; use redundant cues (shape, position) in addition to color |
-| Need to choose emotionally resonant colors | No | This chapter covers color science, not color psychology or theory; see Chapter 9 |
-| Want to create a harmonious color palette (complementary, triadic, etc.) | Partial | This chapter explains why the color wheel exists (opponent processing); Chapter 9 covers harmony rules |
+1. [KEY DEFINITIONS](#key-definitions)
+2. [DETECTION CHECKLIST](#detection-checklist)
+3. [DESIGN REVIEW CRITERIA](#design-review-criteria)
+4. [RED FLAGS](#red-flags)
+5. [IMPLEMENTATION CHECKLIST](#implementation-checklist)
+6. [DESIGN TRANSFORMATION PATTERNS](#design-transformation-patterns)
+7. [CORE PRINCIPLES](#core-principles)
+8. [THIS VS THAT](#this-vs-that)
+9. [DESIGN DECISION TABLE](#design-decision-table)
+10. [TECHNIQUE REFERENCE](#technique-reference)
+11. [COMMON MISTAKES](#common-mistakes)
 
 ---
 
@@ -292,60 +280,3 @@ When creating or modifying a design, ensure:
 | Treating hex codes as opaque magic strings | Hex notation seems arbitrary without understanding base-16 and RGB channels | Learn that #RRGGBB maps to three 0-255 channels; practice the 0,3,6,9,C,F progression |
 | Using the same HSL lightness step for a monochromatic palette | Equal numeric HSL Lightness steps seem like they should produce equally distinguishable colors | Last steps often become indistinguishable; verify perceptual distinctness via Lab conversion |
 | Ignoring colorblindness because "it's rare" | Developers assume their own vision is universal | Red-green colorblindness affects up to 10% of males; always test with simulation tools |
-
----
-
-## RATIONALIZATION COUNTERS
-
-| Excuse | Reality |
-|--------|---------|
-| "I can just eyeball the print colors from my screen" | RGB screens and CMYK printers have fundamentally different gamuts. Without ICC profiles and soft-proofing, you are guaranteed mismatch, especially for vivid blues and greens. |
-| "Colorblindness is too rare to worry about" | Red-green colorblindness affects as many as 1 in 10 males. For any public-facing product, that is a significant portion of your audience. |
-| "HSL has a Lightness value so it must be perceptually uniform" | HSL Lightness is a mathematical abstraction, not a perceptual measurement. Lab L is based on actual human perception experiments. Two HSL colors with the same L can look very different in lightness. |
-| "I don't need to understand hex -- I have a color picker" | Understanding hex lets you make fast, precise adjustments directly in code, navigate the color space mentally, and debug color issues without switching tools. |
-| "Adobe RGB is always better because it has a wider gamut" | For web use, sRGB is more predictable. Browsers without color management will display Adobe RGB images as if they were sRGB, making colors appear flat and desaturated. |
-| "The HSB picker shows my colors are the same brightness, so they look equally light" | HSB Brightness is not perceptual lightness. A pure red and white both have B=100 in HSB, but white is perceptually much lighter. |
-| "Color science is for scientists, not designers" | Understanding color science lets you work faster (hex navigation), more accurately (correct color models), and more inclusively (colorblindness). Many professional designers don't know this material but should. |
-
----
-
-## TRIGGERS
-
-Invoke this chapter's knowledge when:
-- [ ] Developer is choosing or adjusting colors for a web UI, app, or data visualization
-- [ ] Colors appear to differ between screen and printed output
-- [ ] A data visualization has categories that seem visually unequal or a quantitative scale that doesn't read intuitively
-- [ ] Developer asks "what hex color is close to X?" or "how do I make this a little more red/blue/green?"
-- [ ] Colorblindness concerns are raised or accessibility audit is performed
-- [ ] Web image colors don't match surrounding CSS background
-- [ ] Designer asks why business card colors don't match the website
-- [ ] Developer says "I don't understand hexadecimal colors"
-- [ ] Creating programmatic or data-driven color palettes
-
-Prerequisite state:
-- Basic familiarity with CSS color values (hex or rgb notation)
-- Understanding that design involves choosing colors (no specific prior design knowledge required)
-
----
-
-## PRODUCES
-
-After applying this knowledge:
-- State: Developer understands the physics and perception of color, can systematically navigate hex color space, and knows which color models to use for which output media
-- Artifacts: Colorblind-accessible UI with redundant cues; perceptually uniform data visualization palette; ICC-managed cross-media color workflow; systematic hex color values in CSS
-- Understanding: Developer knows why colors don't match across media, how to choose perceptually accurate palettes, how to navigate hex intuitively, and how to accommodate colorblindness
-
-## NEXT CAPABILITY NEEDED
-
-| If | Then Need | Because |
-|----|-----------|---------|
-| Need to choose harmonious or emotionally resonant color combinations | Color theory and color harmony knowledge (Chapter 9 content) | This chapter covers the science of color; Chapter 9 covers how the visual system's color processing creates emotional responses and harmony rules |
-| Need to create a complete brand color palette with meaning | Cultural and psychological color association knowledge | Color meanings vary across cultures and this chapter does not cover emotional/cultural connotations |
-| Need to apply color within a layout or typographic hierarchy | Layout, proportion, and typography knowledge | Color choices must work within the broader visual hierarchy and compositional structure |
-| Need to create accessible designs beyond color | Full accessibility/WCAG compliance knowledge | This chapter covers colorblindness specifically, but broader accessibility (contrast ratios, screen readers) requires additional guidance |
-
----
-
-## CSO KEYWORDS
-
-color science, visible spectrum, electromagnetic radiation, metamerism, color constancy, afterimages, cones, rods, trichromatic color theory, color opponent theory, ganglion cells, S cones, M cones, L cones, colorblindness, red-green colorblindness, dichromacy, deuteranopia, protanopia, hue, value, chroma, Munsell color system, Farbenkugel, HSB, HSV, hue saturation brightness, Lab color model, CIELAB, perceptual lightness, perceptual uniformity, color models, data-driven graphics, qualitative data, quantitative data, sequential palette, diverging palette, Colorbrewer, hexadecimal color, RGB, additive color model, subtractive color model, CMYK, color gamut, ICC profiles, International Color Consortium, profile connection space, sRGB, Adobe RGB, color management, soft-proofing, spectrophotometer, PANTONE, spot colors, HSL, hue saturation lightness, CSS3 color, color wheel, dominant wavelength, sub-pixels, hex navigation, cross-media color, out of gamut

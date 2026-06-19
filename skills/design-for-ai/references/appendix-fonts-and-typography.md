@@ -5,33 +5,19 @@
 
 ---
 
-## DECISION GATE
+## Table of Contents
 
-**Apply this knowledge when ALL are true:**
-- [ ] You are selecting fonts for a design (web, mobile, or print)
-- [ ] You need to pair two or more typefaces together
-- [ ] You are setting body copy, headings, or any text-based UI element
-
-**Do NOT apply when ANY are true:**
-- [ ] You are working exclusively with iconography or non-text visual elements
-- [ ] The project uses a locked-down design system with pre-selected fonts that cannot be changed
-- [ ] You are working on a purely decorative/artistic piece where readability is intentionally secondary
-
----
-
-## PROBLEM --> FIT TABLE
-
-| Symptom/Situation | This Applies? | Why / Use Instead |
-|-------------------|---------------|-------------------|
-| Font pairing looks "off" but can't articulate why | Yes | Check letter structure compatibility (humanist, geometric, realist) and texture matching |
-| Using more than two font families | Partial | The rule is max two (one serif, one sans-serif), but extreme contrast pairings can be exceptions |
-| Body text feels hard to read on screen | Yes | Check font size (x-height), leading (line-height 1.2-1.4em), and whether font was designed for screen |
-| Type looks distorted or "cheap" | Yes | Check for fake bold, fake italic, fake small caps, or stretched/compressed type |
-| Justified text has uneven spacing/holes | Yes | Avoid justified text on web; use ragged right (flush left) instead |
-| Straight quotes and double-hyphens in text | Yes | Replace with smart quotes, proper em/en dashes, and correct prime marks |
-| Need to choose between serif and sans-serif | Yes | Consider medium (print favors serif for body; web favors sans-serif for body) |
-| Color palette or layout composition issues | No | Use color theory or layout/proportion knowledge instead |
-| Logo or brand mark design | No | Logo typeface selection follows different rules; logos often intentionally break from body fonts |
+1. [KEY DEFINITIONS](#key-definitions)
+2. [DETECTION CHECKLIST](#detection-checklist)
+3. [DESIGN REVIEW CRITERIA](#design-review-criteria)
+4. [RED FLAGS](#red-flags)
+5. [IMPLEMENTATION CHECKLIST](#implementation-checklist)
+6. [DESIGN TRANSFORMATION PATTERNS](#design-transformation-patterns)
+7. [CORE PRINCIPLES](#core-principles)
+8. [THIS VS THAT](#this-vs-that)
+9. [DESIGN DECISION TABLE](#design-decision-table)
+10. [TECHNIQUE REFERENCE](#technique-reference)
+11. [COMMON MISTAKES](#common-mistakes)
 
 ---
 
@@ -369,65 +355,3 @@ When creating or modifying a design, ensure:
 | Using Times New Roman as a go-to serif | It's universally available and familiar | Use Georgia instead -- specifically designed for screen readability; Times New Roman was designed to save space in a newspaper |
 | Using monospaced fonts (Courier New, Monaco) for body text | Available on every system | Monospaced fonts create uneven texture; reserve for code samples only |
 | Ignoring x-height differences between paired fonts | Setting both at same point size and assuming they'll match | Check visual size at same point size; adjust sizes to achieve visual harmony based on x-height |
-
----
-
-## RATIONALIZATION COUNTERS
-
-| Excuse | Reality |
-|--------|---------|
-| "Nobody notices the difference between real and fake bold" | Fake bold closes up counters and makes serifs clunky. Even non-designers sense something is "off" -- it reduces legibility and looks amateur |
-| "Justified text looks more professional" | Without hyphenation, justified web text creates rivers of white space and uneven texture. Ragged right is actually more readable and produces better texture |
-| "I need a huge font library to make good designs" | You can create beautiful, versatile designs with just the 15 fonts in Table A-1. Most expert printers historically worked with only a few go-to fonts |
-| "Font pairing is just about what looks nice together" | It's about structural compatibility -- letter structure, texture, and character width. Understanding these attributes lets you make predictable, reliable pairing decisions |
-| "Two spaces after a period aids readability" | One space is correct. A period, space, and capital letter already signal the end of a sentence. The extra space pokes holes in the text block |
-| "Stretching type a little is fine if it fits the space" | Even slight distortion disrupts carefully designed stroke modulation. Always use a specifically designed condensed/extended variant |
-| "Smart quotes vs. straight quotes doesn't matter on the web" | Smart quotes differentiate the nature of the information (opening vs. closing quotes, apostrophe vs. prime marks). They improve both clarity and professionalism |
-| "I can use any two fonts as long as one is serif and one is sans-serif" | The serif + sans-serif rule is necessary but not sufficient. Letter structure, texture, and character width must also be compatible |
-| "Ligatures are too obscure to matter" | In classic fonts like Adobe Garamond, missing ligatures for fi and fl create visible visual tension. They matter most in large display text |
-
----
-
-## TRIGGERS
-
-Invoke this chapter's knowledge when:
-- [ ] Selecting fonts for a new design project (web, mobile, or print)
-- [ ] Pairing two or more typefaces and evaluating whether they work together
-- [ ] Developer says "these fonts don't look right together" or "something about the text feels off"
-- [ ] Reviewing body copy settings (alignment, leading, paragraph spacing)
-- [ ] Auditing typographic details (quotes, dashes, small caps, ligatures)
-- [ ] Bold or italic text looks "wrong" or "cheap"
-- [ ] Setting up a CSS type system or font stack
-- [ ] Choosing between serif and sans-serif for a specific medium
-- [ ] Encountering justified text with visible spacing problems on web
-- [ ] During any design review where text is a significant component
-
-Prerequisite state:
-- Basic understanding of what serif and sans-serif fonts are
-- Access to font files for the project (or willingness to select new ones)
-- Understanding of CSS font properties (`font-family`, `font-weight`, `font-style`, `line-height`)
-
----
-
-## PRODUCES
-
-After applying this knowledge:
-- State: Design has well-paired fonts with compatible letter structures, even body text texture, and professional typographic details
-- Artifacts: Font selection rationale (classification + letter structure analysis), CSS font stack, typography style guide covering body copy settings, quote/dash/small-cap conventions
-- Understanding: Developer knows how to evaluate font compatibility using the `n` test, understands the three letter structures (humanist, geometric, realist), can identify and avoid fake font variants, and follows professional typographic conventions
-
-## NEXT CAPABILITY NEEDED
-
-| If | Then Need | Because |
-|----|-----------|---------|
-| Design needs color decisions alongside typography | Color theory and palette selection capability | Font choices interact with color contrast and hierarchy |
-| Layout needs proportional system for spacing/sizing | Proportion and layout grid capability | Type scale, margins, and spacing should follow a proportional system |
-| Need to establish visual hierarchy with the selected fonts | Typographic hierarchy and information design capability | Font selection is just the foundation; size, weight, and spacing create the actual hierarchy |
-| Building a responsive design | Responsive typography capability | Font sizes, line-heights, and line lengths need to adapt across breakpoints |
-| Setting up a full design system | Design system architecture capability | Font choices need to be codified into reusable tokens and components |
-
----
-
-## CSO KEYWORDS
-
-font pairing, typeface selection, serif vs sans-serif, letter structure, humanist typeface, geometric typeface, realist typeface, font classification, old style, transitional, modern, slab-serif, display typeface, texture typography, character width, letterfit, x-height, leading, line-height, font harmony, font contrast, fake bold, fake italic, fake small caps, type distortion, stretching type, smart quotes, curly quotes, en dash, em dash, ligatures, justified text, ragged right, flush left, widows, orphans, paragraph indentation, paragraph spacing, hanging punctuation, drop caps, font-variant-ligatures, font-variant small-caps, prime marks, typographic etiquette, Adobe Garamond, Palatino, Baskerville, Georgia, Bodoni, Rockwell, Museo Slab, Arial, Futura, Gill Sans, Helvetica, Lucida Grande, Tahoma, Trebuchet MS, Verdana, Eric Gill, Joanna, body copy, web typography, print typography, font size, point size, ascender, descender, counters, stroke modulation, monospaced fonts, Courier New, kerning, word spacing, letter spacing, CSS typography, font-weight, font-style, font-face, design for hackers

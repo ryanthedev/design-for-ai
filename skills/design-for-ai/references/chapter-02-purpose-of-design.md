@@ -5,30 +5,19 @@
 
 ---
 
-## DECISION GATE
+## Table of Contents
 
-**Apply this knowledge when ALL are true:**
-- [ ] You are starting a new product, feature, or redesign and need to decide how much design investment is warranted
-- [ ] You need to understand where visual design fits within the broader user experience
-- [ ] You are making decisions about design process (personas, use cases, wireframes) before diving into visual details
-
-**Do NOT apply when ANY are true:**
-- [ ] You already have a well-defined UX process and need specific visual design techniques (typography, color, layout)
-- [ ] You are working on a purely back-end or non-user-facing system
-- [ ] You need detailed implementation guidance for a specific visual element (see later chapters on proportions, color, typography)
-
----
-
-## PROBLEM -> FIT TABLE
-
-| Symptom/Situation | This Applies? | Why / Use Instead |
-|-------------------|---------------|-------------------|
-| Starting a product and unsure how much to invest in visual design | Yes | Chapter explains when visual design is critical vs. "just good enough" based on product context |
-| Team jumps straight to picking fonts and colors without understanding user needs | Yes | Chapter teaches UX-first process: personas -> use cases -> wireframes -> visual design |
-| Product looks ugly but is highly functional and successful | Partial | Chapter validates this (Craigslist example) but also shows when competitors with better design will erode market share |
-| Need to choose specific typefaces or color palettes | No | Use chapters on typography (Ch 3-4), color (Ch 8-9), or proportions (Ch 5-6) |
-| Wondering whether design can be a competitive advantage | Yes | Apple/iPod case study demonstrates design as primary differentiator |
-| Building internal tools with no external users | Partial | Visual design matters less when product is not tied to personal identity or fashion; focus on usability instead |
+1. [KEY DEFINITIONS](#key-definitions)
+2. [DETECTION CHECKLIST](#detection-checklist)
+3. [DESIGN REVIEW CRITERIA](#design-review-criteria)
+4. [RED FLAGS](#red-flags)
+5. [IMPLEMENTATION CHECKLIST](#implementation-checklist)
+6. [DESIGN TRANSFORMATION PATTERNS](#design-transformation-patterns)
+7. [CORE PRINCIPLES](#core-principles)
+8. [THIS VS THAT](#this-vs-that)
+9. [DESIGN DECISION TABLE](#design-decision-table)
+10. [TECHNIQUE REFERENCE](#technique-reference)
+11. [COMMON MISTAKES](#common-mistakes)
 
 ---
 
@@ -251,58 +240,3 @@ When creating or modifying a design, ensure:
 | Under-investing in visual design for a personal/identity product | Assumes functionality alone will win | Products tied to personal identity (carried publicly, fashion-adjacent) demand design investment -- see Apple iPod example |
 | Getting caught up in visual details during wireframing | Wireframing tools make it easy to add styling; developers want to see "finished" work | Keep wireframes deliberately rough; the goal is layout and structure, not visual treatment |
 | Conflating visual design with user experience design | Sees them as synonymous | Visual design is one component of UX, which also includes usability, content, information architecture, and more |
-
----
-
-## RATIONALIZATION COUNTERS
-
-| Excuse | Reality |
-|--------|---------|
-| "Design doesn't matter for our product" | Whether visual design matters depends on your competitive context, not your personal preference. If competitors are winning users with better design, it matters. If your product is tied to personal identity, it matters. |
-| "We'll add design later, let's just ship" | The UX process (personas, use cases, wireframes) should happen before building, not after. Visual design can come later, but the UX structure must come first or you'll build the wrong thing. |
-| "I just need to make it look good" | Looking good is not the same as being well-designed. Good design is sensitive to all layers -- product goals, user needs, culture, technology. A beautiful design that doesn't serve users is a bad design. |
-| "Craigslist is ugly and successful, so design doesn't matter" | Craigslist is an exceptional case that solved a massive pain point with no real competition at the time. Its market share is now being eroded by better-designed vertical competitors (Airbnb, TaskRabbit, etc.). |
-| "We don't have time for personas and use cases" | A simple persona takes minutes: name, occupation, quote, needs. A use case is a short paragraph. The time saved by not building the wrong thing far exceeds the time spent on this lightweight process. |
-| "Our users don't care about design" | Users may not articulate design preferences, but design affects how they feel about and interact with your product. Apple showed that design can be the primary competitive differentiator even when users think they only care about features. |
-
----
-
-## TRIGGERS
-
-Invoke this chapter's knowledge when:
-- [ ] A team is starting a new product or feature and needs to decide how much to invest in visual design
-- [ ] A developer is about to jump straight into visual design (fonts, colors, layout styling) without any UX process
-- [ ] Someone asks "does design matter for our product?"
-- [ ] A product is losing market share to better-designed competitors
-- [ ] The design process lacks any user research artifacts (personas, use cases, wireframes)
-- [ ] A developer conflates visual design with the entirety of "design"
-- [ ] Someone dismisses visual design entirely ("it just needs to work")
-
-Prerequisite state:
-- A product or feature concept must exist (this chapter doesn't help with ideation)
-- Basic understanding that design involves deliberate choices (not just defaults)
-
----
-
-## PRODUCES
-
-After applying this knowledge:
-- State: Team understands where visual design fits within the broader UX process and has calibrated their design investment to the product's context
-- Artifacts: User personas, use cases, wireframes (the UX foundation upon which visual design will be applied)
-- Understanding: Developer knows that design is multi-layered, that visual design is one component of UX, and that the appropriate level of visual design investment depends on competitive context and user relationship
-
-## NEXT CAPABILITY NEEDED
-
-| If | Then Need | Because |
-|----|-----------|---------|
-| UX foundation is established and ready for visual design | Visual design principles (proportions, composition, hierarchy) | Chapter establishes the "why" and "when" of visual design; later chapters cover the "how" |
-| Product involves typography choices | Typography and font knowledge | Chapter mentions fonts as a key visual design element but defers detail to Chapters 3-4 and Appendix A |
-| Product involves color decisions | Color theory and perception knowledge | Chapter mentions color as a key visual design element but defers detail to Chapters 8-9 |
-| Product needs layout and compositional structure | Geometric and compositional principles | Chapter mentions hidden geometric forces but defers detail to Chapters 5-6 |
-| Product needs visual hierarchy within layouts | Visual hierarchy and ordered importance | Chapter mentions ordered visual importance but defers detail to Chapter 7 |
-
----
-
-## CSO KEYWORDS
-
-purpose of design, visual design, user experience design, UX design, user personas, use cases, wireframes, design layers, design investment, competitive advantage, design vs decoration, Craigslist design, Apple iPod design, product design, good enough design, design process, reverse-engineering design, content and usability, information architecture, design decisions, fashion and design, personal identity products, utility products, user needs, design rationale, multi-layered design

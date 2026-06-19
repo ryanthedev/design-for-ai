@@ -5,30 +5,19 @@
 
 ---
 
-## DECISION GATE
+## Table of Contents
 
-**Apply this knowledge when ALL are true:**
-- [ ] You are making visual style or aesthetic direction decisions for a design project
-- [ ] The design will exist within a technological medium (web, app, print) that has constraints and capabilities shaping what is possible
-- [ ] The design needs to communicate information to an audience who must be able to find and access it
-
-**Do NOT apply when ANY are true:**
-- [ ] You are working on purely internal tooling with no public-facing component and no discoverability requirements
-- [ ] The design decisions are purely about data visualization accuracy rather than style or aesthetic direction
-- [ ] You are replicating a mandated brand style guide with no room for stylistic interpretation
-
----
-
-## PROBLEM → FIT TABLE
-
-| Symptom/Situation | This Applies? | Why / Use Instead |
-|-------------------|---------------|-------------------|
-| Design looks dated or feels like a copy of a past trend | Yes | Understand the technological and cultural forces behind the style rather than copying its surface appearance |
-| Choosing between skeuomorphic and flat design styles | Yes | Evaluate what current technology enables and what cultural moment you are designing for |
-| Website has beautiful visuals but poor search engine traffic | Yes | SEO is part of design; semantic HTML, proper title tags, URLs, and meta descriptions are design decisions |
-| Need to pick a CSS framework or visual library | Partial | This chapter provides the "why" behind style evolution, not specific framework comparisons |
-| Designing a logo or icon in isolation | Partial | Cultural context matters, but logo design has additional discipline-specific concerns not covered here |
-| Optimizing database queries for performance | No | This chapter addresses visual design and information accessibility, not backend engineering |
+1. [KEY DEFINITIONS](#key-definitions)
+2. [DETECTION CHECKLIST](#detection-checklist)
+3. [DESIGN REVIEW CRITERIA](#design-review-criteria)
+4. [RED FLAGS](#red-flags)
+5. [IMPLEMENTATION CHECKLIST](#implementation-checklist)
+6. [DESIGN TRANSFORMATION PATTERNS](#design-transformation-patterns)
+7. [CORE PRINCIPLES](#core-principles)
+8. [THIS VS THAT](#this-vs-that)
+9. [DESIGN DECISION TABLE](#design-decision-table)
+10. [TECHNIQUE REFERENCE](#technique-reference)
+11. [COMMON MISTAKES](#common-mistakes)
 
 ---
 
@@ -307,64 +296,3 @@ When creating or modifying a design, ensure:
 | Targeting only high-volume keyphrases | Assumption that more searches = better | Start with achievable low-volume phrases; build authority before competing on high-volume terms |
 | Ignoring analytics data for keyword strategy | Assumed they already knew their best keywords | Install analytics; check which keywords already drive traffic; build on unexpected successes |
 | Using `<em>` and `<strong>` purely for visual styling | Confusion between semantic and visual emphasis | Use semantic tags intentionally for words that are genuinely important and keyword-relevant |
-
----
-
-## RATIONALIZATION COUNTERS
-
-| Excuse | Reality |
-|--------|---------|
-| "I'm just copying what's popular, that's good enough" | Copying a style's surface without understanding its technological and cultural origins creates a hollow veneer that lacks authenticity and won't age well |
-| "SEO is the marketing team's problem, not mine" | Design is fundamentally about conveying information; ensuring the right audience can find that information is a core designer responsibility |
-| "Flash/image-based design looks way better than HTML" | CSS3 now supports gradients, rounded corners, shadows, and transparency natively; and content locked in Flash is invisible to search engines |
-| "Title tags and meta descriptions don't matter for design" | The title tag is the single strongest on-page signal for search ranking; meta descriptions affect click-through from search results |
-| "SEO is too complicated and mysterious to bother with" | The basics are straightforward: descriptive title tags, clean URLs, semantic HTML, quality content, and legitimate link-building |
-| "I can game Google with hidden text and link schemes" | Google takes sophisticated measures to detect these tactics and will downgrade or delist your site; the risk far outweighs any short-term gain |
-| "My site is beautiful, so people will find it" | Without SEO, a beautiful site is like a shop on a deserted street — appearance doesn't matter if nobody walks by |
-| "We should target the highest-volume keywords right away" | New or low-authority sites can't compete on "bicycles" (7M searches/month); start with "chicago bicycle shop" (390/month) and scale up |
-| "Technology doesn't influence my design choices" | Every design style in history — from Impressionism to Web 2.0 — was directly shaped by available technology; your tools shape your form whether you acknowledge it or not |
-
----
-
-## TRIGGERS
-
-Invoke this chapter's knowledge when:
-- [ ] A designer is choosing a visual style direction and considering copying a popular trend
-- [ ] A website has beautiful visuals but poor or no organic search traffic
-- [ ] Content is built in Flash, heavy images, or non-semantic HTML
-- [ ] Title tags, URLs, or meta descriptions are missing, generic, or poorly optimized
-- [ ] Developer says "SEO isn't my job" or "that's for marketing"
-- [ ] During initial site architecture and information hierarchy planning
-- [ ] When evaluating whether a design's style is authentic to its context or a surface copy
-- [ ] When launching a new site and planning content/link-building strategy
-- [ ] When CSS3 capabilities could replace image-based visual effects
-
-Prerequisite state:
-- Basic understanding of HTML/CSS structure
-- Understanding that design is a product of multiple layers (from Chapters 1-2)
-- Understanding of how tools shape form (from Chapter 3)
-
----
-
-## PRODUCES
-
-After applying this knowledge:
-- State: Design style is grounded in current technological and cultural context rather than surface imitation; website content is semantically structured and optimized for search engine discoverability
-- Artifacts: SEO-optimized page templates (title tags, meta descriptions, URL structure, heading hierarchy), keyword research findings, content/link-building strategy outline, CSS3-based visual styling
-- Understanding: Developer knows why design styles emerge from technology and culture, how to evaluate whether a style choice is authentic or superficial, how search engines evaluate pages (URL, title, meta, headers, content, links, PageRank), and how to build organic traffic through legitimate means
-
-## NEXT CAPABILITY NEEDED
-
-| If | Then Need | Because |
-|----|-----------|---------|
-| Style choices need deeper grounding in typography history | Capability to evaluate typeface choices in historical/cultural context | Chapter 3 and Appendix A cover how type styles evolved from technological forces |
-| Need to apply color theory to support chosen style direction | Capability to select and evaluate color palettes | Impressionists/Post-Impressionists explored color interaction (covered in Chapter 9) |
-| Need to establish proportional systems for layout | Capability to apply proportional frameworks to layout design | Authentic style requires not just surface aesthetics but underlying structural harmony |
-| SEO strategy needs ongoing measurement and refinement | Capability to analyze web analytics and iterate on keyword targeting | Initial optimization is just the start; analytics reveal what's working and what to target next |
-| Need to evaluate whether design communicates effectively | Capability to review information hierarchy and visual communication | This chapter establishes findability; actual communication effectiveness requires composition and hierarchy skills |
-
----
-
-## CSO KEYWORDS
-
-technology and culture, design trends, style origins, Impressionism, Post-Impressionism, Web 2.0, Aqua interface, Apple design history, skeuomorphism, hyper-reality, CSS3, Quartz OpenGL, visual style evolution, trend copying, design veneer, authenticity in design, SEO for designers, search engine optimization, organic traffic, PageRank, title tag, meta description, URL structure, heading hierarchy, H1-H6, semantic HTML, image alt text, keyword research, Google Keyword Tool, Google Analytics, anchor text, link building, link bait, guest posting, content strategy, nofollow, crawlers, Flash accessibility, information accessibility, Gutenberg printing press, Aldus Manutius, Jan Tschichold, modern typography, information conveyance, designer responsibility, medium constraints, cultural forces, CSS hacks, A List Apart, rounded corners, gradients, drop shadows, Salon des Refuses, Manet, Monet, Caillebotte, Van Gogh, neoclassical art, photography and art

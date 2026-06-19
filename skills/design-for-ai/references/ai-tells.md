@@ -4,31 +4,19 @@
 
 ---
 
-## DECISION GATE
+## Table of Contents
 
-**Apply this knowledge when ALL are true:**
-- [ ] You are reviewing or building a UI that was generated or assisted by AI
-- [ ] The design "looks like every other AI site" or feels professional but forgettable
-- [ ] You want the result to feel authored, traceable to intentional decisions, not defaults
-
-**Do NOT apply when ANY are true:**
-- [ ] The design was hand-crafted by a designer with a stated aesthetic direction
-- [ ] You're doing rapid prototyping where polish isn't the goal yet
-- [ ] The output is a wireframe or functional sketch, not a visual design
-
----
-
-## PROBLEM -> FIT TABLE
-
-| Symptom/Situation | This Applies? | Why / Use Instead |
-|-------------------|---------------|-------------------|
-| "Looks like ChatGPT made it" | Yes | Design has converged on AI default patterns; apply detection checklist and transformation patterns |
-| "Looks like every other AI-generated site" | Yes | Convergent design — every AI reaches for the same defaults; differentiate with intentional choices |
-| "Professional but forgettable" | Yes | Technically competent but generic; needs an aesthetic direction beyond "clean and modern" |
-| "Clean but has no personality" | Yes | Absence of design decisions masquerading as a design decision; apply aesthetic direction framework |
-| Design was made by a human designer with a clear rationale | No | Human-authored designs may share some patterns but are grounded in intent; review on their own terms |
-| Rapid prototype or functional mockup | No | AI defaults are fine for disposable prototypes; apply this when moving toward production |
-| Design looks unusual or distinctive but has usability issues | No | Use usability and hierarchy principles instead; distinctiveness alone isn't the goal |
+1. [KEY DEFINITIONS](#key-definitions)
+2. [DETECTION CHECKLIST](#detection-checklist)
+3. [DESIGN REVIEW CRITERIA](#design-review-criteria)
+4. [RED FLAGS](#red-flags)
+5. [IMPLEMENTATION CHECKLIST](#implementation-checklist)
+6. [DESIGN TRANSFORMATION PATTERNS](#design-transformation-patterns)
+7. [CORE PRINCIPLES](#core-principles)
+8. [THIS VS THAT](#this-vs-that)
+9. [DESIGN DECISION TABLE](#design-decision-table)
+10. [TECHNIQUE REFERENCE](#technique-reference)
+11. [COMMON MISTAKES](#common-mistakes)
 
 ---
 
@@ -301,59 +289,3 @@ When creating or modifying a design, ensure:
 | Equating "different" with "good" | Developer picks an unusual font and wild colors to avoid AI tells | Distinctiveness must serve purpose and audience; unusual choices without rationale are just novelty (Ch 1-2) |
 | Treating AI tells as a checklist to tick off | Developer changes the font and colors but keeps identical structure and spacing | AI tells are symptoms of absent decisions; address the root cause (no aesthetic direction) not just the surface signals |
 | Thinking "clean and modern" is an aesthetic direction | It describes the absence of dirt and the presence of recency, not a visual personality | A real direction is specific enough that someone could disagree with it: "brutalist" has critics, "clean" doesn't |
-
----
-
-## RATIONALIZATION COUNTERS
-
-| Excuse | Reality |
-|--------|---------|
-| "Clean and modern is a valid aesthetic direction" | It's the absence of direction. "Clean" means "no mess" and "modern" means "not old." Neither describes a visual personality. Every AI defaults to this because it's the path of least resistance. |
-| "Inter is a good font" | Inter is an excellent font, and that's the problem. It's AI's default because it's safe, legible, and inoffensive. Using it signals that no typographic decision was made, the same way Times New Roman signals "I didn't change the default" in a Word document (Ch 3). |
-| "Users don't notice these things" | Users don't consciously catalog design tells, but 75% of website credibility judgments are design-based (Ch 1). The generic feeling registers even when the specific patterns don't. |
-| "We're moving fast, design refinement comes later" | AI tells compound. They're easier to prevent than fix. Choosing an aesthetic direction takes 5 minutes and shapes every subsequent decision. Retrofitting personality onto a generic design means reworking everything. |
-| "Dark mode with accents is what users expect for this kind of product" | What users "expect" is what every other AI-generated product looks like. Meeting that expectation means being indistinguishable. Do you want to look like every competitor, or like yourself? |
-| "The content matters more than the visual design" | Content and design aren't in competition. Poor design reduces the credibility of good content (Ch 1). A design that signals "AI made this" undermines the trust that content is trying to build. |
-
----
-
-## TRIGGERS
-
-Invoke this knowledge when:
-- [ ] Reviewing any AI-generated or AI-assisted UI design
-- [ ] A design "looks like every other AI site" or feels generic despite being competent
-- [ ] Developer says "I asked AI to make it look modern" or "it looks professional but forgettable"
-- [ ] Design uses cyan-on-dark, purple-to-blue, Inter/Roboto, or identical card grids without rationale
-- [ ] Someone asks how to make an AI-generated design look less "AI"
-- [ ] Design has no stated aesthetic direction or defaults to "clean and modern"
-- [ ] Design audit reveals convergence with common AI output patterns
-
-Prerequisite state:
-- A visual design exists (not a wireframe or text-only interface)
-- The design was generated or assisted by AI, or exhibits convergent patterns
-- Willingness to make intentional choices that may diverge from "safe" defaults
-
----
-
-## PRODUCES
-
-After applying this knowledge:
-- State: Design has a stated aesthetic direction, intentional typography, a purpose-driven color palette, and compositional hierarchy. Distinguishable from generic AI output
-- Artifacts: Aesthetic direction statement, detection checklist results, list of tells identified and resolved, transformation rationale connecting each change to Design for Hackers principles
-- Understanding: Developer can identify AI design tells, explain why they fail (convergence, not quality), and make intentional choices grounded in purpose, audience, and medium
-
-## NEXT CAPABILITY NEEDED
-
-| If | Then Need | Because |
-|----|-----------|---------|
-| Tells identified but typography needs replacing | Chapter 3 typography knowledge — typeface selection based on medium, mood, and context | Replacing a default font requires understanding what makes a typeface appropriate for the specific design |
-| Tells identified but color palette needs rebuilding | Chapter 9 color theory — palette construction from mood and color wheel relationships | Replacing a default palette requires structured color theory, not just picking different colors |
-| Layout is generic but content hierarchy is unclear | Chapter 7 visual hierarchy — dominance, weight, white space, and reading flow | Varied layout requires knowing what to emphasize and what to subordinate |
-| Design needs proportional relationships | Chapter 5 proportion systems — golden ratio, musical scales, modular scales | Replacing uniform spacing with intentional rhythm requires a proportional framework |
-| Aesthetic direction chosen but composition lacks structure | Chapter 6 composition — directional flow, asymmetry, grid-breaking, dominance | Translating an aesthetic direction into layout decisions requires compositional principles |
-
----
-
-## CSO KEYWORDS
-
-AI design tells, AI slop, convergent design, generic aesthetic, authored design, intentional design, visual fingerprint, aesthetic direction, AI-generated UI, design defaults, Inter font, Roboto, Open Sans, cyan on dark, purple to blue gradient, card grid, centered layout, glassmorphism, dark mode default, neon accents, design differentiation, AI design review, design credibility, design personality, uniform spacing, identical cards, gradient text, decorative sparklines, bounce easing, feature card template, metric dashboard template, clean and modern, design convergence, AI output patterns, design tells detection, visual design audit

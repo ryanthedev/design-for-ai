@@ -4,6 +4,16 @@ Quick-reference consolidation of all checklists, red flags, decision trees, and 
 
 ---
 
+## Table of Contents
+
+1. [1. Full Design Review Checklist](#1-full-design-review-checklist)
+2. [2. Red Flags Master Table](#2-red-flags-master-table)
+3. [3. Design Decision Trees](#3-design-decision-trees)
+4. [4. Common Mistakes Master Table](#4-common-mistakes-master-table)
+5. [5. Implementation Quick-Start](#5-implementation-quick-start)
+
+---
+
 ## 1. Full Design Review Checklist
 
 ### Typography Checks

@@ -5,31 +5,19 @@
 
 ---
 
-## DECISION GATE
+## Table of Contents
 
-**Apply this knowledge when ALL are true:**
-- [ ] You are arranging multiple pieces of information in a layout (web page, app screen, dashboard, blog post)
-- [ ] Different pieces of information have different levels of importance or different conceptual roles
-- [ ] You need users to quickly parse what matters most and understand relationships between elements
-
-**Do NOT apply when ANY are true:**
-- [ ] The design contains only a single piece of information with no relational context
-- [ ] The task is purely about color theory or color harmony (see Chapter 9 instead)
-- [ ] The task is about geometric proportions/composition without information differentiation (see Chapters 5-6 instead)
-
----
-
-## PROBLEM -> FIT TABLE
-
-| Symptom/Situation | This Applies? | Why / Use Instead |
-|-------------------|---------------|-------------------|
-| All text on the page looks the same importance | Yes | Use white space, weight, size, color, and ornamentation to differentiate |
-| Page feels cluttered despite having a grid | Yes | Likely overusing visual ornamentation (rules, borders); strip back and use subtler factors |
-| Designer changed too many factors at once and result looks chaotic | Yes | Isolate factors — learn how each one (white space, weight, size, color, ornamentation) works independently first |
-| Need to choose between two typefaces | Partial | This chapter covers using weight/size within a single typeface; for font pairing see Chapter 3 / Appendix B |
-| Table data is hard to scan | Yes | Remove unnecessary rule lines; use alignment, white space, and minimal ornamentation instead |
-| Choosing a color palette | No | Use Chapter 9 (color theory); this chapter only covers how color affects hierarchy |
-| Layout proportions and grid setup | Partial | This chapter uses grids to manage white space, but grid fundamentals are in Chapters 5-6 |
+1. [KEY DEFINITIONS](#key-definitions)
+2. [DETECTION CHECKLIST](#detection-checklist)
+3. [DESIGN REVIEW CRITERIA](#design-review-criteria)
+4. [RED FLAGS](#red-flags)
+5. [IMPLEMENTATION CHECKLIST](#implementation-checklist)
+6. [DESIGN TRANSFORMATION PATTERNS](#design-transformation-patterns)
+7. [CORE PRINCIPLES](#core-principles)
+8. [THIS VS THAT](#this-vs-that)
+9. [DESIGN DECISION TABLE](#design-decision-table)
+10. [TECHNIQUE REFERENCE](#technique-reference)
+11. [COMMON MISTAKES](#common-mistakes)
 
 ---
 
@@ -290,61 +278,3 @@ When creating or modifying a design, ensure:
 | Making all metadata equally prominent | Treating date, category, author, comment count as a single "metadata block" | Each metadata item has a different conceptual relationship to the content. Group and style them to express these relationships. |
 | Overusing ornamentation when the design "doesn't look clean" | Mistaking lack of decoration for lack of design | Strip everything back to one font, one size, white space only. Build up from there. "Clean" comes from considered spacing, not decoration. |
 | Ignoring leading (line-height) when using bold body text | Not realizing that bold text creates heavier visual "texture" | Increase line-height when body text is bolded to lighten the overall texture of the text block |
-
----
-
-## RATIONALIZATION COUNTERS
-
-| Excuse | Reality |
-|--------|---------|
-| "White space is wasted space — I need to fit more content" | White space is the most powerful hierarchy signal. It communicates importance and relationships. Removing it makes everything equally unimportant. |
-| "I need borders on my table cells so users can find data" | Alignment guides the eye just as effectively (principle of direction). Borders add visual noise via Tufte's 1+1=3. Try removing them. |
-| "I need to use different fonts to make things look different" | A single typeface with white space, weight, and size variations can create a rich, elegant hierarchy. Adding fonts should be a last resort, not a first instinct. |
-| "The size difference between my heading and body is fine — it's 2px bigger" | A 2px difference is perceptually negligible. Use a proportional scale and skip steps. You need at least a 25-30% size increase for a meaningful hierarchical signal. |
-| "I need all those decorative elements to make it look professional" | Ornamentation is a "crutch" that beginners lean on. Skilled designs often use very little. Strip back and see what the hierarchy looks like without decoration. |
-| "Hierarchy just means ranking things from most to least important" | Hierarchy is expressive, not linear. Pieces of information have different *natures* and *relationships*, not just different ranks. The author name is "by" the person; the category is what the post is "filed under." |
-| "I'll just pick spacing values that look right" | Geometric and proportional spacing (e.g., cap-height-based gaps) creates rhythm and order that feels "clean." Arbitrary values create subtle unease even if you can't articulate why. |
-
----
-
-## TRIGGERS
-
-Invoke this chapter's knowledge when:
-- [ ] A developer is creating or reviewing any layout with multiple pieces of information at different importance levels
-- [ ] A design "feels flat" or "everything looks the same"
-- [ ] Someone says "I can't figure out how much spacing to use"
-- [ ] A table or data display looks cluttered despite having structured data
-- [ ] A developer's first instinct is to add borders, backgrounds, or decorative elements to create differentiation
-- [ ] CSS shows many arbitrary margin/padding values with no proportional system
-- [ ] A design uses 3+ different typefaces to try to differentiate elements
-- [ ] During layout/composition work for blogs, dashboards, article pages, or content-heavy interfaces
-
-Prerequisite state:
-- Basic understanding of grids and geometric proportions (Chapters 5-6) is helpful for managing white space
-- Understanding of typeface classification (Chapter 3) helps when pairing fonts for conceptual contrast
-- Familiarity with the principle of direction/alignment (Chapter 6) supports the case for removing table rules
-
----
-
-## PRODUCES
-
-After applying this knowledge:
-- State: Design has a clear, intentional visual hierarchy where users can quickly identify primary content, understand grouping/relationships, and navigate information levels
-- Artifacts: A hierarchy using layered visual factors (white space, type weight, type size, color, ornamentation) applied in order of subtlety; a proportional type scale; considered spacing system; minimal ornamentation
-- Understanding: Developer knows how to isolate and evaluate individual hierarchy factors, when to add vs. remove visual differentiation, and how to express conceptual relationships (not just importance ranking) through visual means
-
-## NEXT CAPABILITY NEEDED
-
-| If | Then Need | Because |
-|----|-----------|---------|
-| Hierarchy involves color choices beyond simple contrast | Color theory and interaction knowledge | Color interactions are "much more complex and nuanced" (Chapter 9 covers this) |
-| Layout needs a grid/proportional system first | Geometric proportion and grid construction capability | White space management depends on a proportional grid framework (Chapters 5-6) |
-| Font pairing decisions needed for conceptual contrast | Typography and typeface classification knowledge | Choosing serif vs. sans-serif for content vs. metadata requires understanding type anatomy (Chapter 3, Appendix B) |
-| Design needs to convey a specific mood or feeling | Composition and visual weight principles | Hierarchy is one aspect; overall mood requires broader composition understanding (Chapters 5-6) |
-| Body text readability needs evaluation after hierarchy changes | Typography readability and texture knowledge | Bold text, size changes, and leading adjustments affect readability (Appendix A on texture) |
-
----
-
-## CSO KEYWORDS
-
-visual hierarchy, white space, type weight, type size, type scale, proportional scale, visual ornamentation, hierarchy factors, information architecture, layout composition, grid system, four-column grid, cap height spacing, Tufte 1+1=3, rule lines, table design, bold, italic, font weight, font size, leading, line-height, horizontal rule, metadata styling, content differentiation, grouping by proximity, conceptual relationships, blog layout, typography hierarchy, ornamentation reduction, clean design, information design, alignment, gutter, column grid, type scale 3:4 ratio, Baskerville, Georgia, Helvetica, font pairing, alternating row highlights, visual weight, squint test

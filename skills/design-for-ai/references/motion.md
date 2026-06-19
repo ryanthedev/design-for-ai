@@ -4,32 +4,19 @@
 
 ---
 
-## DECISION GATE
+## Table of Contents
 
-**Apply this knowledge when ALL are true:**
-- [ ] You are building or reviewing a UI with interactive elements, state changes, or page transitions
-- [ ] The interface would benefit from communicating spatial relationships, state changes, or continuity between views
-- [ ] The target platform supports CSS transitions/animations or JS-driven animation
-
-**Do NOT apply when ANY are true:**
-- [ ] The interface is purely static content with no interactive elements
-- [ ] The user has indicated `prefers-reduced-motion: reduce` and you are evaluating decorative motion only
-- [ ] You are optimizing for extreme low-bandwidth or low-power devices where any animation is a cost
-
----
-
-## PROBLEM -> FIT TABLE
-
-| Symptom/Situation | This Applies? | Why / Use Instead |
-|-------------------|---------------|-------------------|
-| UI feels abrupt — elements appear/disappear without transition | Yes | Purposeful entry/exit animations communicate what changed and where things went |
-| Page transitions feel jarring or disorienting | Yes | Smooth transitions preserve spatial context and reduce cognitive load |
-| Users lose track of what changed after an action | Yes | Motion draws attention to the change and maintains object permanence |
-| Scroll-driven animations cause stuttering or jank | Yes | GPU-composited properties and IntersectionObserver solve performance issues |
-| Loading states feel unresponsive | Yes | Skeleton screens and optimistic UI reduce perceived wait time |
-| Animations feel childish or gimmicky | Yes | Likely using bounce/elastic easing or gratuitous decorative animation |
-| Need to improve WCAG accessibility compliance | Partial | Motion design must respect prefers-reduced-motion, but full accessibility is broader |
-| Choosing colors or typography | No | Use color theory and typography principles instead |
+1. [KEY DEFINITIONS](#key-definitions)
+2. [DETECTION CHECKLIST](#detection-checklist)
+3. [DESIGN REVIEW CRITERIA](#design-review-criteria)
+4. [RED FLAGS](#red-flags)
+5. [IMPLEMENTATION CHECKLIST](#implementation-checklist)
+6. [DESIGN TRANSFORMATION PATTERNS](#design-transformation-patterns)
+7. [CORE PRINCIPLES](#core-principles)
+8. [THIS VS THAT](#this-vs-that)
+9. [DESIGN DECISION TABLE](#design-decision-table)
+10. [TECHNIQUE REFERENCE](#technique-reference)
+11. [COMMON MISTAKES](#common-mistakes)
 
 ---
 
@@ -315,60 +302,3 @@ When creating or modifying a design, ensure:
 | Using `transition: all` | Seems like a convenient shorthand | Explicitly list properties: `transition: transform 300ms ease-out, opacity 300ms ease-out` to avoid unintended animations |
 | Ignoring prefers-reduced-motion | Developer isn't aware of the preference or considers it edge-case | It's a critical accessibility requirement; add a global media query that disables or reduces all motion |
 | Using setTimeout instead of transitionend | Developer doesn't know about transition events | Listen for `transitionend` or `animationend` events to sequence animations reliably |
-
----
-
-## RATIONALIZATION COUNTERS
-
-| Excuse | Reality |
-|--------|---------|
-| "Animations slow down the site" | Only animations that trigger layout (width, height, margin) slow things down. Transform and opacity are GPU-composited and run at 60fps with near-zero main-thread cost. |
-| "Users don't notice animations" | Users notice the absence of animation. Abrupt state changes increase cognitive load. Users also viscerally notice bad animation (jank, bounce). Good animation is invisible because it meets expectations. |
-| "Bounce easing adds personality" | Bounce easing was trendy around 2013. It reads as dated and amateurish now. Exponential ease-out curves feel confident and modern while still having personality through their speed curve. |
-| "We'll add animations later" | Animation is architecture, not decoration. Retrofitting motion into a codebase that wasn't designed for it leads to inconsistent timing, missing exit states, and layout-triggering hacks. |
-| "CSS animations are always performant" | CSS animations on layout-triggering properties (height, width, padding) are just as janky as JavaScript ones. Performance depends on which properties you animate, not which API drives them. |
-
----
-
-## TRIGGERS
-
-Invoke this knowledge when:
-- [ ] Building or reviewing a UI with interactive elements or state transitions
-- [ ] Elements appear/disappear abruptly without transition
-- [ ] Animations feel bouncy, gimmicky, or dated
-- [ ] Scroll performance is poor due to animation
-- [ ] Developer asks "what duration/easing should I use?"
-- [ ] Loading states feel slow or unresponsive
-- [ ] Accessibility audit flags missing prefers-reduced-motion support
-- [ ] Multiple animations compete for user attention simultaneously
-- [ ] A page transition or view change feels disorienting
-
-Prerequisite state:
-- Basic understanding of CSS transitions and transforms
-- Awareness that the interface has interactive elements or state changes
-- Access to browser DevTools for performance testing
-
----
-
-## PRODUCES
-
-After applying this knowledge:
-- State: Interface uses purposeful, performant animation that communicates state changes, guides attention, and respects user motion preferences
-- Artifacts: Animation system with consistent durations (100/300/500), easing curves (ease-out-expo entry, ease-in-expo exit), stagger patterns, reduced-motion media query, and skeleton loading states
-- Understanding: Developer can articulate why each animation exists, what it communicates, and why its timing and easing were chosen
-
-## NEXT CAPABILITY NEEDED
-
-| If | Then Need | Because |
-|----|-----------|---------|
-| Animations are in place but visual hierarchy is weak | Visual hierarchy and composition capability | Motion guides attention but hierarchy determines what deserves attention |
-| Entry animations work but color transitions feel flat | Color theory capability | Color shifts during transitions (hover states, theme changes) require understanding of color relationships |
-| Motion is smooth but typography feels disconnected | Typography and type scale capability | Animated text needs appropriate type choices for readability during motion |
-| Animations work but layout shifts during loading | Proportion and layout capability | Skeleton screens and content loading require stable layout foundations |
-| Interface needs complex scroll-driven storytelling | Advanced scroll animation capability (GSAP, scroll-timeline) | Basic IntersectionObserver reveals may not be sufficient for narrative scroll experiences |
-
----
-
-## CSO KEYWORDS
-
-motion design, animation, CSS transitions, CSS animations, easing, cubic-bezier, ease-out, ease-in, ease-in-out, exponential easing, keyframes, transform, translate, scale, rotate, opacity, GPU compositing, layout thrashing, jank, 60fps, stagger, staggered animation, orchestration, reduced motion, prefers-reduced-motion, perceived performance, skeleton screen, optimistic UI, loading state, micro-interaction, exit animation, entry animation, FLIP technique, View Transitions API, IntersectionObserver, scroll-triggered animation, will-change, transitionend, animationend, grid-template-rows, collapse animation, accordion animation, modal animation, page transition, state morphing, shimmer loading, Web Animations API, animation duration, animation delay, 100ms 300ms 500ms, timing rule, motion accessibility, vestibular disorder, bounce easing, elastic easing

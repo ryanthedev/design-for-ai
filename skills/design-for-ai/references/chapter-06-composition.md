@@ -5,32 +5,19 @@
 
 ---
 
-## DECISION GATE
+## Table of Contents
 
-**Apply this knowledge when ALL are true:**
-- [ ] You are arranging visual elements within a layout, page, screen, or canvas
-- [ ] The design needs to attract attention, hold the viewer's eye, and guide them through the content
-- [ ] You need to establish visual relationships between elements (hierarchy, grouping, flow)
-
-**Do NOT apply when ANY are true:**
-- [ ] You are only choosing individual colors, typefaces, or fonts in isolation (use color theory or typography guidance instead)
-- [ ] The task is purely about geometric proportions or grid math without compositional arrangement (use proportional systems guidance instead)
-- [ ] The design is purely textual content with no layout decisions to make
-
----
-
-## PROBLEM --> FIT TABLE
-
-| Symptom/Situation | This Applies? | Why / Use Instead |
-|-------------------|---------------|-------------------|
-| Layout feels flat and uninteresting — nothing draws the eye | Yes | Apply dominance and contrast to create a focal point and visual hierarchy |
-| Elements feel scattered and disconnected across the page | Yes | Apply similarity, rhythm, and direction to create cohesion and flow |
-| User's eye leaves the design quickly; nothing holds attention | Yes | Composition recycling — use directional forces to keep the eye circulating |
-| Need to choose specific colors or font families | No | Use color theory (Chapter 9) or typography guidance; composition governs arrangement, not individual attribute choices |
-| Need to determine spacing ratios and grid dimensions | Partial | Proportional systems (Chapter 5) determine the grid; composition principles determine what goes where and how it relates |
-| UI elements all compete for attention equally | Yes | Establish dominance — make the most important element largest, darkest, lightest, or most surrounded by white space |
-| Design looks "right" technically but feels lifeless | Yes | Apply rhythm, texture variation, and foreground/background relationships to add depth and visual interest |
-| Web page layout needs to account for how users scan | Yes | Design for F-pattern reading direction; place most important content top-left and guide eye with compositional forces |
+1. [KEY DEFINITIONS](#key-definitions)
+2. [DETECTION CHECKLIST](#detection-checklist)
+3. [DESIGN REVIEW CRITERIA](#design-review-criteria)
+4. [RED FLAGS](#red-flags)
+5. [IMPLEMENTATION CHECKLIST](#implementation-checklist)
+6. [DESIGN TRANSFORMATION PATTERNS](#design-transformation-patterns)
+7. [CORE PRINCIPLES](#core-principles)
+8. [THIS VS THAT](#this-vs-that)
+9. [DESIGN DECISION TABLE](#design-decision-table)
+10. [TECHNIQUE REFERENCE](#technique-reference)
+11. [COMMON MISTAKES](#common-mistakes)
 
 ---
 
@@ -310,63 +297,3 @@ When creating or modifying a design, ensure:
 | Relying solely on grid placement without directional forces | Developer assumes a grid system alone creates good composition | Grid determines position; direction, dominance, and other principles determine how the eye moves between those positions |
 | No hover or interactive state changes for web elements | Developer styles elements identically in all states | Use foreground/background shift on hover — color change, shadow, scale — to signal interactivity |
 | Using texture uniformly or not at all | Developer applies the same treatment to all surfaces | Vary texture intentionally to create depth and differentiate foreground from background areas |
-
----
-
-## RATIONALIZATION COUNTERS
-
-| Excuse | Reality |
-|--------|---------|
-| "I used a grid system, so the composition should be fine" | A grid determines geometric proportions and placement, but not how the eye moves through the design. You still need dominance, direction, contrast, and other principles to make the composition compelling. |
-| "Design principles are subjective — there's no right answer" | While there is no single set of absolute design principles, the principles described here are well-established and observable in every successful composition from Renaissance sculpture to modern web design. |
-| "All my content is equally important, so nothing should be dominant" | If everything is equally prominent, nothing gets attention. Choose the most important element and make it dominant — this actually helps users find everything else by giving them a starting point and flow. |
-| "Flat design means I don't need depth or foreground/background" | Even flat designs use foreground/background relationships through color intensity, size, and white space. Think Vitamin's flat design still pushes the latest post into the foreground via dark background and prominent placement. |
-| "I just need to make it look nice — I'll know it when I see it" | When someone says a person "has an eye for design," they are describing knowledge of design principles. Great designers consciously understand and apply these principles — they don't just rely on intuition. |
-| "Not every principle needs to be present" | True — the chapter acknowledges that not every principle must be strong in every design. But the core principles (dominance, direction, contrast) are nearly always essential. The absence of one can be compensated by strength in others. |
-| "Adding more visual elements will make the design more interesting" | Composition interest comes from the relationships between elements, not the quantity. A simple composition of circles can be highly compelling through good use of dominance, direction, contrast, and similarity. |
-
----
-
-## TRIGGERS
-
-Invoke this chapter's knowledge when:
-- [ ] A design layout needs to be created or arranged from scratch
-- [ ] An existing design feels "boring," "flat," or "uninteresting" but the developer can't articulate why
-- [ ] Users are not looking at the most important content on a page
-- [ ] A design feels disjointed or lacks visual cohesion
-- [ ] The developer asks "How do I make this layout more visually appealing?"
-- [ ] A web page's eye-tracking or heatmap data shows users missing key content
-- [ ] Elements on a page all compete equally for attention
-- [ ] A logo or illustration needs to be evaluated for compositional strength
-- [ ] Interactive elements don't feel clickable or lack visual affordance cues
-- [ ] The design has good proportions/grid but still feels lifeless
-
-Prerequisite state:
-- Basic understanding of geometric proportions and grid systems (Chapter 5) is helpful but not strictly required
-- Understanding of the medium (web, mobile, print) and target audience reading direction
-- Knowledge of what content is most important in the design (business/product priorities)
-
----
-
-## PRODUCES
-
-After applying this knowledge:
-- State: Design has a clear compositional structure with dominant focal point, directional eye flow, visual cohesion through similarity, and depth through foreground/background relationships
-- Artifacts: Annotated layout showing dominant element, directional flow paths, similarity motifs, contrast points, and foreground/background layers
-- Understanding: Developer can articulate WHY a composition works or doesn't work using specific design principles; can diagnose and fix compositional problems systematically
-
-## NEXT CAPABILITY NEEDED
-
-| If | Then Need | Because |
-|----|-----------|---------|
-| Design needs visual hierarchy for information architecture | Hierarchy and arrangement guidance (Chapter 7) | Composition establishes the visual structure; hierarchy determines how information is organized within it |
-| Design needs specific color choices to support contrast and similarity | Color theory guidance (Chapter 9) | Composition principles tell you where to apply contrast and similarity; color theory tells you which specific colors achieve those effects |
-| Design needs typographic texture and contrast | Typography guidance (Chapter 3 / Appendixes) | Texture and contrast in web design often come primarily from type variation |
-| Design needs proportional grid for element placement | Proportional systems guidance (Chapter 5) | Design principles govern relationships; proportional systems provide the mathematical framework for placement |
-| Composition needs to work across different screen sizes | Responsive/adaptive layout capability | Compositional relationships (dominance, direction, rhythm) must be maintained or adapted across breakpoints |
-
----
-
-## CSO KEYWORDS
-
-composition, design principles, dominance, similarity, rhythm, texture, direction, contrast, foreground, background, midground, visual hierarchy, eye tracking, F-pattern, reading direction, focal point, visual anchor, eye recycling, compositional relationships, sub-composition, alignment, invisible axis, directional force, progressive sizing, shape language, visual cohesion, depth, layering, drop shadow, hover state, interactive affordance, pointillism, triangular composition, grid lines, visual weight, white space, color contrast, value contrast, size contrast, texture variation, Seurat, MailChip logo, Think Vitamin

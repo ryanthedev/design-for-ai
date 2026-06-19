@@ -5,32 +5,19 @@
 
 ---
 
-## DECISION GATE
+## Table of Contents
 
-**Apply this knowledge when ALL are true:**
-- [ ] You are selecting, reviewing, or modifying colors in a UI, website, or visual design
-- [ ] The design needs to communicate a mood, establish hierarchy, or guide user behavior through color
-- [ ] Color choices need to go beyond personal preference and be grounded in rationale
-
-**Do NOT apply when ANY are true:**
-- [ ] The design is purely textual with no visual presentation layer (e.g., CLI output only)
-- [ ] Colors are entirely dictated by an existing, locked brand style guide with no room for adjustment
-- [ ] You are working on accessibility contrast ratios only (use WCAG guidelines instead)
-
----
-
-## PROBLEM -> FIT TABLE
-
-| Symptom/Situation | This Applies? | Why / Use Instead |
-|-------------------|---------------|-------------------|
-| Colors feel random or clashing in a design | Yes | Apply color scheme relationships (complementary, analogous, etc.) from the color wheel |
-| Design needs to feel energetic/active but feels flat | Yes | Use warm colors, saturated hues, and complementary contrasts to create energy |
-| Design needs to feel calm but feels chaotic | Yes | Use cool colors, monochromatic or analogous schemes, muted palettes |
-| Users are not clicking the call-to-action button | Partial | Color contrast with surroundings matters; red/orange CTAs can drive action, but layout and copy matter too |
-| Text hierarchy feels weak despite different font sizes | Yes | Use warm/cool color relationships to add dimension to typography hierarchy |
-| Designing for an unfamiliar international audience | Yes | Research cultural color associations before choosing palette |
-| Pure accessibility/contrast ratio compliance | No | Use WCAG contrast ratio guidelines and accessibility tooling instead |
-| Choosing between specific hex values for brand colors | Partial | This chapter provides principles, not specific hex recipes; use color palette tools for fine-tuning |
+1. [KEY DEFINITIONS](#key-definitions)
+2. [DETECTION CHECKLIST](#detection-checklist)
+3. [DESIGN REVIEW CRITERIA](#design-review-criteria)
+4. [RED FLAGS](#red-flags)
+5. [IMPLEMENTATION CHECKLIST](#implementation-checklist)
+6. [DESIGN TRANSFORMATION PATTERNS](#design-transformation-patterns)
+7. [CORE PRINCIPLES](#core-principles)
+8. [THIS VS THAT](#this-vs-that)
+9. [DESIGN DECISION TABLE](#design-decision-table)
+10. [TECHNIQUE REFERENCE](#technique-reference)
+11. [COMMON MISTAKES](#common-mistakes)
 
 ---
 
@@ -323,61 +310,3 @@ When creating or modifying a design, ensure:
 | Ignoring cultural color associations when designing for international audience | Developer assumes their own cultural associations are universal | Research the target culture's color associations (flags, religion, holidays, sports) before finalizing the palette |
 | Using a completely monochromatic scheme with no accent | Monochromatic feels "safe" | A completely monochromatic scheme can be boring; add at least one accent color from outside the scheme for CTAs or key actions |
 | Assuming complementary colors are always jarring | Developer avoids complementary schemes for gentle/natural sites | Complementary colors can be gentle when muted, desaturated, or tinted; see Yoga Haven example (red-brown + green) |
-
----
-
-## RATIONALIZATION COUNTERS
-
-| Excuse | Reality |
-|--------|---------|
-| "Color is subjective -- there's no right answer, so I'll just pick what I like" | While there is no single right answer, color wheel relationships, psychological research, and cultural conventions provide objective frameworks that produce reliably better results than pure intuition |
-| "I'll just use black text on white -- it's the most readable" | Black on white is functional but not optimal; warm/cool hue-shifted text creates richer hierarchy and is often more aesthetically pleasing while remaining readable |
-| "Red is just a color, it can't actually affect behavior" | Research by Elliot and Maier demonstrated that mere exposure to red overloads the prefrontal cortex, reduces rational thinking, triggers avoidance behavior, and lowers test performance -- all without conscious awareness |
-| "I don't need to worry about cultural associations -- my audience is global" | A global audience is the strongest reason to research cultural associations; what is celebratory in one culture may be mournful in another |
-| "Color schemes are for designers, not developers" | Color scheme tools (ColorSchemer, Color Scheme Designer, Adobe Kuler) are specifically designed for non-designers to create structured palettes quickly |
-| "I'll just use the brand colors for everything" | Brand colors provide a starting point, but you still need tints, shades, and accent colors for hierarchy, functional elements, and depth; the color wheel helps you extend a brand palette systematically |
-| "Pure black shadows look fine" | They look acceptable, but hue-shifted shadows and highlights create dramatically richer, more engaging UI elements; the difference is clear in side-by-side comparisons (Figure 9-20) |
-
----
-
-## TRIGGERS
-
-Invoke this chapter's knowledge when:
-- [ ] A developer is choosing or building a color palette for a new design
-- [ ] A design review reveals colors that feel random, clashing, or without clear relationship
-- [ ] Text hierarchy feels weak despite varying size/weight -- color dimension may be missing
-- [ ] CTA or accent elements are not standing out from their surroundings
-- [ ] UI buttons/elements feel flat or lifeless despite having color gradients
-- [ ] Developer asks "what color should my [button/background/text] be?"
-- [ ] Design is being adapted for an international or unfamiliar cultural audience
-- [ ] Red is being used in a context where user performance or rational decision-making matters
-- [ ] The design mood does not match its intended purpose or audience
-
-Prerequisite state:
-- Basic understanding of hue, saturation, and lightness (covered in Chapter 8 of the book)
-- Understanding that human color vision works through cone stimulation (Chapter 8)
-
----
-
-## PRODUCES
-
-After applying this knowledge:
-- State: Design has a purposeful, structured color palette based on color wheel relationships with appropriate mood, hierarchy, and functional color assignments
-- Artifacts: Color palette (base hue + scheme type + tints/shades + accent colors), functional color map (background, text hierarchy, links, CTAs, errors, success, highlights), mood alignment rationale
-- Understanding: Developer can articulate why each color was chosen, how colors relate to each other on the color wheel, and what psychological/cultural signals the palette sends
-
-## NEXT CAPABILITY NEEDED
-
-| If | Then Need | Because |
-|----|-----------|---------|
-| Color palette is chosen but typography hierarchy is not yet established | Typography and type scale design capability | Color relationships enhance typography hierarchy but font selection, sizing, and spacing are separate decisions |
-| Design is for a content-heavy page and background color is set | Layout and spacing/proportion capability | Color sets the tone but proportional layout determines readability and visual flow |
-| Color palette needs to maintain accessibility compliance | WCAG contrast ratio checking capability | Color theory ensures aesthetic harmony but accessibility requires specific contrast ratio thresholds (4.5:1 for text) |
-| Design includes complex UI elements (buttons, cards, forms) | Interface element styling capability | Color relationships inform highlights/shadows but element design involves border radius, padding, elevation, and interaction states |
-| Design needs to evoke a specific historical or artistic style | Design history and style movement knowledge | Color mood patterns provide general direction but specific period styles have additional constraints beyond color |
-
----
-
-## CSO KEYWORDS
-
-color theory, color wheel, primary colors, secondary colors, tertiary colors, tint, shade, hue, warm colors, cool colors, monochromatic, analogous, complementary, split-complementary, triadic, tetradic, color scheme, color palette, color psychology, color and culture, red prefrontal cortex, Elliot and Maier, color context, web color conventions, background color, accent color, CTA button color, link color blue, error red, success green, highlight yellow, Impressionism color, Monet, pointillism, color interaction, color contrast, color mood, mysterious palette, active palette, muted palette, natural palette, warm pop cool recede, hue-shifted shadows, color hierarchy, typography color, cultural color associations, color tools, ColorSchemer, Adobe Kuler, Color Scheme Designer

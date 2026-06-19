@@ -5,31 +5,19 @@
 
 ---
 
-## DECISION GATE
+## Table of Contents
 
-**Apply this knowledge when ALL are true:**
-- [ ] You are beginning a new design project or evaluating an existing one
-- [ ] You need to understand *why* design quality matters for credibility, trust, or emotional impact
-- [ ] You are a developer or technical person who tends to treat design as surface decoration
-
-**Do NOT apply when ANY are true:**
-- [ ] You already have a mature, holistic understanding of design layers and their interactions
-- [ ] You need specific tactical guidance on typography, color, or layout (see later chapters)
-- [ ] You are looking for step-by-step implementation of a particular design technique
-
----
-
-## PROBLEM -> FIT TABLE
-
-| Symptom/Situation | This Applies? | Why / Use Instead |
-|-------------------|---------------|-------------------|
-| Design feels like an afterthought bolted onto a finished product | Yes | This chapter reframes design as the "fundamental soul" of a creation, not a veneer |
-| Users don't trust or find credible a technically sound website | Yes | Fogg's Stanford study shows design is the #1 credibility heuristic (46% of all credibility comments) |
-| Developer can build features but UI "just doesn't feel right" | Yes | Introduces the concept of interconnected design layers that must work in concert |
-| Need specific color palette or typography guidance | No | Use chapters on color (Ch 8-9) or typography (Ch 3, Appendix A/B) |
-| Need to implement a specific CSS layout | No | Use chapter on medium/technology (Ch 4) |
-| Design looks polished but feels inauthentic or "designed by a marketing team" | Yes | Chapter warns that inappropriately polished design backfires -- layers must be appropriate to context |
-| Need to understand geometric proportions in layout | Partial | This chapter introduces the concept; Ch 5-6 provide the specifics |
+1. [KEY DEFINITIONS](#key-definitions)
+2. [DETECTION CHECKLIST](#detection-checklist)
+3. [DESIGN REVIEW CRITERIA](#design-review-criteria)
+4. [RED FLAGS](#red-flags)
+5. [IMPLEMENTATION CHECKLIST](#implementation-checklist)
+6. [DESIGN TRANSFORMATION PATTERNS](#design-transformation-patterns)
+7. [CORE PRINCIPLES](#core-principles)
+8. [THIS VS THAT](#this-vs-that)
+9. [DESIGN DECISION TABLE](#design-decision-table)
+10. [TECHNIQUE REFERENCE](#technique-reference)
+11. [COMMON MISTAKES](#common-mistakes)
 
 ---
 
@@ -252,60 +240,3 @@ When creating or modifying a design, ensure:
 | Over-polishing to signal quality | Assumes more polish always equals more trust | Calibrate polish to context; inappropriately polished designs trigger "designed by a marketing team" skepticism |
 | Following do's and don'ts lists without understanding why | Lists are easy to follow but don't build understanding | Learn the underlying layers (purpose, medium, aesthetics) so you can make original, contextual decisions |
 | Only learning to "draw ponies" -- mastering one visual trick | One technique can seem impressive in limited contexts | Build broad understanding of design layers so you can adapt to any situation |
-
----
-
-## RATIONALIZATION COUNTERS
-
-| Excuse | Reality |
-|--------|---------|
-| "I'm not a designer, I just need it to work" | Design IS how it works -- purpose, information structure, and visual communication are inseparable from function. Fogg's study shows 75% of credibility judgments are design-based. |
-| "I'll just use a nice template" | Templates are other people's design decisions for other contexts. Without understanding layers, you're "drawing ponies" -- copying a surface pattern that may be inappropriate for your purpose. |
-| "Design is subjective, so I can't really get it wrong" | Design credibility judgments are remarkably consistent across users (Fogg's study). Sloppy design reliably loses trust; inappropriate polish reliably triggers skepticism. |
-| "I'll make it pretty at the end" | Design as afterthought produces veneer, not design. The layers (purpose, medium, aesthetics) must be considered together from the start, not applied sequentially. |
-| "More polish is always better" | Fogg's study found users were skeptical of sites that looked "inappropriately polished" -- they suspected marketing manipulation. Appropriate > maximum. |
-| "Good functionality will compensate for poor design" | Users make split-second credibility judgments based on design before they ever evaluate functionality. Poor design prevents users from ever discovering good functionality. |
-
----
-
-## TRIGGERS
-
-Invoke this chapter's knowledge when:
-- [ ] A developer is about to start a new project and has not considered design intent
-- [ ] A design review reveals surface-level visual choices with no underlying rationale
-- [ ] Users report not trusting a website or app despite it being technically functional
-- [ ] Someone says "I'll handle the design part later" or "just make it look good"
-- [ ] A design looks like a template or borrowed style that doesn't match the product's purpose
-- [ ] Visual design and information design feel disconnected from each other
-- [ ] Design is either noticeably under-polished or suspiciously over-polished for its context
-
-Prerequisite state:
-- No prerequisites -- this is a foundational chapter that establishes the mindset for all subsequent design knowledge
-
----
-
-## PRODUCES
-
-After applying this knowledge:
-- State: Developer understands design as a holistic, multi-layered discipline rather than surface decoration
-- Artifacts: A mental framework of design layers (purpose, medium/technology, aesthetics) to evaluate and guide any design project
-- Understanding: Developer knows that design drives credibility (~75% of trust signals), that layers must work in harmony, that appropriateness matters more than maximum polish, and that copying surface patterns ("drawing ponies") is not designing
-
-## NEXT CAPABILITY NEEDED
-
-| If | Then Need | Because |
-|----|-----------|---------|
-| Need to structure information and design for user goals | Information architecture and design structure capability | Chapter 2 covers how purpose interacts with user characteristics to drive design structure |
-| Need to choose or evaluate typefaces | Typography history and classification capability | Chapter 3 covers the origins and characteristics of different typeface styles |
-| Need to work within HTML/CSS constraints | Web technology and design trends capability | Chapter 4 covers how web technologies create design characteristics and trends |
-| Need to create proportional, harmonious layouts | Geometric proportion and layout capability | Chapter 5 covers hidden geometric relationships in design |
-| Need to apply foundational visual design principles | Design principles capability (contrast, hierarchy, etc.) | Chapter 6 covers how hidden principles work with geometric relationships |
-| Need to prioritize information within a design | Visual hierarchy and emphasis capability | Chapter 7 covers attaching appropriate importance to information |
-| Need to understand or choose colors | Color science and technology capability | Chapter 8 covers color perception and representation technologies |
-| Need to create effective color palettes | Color harmony and emotion capability | Chapter 9 covers color interactions, emotions, and selection formulas |
-
----
-
-## CSO KEYWORDS
-
-design matters, design credibility, design layers, holistic design, design is not decoration, purpose-driven design, medium and technology constraints, aesthetic decisions, heuristics, credibility heuristics, Fogg credibility study, Stanford web credibility, information design, visual design, design trust, appropriate design, design veneer, don't draw ponies, design fundamentals, design for developers, emotional design impact, Pantheon design, Steve Jobs design quote, design appropriateness, over-polished design, design skepticism, information architecture credibility, design as soul, layers of design, web design credibility, developer design mindset
