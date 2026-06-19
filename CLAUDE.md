@@ -16,6 +16,7 @@ Single entry point: `/design-for-ai`. The skill routes to the right mode based o
 | fonts | Select, pair, and configure typography |
 | color | Build a color system from color science up |
 | audit | Find what's wrong and explain WHY |
+| enhance | Decide what to reach for to uplift a site — lowest stack layer / library for a wanted effect, gated on register and cost. Library-agnostic, principles-first |
 | polish | Motion, interaction, responsive, identity — final pass |
 
 ## Structure
@@ -37,6 +38,7 @@ design-for-ai/
             ├── checklists.md
             ├── foundations.md
             ├── techniques.md
+            ├── libraries.md        # enhance mode — enhancement ladder, category map, 5 rules
             ├── motion.md
             ├── interaction.md
             ├── responsive.md

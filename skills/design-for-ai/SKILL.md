@@ -1,8 +1,8 @@
 ---
 name: design-for-ai
-description: "Visual design principles from Design for Hackers. Use when building or improving UI/frontend design — choosing fonts, building color systems, establishing design direction, generating a unique design system, auditing existing designs, or polishing before shipping. Also use when something 'looks wrong' or 'feels off' about a UI, when designs look generic or AI-generated, or when the user wants theory-backed design guidance rather than vibes. Triggers on: pick fonts, type scale, color palette, design audit, visual hierarchy, spacing feels wrong, looks like a template, redesign, improve the UI, make it look good, needs personality, unique design, design DNA, every design looks the same. Not for: graphic design tools (Figma/Sketch), print layout, logo design, illustration, or CSS framework selection."
+description: "Visual design principles from Design for Hackers. Use when building or improving UI/frontend design — choosing fonts, building color systems, establishing design direction, generating a unique design system, auditing existing designs, choosing animation/motion/3D libraries to uplift a site, or polishing before shipping. Also use when something 'looks wrong' or 'feels off' about a UI, when designs look generic or AI-generated, or when the user wants theory-backed design guidance rather than vibes. Triggers on: pick fonts, type scale, color palette, design audit, visual hierarchy, spacing feels wrong, looks like a template, redesign, improve the UI, make it look good, needs personality, unique design, design DNA, every design looks the same, uplift my site, add motion, which animation library, GSAP, three.js, scroll animation, what libraries should I use. Not for: graphic design tools (Figma/Sketch), print layout, logo design, illustration, or CSS framework selection."
 user-invocable: true
-argument-hint: "[design|fonts|color|audit|polish] [context]"
+argument-hint: "[design|fonts|color|audit|enhance|polish] [context]"
 ---
 
 Apply visual design principles from *Design for Hackers*. Every recommendation traces to a specific principle — never "it looks better" without the why.
@@ -38,11 +38,14 @@ Determine what the user needs from their words.
 | fonts | "Pick fonts" / "typography" / "type scale" / "pairing" / "font" / "choose a typeface" |
 | color | "Colors" / "palette" / "color scheme" / "too many colors" / "build a palette" |
 | audit | "Something's off" / "review this" / "what's wrong" / "check" / "audit" / "redesign" / "improve" / "fix" / "no hierarchy" / "nothing holds the eye" / "why does it look AI" / "diagnose" |
+| enhance | "Uplift my site" / "add motion" / "which animation library" / "should I use GSAP / three.js / Lenis" / "scroll animations" / "make it feel alive" / "what libraries" / "add a 3D hero" / "particles" |
 | polish | "Almost done" / "final pass" / "motion" / "responsive" / "make it less generic" / "add states" / "interaction" |
 
 No mode clear → ask what they need, presenting the table.
 
 When audit triggers match but no existing design work is found in the codebase, suggest running **design** first to establish foundations.
+
+**enhance vs polish**: enhance decides *what to reach for* — which layer/library buys a wanted effect, gated on register and cost. polish is a quality pass on motion/interaction/responsive that already exists. "Which animation library / add a 3D hero" → enhance. "Is my existing motion correct" → polish.
 
 ---
 
@@ -202,6 +205,30 @@ Output: findings table by severity. Example row:
 | Critical | Body text uses Garamond at 14px on screen | Medium-form mismatch (ch03): angled axis blurs at low ppi | Switch to Georgia or Source Serif Pro; bump to 16px minimum |
 
 Then suggest the right mode to fix each issue.
+
+---
+
+## enhance
+
+> Context needed: what effect the user wants, the project's register (from DESIGN.md if present), and the running site/codebase.
+
+Decide **what to reach for** to uplift a site — which library buys a wanted effect. Default to a library; it gives better results, faster. Recommend *categories and current example tools*, never a pinned dependency manifest. The design DNA makes a site distinctive; these libraries only execute it.
+
+Read:
+- `${CLAUDE_SKILL_DIR}/references/libraries.md`
+- `${CLAUDE_SKILL_DIR}/references/motion.md` (the `prefers-reduced-motion`, GPU-compositing, and timing rules every motion recommendation honors)
+
+If a DESIGN.md exists, re-read it first — register and existing motion language constrain what's appropriate.
+
+Follow the procedure in `libraries.md`, which turns on three principles:
+
+1. **Library-default** — name the effect concretely (a vague "make it pop" gets pushed to a real effect first), find its category, reach for the leading library. Don't hand-roll what a library nails.
+2. **Weight is contextual** — on a normal phone over normal bandwidth, tens of KB is invisible; just grab it. Drop to the CSS-based tier (Animate.css, Tailwind animate, AutoAnimate) only when delivery is constrained: satellite/2G/metered, embedded, per-byte ad/widget surfaces.
+3. **3D is the real cost** — the one effect heavy everywhere (bytes + GPU/battery). Confirm the experience is genuinely 3D before spending it.
+
+Name current examples to verify, never pin versions. Attach the `prefers-reduced-motion` requirement to any motion recommendation.
+
+Output: a recommendation table (effect → category → library → current example to verify → weight note), the accessibility note, and the reminder that the design DNA — not the libraries — is what makes the site distinctive. Suggest **polish** as the follow-up once effects are built, to quality-check the motion.
 
 ---
 

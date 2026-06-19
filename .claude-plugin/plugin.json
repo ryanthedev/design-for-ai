@@ -1,7 +1,7 @@
 {
   "name": "design-for-ai",
-  "version": "2.0.0",
-  "description": "Visual design principles for AI and developers — typography, color, composition, proportions, visual hierarchy, motion, interaction, and responsive design. Single entry point with modes: design, fonts, color, audit, polish.",
+  "version": "2.1.0",
+  "description": "Visual design principles for AI and developers — typography, color, composition, proportions, visual hierarchy, motion, interaction, and responsive design. Single entry point with modes: design, fonts, color, audit, enhance, polish.",
   "author": {
     "name": "r"
   },
