@@ -3,7 +3,7 @@
 **Created:** 2026-06-20
 **Status:** in-progress
 **Started:** 2026-06-20 18:20
-**Current Phase:** 1
+**Current Phase:** 2
 **Complexity:** complex
 **Workspace:** branch `feature/design-workflow-orchestrator` (keep; main clean)
 
@@ -273,7 +273,14 @@ Each command is invoked standalone but chains to the next (research → "now run
 
 ## Execution Log
 
-### Phase 1 (prior plan, kept): prototype skill
+### Phase 0 (prior plan, kept): prototype skill
 - [x] BUILD + REVIEW + Committed — `1dc8f13` (self-contained HTML/CSS mock + verified graceful render loop). Reused by `mock`/`build` in this plan.
 
-_Remaining phases to be filled during /code-foundations:build_
+### Phase 1: Workflow scaffold + clarify port + manifest (Gate: Standard)
+- [x] BUILD: Discovery + design + implementation complete
+- [x] REVIEW: PASS
+- [x] Committed
+Commit: 83b7b37
+Summary: The plugin now has the workflow skeleton — commands/ stubs (research, plan, mock, build), a design-grounded clarify skill, docs/workflow-conventions.md defining the research→plan→mock→build lifecycle + DESIGN.md/JOURNEY.md gates + contrast/token/heuristic done-when vocabulary, and plugin.json at 3.1.0. Phases 2-6 fill in the command bodies and agents against this substrate.
+
+_Remaining phases (2-6) to be filled during /code-foundations:build_
