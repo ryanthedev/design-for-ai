@@ -1,0 +1,88 @@
+diff --git a/skills/design-for-ai/SKILL.md b/skills/design-for-ai/SKILL.md
+index ad452b1..059b2e0 100644
+--- a/skills/design-for-ai/SKILL.md
++++ b/skills/design-for-ai/SKILL.md
+@@ -1,6 +1,6 @@
+ ---
+ name: design-for-ai
+-description: "Visual design principles from Design for Hackers — the visual + surface core of a design-foundations system. Use when building or improving UI/frontend visual design: choosing fonts, building color systems, establishing a unique design direction or design DNA, designing for a device class (phone, TV, watch, in-car, kiosk, voice), auditing designs, choosing animation/motion/3D libraries, or polishing before shipping. Also when something 'looks wrong' or 'feels off', or a design looks generic or AI-generated. Triggers on: pick fonts, color palette, design audit, visual hierarchy, redesign, unique design, 10-foot UI, device layout, add motion, which animation library, GSAP, three.js. Not for: graphic-design tools (Figma/Sketch), print, logos, illustration; or sibling-pillar concerns — operability (usability), UX writing (content-design), chart/data encoding (data-viz), dark patterns (deceptive-patterns), user flows and journey maps (journey), design tokens (design-systems), agent/LLM interfaces (ai-native)."
++description: "Visual design principles from Design for Hackers — the visual + surface core of a design-foundations system. Use when building or improving UI/frontend visual design: choosing fonts, building color systems, establishing a design DNA, designing for a device class (phone, TV, watch, kiosk, voice), choosing motion/3D libraries, or polishing before shipping. Also the holistic cross-pillar audit of a whole surface, or when something looks generic or AI-generated. Triggers on: pick fonts, color palette, design audit, make it look good, is this any good, improve the whole thing, review the whole design, visual hierarchy, redesign, 10-foot UI, add motion, animation library, GSAP. Not for: graphic-design tools (Figma/Sketch), print, logos, illustration; or a narrowly-scoped sibling-pillar concern — operability (usability), UX writing (content-design), chart/data encoding (data-viz), dark patterns (deceptive-patterns), user flows/journey maps (journey), design tokens (design-systems), agent/LLM interfaces (ai-native)."
+ user-invocable: true
+ argument-hint: "[design|surface|fonts|color|audit|enhance|polish] [context]"
+ ---
+@@ -38,7 +38,7 @@ Determine what the user needs from their words.
+ | surface | "Design for TV / a watch / the car / a kiosk / voice" / "10-foot UI" / "which layout for this device" / "device type" / "make this work on <device class>" / "e-ink" |
+ | fonts | "Pick fonts" / "typography" / "type scale" / "pairing" / "font" / "choose a typeface" |
+ | color | "Colors" / "palette" / "color scheme" / "too many colors" / "build a palette" |
+-| audit | "Something's off" / "review this" / "what's wrong" / "check" / "audit" / "redesign" / "improve" / "fix" / "no hierarchy" / "nothing holds the eye" / "why does it look AI" / "diagnose" |
++| audit | "Something's off" / "review this" / "what's wrong" / "check" / "audit" / "redesign" / "improve" / "fix" / "no hierarchy" / "nothing holds the eye" / "why does it look AI" / "diagnose" / holistic-quality phrasing: "make it look good" / "is this any good" / "improve the whole thing" / "review the whole design" |
+ | enhance | "Uplift my site" / "add motion" / "which animation library" / "should I use GSAP / three.js / Lenis" / "scroll animations" / "make it feel alive" / "what libraries" / "add a 3D hero" / "particles" |
+ | polish | "Almost done" / "final pass" / "motion" / "responsive" / "make it less generic" / "add states" / "interaction" |
+ 
+@@ -229,13 +229,32 @@ Output: color tokens (CSS custom properties from the script), accessibility note
+ 
+ ## audit
+ 
+-> Context needed: the codebase or design files to review.
++> Context needed: the surface to review — a codebase, design files, or a rendered screenshot/mock image.
+ 
+-Systematic design review. This mode owns the **visual** audit — typography, color, composition, hierarchy, identity. When the finding is about whether users can *operate* the interface (heuristic evaluation, UX laws, affordances, cognitive load, pattern fit), dispatch to the **`usability` sibling skill** and run its heuristic evaluation (Nielsen's 10 + the 0–4 severity scale, per its `references/usability-principles.md`); fold its findings into the same severity-sorted table. The visual audit below stays here unchanged — usability is referenced, not relocated.
++This mode is the **holistic cross-pillar conductor**. It runs whenever someone asks for the whole surface to be reviewed ("make it look good", "is this any good", "improve the whole thing", "review the whole design") or for a narrower visual review. It does NOT review every pillar by reflex — it **triages** what is actually on the surface, **dispatches** only the pillars that have something to review, and **synthesizes ONE** prioritized report. Three steps: triage → dispatch → synthesize.
+ 
+-Read `${CLAUDE_SKILL_DIR}/references/checklists.md` for the full visual checklist and decision trees.
++**Critique the pixels when you can.** If a screenshot or rendered mock image is supplied (e.g. from the `prototype` skill), audit the **actual rendered image** — judge the real pixels, spacing, contrast, and hierarchy you can see, not a textual description of them. Cite the principle for every image finding the same way. Fall back to reading the code/design files only when no image is available.
+ 
+-Work through each section. For the **top 2-3 sections with the worst findings**, load the chapter reference to ground the diagnosis:
++### 1. Triage — read the surface, decide which pillars apply
++
++The **visual audit + usability** is the always-on baseline: every surface is visual and operable, so both always run. Then scan for these signals and dispatch a pillar **only when its signal is actually present** — never dispatch a pillar with nothing to review (a visual-only surface gets just the baseline). Lean on judgment with this checklist, not a rigid tree.
++
++| Signal on the surface | Dispatch (sibling skill) |
++|-----------------------|--------------------------|
++| Charts, graphs, dashboards, data tables encoding numbers | `data-viz` |
++| Real product copy — headlines, error/empty states, button/label microcopy | `content-design` |
++| Multi-step flows, forms, navigation, anything the user operates *(always-on baseline)* | `usability` |
++| A route through time — onboarding, funnel, journey, page-to-page sequence | `journey` |
++| A persuasion / conversion surface — pricing, signup, retention, upsell | `behavioral` + a `deceptive-patterns` check (is the persuasion honest?) |
++| Any visual surface — typography, color, composition, hierarchy, AI-tells *(always-on baseline)* | core visual audit below |
++
++### 2. Dispatch — hand off to each applicable pillar, gather findings
++
++For each pillar the triage flagged, hand off to its **sibling skill** exactly as usability is dispatched (reference its evaluation, do not relocate it here) and collect its findings to merge in step 3. The pillars cite their own principles.
++
++**Cap on a large surface.** If the surface is large enough that dispatching every flagged pillar would be unwieldy, cap the dispatch at the highest-value pillars (the baseline visual+usability plus roughly the 3 most relevant others) and **name in the report which pillars you deferred and why** — never silently drop one. The user can ask for a deferred pillar next.
++
++**The always-on baseline — visual audit.** Read `${CLAUDE_SKILL_DIR}/references/checklists.md` for the full visual checklist and decision trees. Work through each section; for the **top 2-3 sections with the worst findings**, load the chapter reference to ground the diagnosis:
+ 
+ | Section | Reference file |
+ |---------|---------------|
+@@ -249,19 +268,21 @@ Work through each section. For the **top 2-3 sections with the worst findings**,
+ | Motion & interaction | `motion.md`, `interaction.md` |
+ | Responsive | `responsive.md` |
+ | Design identity | `ai-tells.md` |
+-| Usability & heuristics (operability) | → the **`usability`** skill (Nielsen 10 + severity; not a local reference file) |
+ 
+-All chapter/reference paths relative to `${CLAUDE_SKILL_DIR}/references/`; the usability row dispatches to the sibling skill.
++**The always-on baseline — usability.** Whether users can *operate* the interface (heuristic evaluation, UX laws, affordances, cognitive load, pattern fit) is reviewed by dispatching to the **`usability` sibling skill** — run its heuristic evaluation (Nielsen's 10 + the 0–4 severity scale, per its `references/usability-principles.md`). usability is referenced, not relocated.
++
++All chapter/reference paths are relative to `${CLAUDE_SKILL_DIR}/references/`. For cross-cutting visual issues, consult `${CLAUDE_SKILL_DIR}/references/techniques.md` for transformation patterns.
+ 
+-For cross-cutting issues, consult `${CLAUDE_SKILL_DIR}/references/techniques.md` for transformation patterns.
++### 3. Synthesize — ONE prioritized report
+ 
+-Output: findings table by severity. Example row:
++Merge every pillar's findings into a **single severity-ranked table** — not N per-pillar silos. De-duplicate where two pillars flag the same root cause (e.g. low contrast surfaced by both visual and usability → one row, both citations). Severity uses the standard scale (Critical / Major / Minor). Tag each row with the pillar it came from so the user can trace it. If you capped, add a short "**Deferred:** …" line naming the pillars you did not run and why.
+ 
+-| Severity | Problem | Principle | Fix |
+-|----------|---------|-----------|-----|
+-| Critical | Body text uses Garamond at 14px on screen | Medium-form mismatch (ch03): angled axis blurs at low ppi | Switch to Georgia or Source Serif Pro; bump to 16px minimum |
++| Severity | Pillar | Problem | Principle | Fix |
++|----------|--------|---------|-----------|-----|
++| Critical | visual | Body text uses Garamond at 14px on screen | Medium-form mismatch (ch03): angled axis blurs at low ppi | Switch to Georgia or Source Serif Pro; bump to 16px minimum |
++| Major | usability | Primary action sits top-left, far from thumb | Fitts's law (1954): travel cost on the dominant target | Move the primary CTA into thumb reach on phone |
+ 
+-Then suggest the right mode to fix each issue.
++Then suggest the right mode or sibling skill to fix each issue.
+ 
+ ---
+ 

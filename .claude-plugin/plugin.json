@@ -1,7 +1,7 @@
 {
   "name": "design-for-ai",
-  "version": "3.0.0",
-  "description": "A design-foundations system for AI and developers — a multi-skill plugin where each design pillar is its own skill. Core (design-for-ai) owns the visual/aesthetic + surface layer (typography, color, composition, hierarchy, device-class patterns, motion, audit, enhance, polish). Eight pillar skills cover the rest: usability, content-design, data-viz, deceptive-patterns, behavioral, journey, design-systems, and ai-native. Each skill triggers on its own description and cites its principles; skills are auto-discovered from the skills/ directory.",
+  "version": "3.1.0",
+  "description": "A design-foundations system with a four-stage workflow (research → plan → mock → build) and nine auto-triggering pillar skills. The workflow commands take any design idea from brief to viewable artifact: research extracts the brief, plan decomposes it into phased stages with pillar assignments and done-when criteria, mock renders a cheap prototype and gates on user sign-off, build executes the plan with per-phase BUILD → REVIEW → commit dispatch. Nine pillar skills cover the design landscape and are also directly invocable: core visual/surface, usability, content-design, data-viz, deceptive-patterns, behavioral, journey, design-systems, and ai-native.",
   "author": {
     "name": "r"
   },
