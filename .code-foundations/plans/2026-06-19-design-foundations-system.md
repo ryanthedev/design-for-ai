@@ -305,3 +305,10 @@ Summary: Surface mode (device-class taxonomy) committed as the clean validated b
 - [x] Committed
 Commit: a24d62b
 Summary: design-foundations system contract established — conventions doc, authoring template, 8-pillar disjoint-scope taxonomy (cite-down acyclic DAG); core skill now pillar-aware. Build order: usability → {content-design,data-viz} → {deceptive-patterns,behavioral} → {journey,design-systems} → {ai-native + integration}.
+
+### Phase 2: Usability skill (keystone) (Gate: Full)
+- [x] BUILD: skills/usability/ (SKILL.md 936-char desc + usability-principles.md [why-engine] + ui-patterns.md [8 families + bridge]); audit upgraded additively to dispatch heuristic eval; validate 0/0 both
+- [x] REVIEW: PASS — all 5 DW; minor non-blocking citation-parity note on 3 laws
+- [x] Committed
+Commit: 555c4f0
+Summary: Usability keystone shipped — the cite-able principles reference exposes stable per-law anchors (#fittss-law, #hicks-law, #millers-law-revised-to-cowan, etc.) for Phases 4–5; audit now dispatches Nielsen-10 heuristic eval; no regression to visual audit.
