@@ -52,6 +52,32 @@ When audit triggers match but no existing design work is found in the codebase, 
 
 ---
 
+## Pillar skills
+
+This skill is the **visual/aesthetic + surface core** of a multi-skill `design-foundations`
+system. It owns the look (design DNA, fonts, color), the surface/device class, and the
+quality passes (audit, enhance, polish). The other design pillars are **sibling skills** —
+each is its own skill that triggers on its own description; hand off to one when the work is
+about a concern below rather than the visual look. (Each pillar cites usability's laws, never
+the reverse — citation points down, no cycles. Conventions: `docs/foundations-standards.md`;
+full map: `docs/pillar-taxonomy.md`.)
+
+| Sibling pillar | Reach for it when the work is about… |
+|----------------|--------------------------------------|
+| `usability` | Whether users can *operate* it — heuristic evaluation (Nielsen), UX laws (Fitts/Hick/Miller), affordances, cognitive load, nav/form/table/feedback patterns. (The `audit` mode dispatches its heuristic eval.) |
+| `content-design` | The *words* as the interface — UX writing, microcopy, error/empty/button copy, voice & tone. Not visual type (that's `fonts`). |
+| `data-viz` | Encoding *data* truthfully — chart selection, dashboards, data-ink, chartjunk, chart accessibility. Not the brand palette (that's `color`). |
+| `deceptive-patterns` | *Ethics of influence* — the dark-pattern ban-list; the structural twin of `ai-tells`. |
+| `behavioral` | *Why* users act/return/convert — persuasion, habit loops, emotional design. The honest mechanism; its dark version is `deceptive-patterns`. |
+| `journey` | How a user *moves through time* — JTBD, journey maps, IA/sitemaps, flows, page specs, the landing-page persuasion spine (ships a JOURNEY.md companion). |
+| `design-systems` | A look → a *machine* that makes looks — token tiers, components, governance. Extends DESIGN.md, doesn't replace it. |
+| `ai-native` | Agent / LLM-interface design — generative UI, no-fixed-screen interfaces (no settled canon; principle-derived). |
+
+These pillars are authored progressively; a sibling not yet present means its phase hasn't
+shipped. No central router is needed — Claude Code triggers each skill on its own description.
+
+---
+
 ## design
 
 > Context needed: what the user is building and who it's for.
