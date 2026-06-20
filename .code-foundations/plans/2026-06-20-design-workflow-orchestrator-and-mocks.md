@@ -3,7 +3,7 @@
 **Created:** 2026-06-20
 **Status:** in-progress
 **Started:** 2026-06-20 18:20
-**Current Phase:** 2
+**Current Phase:** 3
 **Complexity:** complex
 **Workspace:** branch `feature/design-workflow-orchestrator` (keep; main clean)
 
@@ -283,4 +283,11 @@ Each command is invoked standalone but chains to the next (research → "now run
 Commit: 83b7b37
 Summary: The plugin now has the workflow skeleton — commands/ stubs (research, plan, mock, build), a design-grounded clarify skill, docs/workflow-conventions.md defining the research→plan→mock→build lifecycle + DESIGN.md/JOURNEY.md gates + contrast/token/heuristic done-when vocabulary, and plugin.json at 3.1.0. Phases 2-6 fill in the command bodies and agents against this substrate.
 
-_Remaining phases (2-6) to be filled during /code-foundations:build_
+### Phase 2: research command (Gate: Standard)
+- [x] BUILD: Discovery + design + implementation complete
+- [x] REVIEW: PASS
+- [x] Committed
+Commit: ded6c72
+Summary: commands/research.md is now a full facilitation flow — extracts the design brief (purpose/audience/brand/mood/JTBD/constraints/references), writes a research doc to .code-foundations/research/ with summary+date/status+open-questions, and chains to /design-for-ai:plan. The entry point of the workflow; plan (Phase 3) consumes its research doc.
+
+_Remaining phases (3-6) to be filled during /code-foundations:build_
