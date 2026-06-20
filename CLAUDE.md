@@ -13,6 +13,7 @@ Single entry point: `/design-for-ai`. The skill routes to the right mode based o
 | Mode | What it does |
 |------|-------------|
 | design | Establish foundations, then generate a unique design DNA — archetype → family remix → contrast-checked tokens → DESIGN.md gate |
+| surface | Pick layout patterns and style tokens for a target device class (phone, TV, watch, in-car, kiosk, voice, e-ink) — constraints → patterns → token deltas. Distinct surface *kinds*, where responsive handles width *degree* |
 | fonts | Select, pair, and configure typography |
 | color | Build a color system from color science up |
 | audit | Find what's wrong and explain WHY |
@@ -39,6 +40,7 @@ design-for-ai/
             ├── foundations.md
             ├── techniques.md
             ├── libraries.md        # enhance mode — enhancement ladder, category map, 5 rules
+            ├── surfaces.md         # surface mode — constraint axes, pattern catalog, surface styles, token deltas
             ├── motion.md
             ├── interaction.md
             ├── responsive.md

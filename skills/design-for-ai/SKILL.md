@@ -1,8 +1,8 @@
 ---
 name: design-for-ai
-description: "Visual design principles from Design for Hackers. Use when building or improving UI/frontend design — choosing fonts, building color systems, establishing design direction, generating a unique design system, auditing existing designs, choosing animation/motion/3D libraries to uplift a site, or polishing before shipping. Also use when something 'looks wrong' or 'feels off' about a UI, when designs look generic or AI-generated, or when the user wants theory-backed design guidance rather than vibes. Triggers on: pick fonts, type scale, color palette, design audit, visual hierarchy, spacing feels wrong, looks like a template, redesign, improve the UI, make it look good, needs personality, unique design, design DNA, every design looks the same, uplift my site, add motion, which animation library, GSAP, three.js, scroll animation, what libraries should I use. Not for: graphic design tools (Figma/Sketch), print layout, logo design, illustration, or CSS framework selection."
+description: "Visual design principles from Design for Hackers. Use when building or improving UI/frontend design — choosing fonts, building color systems, establishing design direction, generating a unique design system, designing for a specific device class (phone, TV, watch, in-car, kiosk, voice), auditing designs, choosing animation/motion/3D libraries, or polishing before shipping. Also when something 'looks wrong' or 'feels off', designs look generic or AI-generated, or the user wants theory-backed guidance rather than vibes. Triggers on: pick fonts, type scale, color palette, design audit, visual hierarchy, spacing feels wrong, looks like a template, redesign, improve the UI, needs personality, unique design, design DNA, design for TV, 10-foot UI, watch app layout, in-car UI, kiosk, voice UI, which layout for this device, device type, uplift my site, add motion, which animation library, GSAP, three.js. Not for: graphic design tools (Figma/Sketch), print layout, logo design, illustration, or CSS framework selection."
 user-invocable: true
-argument-hint: "[design|fonts|color|audit|enhance|polish] [context]"
+argument-hint: "[design|surface|fonts|color|audit|enhance|polish] [context]"
 ---
 
 Apply visual design principles from *Design for Hackers*. Every recommendation traces to a specific principle — never "it looks better" without the why.
@@ -35,6 +35,7 @@ Determine what the user needs from their words.
 | Mode | User says something like |
 |------|-------------------------|
 | design | "Starting a project" / "what direction" / "who is this for" / "purpose" / "unique design" / "new design system" / "make it not look AI-generated" (from scratch) |
+| surface | "Design for TV / a watch / the car / a kiosk / voice" / "10-foot UI" / "which layout for this device" / "device type" / "make this work on <device class>" / "e-ink" |
 | fonts | "Pick fonts" / "typography" / "type scale" / "pairing" / "font" / "choose a typeface" |
 | color | "Colors" / "palette" / "color scheme" / "too many colors" / "build a palette" |
 | audit | "Something's off" / "review this" / "what's wrong" / "check" / "audit" / "redesign" / "improve" / "fix" / "no hierarchy" / "nothing holds the eye" / "why does it look AI" / "diagnose" |
@@ -46,6 +47,8 @@ No mode clear → ask what they need, presenting the table.
 When audit triggers match but no existing design work is found in the codebase, suggest running **design** first to establish foundations.
 
 **enhance vs polish**: enhance decides *what to reach for* — which layer/library buys a wanted effect, gated on register and cost. polish is a quality pass on motion/interaction/responsive that already exists. "Which animation library / add a 3D hero" → enhance. "Is my existing motion correct" → polish.
+
+**surface vs responsive (in polish)**: surface picks patterns and tokens for a device *class* that differs in input, viewing distance, or attention (TV, watch, in-car, voice, e-ink). The responsive checks in polish handle width scaling within the screen-web continuum. Different device *kind* → surface. Same input family, different *width* → responsive/polish.
 
 ---
 
@@ -66,7 +69,7 @@ Gather through conversation (2-3 questions per round, wait for answers):
 
 **Round 1:** What are you building? Who is the audience? What problem does it solve?
 
-**Round 2:** Pick 3 words for the personality/feeling. Constraints — framework, accessibility, existing brand assets?
+**Round 2:** Pick 3 words for the personality/feeling. Primary surface — where is this mainly used (phone, desktop, TV, watch, in-car, kiosk, voice)? Constraints — framework, accessibility, existing brand assets?
 
 **Round 3:** Reference site (feel like this) and anti-reference (NOT like this).
 
@@ -76,7 +79,9 @@ Question like a collaborator, not a form:
 - **Switch to confirmatory mode** when the user goes terse ("whatever works", one-word answers): supply your best guess and let them object. "Audience sounds like ops engineers, so I'll treat density as a feature — push back if it's for execs."
 - **Ask about intent and taste** (their knowledge). Derive everything visual yourself (your job).
 
-Gate: purpose, audience, personality words, and register (brand/product) established before continuing.
+Gate: purpose, audience, personality words, primary surface, and register (brand/product) established before continuing.
+
+If the primary surface is non-screen-web (TV, watch, automotive, voice, e-ink) or the user needs device-class layout patterns, run **surface** (or read `${CLAUDE_SKILL_DIR}/references/surfaces.md`) before locking DNA — the surface constrains which layouts and tokens are valid.
 
 ### 2. Archetype
 
@@ -113,6 +118,31 @@ For the chosen candidate:
 ```
 
 Suggest next step — fonts to finalize the type scale, or straight to implementation against DESIGN.md.
+
+---
+
+## surface
+
+> Context needed: the primary surface (device class) the design targets, plus any secondary surfaces it must serve.
+
+Decide which **layout patterns and style tokens** fit the target surface — phone, tablet, desktop, ultrawide, TV/10-foot, watch, automotive, kiosk, AR/spatial, voice, or e-ink. The surface's physical constraints (viewport, input model, viewing distance, attention) gate what's valid; this mode picks patterns that fit and tunes tokens to the constraints. Library- and framework-agnostic — principles first.
+
+Read:
+- `${CLAUDE_SKILL_DIR}/references/surfaces.md`
+- `${CLAUDE_SKILL_DIR}/references/responsive.md` (the width-scaling rules each chosen pattern degrades along, within the screen-web surfaces)
+
+If a DESIGN.md exists, re-read it first — register and existing tokens constrain the expression.
+
+Follow the procedure in `surfaces.md`:
+
+1. **Name the primary surface**; note secondary surfaces it must serve.
+2. **Read its constraint profile** — the hard constraint is the one that kills patterns.
+3. **Select Layer-1 patterns** that fit; note each pattern's degraded form on secondary surfaces (that degraded form is the responsive plan, built up per responsive.md).
+4. **Apply the Layer-2 style deltas** — base type, target size, density, motion budget, contrast posture.
+5. **Layer register on top** — brand/product expression inside the envelope the surface allows.
+6. **Validate cross-surface** — every primary pattern has a defined degraded form on each secondary surface.
+
+Output: the chosen surface(s), a pattern selection (pattern → why it fits this surface, citing the constraint), the token-deltas table for the surface, and any surface-mismatch red flags found. Suggest **design** to establish DNA if none exists, or **polish** to quality-check the built result.
 
 ---
 
