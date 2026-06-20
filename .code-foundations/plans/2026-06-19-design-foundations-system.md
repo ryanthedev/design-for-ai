@@ -1,9 +1,10 @@
 # Plan: design-foundations system — multi-skill pillar build-out
 
 **Created:** 2026-06-19
-**Status:** in-progress
+**Status:** complete
 **Started:** 2026-06-19
-**Current Phase:** 0
+**Completed:** 2026-06-19
+**Current Phase:** 7/7 (done)
 **Complexity:** complex
 **Workspace:** branch `feature/design-foundations-system` (main clean)
 
@@ -333,3 +334,10 @@ Summary: The ethics/persuasion pair shipped same-tools-opposite-intent — decep
 - [x] Committed
 Commit: 576dff7
 Summary: Flow + systematic-design pillars shipped. 7 of 8 pillar skills now live (usability, content-design, data-viz, deceptive-patterns, behavioral, journey, design-systems). Remaining for Phase 6: ai-native skill + full-system integration (cross-links, plugin.json v3.0.0, comprehensive cannibalization sweep to resolve deferred trigger PARTIALs, run_eval, docs).
+
+### Phase 6: AI-native skill + system integration (Gate: Full)
+- [x] BUILD: skills/ai-native/ (1023-char desc + ai-native-principles.md + ai-native-caveats.md, "no settled canon" flagged 6×); plugin.json v3.0.0; CLAUDE.md + README reworked; all 9 skills validate 0/0, all desc ≤1024; graph acyclic; core Phase-0 miss fixed (3/3); usability/evals.json + run_eval (1.00 vs 0.50 on discipline eval)
+- [x] REVIEW: PASS (with note) — all 7 DW met; LOOSE END: deceptive-patterns optimize_description candidate (943 chars) not written back, live desc still 1018 chars w/ audit/review tokens → collision-resolution only partially evidenced (non-blocking, validates 0/0)
+- [x] Committed
+Commit: 4f44b5f
+Summary: design-foundations system COMPLETE — 8 pillar skills + core, v3.0.0, all validate 0/0, acyclic cite-down graph. Open follow-up: tighten the deceptive-patterns↔audit trigger evidence (write back the optimized description or re-run the sweep).
