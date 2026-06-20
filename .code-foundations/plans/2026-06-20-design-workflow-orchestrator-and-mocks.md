@@ -3,7 +3,7 @@
 **Created:** 2026-06-20
 **Status:** in-progress
 **Started:** 2026-06-20 18:20
-**Current Phase:** 4
+**Current Phase:** 5
 **Complexity:** complex
 **Workspace:** branch `feature/design-workflow-orchestrator` (keep; main clean)
 
@@ -297,4 +297,11 @@ Summary: commands/research.md is now a full facilitation flow — extracts the d
 Commit: baf74fa
 Summary: commands/plan.md now turns a research doc into a phased DESIGN plan — phases carry a Discover/Design stage, a Skills field naming matched pillars, and design done-when vocabulary; lifecycle DAG acyclic; Design gated behind locked DESIGN.md, flows behind JOURNEY.md; mid-lifecycle resume; chains to mock. The mock + build commands (Phase 5) consume the plan this produces.
 
-_Remaining phases (4-6) to be filled during /code-foundations:build_
+### Phase 4: the two agents — design-build-agent + design-review-agent (Gate: Full)
+- [x] BUILD: Discovery + design + implementation complete
+- [x] REVIEW: PASS
+- [x] Committed
+Commit: f768e8a
+Summary: agents/design-build-agent.md (produces design artifacts honoring DESIGN.md gates, validates via palette.mjs contrast/render/token evidence) and agents/design-review-agent.md (independent, zero-intent-framing, triage→dispatch→synthesize ONE cross-pillar report on rendered pixels, cap+name-deferred). Audit-conductor folded into the review agent; core SKILL.md reverted to pre-pivot (1dc8f13). Phase 5's mock + build commands dispatch these two agents.
+
+_Remaining phases (5-6) to be filled during /code-foundations:build_
