@@ -319,3 +319,10 @@ Summary: Usability keystone shipped — the cite-able principles reference expos
 - [x] Committed
 Commit: a813d3b
 Summary: Two independent design-layer pillar skills shipped (content-design = words-as-interface; data-viz = truthful data encoding), disjoint from each other and core fonts/color. Positive-recall optimize_description tuning deferred to Phase 6 sweep.
+
+### Phase 4: Ethics + Behavioral skills (Gate: Standard)
+- [x] BUILD: skills/deceptive-patterns/ (982-char desc; dark-patterns.md twin-linked to ai-tells + honest-alternatives.md) and skills/behavioral/ (947-char desc; behavioral-principles.md + ethical-application.md citing usability anchors); validate 0/0 both
+- [x] REVIEW: PASS — all 4 DW; bidirectional paired framing verified; ai-tells twin distinct not duplicate
+- [x] Committed
+Commit: 9e4ee9f
+Summary: The ethics/persuasion pair shipped same-tools-opposite-intent — deceptive-patterns (dark-pattern ban-list, twin of ai-tells) and behavioral (honest mechanism, cites usability laws, guarded by deceptive-patterns). 3 'audit'-phrasing trigger collisions deferred to Phase 6 sweep.
