@@ -312,3 +312,10 @@ Summary: design-foundations system contract established — conventions doc, aut
 - [x] Committed
 Commit: 555c4f0
 Summary: Usability keystone shipped — the cite-able principles reference exposes stable per-law anchors (#fittss-law, #hicks-law, #millers-law-revised-to-cowan, etc.) for Phases 4–5; audit now dispatches Nielsen-10 heuristic eval; no regression to visual audit.
+
+### Phase 3: Content-design + Data-viz skills (Gate: Standard)
+- [x] BUILD: skills/content-design/ (827-char desc + content-principles.md + microcopy-patterns.md) and skills/data-viz/ (849-char desc + viz-principles.md + chart-selection.md); validate 0/0 both
+- [x] REVIEW: PASS — all 4 DW; disjointness verified (content-design→words/redirect fonts; data-viz→data/redirect color)
+- [x] Committed
+Commit: a813d3b
+Summary: Two independent design-layer pillar skills shipped (content-design = words-as-interface; data-viz = truthful data encoding), disjoint from each other and core fonts/color. Positive-recall optimize_description tuning deferred to Phase 6 sweep.
