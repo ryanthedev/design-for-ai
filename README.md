@@ -6,7 +6,11 @@ This plugin teaches Claude the design vocabulary it's missing. Not "make it pret
 
 Based on *Design for Hackers* by David Kadavy. Nine chapters of design theory, distilled into reference files that Claude loads on demand.
 
-## One command, six modes
+## A design-foundations system
+
+As of **v3.0.0**, this is no longer a single skill — it's a multi-skill **design-foundations** system. The `design-for-ai` core still owns the visual/aesthetic layer (the modes below). Around it sit eight pillar skills, each its own skill that Claude triggers on its own description. There's no router to learn: ask for what you need, and the right skill answers. Every skill cites its principles, and citation points *down* to `usability` — the dependency graph is acyclic.
+
+### The core: one command, the visual modes
 
 ```
 /design-for-ai
@@ -17,16 +21,33 @@ Tell it what you need. It figures out the mode.
 | Mode | What happens |
 |------|-------------|
 | **design** | Interviews you about purpose, audience, and personality, then generates a unique design DNA: brand archetype → aesthetic-family remix → three named candidates with real contrast-checked palettes → a DESIGN.md that gets locked before any code is written |
+| **surface** | Picks layout patterns and style tokens for a device class — phone, TV, watch, in-car, kiosk, voice, e-ink — from each surface's input, distance, and attention constraints |
 | **fonts** | Picks typefaces by analyzing the rendering medium, letter structure, and pairing compatibility, not by reaching for Inter |
 | **color** | Builds a palette from color science: color wheel relationships, warm/cool depth, hue-shifted shadows, colorblind safety |
-| **audit** | Runs a 10-section design review. Names the problem, cites the principle, shows the fix |
+| **audit** | Runs a 10-section design review. Names the problem, cites the principle, shows the fix — and dispatches the `usability` skill for operability findings |
 | **enhance** | Decides *what to reach for* to uplift a site: which library buys a wanted effect (motion, scroll, 3D), gated on register and cost. Library-agnostic: names categories and current examples, never pins a version |
 | **polish** | Final pass: motion timing, all 8 interaction states, responsive behavior, and the AI-tells sweep |
+
+### The pillar skills
+
+Each is its own skill — trigger it by asking about its concern. No `/`-prefix needed; Claude routes by what you say.
+
+| Pillar | Reach for it when… |
+|--------|--------------------|
+| **usability** | "is this usable", "where do users get stuck", a heuristic evaluation, a UX law (Fitts/Hick/Miller), affordances, cognitive load, picking a nav/form/table/feedback pattern. The keystone the others cite |
+| **content-design** | the *words* are the interface — UX writing, microcopy, error/empty/button copy, voice & tone |
+| **data-viz** | encoding *data* — which chart, dashboards, data-ink/chartjunk, truthful encoding, chart accessibility |
+| **deceptive-patterns** | dark patterns, manipulative UX, an ethical design review, regulatory exposure (DSA/FTC). The twin of the AI-tells ban-list |
+| **behavioral** | *why* users act/return/convert — persuasion (Cialdini), the Fogg model, habit loops, emotional design. The honest mechanism |
+| **journey** | how a user *moves through time* — JTBD, journey maps, IA/sitemaps, user flows, page specs. Ships a JOURNEY.md |
+| **design-systems** | a look → a *machine* — design tokens, atomic components, governance. Extends DESIGN.md |
+| **ai-native** | agent/LLM-interface design — agent UX, generative UI, no-fixed-screen interfaces. Principle-derived; **no settled canon yet** |
 
 ### Direct mode
 
 ```
 /design-for-ai fonts
+/design-for-ai surface
 /design-for-ai audit
 /design-for-ai enhance
 /design-for-ai polish
@@ -66,6 +87,8 @@ LLMs sample the statistical center of their training data. That's why every AI s
 ```
 
 Update: `/plugin update design-for-ai@rtd`
+
+The current version is **3.0.0** — the multi-skill design-foundations system. The install path is unchanged from earlier versions: all nine skills (the core plus eight pillars) are auto-discovered from the plugin's `skills/` directory.
 
 ## License
 

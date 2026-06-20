@@ -1,10 +1,10 @@
 {
   "name": "design-for-ai",
-  "version": "2.1.0",
-  "description": "Visual design principles for AI and developers — typography, color, composition, proportions, visual hierarchy, motion, interaction, and responsive design. Single entry point with modes: design, fonts, color, audit, enhance, polish.",
+  "version": "3.0.0",
+  "description": "A design-foundations system for AI and developers — a multi-skill plugin where each design pillar is its own skill. Core (design-for-ai) owns the visual/aesthetic + surface layer (typography, color, composition, hierarchy, device-class patterns, motion, audit, enhance, polish). Eight pillar skills cover the rest: usability, content-design, data-viz, deceptive-patterns, behavioral, journey, design-systems, and ai-native. Each skill triggers on its own description and cites its principles; skills are auto-discovered from the skills/ directory.",
   "author": {
     "name": "r"
   },
   "license": "MIT",
-  "keywords": ["design", "typography", "color-theory", "visual-hierarchy", "composition", "proportions", "ui-design"]
+  "keywords": ["design", "typography", "color-theory", "visual-hierarchy", "composition", "usability", "ux-writing", "data-visualization", "dark-patterns", "behavioral-design", "user-journey", "design-systems", "ai-native", "agent-ux", "ui-design"]
 }

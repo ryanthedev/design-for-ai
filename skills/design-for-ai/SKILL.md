@@ -1,8 +1,8 @@
 ---
 name: design-for-ai
-description: "Visual design principles from Design for Hackers. Use when building or improving UI/frontend design — choosing fonts, building color systems, establishing design direction, generating a unique design system, auditing existing designs, choosing animation/motion/3D libraries to uplift a site, or polishing before shipping. Also use when something 'looks wrong' or 'feels off' about a UI, when designs look generic or AI-generated, or when the user wants theory-backed design guidance rather than vibes. Triggers on: pick fonts, type scale, color palette, design audit, visual hierarchy, spacing feels wrong, looks like a template, redesign, improve the UI, make it look good, needs personality, unique design, design DNA, every design looks the same, uplift my site, add motion, which animation library, GSAP, three.js, scroll animation, what libraries should I use. Not for: graphic design tools (Figma/Sketch), print layout, logo design, illustration, or CSS framework selection."
+description: "Visual design principles from Design for Hackers — the visual + surface core of a design-foundations system. Use when building or improving UI/frontend visual design: choosing fonts, building color systems, establishing a unique design direction or design DNA, designing for a device class (phone, TV, watch, in-car, kiosk, voice), auditing designs, choosing animation/motion/3D libraries, or polishing before shipping. Also when something 'looks wrong' or 'feels off', or a design looks generic or AI-generated. Triggers on: pick fonts, color palette, design audit, visual hierarchy, redesign, unique design, 10-foot UI, device layout, add motion, which animation library, GSAP, three.js. Not for: graphic-design tools (Figma/Sketch), print, logos, illustration; or sibling-pillar concerns — operability (usability), UX writing (content-design), chart/data encoding (data-viz), dark patterns (deceptive-patterns), user flows and journey maps (journey), design tokens (design-systems), agent/LLM interfaces (ai-native)."
 user-invocable: true
-argument-hint: "[design|fonts|color|audit|enhance|polish] [context]"
+argument-hint: "[design|surface|fonts|color|audit|enhance|polish] [context]"
 ---
 
 Apply visual design principles from *Design for Hackers*. Every recommendation traces to a specific principle — never "it looks better" without the why.
@@ -35,6 +35,7 @@ Determine what the user needs from their words.
 | Mode | User says something like |
 |------|-------------------------|
 | design | "Starting a project" / "what direction" / "who is this for" / "purpose" / "unique design" / "new design system" / "make it not look AI-generated" (from scratch) |
+| surface | "Design for TV / a watch / the car / a kiosk / voice" / "10-foot UI" / "which layout for this device" / "device type" / "make this work on <device class>" / "e-ink" |
 | fonts | "Pick fonts" / "typography" / "type scale" / "pairing" / "font" / "choose a typeface" |
 | color | "Colors" / "palette" / "color scheme" / "too many colors" / "build a palette" |
 | audit | "Something's off" / "review this" / "what's wrong" / "check" / "audit" / "redesign" / "improve" / "fix" / "no hierarchy" / "nothing holds the eye" / "why does it look AI" / "diagnose" |
@@ -46,6 +47,34 @@ No mode clear → ask what they need, presenting the table.
 When audit triggers match but no existing design work is found in the codebase, suggest running **design** first to establish foundations.
 
 **enhance vs polish**: enhance decides *what to reach for* — which layer/library buys a wanted effect, gated on register and cost. polish is a quality pass on motion/interaction/responsive that already exists. "Which animation library / add a 3D hero" → enhance. "Is my existing motion correct" → polish.
+
+**surface vs responsive (in polish)**: surface picks patterns and tokens for a device *class* that differs in input, viewing distance, or attention (TV, watch, in-car, voice, e-ink). The responsive checks in polish handle width scaling within the screen-web continuum. Different device *kind* → surface. Same input family, different *width* → responsive/polish.
+
+---
+
+## Pillar skills
+
+This skill is the **visual/aesthetic + surface core** of a multi-skill `design-foundations`
+system. It owns the look (design DNA, fonts, color), the surface/device class, and the
+quality passes (audit, enhance, polish). The other design pillars are **sibling skills** —
+each is its own skill that triggers on its own description; hand off to one when the work is
+about a concern below rather than the visual look. (Each pillar cites usability's laws, never
+the reverse — citation points down, no cycles. Conventions: `docs/foundations-standards.md`;
+full map: `docs/pillar-taxonomy.md`.)
+
+| Sibling pillar | Reach for it when the work is about… |
+|----------------|--------------------------------------|
+| `usability` | Whether users can *operate* it — heuristic evaluation (Nielsen), UX laws (Fitts/Hick/Miller), affordances, cognitive load, nav/form/table/feedback patterns. (The `audit` mode dispatches its heuristic eval.) |
+| `content-design` | The *words* as the interface — UX writing, microcopy, error/empty/button copy, voice & tone. Not visual type (that's `fonts`). |
+| `data-viz` | Encoding *data* truthfully — chart selection, dashboards, data-ink, chartjunk, chart accessibility. Not the brand palette (that's `color`). |
+| `deceptive-patterns` | *Ethics of influence* — the dark-pattern ban-list; the structural twin of `ai-tells`. |
+| `behavioral` | *Why* users act/return/convert — persuasion, habit loops, emotional design. The honest mechanism; its dark version is `deceptive-patterns`. |
+| `journey` | How a user *moves through time* — JTBD, journey maps, IA/sitemaps, flows, page specs, the landing-page persuasion spine (ships a JOURNEY.md companion). |
+| `design-systems` | A look → a *machine* that makes looks — token tiers, components, governance. Extends DESIGN.md, doesn't replace it. |
+| `ai-native` | Agent / LLM-interface design — generative UI, no-fixed-screen interfaces (no settled canon; principle-derived). |
+
+These pillars are authored progressively; a sibling not yet present means its phase hasn't
+shipped. No central router is needed — Claude Code triggers each skill on its own description.
 
 ---
 
@@ -66,7 +95,7 @@ Gather through conversation (2-3 questions per round, wait for answers):
 
 **Round 1:** What are you building? Who is the audience? What problem does it solve?
 
-**Round 2:** Pick 3 words for the personality/feeling. Constraints — framework, accessibility, existing brand assets?
+**Round 2:** Pick 3 words for the personality/feeling. Primary surface — where is this mainly used (phone, desktop, TV, watch, in-car, kiosk, voice)? Constraints — framework, accessibility, existing brand assets?
 
 **Round 3:** Reference site (feel like this) and anti-reference (NOT like this).
 
@@ -76,7 +105,9 @@ Question like a collaborator, not a form:
 - **Switch to confirmatory mode** when the user goes terse ("whatever works", one-word answers): supply your best guess and let them object. "Audience sounds like ops engineers, so I'll treat density as a feature — push back if it's for execs."
 - **Ask about intent and taste** (their knowledge). Derive everything visual yourself (your job).
 
-Gate: purpose, audience, personality words, and register (brand/product) established before continuing.
+Gate: purpose, audience, personality words, primary surface, and register (brand/product) established before continuing.
+
+If the primary surface is non-screen-web (TV, watch, automotive, voice, e-ink) or the user needs device-class layout patterns, run **surface** (or read `${CLAUDE_SKILL_DIR}/references/surfaces.md`) before locking DNA — the surface constrains which layouts and tokens are valid.
 
 ### 2. Archetype
 
@@ -113,6 +144,31 @@ For the chosen candidate:
 ```
 
 Suggest next step — fonts to finalize the type scale, or straight to implementation against DESIGN.md.
+
+---
+
+## surface
+
+> Context needed: the primary surface (device class) the design targets, plus any secondary surfaces it must serve.
+
+Decide which **layout patterns and style tokens** fit the target surface — phone, tablet, desktop, ultrawide, TV/10-foot, watch, automotive, kiosk, AR/spatial, voice, or e-ink. The surface's physical constraints (viewport, input model, viewing distance, attention) gate what's valid; this mode picks patterns that fit and tunes tokens to the constraints. Library- and framework-agnostic — principles first.
+
+Read:
+- `${CLAUDE_SKILL_DIR}/references/surfaces.md`
+- `${CLAUDE_SKILL_DIR}/references/responsive.md` (the width-scaling rules each chosen pattern degrades along, within the screen-web surfaces)
+
+If a DESIGN.md exists, re-read it first — register and existing tokens constrain the expression.
+
+Follow the procedure in `surfaces.md`:
+
+1. **Name the primary surface**; note secondary surfaces it must serve.
+2. **Read its constraint profile** — the hard constraint is the one that kills patterns.
+3. **Select Layer-1 patterns** that fit; note each pattern's degraded form on secondary surfaces (that degraded form is the responsive plan, built up per responsive.md).
+4. **Apply the Layer-2 style deltas** — base type, target size, density, motion budget, contrast posture.
+5. **Layer register on top** — brand/product expression inside the envelope the surface allows.
+6. **Validate cross-surface** — every primary pattern has a defined degraded form on each secondary surface.
+
+Output: the chosen surface(s), a pattern selection (pattern → why it fits this surface, citing the constraint), the token-deltas table for the surface, and any surface-mismatch red flags found. Suggest **design** to establish DNA if none exists, or **polish** to quality-check the built result.
 
 ---
 
@@ -175,9 +231,9 @@ Output: color tokens (CSS custom properties from the script), accessibility note
 
 > Context needed: the codebase or design files to review.
 
-Systematic design review.
+Systematic design review. This mode owns the **visual** audit — typography, color, composition, hierarchy, identity. When the finding is about whether users can *operate* the interface (heuristic evaluation, UX laws, affordances, cognitive load, pattern fit), dispatch to the **`usability` sibling skill** and run its heuristic evaluation (Nielsen's 10 + the 0–4 severity scale, per its `references/usability-principles.md`); fold its findings into the same severity-sorted table. The visual audit below stays here unchanged — usability is referenced, not relocated.
 
-Read `${CLAUDE_SKILL_DIR}/references/checklists.md` for the full checklist and decision trees.
+Read `${CLAUDE_SKILL_DIR}/references/checklists.md` for the full visual checklist and decision trees.
 
 Work through each section. For the **top 2-3 sections with the worst findings**, load the chapter reference to ground the diagnosis:
 
@@ -193,8 +249,9 @@ Work through each section. For the **top 2-3 sections with the worst findings**,
 | Motion & interaction | `motion.md`, `interaction.md` |
 | Responsive | `responsive.md` |
 | Design identity | `ai-tells.md` |
+| Usability & heuristics (operability) | → the **`usability`** skill (Nielsen 10 + severity; not a local reference file) |
 
-All paths relative to `${CLAUDE_SKILL_DIR}/references/`.
+All chapter/reference paths relative to `${CLAUDE_SKILL_DIR}/references/`; the usability row dispatches to the sibling skill.
 
 For cross-cutting issues, consult `${CLAUDE_SKILL_DIR}/references/techniques.md` for transformation patterns.
 
