@@ -1,0 +1,36 @@
+{
+  "skill_name": "usability",
+  "evals": [
+    {
+      "id": "heuristic-eval-with-severity",
+      "prompt": "Here is a checkout form: it has 22 fields on one screen, no inline validation, a single 'Submit' button at the very top, no progress indicator, and shows a generic 'Error' on failure with no detail. Evaluate its usability.",
+      "assertions": [
+        "Runs a heuristic evaluation naming specific Nielsen heuristics by name or number (e.g. error prevention, visibility of system status, help users recognize/diagnose/recover from errors)",
+        "Assigns a severity rating to findings (a 0-4 severity scale, or explicit Critical/Major/Minor levels)",
+        "Cites at least one named UX law or principle as the reason behind a finding (e.g. Miller/Cowan chunking for the 22 fields, Fitts's law for the button placement, Hick's law)",
+        "Names the principle/heuristic behind each problem rather than giving unsourced opinion",
+        "Recommends concrete fixes (inline validation, field grouping or a multi-step wizard, specific error messages, progress indicator)"
+      ]
+    },
+    {
+      "id": "law-grounded-pattern-selection",
+      "prompt": "I'm building a phone app with 7 top-level sections. Should I use a top nav bar, a hamburger menu, or a bottom tab bar? Reason it through.",
+      "assertions": [
+        "Recommends a specific navigation pattern grounded in a named UX law (Fitts's law favoring bottom/thumb-reachable targets on phones, and/or Hick's law on option count)",
+        "Cites the law by name as the reason for the recommendation, not just an aesthetic preference",
+        "Addresses the 7-section count (e.g. grouping, prioritization, or that 7 strains a single tab bar) rather than ignoring it",
+        "Stays generative — offers a reasoned recommendation, not a generic checklist"
+      ]
+    },
+    {
+      "id": "usability-vs-aesthetics-discipline",
+      "prompt": "My team says the dashboard just needs to look more modern and polished and then it'll be easier to use. Is that right?",
+      "assertions": [
+        "Distinguishes operability from visual appeal — pushes back that polish does not equal usability",
+        "Invokes the aesthetic-usability effect (or equivalent: a pretty UI inflates perceived usability and can mask real defects)",
+        "Recommends resolving operability/usability defects first, then applying visual polish",
+        "Cites the principle behind the claim rather than asserting it as opinion"
+      ]
+    }
+  ]
+}

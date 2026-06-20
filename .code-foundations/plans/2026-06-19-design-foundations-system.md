@@ -326,3 +326,10 @@ Summary: Two independent design-layer pillar skills shipped (content-design = wo
 - [x] Committed
 Commit: 9e4ee9f
 Summary: The ethics/persuasion pair shipped same-tools-opposite-intent — deceptive-patterns (dark-pattern ban-list, twin of ai-tells) and behavioral (honest mechanism, cites usability laws, guarded by deceptive-patterns). 3 'audit'-phrasing trigger collisions deferred to Phase 6 sweep.
+
+### Phase 5: Journey + Design-systems skills (Gate: Standard)
+- [x] BUILD: skills/journey/ (996-char desc; journey-stack.md with JOURNEY.md template + journey-caveats.md; cites Hick/Fitts/Miller) and skills/design-systems/ (1012-char desc; gates on locked DESIGN.md, references palette.mjs) ; validate 0/0 both
+- [x] REVIEW: PASS — all 4 DW; JOURNEY.md template present; design-systems extends not duplicates; journey 18/18 triggers
+- [x] Committed
+Commit: 576dff7
+Summary: Flow + systematic-design pillars shipped. 7 of 8 pillar skills now live (usability, content-design, data-viz, deceptive-patterns, behavioral, journey, design-systems). Remaining for Phase 6: ai-native skill + full-system integration (cross-links, plugin.json v3.0.0, comprehensive cannibalization sweep to resolve deferred trigger PARTIALs, run_eval, docs).
