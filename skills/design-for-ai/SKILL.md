@@ -231,9 +231,9 @@ Output: color tokens (CSS custom properties from the script), accessibility note
 
 > Context needed: the codebase or design files to review.
 
-Systematic design review.
+Systematic design review. This mode owns the **visual** audit — typography, color, composition, hierarchy, identity. When the finding is about whether users can *operate* the interface (heuristic evaluation, UX laws, affordances, cognitive load, pattern fit), dispatch to the **`usability` sibling skill** and run its heuristic evaluation (Nielsen's 10 + the 0–4 severity scale, per its `references/usability-principles.md`); fold its findings into the same severity-sorted table. The visual audit below stays here unchanged — usability is referenced, not relocated.
 
-Read `${CLAUDE_SKILL_DIR}/references/checklists.md` for the full checklist and decision trees.
+Read `${CLAUDE_SKILL_DIR}/references/checklists.md` for the full visual checklist and decision trees.
 
 Work through each section. For the **top 2-3 sections with the worst findings**, load the chapter reference to ground the diagnosis:
 
@@ -249,8 +249,9 @@ Work through each section. For the **top 2-3 sections with the worst findings**,
 | Motion & interaction | `motion.md`, `interaction.md` |
 | Responsive | `responsive.md` |
 | Design identity | `ai-tells.md` |
+| Usability & heuristics (operability) | → the **`usability`** skill (Nielsen 10 + severity; not a local reference file) |
 
-All paths relative to `${CLAUDE_SKILL_DIR}/references/`.
+All chapter/reference paths relative to `${CLAUDE_SKILL_DIR}/references/`; the usability row dispatches to the sibling skill.
 
 For cross-cutting issues, consult `${CLAUDE_SKILL_DIR}/references/techniques.md` for transformation patterns.
 

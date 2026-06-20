@@ -298,3 +298,10 @@
 - [x] Committed
 Commit: da229b3
 Summary: Surface mode (device-class taxonomy) committed as the clean validated baseline; plugin at 2.2.0; core description at 1023/1024 chars (ceiling confirmed — the constraint the multi-skill system dissolves).
+
+### Phase 1: Foundation scaffolding (Gate: Full)
+- [x] BUILD: created docs/foundations-standards.md, docs/skill-authoring-template.md, docs/pillar-taxonomy.md; added pillar-aware index to core SKILL.md; verified multi-skill-plugin assumption (independent triggering, no central router)
+- [x] REVIEW: PASS — all 5 DW verified; note: core description at 1023/1024 (zero margin, resolved Phase 6)
+- [x] Committed
+Commit: a24d62b
+Summary: design-foundations system contract established — conventions doc, authoring template, 8-pillar disjoint-scope taxonomy (cite-down acyclic DAG); core skill now pillar-aware. Build order: usability → {content-design,data-viz} → {deceptive-patterns,behavioral} → {journey,design-systems} → {ai-native + integration}.
