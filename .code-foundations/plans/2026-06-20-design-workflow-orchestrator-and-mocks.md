@@ -1,9 +1,10 @@
 # Plan: design-foundations workflow — a code-foundations-style design pipeline
 
 **Created:** 2026-06-20
-**Status:** in-progress
+**Status:** complete
 **Started:** 2026-06-20 18:20
-**Current Phase:** 6
+**Completed:** 2026-06-20 18:45
+**Current Phase:** 6 (done)
 **Complexity:** complex
 **Workspace:** branch `feature/design-workflow-orchestrator` (keep; main clean)
 
@@ -311,4 +312,11 @@ Summary: agents/design-build-agent.md (produces design artifacts honoring DESIGN
 Commit: 3ad5e4b
 Summary: commands/mock.md (cheap checkpoint — build-agent renders a mock via prototype, review-agent validates the pixels, mandatory sign-off gate: approve→build / reject→plan) and commands/build.md (full gated execution mirroring code-foundations — worktree gate, per-phase BUILD→REVIEW→commit dispatching the two design agents, gate resolution, execution log, trust report). The research→plan→mock→build spine is now complete end to end. Phase 6 integrates docs + an e2e dry run.
 
-_Remaining phase (6) to be filled during /code-foundations:build_
+### Phase 6: integration — wire-up, docs, end-to-end dry run (Gate: Standard)
+- [x] BUILD: Discovery + design + implementation complete
+- [x] REVIEW: PASS
+- [x] Committed
+Commit: 1bccb07
+Summary: CLAUDE.md + README.md + docs/pillar-taxonomy.md repositioned around the research→plan→mock→build workflow with the pillar dual-role documented; prototype's stale audit-conductor refs repointed to design-review-agent; validate_skill clean across all 11 skills; e2e dry-run trace confirms all 4 handoffs + both agent dispatches. The workflow system is complete and integrated.
+
+_All phases complete._
