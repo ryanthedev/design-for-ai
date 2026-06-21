@@ -12,7 +12,7 @@ Prototype turns design tokens and page specs into a viewable artifact — a sing
 - "Show me what it looks like" / "make a mock" / "build a prototype" / "render a wireframe"
 - Visualizing a page from a JOURNEY.md page spec
 - Checking token application before writing production code
-- Supplying a screenshot for the audit conductor (Phase 2) to critique
+- Supplying a screenshot for the design-review-agent to critique
 
 ## Procedure
 
@@ -57,7 +57,7 @@ Detection: if `browser_connect` fails, fall to the fallback. Never block on MCP 
 
 ### 4. Handoff
 
-Suggest `audit` (core design) to critique the rendered result once the mock is open.
+Suggest running `/design-for-ai:mock` (which dispatches the `design-review-agent`) to critique the rendered result, or `build` for a full gated review.
 
 ## References
 

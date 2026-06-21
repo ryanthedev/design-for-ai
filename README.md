@@ -8,7 +8,24 @@ Based on *Design for Hackers* by David Kadavy. Nine chapters of design theory, d
 
 ## A design-foundations system
 
-As of **v3.0.0**, this is no longer a single skill — it's a multi-skill **design-foundations** system. The `design-for-ai` core still owns the visual/aesthetic layer (the modes below). Around it sit eight pillar skills, each its own skill that Claude triggers on its own description. There's no router to learn: ask for what you need, and the right skill answers. Every skill cites its principles, and citation points *down* to `usability` — the dependency graph is acyclic.
+As of **v3.1.0**, this is a **design-foundations system** with two front doors: a four-stage workflow that takes any design idea from brief to viewable artifact, and nine pillar skills that can be invoked directly for focused questions.
+
+## The workflow
+
+```
+/design-for-ai:research → /design-for-ai:plan → /design-for-ai:mock → /design-for-ai:build
+```
+
+Start with an idea — vague is fine. The workflow takes it from brief to gated, committed design artifacts.
+
+| Command | What happens |
+|---------|-------------|
+| **research** | Facilitates the design brief: who's it for, what should it feel like, what's the job it does. Saves a research doc. |
+| **plan** | Turns the brief into a phased design plan: Discover (journey/IA/flows) → Design (DNA/tokens/system/words). Assigns pillar skills per phase, sets design done-when criteria. |
+| **mock** | Renders a throwaway-fidelity prototype from the plan direction and runs a cheap cross-pillar validation on the real pixels. Gates on your sign-off before committing to the full build. |
+| **build** | Executes the approved plan phase by phase — each phase: `BUILD → REVIEW → commit` with dispatched subagents, design execution evidence (contrast/tokens/heuristic), and a final trust report. |
+
+The pillar skills are the workflow's doctrine library: each `build` phase's agents load the matched pillar skills, so a cross-pillar review of real rendered pixels becomes a workflow stage, not a trigger guess.
 
 ### The core: one command, the visual modes
 
@@ -30,7 +47,7 @@ Tell it what you need. It figures out the mode.
 
 ### The pillar skills
 
-Each is its own skill — trigger it by asking about its concern. No `/`-prefix needed; Claude routes by what you say.
+Each is its own skill — trigger it by asking about its concern. No `/`-prefix needed; Claude routes by what you say. All pillars are also loaded per-phase by the workflow's dispatched agents — the two roles are orthogonal.
 
 | Pillar | Reach for it when… |
 |--------|--------------------|
@@ -88,7 +105,7 @@ LLMs sample the statistical center of their training data. That's why every AI s
 
 Update: `/plugin update design-for-ai@rtd`
 
-The current version is **3.0.0** — the multi-skill design-foundations system. The install path is unchanged from earlier versions: all nine skills (the core plus eight pillars) are auto-discovered from the plugin's `skills/` directory.
+The current version is **3.1.0** — the `research → plan → mock → build` workflow on top of the multi-skill design-foundations system. The install path is unchanged: all skills (the core, nine pillars, and the workflow commands) are auto-discovered from the plugin's `skills/` and `commands/` directories.
 
 ## License
 

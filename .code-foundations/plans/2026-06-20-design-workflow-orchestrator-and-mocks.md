@@ -3,7 +3,7 @@
 **Created:** 2026-06-20
 **Status:** in-progress
 **Started:** 2026-06-20 18:20
-**Current Phase:** 5
+**Current Phase:** 6
 **Complexity:** complex
 **Workspace:** branch `feature/design-workflow-orchestrator` (keep; main clean)
 
@@ -304,4 +304,11 @@ Summary: commands/plan.md now turns a research doc into a phased DESIGN plan —
 Commit: f768e8a
 Summary: agents/design-build-agent.md (produces design artifacts honoring DESIGN.md gates, validates via palette.mjs contrast/render/token evidence) and agents/design-review-agent.md (independent, zero-intent-framing, triage→dispatch→synthesize ONE cross-pillar report on rendered pixels, cap+name-deferred). Audit-conductor folded into the review agent; core SKILL.md reverted to pre-pivot (1dc8f13). Phase 5's mock + build commands dispatch these two agents.
 
-_Remaining phases (5-6) to be filled during /code-foundations:build_
+### Phase 5: mock + build commands (Gate: Full)
+- [x] BUILD: Discovery + design + implementation complete
+- [x] REVIEW: PASS
+- [x] Committed
+Commit: 3ad5e4b
+Summary: commands/mock.md (cheap checkpoint — build-agent renders a mock via prototype, review-agent validates the pixels, mandatory sign-off gate: approve→build / reject→plan) and commands/build.md (full gated execution mirroring code-foundations — worktree gate, per-phase BUILD→REVIEW→commit dispatching the two design agents, gate resolution, execution log, trust report). The research→plan→mock→build spine is now complete end to end. Phase 6 integrates docs + an e2e dry run.
+
+_Remaining phase (6) to be filled during /code-foundations:build_
