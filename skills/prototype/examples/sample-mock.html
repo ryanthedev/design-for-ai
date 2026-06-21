@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Beat Store — Home — mock</title>
+  <!-- Produced by prototype skill from sample-DESIGN.md -->
+  <!-- Fidelity: styled (high-fi) · Surface: phone-first -->
+  <style>
+    /* === DESIGN TOKENS (from sample-DESIGN.md) === */
+    :root {
+      --neutral-1: #0d0d11;
+      --neutral-2: #131318;
+      --neutral-3: #1a1a22;
+      --neutral-4: #20202b;
+      --neutral-5: #272734;
+      --neutral-6: #30303e;
+      --neutral-7: #3d3d4e;
+      --neutral-8: #52526a;
+      --neutral-9: #6b6b88;
+      --neutral-10: #5e5e79;
+      --neutral-11: #9898b8;
+      --neutral-12: #e8e8f4;
+      --accent-1: #0f0d18;
+      --accent-2: #160f22;
+      --accent-3: #211432;
+      --accent-4: #2a1940;
+      --accent-5: #342050;
+      --accent-6: #422a64;
+      --accent-7: #58387e;
+      --accent-8: #7650a8;
+      --accent-9: #9b6fd4;
+      --accent-10: #8d62c0;
+      --accent-11: #c4a2ec;
+      --accent-12: #f0e8fc;
+      --accent-on-solid: #f0e8fc;
+      --background: var(--neutral-1);
+      --surface: var(--neutral-2);
+      --surface-hover: var(--neutral-3);
+      --surface-active: var(--neutral-4);
+      --border-subtle: var(--neutral-6);
+      --border: var(--neutral-7);
+      --border-strong: var(--neutral-8);
+      --text-secondary: var(--neutral-11);
+      --text: var(--neutral-12);
+      --accent-bg-subtle: var(--accent-3);
+      --accent-solid: var(--accent-9);
+      --accent-solid-hover: var(--accent-10);
+      --accent-text: var(--accent-11);
+      --error-3: #2e1111;
+      --error-9: #d94040;
+      --error-11: #f09898;
+      --success-3: #0d2214;
+      --success-9: #2ea855;
+      --success-11: #78d49a;
+
+      /* Type scale */
+      --text-xs: 0.75rem;
+      --text-sm: 0.875rem;
+      --text-base: 1rem;
+      --text-lg: 1.125rem;
+      --text-xl: 1.25rem;
+      --text-2xl: 1.5rem;
+      --text-3xl: 1.875rem;
+      --text-4xl: 2.25rem;
+    }
+
+    /* === BASE RESET === */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.5;
+      font-size: var(--text-base);
+    }
+
+    /* === REDUCED MOTION (WCAG 2.1 SC 2.3.3 + core polish rule) === */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* === LAYOUT — phone-first, 390px primary === */
+    .page {
+      max-width: 390px;
+      margin: 0 auto;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (min-width: 768px) {
+      .page {
+        max-width: 1200px;
+        padding: 0 2rem;
+      }
+    }
+
+    /* === HEADER / NAV === */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--background);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: var(--text-lg);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--accent-text);
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    nav a {
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 150ms ease-out;
+      /* min touch target honored via padding */
+      padding: 0.5rem 0;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    /* === HERO === */
+    .hero {
+      padding: 3rem 1.25rem 2rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .hero-label {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-text);
+      margin-bottom: 0.75rem;
+    }
+
+    .hero h1 {
+      font-size: var(--text-4xl);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: var(--text-base);
+      color: var(--text-secondary);
+      max-width: 32ch;
+      margin-bottom: 1.75rem;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    /* === BUTTONS — min 44×44px touch target === */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 1.5rem;
+      border-radius: 6px;
+      font-size: var(--text-sm);
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background-color 150ms ease-out, color 150ms ease-out;
+    }
+
+    .btn-primary {
+      background: var(--accent-solid);
+      color: var(--accent-on-solid);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-solid-hover);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      background: var(--surface-hover);
+      color: var(--text);
+    }
+
+    /* === SECTION HEADER === */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 1.5rem 1.25rem 1rem;
+    }
+
+    .section-header h2 {
+      font-size: var(--text-lg);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .section-header a {
+      font-size: var(--text-sm);
+      color: var(--accent-text);
+      text-decoration: none;
+    }
+
+    /* === BEAT CARDS === */
+    .beat-list {
+      padding: 0 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .beat-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.875rem 1rem;
+      background: var(--surface);
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      transition: background-color 150ms ease-out, border-color 150ms ease-out;
+      text-decoration: none;
+      color: inherit;
+      min-height: 64px;
+    }
+
+    .beat-card:hover {
+      background: var(--surface-hover);
+      border-color: var(--border);
+    }
+
+    .beat-thumb {
+      width: 44px;
+      height: 44px;
+      border-radius: 4px;
+      background: var(--accent-bg-subtle);
+      border: 1px solid var(--accent-6);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-text);
+      font-size: var(--text-xs);
+      font-weight: 700;
+    }
+
+    .beat-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .beat-title {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .beat-meta {
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+      margin-top: 0.125rem;
+    }
+
+    .beat-price {
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--accent-text);
+      flex-shrink: 0;
+    }
+
+    /* === CATEGORY TAGS === */
+    .tags-section {
+      padding: 0 1.25rem 1.5rem;
+    }
+
+    .tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      padding: 0.375rem 0.75rem;
+      border-radius: 100px;
+      font-size: var(--text-xs);
+      font-weight: 600;
+      background: var(--surface);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+      cursor: pointer;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      transition: background-color 150ms ease-out, border-color 150ms ease-out, color 150ms ease-out;
+    }
+
+    .tag:hover, .tag.active {
+      background: var(--accent-bg-subtle);
+      color: var(--accent-text);
+      border-color: var(--accent-6);
+    }
+
+    /* === FOOTER === */
+    footer {
+      margin-top: auto;
+      padding: 1.5rem 1.25rem;
+      border-top: 1px solid var(--border-subtle);
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <header>
+      <a href="#" class="logo">BEAT<span>HUB</span></a>
+      <nav aria-label="Main">
+        <a href="#">Browse</a>
+        <a href="#">Producers</a>
+        <a href="#" class="btn btn-primary" style="min-height:36px; padding: 0 1rem; font-size: 0.8125rem;">Sign up</a>
+      </nav>
+    </header>
+
+    <main>
+
+      <!-- HERO -->
+      <section class="hero" aria-label="Hero">
+        <p class="hero-label">New Drops Every Friday</p>
+        <h1>Your next hit<br>starts here.</h1>
+        <p>Exclusive beats and sample packs from underground producers. Instant download, royalty-ready.</p>
+        <div class="cta-group">
+          <a href="#" class="btn btn-primary">Browse beats</a>
+          <a href="#" class="btn btn-ghost">How it works</a>
+        </div>
+      </section>
+
+      <!-- GENRE FILTER -->
+      <section aria-label="Genre filter">
+        <div class="section-header">
+          <h2>Genre</h2>
+        </div>
+        <div class="tags-section">
+          <div class="tags" role="group" aria-label="Filter by genre">
+            <button class="tag active">All</button>
+            <button class="tag">Trap</button>
+            <button class="tag">Lo-fi</button>
+            <button class="tag">Drill</button>
+            <button class="tag">Boom Bap</button>
+            <button class="tag">Afrobeats</button>
+            <button class="tag">House</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEATURED BEATS -->
+      <section aria-label="Featured beats">
+        <div class="section-header">
+          <h2>Featured</h2>
+          <a href="#">See all</a>
+        </div>
+        <div class="beat-list">
+          <a href="#" class="beat-card" aria-label="Midnight Run — 140 BPM Trap — $29">
+            <div class="beat-thumb" aria-hidden="true">TR</div>
+            <div class="beat-info">
+              <div class="beat-title">Midnight Run</div>
+              <div class="beat-meta">140 BPM · Trap · DJ Phantom</div>
+            </div>
+            <div class="beat-price">$29</div>
+          </a>
+          <a href="#" class="beat-card" aria-label="Cloudy — 85 BPM Lo-fi — $19">
+            <div class="beat-thumb" aria-hidden="true">LF</div>
+            <div class="beat-info">
+              <div class="beat-title">Cloudy</div>
+              <div class="beat-meta">85 BPM · Lo-fi · SampleCraft</div>
+            </div>
+            <div class="beat-price">$19</div>
+          </a>
+          <a href="#" class="beat-card" aria-label="Chicago — 140 BPM Drill — $35">
+            <div class="beat-thumb" aria-hidden="true">DR</div>
+            <div class="beat-info">
+              <div class="beat-title">Chicago</div>
+              <div class="beat-meta">140 BPM · Drill · ColdFront</div>
+            </div>
+            <div class="beat-price">$35</div>
+          </a>
+          <a href="#" class="beat-card" aria-label="Golden Era — 92 BPM Boom Bap — $25">
+            <div class="beat-thumb" aria-hidden="true">BB</div>
+            <div class="beat-info">
+              <div class="beat-title">Golden Era</div>
+              <div class="beat-meta">92 BPM · Boom Bap · Esso Beats</div>
+            </div>
+            <div class="beat-price">$25</div>
+          </a>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <span>© 2026 BeatHub</span>
+      <nav aria-label="Footer">
+        <a href="#" style="color: var(--text-secondary); text-decoration: none; margin-left: 1rem;">Terms</a>
+        <a href="#" style="color: var(--text-secondary); text-decoration: none; margin-left: 1rem;">Privacy</a>
+      </nav>
+    </footer>
+
+  </div>
+</body>
+</html>

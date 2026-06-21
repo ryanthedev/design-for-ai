@@ -6,6 +6,15 @@ and the cite-down dependency direction. Rules live in `foundations-standards.md`
 *who-owns-what*. Scope boundaries may shift slightly as pillars are authored — re-confirmed at
 Phase 6 integration (plan uncertainty note).
 
+**Dual role (v3.1.0 workflow).** Each pillar plays two roles simultaneously and neither overrides
+the other. (1) **Doctrine library** — the `research → plan → mock → build` workflow loads pillars
+per-phase via `Skill(<name>)` inside the dispatched agents, so every workflow phase gets the
+right domain checklist without the user having to invoke anything. (2) **Directly triggerable**
+— all pillars remain `user-invocable: true`; a user can invoke any pillar standalone for a
+narrow question ("is this chart lying?" → `data-viz`; "audit dark patterns" → `deceptive-patterns`)
+without running the full workflow. The workflow loads pillars by name regardless of their trigger
+status — triggering and workflow-loading are orthogonal.
+
 The existing `skills/design-for-ai/` core is **not** a pillar — it keeps the visual/aesthetic
 DNA, surface, and the index. The 7 core modes (design, surface, fonts, color, audit, enhance,
 polish) are the disambiguation targets the pillars point *away from*.
