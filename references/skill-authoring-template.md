@@ -1,7 +1,7 @@
 # Pillar skill-authoring template
 
 The reusable procedure Phases 2–6 follow to author each pillar skill. It operationalizes
-`foundations-standards.md` (the rules) and `pillar-taxonomy.md` (the per-pillar scope). Author
+`docs/foundations-standards.md` (the rules) and `docs/pillar-taxonomy.md` (the per-pillar scope). Author
 *through* `oberskills:skill-craft` best practices — baseline-first, measure don't guess — not
 just `validate_skill` after the fact.
 
@@ -21,7 +21,7 @@ just `validate_skill` after the fact.
 
 Baseline-first: write the evals before the skill, so the documented failures are the spec.
 
-- [ ] **Scope.** Read the pillar's row in `pillar-taxonomy.md`: its concern (SRP), its "fires on"
+- [ ] **Scope.** Read the pillar's row in `docs/pillar-taxonomy.md`: its concern (SRP), its "fires on"
       triggers, its "not for X (use Y)" exclusions, and which pillars it may cite (cite-down only).
 - [ ] **Source.** Read the backing grug research for this pillar (named in the taxonomy row).
       Pull the principles/laws/patterns the skill will cite. Cite-the-principle on every claim.
@@ -52,7 +52,7 @@ argument-hint: "[context]"
 ---
 ```
 
-Rules (from `foundations-standards.md` §1–§2): `name` == directory name; `description` ≤ 1024
+Rules (from `docs/foundations-standards.md` §1–§2): `name` == directory name; `description` ≤ 1024
 chars, third person, no XML tags, capability nouns not process steps, near-miss "Not for:" clause
 present. The "Not for:" clause is copied from the pillar's taxonomy row — it is the
 anti-cannibalization contract.
@@ -80,7 +80,7 @@ Keep the always-relevant core ~200 lines; push catalogs and depth into reference
 ## 4. Reference-file stub (canonical shape)
 
 Each `skills/<pillar>/references/<file>.md` follows the canonical shape
-(`foundations-standards.md` §3):
+(`docs/foundations-standards.md` §3):
 
 ```markdown
 # <Reference title>
@@ -101,7 +101,7 @@ TRIGGERS, PRODUCES, NEXT CAPABILITY NEEDED, CSO KEYWORDS). Routing belongs in SK
 
 ## 5. Definition of done
 
-A pillar skill is done when **all** hold (the per-skill eval gate, `foundations-standards.md` §6):
+A pillar skill is done when **all** hold (the per-skill eval gate, `docs/foundations-standards.md` §6):
 
 - `validate_skill` = 0 errors / 0 warnings.
 - `test_triggers` passes both directions (fires on-topic; quiet on near-miss / no cannibalization).

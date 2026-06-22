@@ -1,7 +1,7 @@
 # design-foundations — conventions standard
 
 The rules every pillar skill in this plugin obeys. This is the canonical entry doc; the
-authoring template (`skill-authoring-template.md`) and the taxonomy (`pillar-taxonomy.md`)
+authoring template (`references/skill-authoring-template.md`) and the taxonomy (`pillar-taxonomy.md`)
 both reference it. Phases 2–6 author one or two pillar skills each — they MUST conform here.
 
 The plugin is `design-foundations` in spirit, `design-for-ai` in name (the name is kept; see

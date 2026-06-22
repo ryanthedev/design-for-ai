@@ -65,8 +65,9 @@ All pillar skills obey the shared conventions in `docs/`:
 |-----|-------|
 | `docs/foundations-standards.md` | Frontmatter shape, the ≤1024-char description rule, canonical reference-file shape, cite-the-principle, cite-down/acyclic dependency direction, the per-skill eval gate |
 | `docs/workflow-conventions.md` | The research→plan→mock→build lifecycle, DESIGN.md/JOURNEY.md artifact gates, design done-when vocabulary (contrast/token/heuristic) |
-| `docs/skill-authoring-template.md` | The reusable procedure to author a pillar skill (baseline-first, measure don't guess) |
 | `docs/pillar-taxonomy.md` | The 8 pillars, their single concern (SRP), disjoint trigger scopes, the "Not for X (use Y)" disambiguation, the cite-down dependency graph, and their dual role as workflow doctrine library + standalone triggers |
+
+The pillar-authoring how-to (`references/skill-authoring-template.md`) lives outside `docs/` — it is an authoring procedure, not a runtime-cited convention.
 
 ## Structure
 
@@ -82,11 +83,12 @@ design-for-ai/
 ├── agents/                       # dispatched by mock and build
 │   ├── design-build-agent.md     # produces one phase's design artifact with execution evidence
 │   └── design-review-agent.md    # independent cross-pillar critique on the rendered pixels
-├── docs/                         # shared conventions every pillar obeys
+├── docs/                         # shared conventions every pillar obeys (runtime-cited)
 │   ├── foundations-standards.md
 │   ├── workflow-conventions.md
-│   ├── skill-authoring-template.md
 │   └── pillar-taxonomy.md
+├── references/                   # plugin authoring how-to (not runtime-cited)
+│   └── skill-authoring-template.md
 └── skills/                       # each subdir is an independently-discovered skill
     ├── design-for-ai/            # CORE — visual/aesthetic + surface + index
     │   ├── SKILL.md              # routes the core modes; lists the sibling pillars
@@ -109,7 +111,7 @@ design-for-ai/
     ├── ai-native/                # principle-derived; no settled canon
     └── prototype/                # produces self-contained HTML/CSS mocks; used by mock + build
 
-# each pillar skill = SKILL.md + references/ (2 reference files), per docs/skill-authoring-template.md
+# each pillar skill = SKILL.md + references/ (2 reference files), per references/skill-authoring-template.md
 ```
 
 ## Installation
