@@ -8,11 +8,11 @@ A **design-foundations system**: a multi-skill Claude Code plugin (v3.1.0) with 
 
 ## The Workflow (primary front door)
 
-The four commands form a `research → plan → mock → build` spine that mirrors code-foundations:
+The four commands form a `research → plan → mock → build` spine:
 
 | Command | What it does |
 |---------|-------------|
-| `/design-for-ai:research` | Facilitate the design brief — extract purpose, audience, brand feel, JTBD, device constraints, mood references. Writes a research doc to `.code-foundations/research/`. Chains to `plan`. |
+| `/design-for-ai:research` | Facilitate the design brief — extract purpose, audience, brand feel, JTBD, device constraints, mood references. Writes a research doc to `.design-foundations/research/`. Chains to `plan`. |
 | `/design-for-ai:plan` | Turn the research doc into a phased design plan: clarify gaps, classify complexity, decompose into Discover/Design lifecycle stages, assign pillar skills per phase, set design done-when items (contrast/token/artifact/heuristic). Chains to `mock`. |
 | `/design-for-ai:mock` | Cheap checkpoint before the full build. Dispatches `design-build-agent` (renders a prototype via the `prototype` skill) and `design-review-agent` (cross-pillar pixel critique). Gates on user sign-off — approve to proceed to `build`, or loop back to `plan`. |
 | `/design-for-ai:build` | Full gated execution. Worktree isolation, per-phase `BUILD → REVIEW → commit` dispatching both agents, gate resolution (Full/Standard/Minimal), execution log, final trust report. Produces JOURNEY.md + DESIGN.md + tokens + final mocks. |

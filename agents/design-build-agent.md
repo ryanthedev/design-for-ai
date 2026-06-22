@@ -23,7 +23,7 @@ Your inputs come via the prompt. Read these BEFORE doing anything:
 
 | Input | Source | Required |
 |-------|--------|----------|
-| Plan file (`.code-foundations/plans/*.md`) | File path in prompt | YES |
+| Plan file (`.design-foundations/plans/*.md`) | File path in prompt | YES |
 | Phase number and name | In prompt | YES |
 | Artifact list from the plan (what this phase produces) | In prompt | YES |
 | DESIGN.md (locked tokens / design DNA) | Project root | If present — it is the law (see the gate below) |
@@ -108,7 +108,7 @@ If a pillar skill is assigned, run its design step before producing and record t
 
 ### Write Discovery + Design
 
-Write to: `.code-foundations/build/<plan-name>-phase-N-discovery.md`
+Write to: `.design-foundations/build/<plan-name>-phase-N-discovery.md`
 
 ```markdown
 # Discovery + Design: Phase N - [name]
@@ -198,7 +198,7 @@ Anchored evidence only grows. A regression is a stop-and-fix.
 [pillar skills invoked, or "None assigned"]
 
 ### Artifacts
-- Discovery + Design: .code-foundations/build/<plan-name>-phase-N-discovery.md
+- Discovery + Design: .design-foundations/build/<plan-name>-phase-N-discovery.md
 
 ### Status: DONE | SKIP | UPDATE_PLAN | BLOCKED
 ```

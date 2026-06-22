@@ -9,7 +9,7 @@ argument-hint: "[plan path]"
 
 Execute an approved design plan phase by phase. Each phase dispatches the **`design-build-agent`** (produces the phase artifact with design execution evidence) then the **`design-review-agent`** (independent cross-pillar critique on the rendered pixels), then the orchestrator commits. This command **dispatches** the two agents — it never inlines the design or the review work.
 
-This command mirrors code-foundations' gate machinery, re-grounded for design, and obeys the shared contract in `docs/workflow-conventions.md` (the lifecycle, the DESIGN.md/JOURNEY.md gates, the design done-when vocabulary). "Tests" are design execution evidence: contrast (`palette.mjs`), render (`prototype`), token coverage, heuristic pass (workflow-conventions.md §3).
+This command runs a per-phase gate machinery (BUILD → REVIEW → commit) for design, and obeys the shared contract in `docs/workflow-conventions.md` (the lifecycle, the DESIGN.md/JOURNEY.md gates, the design done-when vocabulary). "Tests" are design execution evidence: contrast (`palette.mjs`), render (`prototype`), token coverage, heuristic pass (workflow-conventions.md §3).
 
 ---
 
@@ -64,7 +64,7 @@ Record the workspace mode (worktree path + branch, or branch) for the REPORT mer
 
 ### Locate + Parse the Plan
 
-Read the plan path from `$ARGUMENTS` (or `.code-foundations/plans/`). If none given, `ls .code-foundations/plans/*.md` and ask which to execute. Extract:
+Read the plan path from `$ARGUMENTS` (or `.design-foundations/plans/`). If none given, `ls .design-foundations/plans/*.md` and ask which to execute. Extract:
 
 1. **Context** — used for goal anchoring in BUILD dispatch prompts (NOT for REVIEW).
 2. **Phases** — the lifecycle stages (Discover / Design).
@@ -184,7 +184,7 @@ Agent tool:
     - DESIGN.md / JOURNEY.md at the project root if present.
 
     ## Output Files
-    - Discovery + Design: .code-foundations/build/<plan-slug>-phase-N-discovery.md
+    - Discovery + Design: .design-foundations/build/<plan-slug>-phase-N-discovery.md
       [omit for Minimal]
 ```
 
@@ -231,7 +231,7 @@ Agent tool:
     - Skill([pillar:name — phase skills + any from BUILD's "Skills Loaded"])
 
     ## Output
-    Write the review to: .code-foundations/build/<plan-slug>-phase-N-review.md
+    Write the review to: .design-foundations/build/<plan-slug>-phase-N-review.md
     Return: DESIGN-REVIEW [PASS|FAIL] and the report path.
 ```
 
@@ -248,7 +248,7 @@ git commit -m "[prefix]([scope]): [description]
 [WHY this phase exists — design goal, key decisions, the gates it honored]
 
 Phase: N/M \"[phase name]\"
-Plan: .code-foundations/plans/[plan-file].md
+Plan: .design-foundations/plans/[plan-file].md
 AI-Model: [model used]
 AI-Epistemic-Status: [tested (evidence passed) | assumed | provisional]
 Gate-Policy: [Full|Standard|Minimal]

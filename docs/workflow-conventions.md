@@ -18,8 +18,8 @@ The shared contract for the research → plan → mock → build design lifecycl
 
 | Stage | Command | Purpose | Output artifact |
 |-------|---------|---------|----------------|
-| **Research** | `/design-for-ai:research` | Extract the design brief — who, what, feel, JTBD, device, constraints | `.code-foundations/research/YYYY-MM-DD-<slug>.md` |
-| **Plan** | `/design-for-ai:plan` | Decompose the brief into phased design stages with matched pillar skills and done-when items | `.code-foundations/plans/YYYY-MM-DD-<slug>.md` |
+| **Research** | `/design-for-ai:research` | Extract the design brief — who, what, feel, JTBD, device, constraints | `.design-foundations/research/YYYY-MM-DD-<slug>.md` |
+| **Plan** | `/design-for-ai:plan` | Decompose the brief into phased design stages with matched pillar skills and done-when items | `.design-foundations/plans/YYYY-MM-DD-<slug>.md` |
 | **Mock** | `/design-for-ai:mock` | Render a cheap prototype from the plan direction; cross-pillar validation on pixels; user sign-off gate | `mocks/<page>.html` + screenshot + review findings |
 | **Build** | `/design-for-ai:build` | Gated phase execution: per-phase BUILD → REVIEW → commit; produces the full design artifact set | DESIGN.md + JOURNEY.md + tokens + final mocks + trust report |
 

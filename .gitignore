@@ -1,2 +1,5 @@
 # skill-eval scratch workspaces (iteration runs, trigger queries, eval artifacts)
 *-workspace/
+
+# workflow runtime artifacts (research/plan/build docs) — not plugin source
+.design-foundations/

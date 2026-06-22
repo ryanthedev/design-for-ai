@@ -15,7 +15,7 @@ This command obeys the shared contract in `docs/workflow-conventions.md` (the li
 
 `$ARGUMENTS` is either a **research-doc path** or a **brief description**:
 
-- **Path to an existing file** (e.g. `.code-foundations/research/2026-06-20-acme.md`): `Read` it. Its confirmed brief seeds the problem statement directly — you clarify only the gaps it left open, not the whole brief.
+- **Path to an existing file** (e.g. `.design-foundations/research/2026-06-20-acme.md`): `Read` it. Its confirmed brief seeds the problem statement directly — you clarify only the gaps it left open, not the whole brief.
 - **Path that does not exist:** say so ("No file at `<path>` — treating it as a brief description"), then use the text as the brief.
 - **Plain text (not a path):** treat it as the brief and proceed.
 - **Empty:** ask the user what they want to design.
@@ -233,7 +233,7 @@ Dispatch a sonnet subagent to review the saved plan with fresh eyes. Never skip.
 
 ```
 Agent: sonnet, "Review design plan"
-Prompt: Review .code-foundations/plans/<plan>.md for structural issues.
+Prompt: Review .design-foundations/plans/<plan>.md for structural issues.
 
 Checklist:
 - Lifecycle: every phase has a Stage (Discover/Design); phases ordered so the DAG holds
@@ -264,7 +264,7 @@ Changes → update; structural changes re-run CHECK; minor changes re-present.
 On approve, hand off to mock — the cheap go/no-go on rendered pixels before the full build:
 
 ```
-/design-for-ai:mock .code-foundations/plans/<plan>.md
+/design-for-ai:mock .design-foundations/plans/<plan>.md
 ```
 
 The mock command reads this plan, renders a prototype from its DESIGN.md direction, runs a cross-pillar validation, and gates on your sign-off before `build`.

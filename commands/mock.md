@@ -15,10 +15,10 @@ This command obeys the shared contract in `docs/workflow-conventions.md` (the li
 
 ## STOP - Read the Input First
 
-`$ARGUMENTS` is the **plan path** (e.g. `.code-foundations/plans/2026-06-20-acme.md`).
+`$ARGUMENTS` is the **plan path** (e.g. `.design-foundations/plans/2026-06-20-acme.md`).
 
 - **Path to an existing plan:** `Read` it. You need its Context (for your own framing), the design direction, and the page(s) to mock.
-- **No path given:** `ls .code-foundations/plans/*.md` and ask "Which plan should I mock?"
+- **No path given:** `ls .design-foundations/plans/*.md` and ask "Which plan should I mock?"
 - **Path does not exist:** say so and ask for the right path.
 
 Then scan the design state — this sets the mock fidelity:
@@ -110,7 +110,7 @@ Agent tool:
 
     ## Output
     Write the cross-pillar findings report to:
-    .code-foundations/build/[plan-slug]-mock-review.md
+    .design-foundations/build/[plan-slug]-mock-review.md
     Return: DESIGN-REVIEW [PASS|FAIL] and the report path.
 ```
 

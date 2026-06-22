@@ -8,8 +8,8 @@ The plugin is `design-foundations` in spirit, `design-for-ai` in name (the name 
 plan). It is a **multi-skill plugin**: the existing `skills/design-for-ai/` stays as the core
 visual/DNA + surface skill and the index; each new pillar is its own skill under `skills/`.
 Skills are auto-discovered from the `skills/` directory and each triggers on its own
-`description` — there is no central router (verified against `code-foundations`, 19 skills,
-no `skills` array in its manifest).
+`description` — there is no central router (the plugin manifest has no `skills` array; skills
+are auto-discovered from the `skills/` directory).
 
 ---
 

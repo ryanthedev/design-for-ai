@@ -108,10 +108,10 @@ Don't push for completeness. Some things get figured out during planning or desi
 When the conversation reaches a natural stopping point, save the output:
 
 ```
-mkdir -p .code-foundations/research
+mkdir -p .design-foundations/research
 ```
 
-File: `.code-foundations/research/YYYY-MM-DD-<project-slug>.md`
+File: `.design-foundations/research/YYYY-MM-DD-<project-slug>.md`
 
 The document format is **whatever the brief demands.** It might be:
 - A brand brief with mood words and references
@@ -135,7 +135,7 @@ If the user has no existing brand, list "visual identity / design DNA" as an ope
 When the brief is confirmed, hand off to plan:
 
 ```
-/design-for-ai:plan .code-foundations/research/<file>.md
+/design-for-ai:plan .design-foundations/research/<file>.md
 ```
 
 The plan command reads this doc as its seed — it doesn't re-derive intent, it decomposes it into phases.
