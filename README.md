@@ -8,7 +8,7 @@ Based on *Design for Hackers* by David Kadavy. Nine chapters of design theory, d
 
 ## A design-foundations system
 
-As of **v3.1.0**, this is a **design-foundations system** with two front doors: a four-stage workflow that takes any design idea from brief to viewable artifact, and nine pillar skills that can be invoked directly for focused questions.
+As of **v3.1.0**, this is a **design-foundations system** with two front doors: a four-stage workflow that takes any design idea from brief to viewable artifact, and eight pillar skills that can be invoked directly for focused questions.
 
 ## The workflow
 
@@ -93,7 +93,7 @@ LLMs sample the statistical center of their training data. That's why every AI s
 
 - **Archetypes, not vibes.** Your answers map to one of 12 brand archetypes, which constrains a set of aesthetic families (Editorial Minimalism, Terminal-Core, Neo-Brutalist, Art Deco, Soft Futurism...), each with named fonts, color strategies, and motion vocabularies.
 - **Remix, don't clone.** A design DNA takes its base from one family and borrows one or two axes from another: type from here, color strategy from there. The combinations don't exist as a cluster in any training data.
-- **Real palettes, not invented hexes.** A bundled OKLCH generator (`scripts/palette.mjs`) builds 12-step neutral and accent ramps with WCAG contrast solved by construction: light and dark, harmony-derived secondary accents, functional colors.
+- **Real palettes, not invented hexes.** A bundled OKLCH generator (`skills/design-for-ai/scripts/palette.mjs`) builds 12-step neutral and accent ramps with WCAG contrast solved by construction: light and dark, harmony-derived secondary accents, functional colors.
 - **A signature move.** Every DNA includes one specific decision a template would never contain.
 
 ## Install
@@ -105,7 +105,7 @@ LLMs sample the statistical center of their training data. That's why every AI s
 
 Update: `/plugin update design-for-ai@rtd`
 
-The current version is **3.1.0** — the `research → plan → mock → build` workflow on top of the multi-skill design-foundations system. The install path is unchanged: all skills (the core, nine pillars, and the workflow commands) are auto-discovered from the plugin's `skills/` and `commands/` directories.
+The current version is **3.1.0** — the `research → plan → mock → build` workflow on top of the multi-skill design-foundations system. The install path is unchanged: all skills (the core, eight pillars, and the workflow commands) are auto-discovered from the plugin's `skills/` and `commands/` directories.
 
 ## License
 

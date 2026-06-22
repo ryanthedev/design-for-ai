@@ -4,7 +4,7 @@ This file provides guidance to Claude Code when working in this repository.
 
 ## Repository Purpose
 
-A **design-foundations system**: a multi-skill Claude Code plugin (v3.1.0) with a four-stage design workflow (`research → plan → mock → build`) and nine auto-triggering pillar skills. The workflow takes any design idea from a vague brief to a viewable, gated artifact. The nine pillar skills cover the full design landscape and are loaded per-phase by the workflow — they also remain directly invocable for standalone questions.
+A **design-foundations system**: a multi-skill Claude Code plugin (v3.1.0) with a four-stage design workflow (`research → plan → mock → build`) and eight auto-triggering pillar skills. The workflow takes any design idea from a vague brief to a viewable, gated artifact. The eight pillar skills cover the full design landscape and are loaded per-phase by the workflow — they also remain directly invocable for standalone questions.
 
 ## The Workflow (primary front door)
 
