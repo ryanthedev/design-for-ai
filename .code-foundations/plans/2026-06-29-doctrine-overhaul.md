@@ -2,7 +2,7 @@
 **Created:** 2026-06-29
 **Status:** in-progress
 **Started:** 2026-06-29
-**Current Phase:** 5
+**Current Phase:** 6
 **Complexity:** complex
 ---
 ## Context
@@ -331,3 +331,15 @@ Summary: The 3 commands now load doctrine deterministically via the resolver, no
 - [x] Committed
 Commit: 4d9345e
 Summary: Both dispatched agents now Read() doctrine via the resolver — no Skill()-for-doctrine anywhere in commands/ or agents/. The runtime mechanism is fully converted; Phase 5 updates the docs/manifest/CLAUDE.md to describe it, then Phase 6 validates the whole.
+
+### Phase 5: Docs + plugin.json + CLAUDE.md (Gate: Standard)
+- [x] BUILD: plugin.json 3.1.0→4.0.0 + desc rewrite; workflow-conventions §4 → Read()/resolver; pillar-taxonomy prose + stale line fixed (table untouched); foundations-standards + skill-authoring-template scoped to 4 skills; CLAUDE.md tree rewritten to on-disk reality
+- [x] REVIEW: PASS (4/4 DW + edge cases; residual auto-trigger mentions all negate; resolver intact at 21 names)
+- [x] Committed
+Commit: 73f5e98
+Summary: Public surface + conventions now describe the doctrine-read model at v4.0.0. All editing phases complete; Phase 6 is the whole-repo validation sweep.
+
+### Phase 6: Validation sweep (Gate: Standard)
+- [x] BUILD: All DW grep sweeps green; 4/4 validate_skill 0 errors/0 warnings; all 23 resolver paths resolve; all 14 doctrine names in use exist in resolver; palette.mjs exits 0. One stale prose reference found (`skills/design-for-ai/` backtick in pillar-taxonomy.md:18) — fixed inline (non-substantive prose update).
+- [x] REVIEW: PASS (4/4 DW covered; no dangling refs; resolver fully resolvable; 4 skills clean)
+Summary: Migration confirmed complete and consistent. Zero dangling Skill() calls for doctrine, zero CLAUDE_SKILL_DIR leakage in commands/agents/references, 4 skills validate clean, all resolver rows resolve to existing files, no deleted skill paths remain in commands/agents/docs/references.

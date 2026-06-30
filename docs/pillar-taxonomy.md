@@ -15,9 +15,9 @@ skills. Two (`usability`, `data-viz`) remain as skills in `skills/` with `user-i
 and `disable-model-invocation: true` — they do not auto-trigger but are fully `Read()`-able via
 the resolver. The complete skills list is four: `clarify`, `prototype`, `usability`, `data-viz`.
 
-The existing `skills/design-for-ai/` core is **not** a pillar — it keeps the visual/aesthetic
-DNA, surface, and the index. The 7 core modes (design, surface, fonts, color, audit, enhance,
-polish) are the disambiguation targets the pillars point *away from*.
+The visual doctrine (`references/visual/`) is **not** a pillar — it covers visual/aesthetic
+DNA, surface, and the design toolkit. The 7 core modes (design, surface, fonts, color, audit,
+enhance, polish) are the disambiguation targets the pillars point *away from*.
 
 ---
 
