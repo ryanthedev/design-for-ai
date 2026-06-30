@@ -1,11 +1,11 @@
 ---
-description: "Turn a design brief into a phased design plan: clarify gaps, classify complexity, decompose into lifecycle stages (Discover/Design), assign pillar skills per phase, and set design done-when items (contrast ratios, token coverage, heuristic pass). Use after research, or standalone when the brief is already known."
+description: "Turn a design brief into a phased design plan: clarify gaps, classify complexity, decompose into lifecycle stages (Discover/Design), assign doctrine per phase, and set design done-when items (contrast ratios, token coverage, heuristic pass). Use after research, or standalone when the brief is already known."
 argument-hint: "[research doc path or brief description]"
 ---
 
 # Command: plan
 
-The plan is a contract between `plan` and `build`. It specifies WHAT to design and WHY at the strategic level, with explicit artifact seams between phases. It **references and sequences** the pillar skills — it never copies their content.
+The plan is a contract between `plan` and `build`. It specifies WHAT to design and WHY at the strategic level, with explicit artifact seams between phases. It **references and sequences** doctrine by name — it never copies doctrine content.
 
 This command obeys the shared contract in `docs/workflow-conventions.md` (the lifecycle, the artifact gates, the done-when vocabulary) and cites it rather than restating it.
 
@@ -81,19 +81,19 @@ Confirm via `AskUserQuestion`: "Does this capture what you want to design?" Corr
 
 ## The lifecycle the phases decompose into
 
-Every phase maps to one lifecycle stage. The stage fixes the pillar(s) and the gating artifact (workflow-conventions.md §1, §4).
+Every phase maps to one lifecycle stage. The stage fixes the doctrine and the gating artifact (workflow-conventions.md §1, §4).
 
-| Stage | Concern | Pillar(s) | Gating artifact (Produces) |
-|-------|---------|-----------|----------------------------|
+| Stage | Concern | Doctrine | Gating artifact (Produces) |
+|-------|---------|----------|----------------------------|
 | **Discover — JTBD + IA** | how the user moves through time | `journey` | JOURNEY.md (Job + Journey + IA) |
 | **Discover — flows + page specs** | the route + page structure | `journey` | JOURNEY.md (Flows + Page specs) |
-| **Design — DNA + tokens** | the visual identity | core `design-for-ai` (design mode) | DESIGN.md **locked** (token block) |
-| **Design — type + color** | typography + palette | core `design-for-ai` (fonts/color) | DESIGN.md (type scale + tokens) |
+| **Design — DNA + tokens** | the visual identity | `design-dna` (+ `archetypes`, `foundations`) | DESIGN.md **locked** (token block) |
+| **Design — type + color** | typography + palette | `fonts`, `color` | DESIGN.md (type scale + tokens) |
 | **Design — design system** | look → a token machine | `design-systems` | token tiers + component specs |
 | **Design — words** | words as interface | `content-design` | page specs + microcopy |
 | **Design — data surfaces** | encode data truthfully | `data-viz` | chart/table specs |
 
-Match extra pillars by their disjoint scopes (`docs/pillar-taxonomy.md`): `usability` for operability of a screen, `behavioral` for persuasion/conversion mechanics, `deceptive-patterns` for the ethics audit, `ai-native` for agent/LLM surfaces. **The plan loads pillars by name** (`Skill(<pillar>)`) and sequences them — it never duplicates their procedures. Pillars stay triggerable regardless.
+Match extra doctrine by their disjoint scopes (`docs/pillar-taxonomy.md §2`): `usability` for operability of a screen, `behavioral` for persuasion/conversion mechanics, `deceptive-patterns` for the ethics audit, `ai-native` for agent/LLM surfaces. The plan records doctrine names — `build` resolves them via the resolver in `docs/pillar-taxonomy.md §5` and Read()s each file.
 
 ### The lifecycle DAG and its gates (non-negotiable)
 
@@ -118,15 +118,15 @@ Order the phases so each phase's gating artifact is produced before any phase th
 
 **Problem statement confirmed → decompose → detail → cross-cut → save → check → present → handoff.** Even Quick is staged — don't write all phase bodies at once.
 
-1. **Decompose (skeleton).** For each of the 1-2 phases write only: name, `**Stage:**` (Discover or Design), one-line goal, `**Skills:**` (the matched pillar(s) from the stage map; `none -- [reason]` valid, omission not), Difficulty. For 2 phases add `**Depends on:**` and `**Produces:**` (the artifact phase 1 hands phase 2 — JOURNEY.md, DESIGN.md, tokens). Write this skeleton to the plan file.
+1. **Decompose (skeleton).** For each of the 1-2 phases write only: name, `**Stage:**` (Discover or Design), one-line goal, `**Doctrine:**` (matched names from the stage map, verified against the resolver in `docs/pillar-taxonomy.md §5`; `none -- [reason]` valid, omission not), Difficulty. For 2 phases add `**Depends on:**` and `**Produces:**` (the artifact phase 1 hands phase 2 — JOURNEY.md, DESIGN.md, tokens). Write this skeleton to the plan file.
 
 2. **Skeleton checkpoint** (2 phases only). `AskUserQuestion` — "Does the split look right? Review it in the preview." Options "Looks right" / "Adjust", **`preview` REQUIRED on both**: the identical split as markdown (each phase's name + stage + goal, and the artifact handoff between them). The preview is the only guaranteed-visible surface. 1 phase → skip.
 
-3. **Detail each phase**, in order, one short pass each. Start with a one-line reframe — `Phase N: [name]. Stage: [Discover|Design]. Consumes: [upstream artifact, or "research doc"]. Must produce: [Produces]. Difficulty: X.` — then load the phase's matched pillars (`Skill(<pillar>)`; each self-loads its procedure and informs Edge cases + Done-when) and fill the body using the phase template below.
+3. **Detail each phase**, in order, one short pass each. Start with a one-line reframe — `Phase N: [name]. Stage: [Discover|Design]. Consumes: [upstream artifact, or "research doc"]. Must produce: [Produces]. Difficulty: X.` — then resolve each `**Doctrine:**` name via the resolver in `docs/pillar-taxonomy.md §5`, `Read()` the file, and apply it to inform Edge cases and Done-when — then fill the body using the phase template below.
 
 4. **Cross-cut.** Derive the verification plan from the done-when items, plus at least one dirty case (a gate violation or edge case from Edge cases) per phase: e.g. "DESIGN.md missing → wireframe mode flagged", "contrast fails AA → token rejected". Record the verification level.
 
-5. **Finalize the file** against the schema (Quick variant: omit Chosen Approach, Rejected Approaches, Assumptions, Decision Log). Each phase carries `**Stage:**`, `**Skills:**`, `**Gate:**`. **Do NOT commit it.**
+5. **Finalize the file** against the schema (Quick variant: omit Chosen Approach, Rejected Approaches, Assumptions, Decision Log). Each phase carries `**Stage:**`, `**Doctrine:**`, `**Gate:**`. **Do NOT commit it.**
 
 6. **Check** (step shared with Standard/Full — see below).
 
@@ -146,7 +146,7 @@ For multi-surface products and redesigns, run the full staged decomposition **in
 
 Get the phase shape and artifact seams right before writing bodies. Write the skeleton only.
 
-For each phase write: **Name** + one-line goal · **Stage:** (Discover/Design) · **Depends on / Unlocks** (the edges) · **Produces:** (the gating artifact this phase hands its consumers — the explicit seam) · **Skills:** (matched from the stage map + pillar-taxonomy scopes) · **Difficulty:** LOW/MED/HIGH.
+For each phase write: **Name** + one-line goal · **Stage:** (Discover/Design) · **Depends on / Unlocks** (the edges) · **Produces:** (the gating artifact this phase hands its consumers — the explicit seam) · **Doctrine:** (names matched from the stage map + pillar-taxonomy scopes, verified against the resolver in `docs/pillar-taxonomy.md §5`) · **Difficulty:** LOW/MED/HIGH.
 
 - Order phases so the DAG above holds: Discover before Design; DNA before tokens/system/compose. Express independent phases (e.g. words and data surfaces both depend only on DESIGN.md + page specs) as parallel, don't artificially linearize.
 - **Resume-aware:** if the design-state scan set the entry at Design, the skeleton omits the Discover phases entirely (their artifacts already exist) and starts at the first unsatisfied Design stage. Say which phases were skipped and why.
@@ -159,7 +159,7 @@ For each phase write: **Name** + one-line goal · **Stage:** (Discover/Design) �
 
 ```markdown
 ## Skeleton: N phases
-1. **[Name]** — [goal]  ·  Stage: Discover  ·  Skills: journey  (MED)
+1. **[Name]** — [goal]  ·  Stage: Discover  ·  Doctrine: journey  (MED)
    produces: JOURNEY.md (Job+Journey+IA) → Phase 2
 2. ...
 DAG: 1 → 2 → 3 → {4, 5}    gates: JOURNEY.md before Design; DESIGN.md locked before tokens
@@ -173,7 +173,7 @@ Work phases in DAG order, a deliberate reset between each so each gets fresh att
 
 **1. Reframe** (write it before the body): `Phase N: [name]. Stage: [Discover|Design]. Consumes: [upstream artifact, or "research doc"]. Must produce: [Produces]. Difficulty: [X].`
 
-**2. Load the phase's pillars** — `Skill(<pillar>)` for each not already loaded; each self-loads its checklists. Apply them while writing Constraints, Edge cases, and Done-when. If the work reveals a pillar the skeleton missed, add it.
+**2. Load the phase's doctrine** — resolve each name in `**Doctrine:**` via the resolver in `docs/pillar-taxonomy.md §5`, then `Read()` the file. Apply each while writing Constraints, Edge cases, and Done-when. If the work reveals a doctrine entry the skeleton missed, add it.
 
 **3. Write the body** using the template. **4. Move to the next phase.**
 
@@ -187,7 +187,7 @@ Assign `**Model:**` and `**Gate:**` per phase, then validate the whole file agai
 
 - **Model:** `opus` for DNA/identity creation and full-product decomposition; `sonnet` for most stage phases; `haiku` for a single mechanical artifact update.
 - **Gate:** **Full** for the DNA phase (it locks DESIGN.md — the law-once-locked artifact) and for multi-surface Design phases introducing new seams; **Minimal** for a single doc/spec update; **Standard** otherwise.
-- **Skills validation:** every phase has `**Skills:**`; every name is one of the 9 design skills (core `design-for-ai`, usability, content-design, data-viz, deceptive-patterns, behavioral, journey, design-systems, ai-native); no workflow commands (research, plan, mock, build, clarify); a Design/Discover phase with `none` justifies why no pillar matches.
+- **Doctrine validation:** every phase has `**Doctrine:**`; every name exists in the resolver in `docs/pillar-taxonomy.md §5`; no workflow commands (research, plan, mock, build, clarify); a Design/Discover phase with `none` justifies why no doctrine matches. A name absent from the resolver → STOP and ask the user.
 
 ---
 
@@ -197,7 +197,7 @@ Assign `**Model:**` and `**Gate:**` per phase, then validate the whole file agai
 ### Phase N: [Name]
 **Stage:** [Discover | Design]
 **Model:** [haiku | sonnet | opus]
-**Skills:** [matched pillar(s), or `none -- [reason]`]
+**Doctrine:** [matched names from the resolver, or `none -- [reason]`]
 **Gate:** [Full | Standard | Minimal]
 
 **Goal:** [One sentence]
@@ -243,7 +243,7 @@ Checklist:
   any tokens/design-system/styled-mock phase. Flag any gate inversion.
 - Done-when: every item uses design vocabulary (contrast/token/artifact/heuristic), is
   observable, and has a DW-ID. No code/test vocabulary.
-- Skills: every phase has a Skills field; each name is one of the 9 design skills; matches the
+- Doctrine: every phase has a Doctrine field; each name exists in the resolver (docs/pillar-taxonomy.md §5); matches the
   stage; no workflow commands.
 - Resume: if entry was mid-lifecycle, the skipped stages' artifacts actually exist; no redone work.
 - Gate/Model: every phase has Gate (Full/Standard/Minimal) and Model populated, matching risk.
@@ -257,7 +257,7 @@ PASS → proceed. FINDINGS → fix; **structural fixes (phase order, DAG, gate i
 
 ## PRESENT and HANDOFF (all tracks)
 
-Print the plan summary as markdown in conversation — phases with stages, goals, matched pillars, done-when, the gate order — then `AskUserQuestion`: "Does this look right?" Options "Approve" / "Request changes", **`preview` REQUIRED on both** (the identical summary) — the user won't open the saved file and Write results render collapsed.
+Print the plan summary as markdown in conversation — phases with stages, goals, matched doctrine, done-when, the gate order — then `AskUserQuestion`: "Does this look right?" Options "Approve" / "Request changes", **`preview` REQUIRED on both** (the identical summary) — the user won't open the saved file and Write results render collapsed.
 
 Changes → update; structural changes re-run CHECK; minor changes re-present.
 

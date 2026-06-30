@@ -2,7 +2,7 @@
 **Created:** 2026-06-29
 **Status:** in-progress
 **Started:** 2026-06-29
-**Current Phase:** 2
+**Current Phase:** 3
 **Complexity:** complex
 ---
 ## Context
@@ -310,3 +310,10 @@ plugin; "tests" are grep sweeps, `validate_skill`, link/anchor checks, and a `pa
 - [x] Committed
 Commit: 7959a1b
 Summary: All design doctrine now lives in references/ (visual/ + 6 pillar dirs) + scripts/palette.mjs; skills/ reduced to {usability, data-viz, prototype, clarify}. The name→path resolver (Phase 2) maps onto these canonical paths.
+
+### Phase 2: De-trigger survivors + author the resolver (Gate: Full)
+- [x] BUILD: usability + data-viz got disable-model-invocation:true + user-invocable:false (validate clean, still Read()-able); resolver table authored in docs/pillar-taxonomy.md §5
+- [x] REVIEW: PASS (3/3 DW; all 21 resolver paths resolve via test -e; flags valid)
+- [x] Committed
+Commit: a4f5985
+Summary: usability/data-viz no longer pollute trigger space. The resolver in pillar-taxonomy.md §5 is the canonical vocabulary (21 names: 6 pillars + 2 survivors + 13 visual sub-topics) — Phases 3–5 must match these names exactly. (Known stale line: pillar-taxonomy.md line ~13 still says "all pillars remain user-invocable: true" — clean up in Phase 5.)

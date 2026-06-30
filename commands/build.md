@@ -69,7 +69,7 @@ Read the plan path from `$ARGUMENTS` (or `.design-foundations/plans/`). If none 
 1. **Context** — used for goal anchoring in BUILD dispatch prompts (NOT for REVIEW).
 2. **Phases** — the lifecycle stages (Discover / Design).
 3. **Done-when items per phase** — every `- [ ]` under each `**Done when:**` (passed verbatim to both agents).
-4. **`**Skills:**` per phase** — the matched pillar(s); become the agents' `## Additional Skills`.
+4. **`**Doctrine:**` per phase** — the doctrine names; become the `## Doctrine` block in each agent dispatch.
 5. **`**Gate:**` per phase** — Full / Standard / Minimal.
 6. **`**Model:**` per phase** — optional override.
 7. **Edge cases per phase** — passed to REVIEW with DW-item verdict standing.
@@ -90,9 +90,9 @@ Read the plan path from `$ARGUMENTS` (or `.design-foundations/plans/`). If none 
 
 Set in the plan file: `**Status:** in-progress`, `**Started:** YYYY-MM-DD HH:MM`, `**Current Phase:** 1`.
 
-### Skill Resolution
+### Doctrine Resolution
 
-For each phase, read its `**Skills:**` field. Validate each named pillar is a real available skill (the 9 pillars, `prototype`, `clarify`, plus any external skill). A name that matches nothing → STOP and ask the user. A missing field → match the phase goal/scope against pillar descriptions and add the right pillar(s). These become the agents' `## Additional Skills` blocks. Pillars stay triggerable; the workflow loads them by name regardless (workflow-conventions.md §4).
+For each phase, read its `**Doctrine:**` field. Validate each name against the resolver in `docs/pillar-taxonomy.md §5`. A name absent from the resolver → STOP and surface the gap to the user. A missing field → match the phase goal/scope against the stage map in `commands/plan.md` and add the right doctrine names. These become the `## Doctrine` block in each agent dispatch.
 
 ### Model Resolution
 
@@ -132,7 +132,7 @@ Dispatch subagents for ALL design and review work. Do NOT produce DESIGN.md / JO
 | N.2 REVIEW | `design-review-agent` |
 | Commit | Orchestrator (you) |
 
-**Agents load ONLY per-phase skills.** Each agent carries its own protocol and works with zero skills. Skills arrive via the dispatch prompt's `## Additional Skills` block — one `Skill(<plugin:name>)` line per assigned pillar; each self-loads its own checklists when invoked.
+**Agents load ONLY per-phase doctrine.** Each agent carries its own protocol and reads doctrine via the dispatch prompt's `## Doctrine` block — one `Read(path)` line per doctrine name, resolved via `docs/pillar-taxonomy.md §5` before dispatching.
 
 ### Execution Loop
 
@@ -172,11 +172,11 @@ Agent tool:
     A DW item without evidence is a gap. If any cannot be met, return UPDATE_PLAN.
     [paste ALL DW items from the phase, verbatim]
 
-    [if the phase has a **Skills:** field:]
-    ## Additional Skills
-    Invoke EVERY Skill() below, in order, BEFORE starting work:
-    - Skill([pillar:name from the phase — this plugin's pillars unprefixed
-      resolve as design-for-ai; external skills keep their plugin prefix])
+    [if the phase has a **Doctrine:** field with names other than `none`:]
+    ## Doctrine
+    Look up each name in docs/pillar-taxonomy.md §5, then Read() the file
+    before starting work:
+    - [doctrine names from the phase's **Doctrine:** field, one per line]
 
     ## Inputs
     - Plan file: [plan path]
@@ -225,10 +225,11 @@ Agent tool:
     - DESIGN.md / JOURNEY.md at the project root if present (the contract the
       surface should honor).
 
-    [if the phase has a **Skills:** field OR BUILD reported extra skills:]
-    ## Additional Skills
-    Invoke EVERY Skill() below BEFORE reviewing:
-    - Skill([pillar:name — phase skills + any from BUILD's "Skills Loaded"])
+    [if the phase has a **Doctrine:** field with names other than `none`:]
+    ## Doctrine
+    Look up each name in docs/pillar-taxonomy.md §5, then Read() the file
+    before reviewing:
+    - [doctrine names from the phase's **Doctrine:** field, one per line]
 
     ## Output
     Write the review to: .design-foundations/build/<plan-slug>-phase-N-review.md
