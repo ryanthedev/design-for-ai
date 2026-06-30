@@ -1,10 +1,3 @@
----
-name: ai-native
-description: "Designs agent and LLM-driven interfaces whose screen, affordances, and content are generated at runtime, not authored ahead — agent UX / AX, conversational and agentic interfaces, generative and non-deterministic UI, no-fixed-screen interaction, AI trust and control surfaces, and the diagnostic for which classical pillar strains when AI removes its fixed substrate (no screens strains journey mapping; no affordances strains interaction; no fixed content strains content design; autonomous action strains ethics). Explicitly flags its guidance as principle-derived, not book-canonical — no settled canon yet (Dibia; Wilson; Smashing). Use when the question is about agent UX, AX, designing for AI, LLM interface design, chat or agentic UI, generative or runtime-generated UI, no-fixed-screen design, or AI trust and control. Not for: conventional screen-UI operability and heuristics (use usability); the visual look, fonts, or color (use core design); a conversational voice surface as a device class (use core surface)."
-user-invocable: true
-argument-hint: "[agent UX, generative UI, or AI-interface context]"
----
-
 AI-native design specifies interfaces whose screen, affordances, and content are produced at runtime by a model rather than authored ahead of time — agent UX, conversational and agentic UI, and generative non-deterministic UI. **There is no settled canon for this pillar.** Unlike the other design pillars (each anchored in established books), this one is principle-derived: drawn from practitioner essays and emerging sources, marked as such on every claim. Cite the principle *and* the canon gap.
 
 ## When this applies

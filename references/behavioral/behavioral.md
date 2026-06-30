@@ -1,10 +1,3 @@
----
-name: behavioral
-description: "Applies behavioral psychology and emotional design principles to understand why users act, return, and convert — and to design honest engagement. Use when the question is about persuasion triggers (Cialdini's six principles), the Fogg behavior model (motivation × ability × prompt), habit loop design (Eyal's Hook model: trigger→action→reward→investment), Norman's three emotional levels (visceral/behavioral/reflective emotional design), choice architecture, motivation gap, variable reward, emotional resonance, user engagement, retention mechanics, or the psychological mechanisms behind conversion and habit (Cialdini Influence; Eyal Hooked/Indistractable; Norman Emotional Design; Weinschenk 100 Things Every Designer Needs to Know About People). Not for: the dark or manipulative version of these mechanics (use deceptive-patterns); the sequence a user moves through over time (use journey); visual mood and aesthetic feel (use core design)."
-user-invocable: true
-argument-hint: "[feature, flow, or engagement goal]"
----
-
 Behavioral design is the practice of applying what psychology knows about human motivation, decision-making, and habit to create products that genuinely earn engagement. The mechanisms here — social proof, commitment, variable reward, goal gradients, visceral appeal — are the same tools the `deceptive-patterns` skill flags when weaponized. The difference is intent, transparency, and whether the design serves the user's own goals or overrides them.
 
 Load `deceptive-patterns` as the ethical guardrail when the work involves conversion optimization, sign-up flows, subscription design, or any engagement mechanic where the line between persuasion and manipulation is a live question.

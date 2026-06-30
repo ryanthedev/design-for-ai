@@ -99,7 +99,7 @@ DNA      [base family] + [borrowed axis] from [family]
 SIGNATURE [the move]
 ```
 
-Run the palette script (`scripts/palette.mjs` in the skill directory — full invocation in SKILL.md design step 3) for each candidate's seed BEFORE presenting, so the swatch hexes are real, contrast-checked values — not invented.
+Run the palette script (`${CLAUDE_PLUGIN_ROOT}/scripts/palette.mjs`) for each candidate's seed BEFORE presenting, so the swatch hexes are real, contrast-checked values — not invented.
 
 Ask the user to pick one by name, and always invite **"None of these — tell me what's off"** explicitly. If the user picks pieces from two candidates, recombine under the remix rules and re-present once.
 

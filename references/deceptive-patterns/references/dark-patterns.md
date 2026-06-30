@@ -2,7 +2,7 @@
 
 **Source:** Brignull *Deceptive Patterns* (2023); deceptive.design taxonomy; Nodder *Evil by Design* (2013); Monteiro *Ruined by Design* (2019); EU DSA (2023); FTC enforcement history; EU Digital Fairness Act (expected Q4 2026).
 
-**Structural twin:** `skills/design-for-ai/references/ai-tells.md` is the aesthetic parallel — a ban-list of visual tells (cyan-on-dark, glassmorphism, Inter defaults) that signal AI-generated defaults. This file is the ethical parallel: a ban-list of manipulation tells that signal user-hostile intent. Same structure (detection → mechanism → severity), different domain.
+**Structural twin:** `${CLAUDE_PLUGIN_ROOT}/references/visual/ai-tells.md` is the aesthetic parallel — a ban-list of visual tells (cyan-on-dark, glassmorphism, Inter defaults) that signal AI-generated defaults. This file is the ethical parallel: a ban-list of manipulation tells that signal user-hostile intent. Same structure (detection → mechanism → severity), different domain.
 
 ---
 

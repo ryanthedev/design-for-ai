@@ -1,10 +1,3 @@
----
-name: journey
-description: "Maps how users move through time — from intent to outcome — and how a marketing site earns the conversion. Covers JTBD job stories (Christensen/Ulwick/Moesta), journey maps (NN/g swim lanes, emotion curve, loyalty loop, messy middle), information architecture (Rosenfeld/Morville 4 systems: organization, labeling, navigation, search), user and task flows, page specs, and the marketing persuasion spine (hero→proof→problem→solution→CTA; AIDA/PAS/StoryBrand). Ships a JOURNEY.md companion document (Job / Journey / IA / Flows / Page specs) alongside DESIGN.md. Use when the question is about user journeys, journey mapping, information architecture, sitemaps, nav models, JTBD job stories, user flows, task flows, conversion funnels, landing-page section order, or the JOURNEY.md template. Not for: motivation or why users act (habit loop, Cialdini) — use behavioral; visual color, fonts, or UI look — use core design; device-class layout — use surface; single-screen operability — use usability."
-user-invocable: true
-argument-hint: "[flow, IA, journey map, or page spec context]"
----
-
 Journey design is the practice of specifying how a user moves through time — from a job they're hired to do, through the touchpoints they encounter, into the information architecture they navigate, and across the flows they complete — culminating in a JOURNEY.md that pairs with DESIGN.md to form a complete design spec.
 
 ## When this applies

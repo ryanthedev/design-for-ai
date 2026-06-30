@@ -1,10 +1,3 @@
----
-name: content-design
-description: "Applies UX writing and content design principles to make words work as interface. Use when the question is about the words themselves — UX writing, microcopy (error messages, empty states, button/CTA copy, placeholder text, labels), voice and tone systems, content-first process, plain language, readability and scannability, onboarding and in-product messaging, or how writing decisions shape user behaviour (Podmajersky Strategic Writing for UX; Yifrah Microcopy; Richards Content Design; Redish Letting Go of the Words; Metts & Welfle Writing Is Designing). Not for: visual typography or typeface selection (use core fonts mode); information architecture and navigation labels as structure (use journey); persuasion mechanics and conversion copy (use behavioral); manipulative copy or dark patterns (use deceptive-patterns)."
-user-invocable: true
-argument-hint: "[copy to review or context]"
----
-
 The words ARE the interface — not labels placed on it. Content design is the practice of making words work as design decisions: the right word, in the right place, at the right moment, for the right reader. Every content recommendation cites its source — the principle, the author, or the research it traces to.
 
 ## When this applies
