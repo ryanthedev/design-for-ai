@@ -2,7 +2,7 @@
 **Created:** 2026-06-29
 **Status:** in-progress
 **Started:** 2026-06-29
-**Current Phase:** 3
+**Current Phase:** 4
 **Complexity:** complex
 ---
 ## Context
@@ -317,3 +317,10 @@ Summary: All design doctrine now lives in references/ (visual/ + 6 pillar dirs) 
 - [x] Committed
 Commit: a4f5985
 Summary: usability/data-viz no longer pollute trigger space. The resolver in pillar-taxonomy.md §5 is the canonical vocabulary (21 names: 6 pillars + 2 survivors + 13 visual sub-topics) — Phases 3–5 must match these names exactly. (Known stale line: pillar-taxonomy.md line ~13 still says "all pillars remain user-invocable: true" — clean up in Phase 5.)
+
+### Phase 3: Rewire commands (Gate: Standard)
+- [x] BUILD: plan.md (15 sites), build.md (6 sites incl. ## Additional Skills→## Doctrine), mock.md (1 site) rewired to **Doctrine:** names + resolve+Read(); research.md untouched; Skill(clarify) preserved
+- [x] REVIEW: PASS (6/6 DW; only Skill(clarify) remains, no triggerable/9-skills language)
+- [x] Committed
+Commit: 9952720
+Summary: The 3 commands now load doctrine deterministically via the resolver, not Skill() auto-trigger. plan emits **Doctrine:** names; build emits ## Doctrine resolve+Read blocks. Agents (Phase 4) must mirror the same ## Doctrine block format.

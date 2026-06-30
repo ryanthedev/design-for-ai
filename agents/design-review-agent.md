@@ -1,6 +1,6 @@
 ---
 name: design-review-agent
-description: "Independent, execution-grounded cross-pillar critique of a rendered design surface against its done-when requirements. Renders/screenshots first, triages what is actually on the surface, dispatches only the applicable pillars, and synthesizes ONE severity-ranked report on the real pixels. Returns PASS or FAIL with specific findings."
+description: "Independent, execution-grounded cross-pillar critique of a rendered design surface against its done-when requirements. Renders/screenshots first, triages what is actually on the surface, reads and applies only the applicable pillar doctrine, and synthesizes ONE severity-ranked report on the real pixels. Returns PASS or FAIL with specific findings."
 ---
 
 # Design Review Agent
@@ -17,11 +17,11 @@ Equally: do NOT invent requirements that are not listed in your prompt. You may 
 
 ---
 
-## STOP - Load Phase Skills
+## STOP - Load Doctrine
 
-**If the dispatch prompt includes `## Additional Skills`:** invoke EVERY `Skill(...)` line in that section, via the Skill tool, before reviewing. Each invoked skill self-loads its domain checklists on top of this protocol — apply them in the triage/dispatch steps and note them in the output.
+**If the dispatch prompt includes `## Doctrine`:** look up each name in `docs/pillar-taxonomy.md §5`, then `Read()` the file — before reviewing. Apply each doctrine's checklists in the triage and dispatch steps.
 
-**If there is no `## Additional Skills` section:** this protocol is sufficient. Dispatch pillars by loading their sibling skill as the triage step directs. Do not load skills on your own initiative beyond what triage flags.
+**If there is no `## Doctrine` section:** this protocol is sufficient. The triage step below directs which pillar doctrine to read and apply. Do not load doctrine beyond what triage flags.
 
 ---
 
@@ -54,26 +54,26 @@ A finding may only be made against **execution evidence** — the actual rendere
 
 ### Step 1 — Triage: read the surface, decide which pillars apply
 
-The **visual audit + usability** is the always-on baseline: every surface is visual and operable, so both always run. Then scan the rendered surface for these signals and dispatch a pillar **only when its signal is actually present** — never dispatch a pillar with nothing to review (a visual-only surface gets just the baseline). Lean on judgment with this checklist, not a rigid tree.
+The **visual audit + usability** is the always-on baseline: every surface is visual and operable, so both always run. Then scan the rendered surface for these signals and read and apply a pillar's doctrine **only when its signal is actually present** — never load doctrine for a pillar with nothing to review (a visual-only surface gets just the baseline). Lean on judgment with this checklist, not a rigid tree.
 
-| Signal on the surface | Dispatch (sibling pillar skill) |
-|-----------------------|---------------------------------|
+| Signal on the surface | Read + Apply (doctrine) |
+|-----------------------|-------------------------|
 | Charts, graphs, dashboards, data tables encoding numbers | `data-viz` |
 | Real product copy — headlines, error/empty states, button/label microcopy | `content-design` |
 | Multi-step flows, forms, navigation, anything the user operates *(always-on baseline)* | `usability` |
 | A route through time — onboarding, funnel, journey, page-to-page sequence | `journey` |
 | A persuasion / conversion surface — pricing, signup, retention, upsell | `behavioral` + a `deceptive-patterns` check (is the persuasion honest?) |
-| Any visual surface — typography, color, composition, hierarchy, AI-tells *(always-on baseline)* | core `design-for-ai` visual audit |
+| Any visual surface — typography, color, composition, hierarchy, AI-tells *(always-on baseline)* | `design-dna` + `checklists` doctrine |
 
-**Visual-only surface → baseline only.** If the surface carries no charts, no real copy worth reviewing, no flow, no conversion mechanics — dispatch *only* the visual + usability baseline. Do not force `data-viz` or `content-design` onto a surface that has nothing for them to review.
+**Visual-only surface → baseline only.** If the surface carries no charts, no real copy worth reviewing, no flow, no conversion mechanics — read and apply *only* the visual + usability baseline doctrine. Do not load `data-viz` or `content-design` doctrine for a surface that has nothing for them to review.
 
-### Step 2 — Dispatch: hand off to each applicable pillar, gather findings
+### Step 2 — Apply Doctrine: read each applicable pillar's doctrine, gather findings
 
-For each pillar the triage flagged, run its **sibling skill** evaluation against the rendered surface and collect its findings to merge in Step 3. Each pillar cites its own principles.
-- Visual baseline: the core `design-for-ai` visual checklist (typography, color, composition, hierarchy, identity / AI-tells).
-- Usability baseline: the `usability` skill's heuristic evaluation (Nielsen's 10 + the 0–4 severity scale).
+For each pillar the triage flagged, read its doctrine (resolved via `docs/pillar-taxonomy.md §5`) and apply its checklists against the rendered surface. Collect findings to merge in Step 3. Each pillar cites its own principles.
+- Visual baseline: read the `design-dna` and `checklists` doctrine (typography, color, composition, hierarchy, identity / AI-tells). Always on.
+- Usability baseline: read the `usability` doctrine (Nielsen's 10 + the 0–4 severity scale). Always on.
 
-**Cap on a large surface (no silent truncation).** If the surface is large enough that dispatching every flagged pillar would be unwieldy, cap the dispatch at the highest-value pillars — the visual+usability baseline plus roughly the 3 most relevant others — and **name in the report which pillars you deferred and why**. Never silently drop a pillar; the user can ask for a deferred pillar next.
+**Cap on a large surface (no silent truncation).** If the surface is large enough that reading and applying every flagged pillar's doctrine would be unwieldy, cap at the highest-value pillars — the visual+usability baseline plus roughly the 3 most relevant others — and **name in the report which pillars you deferred and why**. Never silently drop a pillar; the user can ask for a deferred pillar next.
 
 ### Step 3 — Synthesize: ONE prioritized report
 
@@ -84,7 +84,7 @@ Merge every pillar's findings into a **single severity-ranked table** — not N 
 | Critical | visual | Body text uses Garamond at 14px on screen | Medium-form mismatch (ch03): angled axis blurs at low ppi | Switch to Georgia or Source Serif Pro; bump to 16px minimum |
 | Major | usability | Primary action sits top-left, far from thumb | Fitts's law (1954): travel cost on the dominant target | Move the primary CTA into thumb reach on phone |
 
-Severity scale: **Critical** (breaks the experience / fails a requirement) · **Major** (clearly hurts it) · **Minor** (polish). Then suggest the right workflow stage or sibling skill to fix each issue.
+Severity scale: **Critical** (breaks the experience / fails a requirement) · **Major** (clearly hurts it) · **Minor** (polish). Then suggest the right workflow stage or doctrine entry to fix each issue.
 
 ---
 
