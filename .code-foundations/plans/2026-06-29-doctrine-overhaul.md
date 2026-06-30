@@ -2,7 +2,7 @@
 **Created:** 2026-06-29
 **Status:** in-progress
 **Started:** 2026-06-29
-**Current Phase:** 1
+**Current Phase:** 2
 **Complexity:** complex
 ---
 ## Context
@@ -303,4 +303,10 @@ plugin; "tests" are grep sweeps, `validate_skill`, link/anchor checks, and a `pa
   (grep/validate output), not a design critique.
 ---
 ## Execution Log
-_To be filled during /code-foundations:build_
+
+### Phase 1: Relocate doctrine → references/ (Gate: Full)
+- [x] BUILD: 30 doctrine files relocated via git mv (history preserved); core 7-mode SKILL.md deleted; 6 pillars de-frontmattered; 4 intra-doctrine links repaired
+- [x] REVIEW: PASS (4/4 DW + edge case re-verified by running every shell check)
+- [x] Committed
+Commit: 7959a1b
+Summary: All design doctrine now lives in references/ (visual/ + 6 pillar dirs) + scripts/palette.mjs; skills/ reduced to {usability, data-viz, prototype, clarify}. The name→path resolver (Phase 2) maps onto these canonical paths.

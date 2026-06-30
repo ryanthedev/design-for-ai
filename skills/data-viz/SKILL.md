@@ -1,7 +1,8 @@
 ---
 name: data-viz
 description: "Applies data visualization and information design principles to encode data truthfully and efficiently. Use when the question is about charts or graphs — chart type selection (bar, line, scatter, heatmap, small multiples), data-ink ratio and chartjunk reduction (Tufte VDQI), preattentive attributes (Knaflic Storytelling with Data), dashboard layout and KPI design (Few Information Dashboard Design), truthful encoding and chart lie detection (Cairo How Charts Lie), marks and channels (Munzner), colorblind-safe palette selection for charts, or chart accessibility. Not for: brand or UI color palette generation (use core color mode); overall page composition and visual hierarchy (use core audit mode); data-display tables as a UI pattern (use usability); typeface or font selection (use core fonts mode); UI copy or writing (use content-design)."
-user-invocable: true
+user-invocable: false
+disable-model-invocation: true
 argument-hint: "[chart, dashboard, or data to visualize]"
 ---
 

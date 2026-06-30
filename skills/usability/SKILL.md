@@ -1,7 +1,8 @@
 ---
 name: usability
 description: "Adjudicate whether users can operate an interface, and run heuristic evaluation. Use when the question is operability rather than looks — is it usable, hard to use, confusing, where do users get stuck; heuristic evaluation, Nielsen heuristics, usability audit, severity rating; the UX laws (Fitts, Hick, Miller/Cowan, Jakob, Tesler, Doherty, peak-end, Zeigarnik, aesthetic-usability); Gestalt grouping, affordances, signifiers, mapping, feedback, cognitive load, recognition over recall; picking among navigation, form, search/filter, table/data, feedback, action, disclosure, or onboarding patterns; or usability-side accessibility (WCAG POUR, inclusive design). Not for: the visual look or aesthetic audit (use core design/audit); the words/microcopy themselves (use content-design); the route through time, IA, or funnel (use journey); persuasion or conversion mechanics (use behavioral); truthful chart/data encoding (use data-viz)."
-user-invocable: true
+user-invocable: false
+disable-model-invocation: true
 argument-hint: "[interface or flow to evaluate]"
 ---
 
