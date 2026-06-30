@@ -1,7 +1,7 @@
 {
   "name": "design-for-ai",
-  "version": "3.1.0",
-  "description": "A design-foundations system with a four-stage workflow (research → plan → mock → build) and eight auto-triggering pillar skills. The workflow commands take any design idea from brief to viewable artifact: research extracts the brief, plan decomposes it into phased stages with pillar assignments and done-when criteria, mock renders a cheap prototype and gates on user sign-off, build executes the plan with per-phase BUILD → REVIEW → commit dispatch. Eight pillar skills cover the design landscape and are also directly invocable alongside the core visual/surface skill: usability, content-design, data-viz, deceptive-patterns, behavioral, journey, design-systems, and ai-native.",
+  "version": "4.0.0",
+  "description": "A design-foundations system with a four-stage workflow (research → plan → mock → build). Design doctrine is loaded deterministically by Read() via a name→path resolver — six domains (content-design, behavioral, journey, deceptive-patterns, design-systems, ai-native) live as reference files in references/; two de-triggered skills (usability, data-viz) and two workflow skills (clarify, prototype) complete the plugin. Workflow commands take any design idea from brief to viewable, gated artifact: research extracts the brief, plan decomposes it into phased stages, mock renders a cheap prototype and gates on user sign-off, build executes with per-phase BUILD → REVIEW → commit dispatch.",
   "author": {
     "name": "r"
   },

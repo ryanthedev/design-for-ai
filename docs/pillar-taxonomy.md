@@ -1,19 +1,19 @@
-# Pillar taxonomy — the 8 design-foundations skills
+# Pillar taxonomy — design doctrine and the 4 surviving skills
 
-The map every later phase consumes: the 8 pillar skills, their single concern (SRP), their
-disjoint trigger scopes, the "not for X (use Y)" disambiguation that prevents cannibalization,
-and the cite-down dependency direction. Rules live in `foundations-standards.md`; this is the
-*who-owns-what*. Scope boundaries may shift slightly as pillars are authored — re-confirmed at
-Phase 6 integration (plan uncertainty note).
+The map every later phase consumes: the 8 doctrine domains, their single concern (SRP), the
+"not for X (use Y)" disambiguation that prevents cannibalization, and the cite-down dependency
+direction. Six domains live as reference files in `references/`; two (`usability`, `data-viz`)
+remain as de-triggered skills in `skills/`. Rules live in `foundations-standards.md`; this is the
+*who-owns-what*.
 
-**Dual role (v3.1.0 workflow).** Each pillar plays two roles simultaneously and neither overrides
-the other. (1) **Doctrine library** — the `research → plan → mock → build` workflow loads pillars
-per-phase via `Skill(<name>)` inside the dispatched agents, so every workflow phase gets the
-right domain checklist without the user having to invoke anything. (2) **Directly triggerable**
-— all pillars remain `user-invocable: true`; a user can invoke any pillar standalone for a
-narrow question ("is this chart lying?" → `data-viz`; "audit dark patterns" → `deceptive-patterns`)
-without running the full workflow. The workflow loads pillars by name regardless of their trigger
-status — triggering and workflow-loading are orthogonal.
+**Doctrine model (v4.0.0).** The workflow loads all design knowledge **deterministically by
+`Read()`** — never by `Skill()` auto-trigger. Plans and dispatch blocks carry semantic doctrine
+names; the §5 resolver table maps each name to its on-disk path; agents `Read()` the file before
+executing the phase. Six domains (`content-design`, `behavioral`, `journey`, `deceptive-patterns`,
+`design-systems`, `ai-native`) live as plain reference files in `references/` — they are not
+skills. Two (`usability`, `data-viz`) remain as skills in `skills/` with `user-invocable: false`
+and `disable-model-invocation: true` — they do not auto-trigger but are fully `Read()`-able via
+the resolver. The complete skills list is four: `clarify`, `prototype`, `usability`, `data-viz`.
 
 The existing `skills/design-for-ai/` core is **not** a pillar — it keeps the visual/aesthetic
 DNA, surface, and the index. The 7 core modes (design, surface, fonts, color, audit, enhance,
@@ -23,7 +23,7 @@ polish) are the disambiguation targets the pillars point *away from*.
 
 ## Table of Contents
 
-1. [The 8 pillars at a glance](#1-the-8-pillars-at-a-glance)
+1. [The 8 doctrine domains at a glance](#1-the-8-doctrine-domains-at-a-glance)
 2. [Disjoint trigger scopes (the anti-cannibalization contract)](#2-disjoint-trigger-scopes-the-anti-cannibalization-contract)
 3. [Dependency direction (cite-down, never up)](#3-dependency-direction-cite-down-never-up)
 4. [Build order](#4-build-order)
@@ -31,9 +31,9 @@ polish) are the disambiguation targets the pillars point *away from*.
 
 ---
 
-## 1. The 8 pillars at a glance
+## 1. The 8 doctrine domains at a glance
 
-| # | Pillar (skill name) | Single concern (SRP) | Backing grug research | Phase |
+| # | Domain (doctrine name) | Single concern (SRP) | Backing grug research | Phase |
 |---|---------------------|----------------------|-----------------------|-------|
 | 1 | `usability` | Can the user operate it — principles (Gestalt, UX laws, Nielsen 10, Norman, WCAG) that adjudicate UI patterns (nav/forms/search/data/feedback/action/disclosure/onboarding) + heuristic evaluation | `usability-foundations-research` | 2 (keystone) |
 | 2 | `content-design` | The words ARE the interface — voice/tone as a language system, microcopy patterns (error/empty/button), content-first process | `design-pillar-landscape-research` | 3 |

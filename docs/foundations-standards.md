@@ -5,11 +5,10 @@ authoring template (`references/skill-authoring-template.md`) and the taxonomy (
 both reference it. Phases 2–6 author one or two pillar skills each — they MUST conform here.
 
 The plugin is `design-foundations` in spirit, `design-for-ai` in name (the name is kept; see
-plan). It is a **multi-skill plugin**: the existing `skills/design-for-ai/` stays as the core
-visual/DNA + surface skill and the index; each new pillar is its own skill under `skills/`.
-Skills are auto-discovered from the `skills/` directory and each triggers on its own
-`description` — there is no central router (the plugin manifest has no `skills` array; skills
-are auto-discovered from the `skills/` directory).
+plan). It is a **mixed doctrine + skill plugin**: six design doctrine domains live as reference files in
+`references/` (loaded by `Read()` via the §5 resolver in `pillar-taxonomy.md`); four skills in
+`skills/` (`clarify`, `prototype`, `usability`, `data-viz`) handle workflow and evaluation
+concerns. The plugin manifest has no `skills` array — skills are auto-discovered from `skills/`.
 
 ---
 
@@ -26,13 +25,13 @@ are auto-discovered from the `skills/` directory).
 
 ## 1. Frontmatter shape
 
-Every pillar `SKILL.md` opens with YAML frontmatter in this shape:
+Every skill `SKILL.md` opens with YAML frontmatter in this shape:
 
 ```yaml
 ---
-name: <pillar-name>          # ≤64 chars, lowercase a-z 0-9 + single hyphens; MUST equal the directory name; no leading/trailing/consecutive hyphens; never contains "anthropic" or "claude"
+name: <skill-name>           # ≤64 chars, lowercase a-z 0-9 + single hyphens; MUST equal the directory name; no leading/trailing/consecutive hyphens; never contains "anthropic" or "claude"
 description: "<see §2>"        # 1–1024 chars, third person, NO XML tags
-user-invocable: true          # Claude-Code-only field; pillars are user-invocable
+user-invocable: true|false    # true for prototype; false for clarify/usability/data-viz
 argument-hint: "[context]"    # optional; Claude-Code-only; a short usage hint
 ---
 ```

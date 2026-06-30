@@ -2,7 +2,7 @@
 **Created:** 2026-06-29
 **Status:** in-progress
 **Started:** 2026-06-29
-**Current Phase:** 4
+**Current Phase:** 5
 **Complexity:** complex
 ---
 ## Context
@@ -324,3 +324,10 @@ Summary: usability/data-viz no longer pollute trigger space. The resolver in pil
 - [x] Committed
 Commit: 9952720
 Summary: The 3 commands now load doctrine deterministically via the resolver, not Skill() auto-trigger. plan emits **Doctrine:** names; build emits ## Doctrine resolve+Read blocks. Agents (Phase 4) must mirror the same ## Doctrine block format.
+
+### Phase 4: Rewire agents (Gate: Standard)
+- [x] BUILD: both agents → ## STOP - Load Doctrine blocks (resolve §5 → Read); review triage Reads pillar doctrine (no sibling-dispatch); palette path fixed; independence/debiasing/single-report preserved
+- [x] REVIEW: PASS (4/4 DW + 3 edge cases; protocol sections intact)
+- [x] Committed
+Commit: 4d9345e
+Summary: Both dispatched agents now Read() doctrine via the resolver — no Skill()-for-doctrine anywhere in commands/ or agents/. The runtime mechanism is fully converted; Phase 5 updates the docs/manifest/CLAUDE.md to describe it, then Phase 6 validates the whole.
