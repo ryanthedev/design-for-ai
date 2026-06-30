@@ -115,15 +115,15 @@ Read `${CLAUDE_SKILL_DIR}/references/archetypes.md`.
 
 Map the interview onto 2-3 candidate brand archetypes (Part C: personality-word table, filtered by content pressure). Confirm with ONE confirmatory question — lead with your recommendation and why: "This reads Sage — measured, evidence-led. Or should it feel more Hero?"
 
-### 3. Design DNA — 3 candidates
+### 3. Design DNA — 5 candidates
 
 Read `${CLAUDE_SKILL_DIR}/references/design-dna.md` and follow its protocol:
 
-1. Build 3 candidates — honest default, tension, dark horse — under the remix rules. Seed hues come from the content, ≥60° apart unless brand assets lock the hue.
+1. Build 5 candidates — honest default, tension, dark horse, inversion, cultural wildcard — under the remix rules. The five must span **five distinct hue families** (anti-convergence rule); green/lime takes at most one slot and only with a named content cue. Write the one-line content justification for each seed hue before running the script.
 2. Run the palette script for **each** candidate BEFORE presenting, so swatches are real, contrast-checked hexes:
    `node ${CLAUDE_SKILL_DIR}/scripts/palette.mjs --seed <hue|#hex> --chroma <muted|balanced|vivid> --harmony <mono|analogous|complementary|split|triadic|tetradic> --scheme light`
    (`--scheme light` keeps previews small; the final run in step 4 uses `--scheme both`.)
-3. Present via `AskUserQuestion` with one preview per candidate (format in design-dna.md). Invite "none of these" explicitly.
+3. Present the 5 candidates as labeled spec blocks **in the message** (format in design-dna.md) — `AskUserQuestion` caps at 4 options, so it can't carry five; have the user pick by name. Invite "none of these" explicitly.
 
 ### 4. DESIGN.md — the gate
 

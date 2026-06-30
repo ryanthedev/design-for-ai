@@ -10,7 +10,7 @@
 2. [The Four Axes](#the-four-axes)
 3. [Remix Rules](#remix-rules)
 4. [The Signature Move](#the-signature-move)
-5. [Generating 3 Candidates](#generating-3-candidates)
+5. [Generating 5 Candidates](#generating-5-candidates)
 6. [Presenting Candidates](#presenting-candidates)
 7. [DESIGN.md Template](#designmd-template)
 8. [The Gate](#the-gate)
@@ -65,9 +65,9 @@ One move, executed consistently, beats five gimmicks. The signature move is reco
 
 ---
 
-## Generating 3 Candidates
+## Generating 5 Candidates
 
-Generate three DNAs that are **meaningfully far apart** — they must differ in at least two of: base family, borrowed axis, seed hue region. Do not generate three variations of the same base family.
+Generate five DNAs that are **meaningfully far apart**. The hard anti-convergence rule: the five must collectively span **five distinct named hue families** — red/orange/amber/yellow/lime/green/teal/cyan/blue/violet/purple/pink (the `palette.mjs` `HUE_NAMES` set). No two candidates share a hue family. Five variations spread across the wheel force exploration off the distributional center (divergence research); the family-spread rule stops the model's default attractor from filling multiple slots. Do not generate variations of the same base family.
 
 Recipe:
 
@@ -75,14 +75,17 @@ Recipe:
 2. **Candidate A — the honest default:** the most natural base family, one conservative borrow. The "if you asked a good designer for the safe option" answer.
 3. **Candidate B — the tension candidate:** a different base family OR the same base with an aggressive borrow that creates productive tension (e.g., Editorial Minimalism base with Terminal type voice).
 4. **Candidate C — the dark horse:** start from a *stretch* family or invert an assumption (light↔dark, dense↔airy, symmetric↔broken). Still legal under the rules — surprising, not random.
-5. Derive each candidate's **seed hue from the content**, not from habit: subject matter, cultural associations (ch09 — research the audience's color context), existing brand assets, even dominant hues in the product's imagery. Three candidates should not share a hue region (≥60° apart in OKLCH hue unless brand assets lock the hue).
-6. Give each candidate a two-word name ("Quiet Ledger", "Phosphor Field", "Velvet Frame"). Names force coherence and make the choice memorable.
+5. **Candidate D — the inversion:** take the honest default's base family and flip its single most defining structural assumption (light↔dark, dense↔airy, serif↔mono, symmetric↔broken). Same room, opposite stance.
+6. **Candidate E — the cultural wildcard:** seed hue and family driven by a *specific* cultural or contextual color association for THIS audience (ch09 — research the audience's color context), reaching for whichever hue family A–D left untaken. The furthest legal stretch.
+7. Derive each candidate's **seed hue from the content**, not from habit: subject matter, cultural associations (ch09), existing brand assets, even dominant hues in the product's imagery. **Write the one-line content justification for each seed hue before running the script** — if you can't name why this hue serves this content, it's habit, not a choice (ai-tells.md: distinctiveness must serve purpose, not novelty for its own sake). The five seeds land in five different hue families (≥60° apart in OKLCH unless brand assets lock a hue).
+8. **Green/lime guard.** Green is the model's most common default and is *not* on the ai-tells kill list, so it slips through unchecked. A candidate may seed green/lime **only** when a named content cue justifies it — sustainability/eco, money/finance, growth, health/nature, or a literal terminal request. Absent such a cue, that slot takes a different hue family. At most one of the five may be green/lime.
+9. Give each candidate a two-word name ("Quiet Ledger", "Phosphor Field", "Velvet Frame", "Copper Dawn", "Tidal Press"). Names force coherence and make the choice memorable.
 
 ---
 
 ## Presenting Candidates
 
-Present via `AskUserQuestion` with one option per DNA, using the `preview` field so the user compares side by side. Each preview contains:
+Present all five as labeled spec blocks **in the message** so the user compares them side by side. (`AskUserQuestion` caps at 4 options, so it cannot carry five candidates — render the specs inline and let the user pick by name.) Each block contains:
 
 ```
 ## [Two-Word Name]
@@ -98,7 +101,7 @@ SIGNATURE [the move]
 
 Run the palette script (`scripts/palette.mjs` in the skill directory — full invocation in SKILL.md design step 3) for each candidate's seed BEFORE presenting, so the swatch hexes are real, contrast-checked values — not invented.
 
-Always offer a 4th option: "None of these — tell me what's off" (the AskUserQuestion Other field covers this; invite it explicitly in the question text). If the user picks pieces from two candidates, recombine under the remix rules and re-present once.
+Ask the user to pick one by name, and always invite **"None of these — tell me what's off"** explicitly. If the user picks pieces from two candidates, recombine under the remix rules and re-present once.
 
 ---
 
