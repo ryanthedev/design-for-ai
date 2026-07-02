@@ -45,90 +45,59 @@
 
 ## DETECTION CHECKLIST
 
-Signs this chapter's knowledge applies:
-
-### Visual Symptoms
-- [ ] Layout feels flat — everything appears to have equal importance
-- [ ] Design looks cluttered despite having structured content
-- [ ] Tables are boxed in with heavy rule lines on all sides
-- [ ] Text elements are differentiated only by changing the typeface, not by weight/size/space
-- [ ] White space appears random with no proportional relationship between gaps
-- [ ] Too many visual factors changed at once (font + size + color + decoration simultaneously)
-
-### CSS/HTML Patterns to Look For
-- [ ] All text elements use the same `font-size` with no scale relationship
-- [ ] Margins and paddings use arbitrary values with no proportional system
-- [ ] Tables styled with `border` on every cell (`td { border: 1px solid }`)
-- [ ] More than 2-3 `font-family` declarations used for differentiation
-- [ ] No `line-height` adjustments for bolded body text (texture too heavy)
-- [ ] No clear relationship between heading sizes (e.g., h1=18px, h2=16px — too subtle)
-
-### Developer Statements That Trigger This
-- "Everything on the page looks the same — I can't tell what's important"
-- "I made the header bigger and bolder and added color and a background but it still looks wrong"
-- "I don't know how much spacing to put between elements"
-- "My table has borders on everything but it still looks messy"
-- "The design works but it doesn't look clean"
+This chapter's knowledge applies whenever a layout feels flat despite structured content — everything
+appears to have equal importance, white space looks random with no proportional relationship, or
+hierarchy is attempted by changing typeface alone rather than weight, size, or space. The tell in
+conversation: "everything on the page looks the same — I can't tell what's important" or "I made the
+header bigger and bolder and added color and a background but it still looks wrong" — too many visual
+factors changed at once instead of layered one at a time.
 
 ---
 
 ## DESIGN REVIEW CRITERIA
 
-### Must Pass (Critical)
-- [ ] Clear visual distinction between primary content and secondary/metadata content --> Fail if: title, body, and metadata all appear at equal visual weight
-- [ ] White space between elements follows a consistent proportional system --> Fail if: spacing between elements appears random or uses arbitrary pixel values
-- [ ] Information that is conceptually related appears visually grouped --> Fail if: related items (e.g., author name and post title) are separated by large gaps while unrelated items are close
+**Must pass:** There is a clear visual distinction between primary content and secondary/metadata
+content (fail if title, body, and metadata all appear at equal visual weight); white space between
+elements follows a consistent proportional system (fail if spacing between elements appears random
+or uses arbitrary pixel values); and information that is conceptually related appears visually
+grouped (fail if related items — like an author name and post title — are separated by large gaps
+while unrelated items sit close together).
 
-### Should Pass (Important)
-- [ ] Type size changes are proportionally significant (not 13px vs 14px) --> Warning if: size differences between hierarchy levels are less than ~25% apart
-- [ ] Visual ornamentation (rules, borders, icons) is used sparingly and purposefully --> Warning if: rule lines or borders are used where white space and alignment alone could differentiate
-- [ ] Hierarchical factors are used in isolation before combining --> Warning if: every element differs from others in 3+ factors simultaneously (size + weight + color + decoration)
-
-### Nice to Have
-- [ ] Type sizes follow a proportional scale (e.g., 3:4 ratio scale like 5, 7, 9, 12, 16, 21, 28, 37, 50, 67) --> Suggestion: adopt a modular type scale for consistent, harmonious sizing
-- [ ] Grid-based white space management using geometric relationships --> Suggestion: derive column divisions and spacing from the same proportional system as the canvas
-- [ ] Typeface changes express conceptual differences (e.g., data metadata in sans-serif, content in serif) --> Suggestion: use typeface contrast to signal different *nature* of information, not just different rank
+See `checklists.md` §1 for the full Should-Pass/Nice-to-Have tri-tier checklist across all
+chapters.
 
 ---
 
 ## RED FLAGS
+
+**Last reviewed: 2026-07**
 
 | Flag | Severity | What It Indicates | Fix |
 |------|----------|-------------------|-----|
 | Every table cell has visible borders on all four sides | Critical | Tufte's "1+1=3" — rule lines add visual noise, not clarity | Remove borders; use alignment, white space, and optional alternating row highlights |
 | All hierarchy established by changing typeface alone | High | Misses the most impactful factors (white space, weight, size) | Default to white space, then weight, then size before reaching for a new typeface |
 | Spacing between all elements is identical | High | No grouping signal — related and unrelated items appear equally connected | Use proportional spacing: less space between related items, more between unrelated |
-| Title differentiated only by making it 1-2px larger | Medium | Size change too subtle to register as hierarchical difference | Skip steps in your type scale; use at least 25-30% size difference or combine with weight |
-| Heavy visual ornamentation to compensate for flat hierarchy | Medium | Decorating rather than designing; leaning on the "crutch" of ornamentation | Strip all ornamentation; establish hierarchy with white space and type first, then add ornamentation sparingly |
-| Metadata (date, category, author) given same prominence as title | Medium | Hierarchy not expressing true content relationships | Push metadata to secondary role via smaller size, lighter weight, or positional grouping |
+
+See `checklists.md` §2 Red Flags Master Table for the complete list across all chapters.
 
 ---
 
 ## IMPLEMENTATION CHECKLIST
 
-### Before Starting
-- [ ] Identify all distinct pieces of information in the layout (title, body, metadata, navigation, etc.)
-- [ ] Determine the relative importance and conceptual relationships between those pieces
-- [ ] Note which pieces are conceptually related (e.g., "the post is *by* the author," "the post is *filed under* the category")
-- [ ] Choose a proportional system for your layout and type scale (e.g., 3:4 ratio)
+Before starting, identify every distinct piece of information in the layout (title, body, metadata,
+navigation), determine their relative importance and conceptual relationships (for example, "the
+post is *by* the author"), and choose a proportional system for the layout and type scale. While
+designing, start with a single typeface, size, and weight and establish hierarchy through white
+space and positioning alone, verifying that importance still reads correctly with everything else
+held constant. Layer in weight next — bold elements should read as more important, and line-height
+should loosen if body text is bolded — then size using a proportional scale that skips steps for
+meaningful contrast, then color, and only then ornamentation such as rules or icons where the
+simpler factors are insufficient. Afterward, run the squint test to confirm primary, secondary, and
+tertiary areas are still identifiable when blurred, mentally strip each piece of ornamentation to
+see whether the hierarchy survives without it, and audit that spacing and type sizes trace back to a
+consistent proportional ratio.
 
-### During Design
-- [ ] Step 1: Start with a single typeface, single size, single weight — establish hierarchy using only white space and positioning
-  - Verify: With all text the same font/size/weight, can you still tell which elements are more important based on space and placement?
-- [ ] Step 2: Add type weight variations (bold for primary elements, regular for secondary)
-  - Verify: Bold elements read as more important; if body text is bolded, increase `line-height` to lighten texture
-- [ ] Step 3: Introduce type size changes using a proportional scale (skip steps for meaningful contrast)
-  - Verify: Size differences between hierarchy levels are clearly perceptible (not 13px vs 14px, but 9pt vs 16pt)
-- [ ] Step 4: Add color only where additional differentiation is needed
-  - Verify: A bold, colored title still stands out from same-size gray body text; color contrasts are intentional
-- [ ] Step 5: Add visual ornamentation (rules, blocks of color, icons) sparingly and only where other factors are insufficient
-  - Verify: Every rule line or decorative element has a clear purpose; removing it would lose meaningful differentiation
-
-### After Design
-- [ ] Squint test: with the design blurred, can you still identify the primary, secondary, and tertiary content areas?
-- [ ] Strip test: mentally remove each piece of ornamentation — does the hierarchy survive without it?
-- [ ] Proportion audit: are spacing values, type sizes, and column widths derived from a consistent ratio?
-- [ ] Relationship test: do visually grouped elements actually belong together conceptually?
+See `checklists.md` §5 Implementation Quick-Start for the full step-by-step sequence.
 
 ---
 
@@ -194,31 +163,16 @@ Use a contrasting typeface (e.g., Helvetica for metadata like category and date)
 
 Visual hierarchy is not a linear ranking from most to least important — it is an expressive system where pieces of information have personalities and relationships. The five primary factors for establishing hierarchy are white space, type weight, type size, color, and visual ornamentation. Designers should learn each factor in isolation before combining them, starting with the subtlest (white space) and layering on additional factors only as needed.
 
-### CHECKER Mode
-When reviewing an existing design, verify:
-- [ ] Each distinct piece of information is visually differentiated from the others
-- [ ] White space between elements follows a proportional, intentional pattern (not arbitrary)
-- [ ] Grouping via proximity correctly reflects conceptual relationships
-- [ ] Type size differences are meaningful (at least one step apart in a proportional scale)
-- [ ] Visual ornamentation is used sparingly and only where simpler factors cannot suffice
-- [ ] Tables do not have unnecessary rule lines (Tufte's 1+1=3 principle)
-
 **Severity Classification:**
 | Violation Type | Severity | Rationale |
 |----------------|----------|-----------|
 | No discernible hierarchy (all elements look equal) | Critical | Users cannot parse importance; layout is non-functional |
 | Tufte 1+1=3 (redundant separators in tables/layouts) | High | Adds visual clutter; every unnecessary element competes with content |
 | Arbitrary spacing (no proportional relationship) | High | Design feels chaotic; spacing is the most impactful subtle factor |
-| Too-subtle size changes (13px vs 14px) | Medium | Differentiation exists but is imperceptible to users |
-| Over-ornamentation masking weak hierarchy | Medium | Treating symptom not cause; hierarchy collapses if decoration is removed |
 
-### APPLIER Mode
-When creating or modifying a design, ensure:
-- [ ] Start with one font, one size, one weight — establish hierarchy through white space alone first
-- [ ] Use geometric relationships to determine white space amounts (e.g., cap height = gap between related items)
-- [ ] Add weight, then size, then color, then ornamentation — one factor at a time, only as needed
-- [ ] Use a proportional type scale (e.g., 5, 7, 9, 12, 16, 21, 28, 37, 50, 67 at 3:4 ratio)
-- [ ] Every piece of ornamentation must have a clear justification; default to removing it
+Reviewing and applying draw on the same criteria in both directions: start with white space before
+any other factor, layer weight, size, color, and ornamentation in one at a time, and treat every
+rule line or decoration as needing its own justification.
 
 ---
 
@@ -269,12 +223,14 @@ When creating or modifying a design, ensure:
 
 ## COMMON MISTAKES
 
+**Last reviewed: 2026-07**
+
 | Mistake | Why It Happens | Correct Approach |
 |---------|----------------|------------------|
 | Changing too many visual factors at once | Developer is unsure which factor will "work," so they change font + size + color + weight + add decoration simultaneously | Isolate factors. Change one at a time, starting with white space. Evaluate after each change. |
-| Using only the most obvious factors (size, color, decoration) | These feel most impactful because they are most visible | The subtlest factors (white space, proportion) often have the most impact on perceived quality |
 | Adding rule lines to tables for "organization" | Assumption that lines guide the eye between columns/rows | Alignment alone guides the eye powerfully (Chapter 6 principle of direction). Remove lines; use white space. |
 | Choosing type sizes with trivial differences (13px vs 14px) | Web gives unlimited size options, so developers make incremental changes | Use a proportional scale and skip steps. The difference between 9pt and 16pt is meaningful; 13px and 14px is not. |
-| Making all metadata equally prominent | Treating date, category, author, comment count as a single "metadata block" | Each metadata item has a different conceptual relationship to the content. Group and style them to express these relationships. |
 | Overusing ornamentation when the design "doesn't look clean" | Mistaking lack of decoration for lack of design | Strip everything back to one font, one size, white space only. Build up from there. "Clean" comes from considered spacing, not decoration. |
 | Ignoring leading (line-height) when using bold body text | Not realizing that bold text creates heavier visual "texture" | Increase line-height when body text is bolded to lighten the overall texture of the text block |
+
+See `checklists.md` §4 Common Mistakes Master Table for the complete list across all chapters.

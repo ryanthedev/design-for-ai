@@ -55,6 +55,8 @@ When uncertain, prefer confirmatory over silent assumption.
 
 ## Anti-Patterns
 
+**Last reviewed: 2026-07**
+
 | Pattern | Problem | Instead |
 |---------|---------|---------|
 | Going silent on "just do it" | Hidden design assumptions ship without review | Switch mode, state the assumption, let them object |

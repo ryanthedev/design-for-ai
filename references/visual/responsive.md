@@ -62,63 +62,35 @@
 
 ## DETECTION CHECKLIST
 
-Signs this knowledge applies:
-
-### Visual Symptoms
-- [ ] Layout overflows horizontally on narrow screens, requiring horizontal scrolling
-- [ ] Text is unreadably small on mobile or excessively large on wide screens
-- [ ] Buttons and interactive elements are too small to reliably tap on touch devices
-- [ ] Large hero images appear at full resolution on mobile, causing slow loads
-- [ ] Navigation is unusable on small screens (overlapping items, truncated labels)
-- [ ] Content disappears on mobile (hidden with display:none) instead of being adapted
-- [ ] Components break when placed in different-width containers (sidebar vs. main area)
-- [ ] Layout snaps abruptly between breakpoints instead of scaling smoothly
-
-### CSS/HTML Patterns to Look For
-- [ ] `@media (max-width: ...)` used instead of `@media (min-width: ...)` -- indicates desktop-first approach
-- [ ] Hardcoded breakpoints matching specific devices: `320px`, `375px`, `768px`, `1024px`
-- [ ] `display: none` used to hide content blocks on mobile
-- [ ] Fixed pixel widths on containers (e.g., `width: 960px` without max-width or min-width)
-- [ ] `<img>` tags without `srcset` or `sizes` attributes
-- [ ] Font sizes in fixed `px` values with no fluid scaling
-- [ ] Viewport units (`vw`, `vh`) used without `clamp()` guardrails
-- [ ] No `@container` queries for reusable components
-- [ ] No pointer or hover media queries despite touch-interactive elements
-
-### Developer Statements That Trigger This
-- "We'll make it responsive later"
-- "Just hide that section on mobile"
-- "Let's use Bootstrap's breakpoints"
-- "It works on my laptop, we'll fix mobile after launch"
-- "Nobody uses mobile for this kind of application"
-- "I set the width to 768px because that's the iPad width"
+This reference applies whenever a layout was built for one screen size and stretched or shrunk to
+fit others -- horizontal scrolling on narrow screens, text unreadably small on mobile or excessively
+large on wide screens, or navigation that overlaps and truncates as the viewport narrows. It also
+applies to the CSS/HTML tells behind those symptoms: `@media (max-width: ...)` used instead of
+`@media (min-width: ...)`, hardcoded breakpoints matching specific devices (`320px`, `768px`,
+`1024px`), or `display: none` hiding content blocks on mobile instead of adapting them. The developer
+statement that gives it away: "Just hide that section on mobile" -- amputating content rather than
+adapting its presentation.
 
 ---
 
 ## DESIGN REVIEW CRITERIA
 
-### Must Pass (Critical)
-- [ ] Mobile-first approach: styles use min-width media queries, not max-width -> Fail if: CSS is structured with max-width queries that strip features from a desktop baseline
-- [ ] Touch targets are minimum 44x44px on touch devices -> Fail if: buttons, links, or interactive elements are smaller than 44x44px when accessed via touch input
-- [ ] No horizontal scrolling on any viewport width -> Fail if: content overflows the viewport horizontally at any supported width
-- [ ] Content is readable without zooming on mobile -> Fail if: body text requires pinch-to-zoom to read on a standard mobile device
-- [ ] No critical functionality hidden on mobile -> Fail if: features available on desktop are removed (not adapted) on mobile via display:none
+Must pass: a mobile-first approach using min-width media queries, which fails whenever CSS is
+structured with max-width queries stripping features from a desktop baseline; touch targets at a
+minimum of 44x44px on touch devices, which fails whenever a button, link, or interactive element is
+smaller when accessed via touch input; no horizontal scrolling at any viewport width, which fails
+whenever content overflows the viewport horizontally at any supported width; content readable
+without zooming on mobile, which fails whenever body text requires pinch-to-zoom on a standard mobile
+device; and no critical functionality hidden on mobile, which fails whenever a feature available on
+desktop is removed (not adapted) via `display: none`.
 
-### Should Pass (Important)
-- [ ] Breakpoints are driven by content, not device sizes -> Warning if: breakpoints are set at 768px, 1024px, or other device-specific values without content-based justification
-- [ ] Fluid typography using clamp() -> Warning if: font sizes jump abruptly at breakpoints instead of scaling smoothly
-- [ ] Container queries used for component-level responsiveness -> Warning if: reusable components rely solely on viewport-based media queries
-- [ ] Images use srcset/sizes or picture element -> Warning if: images are served at a single resolution regardless of viewport or pixel density
-- [ ] Navigation adapts for touch vs pointer devices -> Warning if: navigation relies on hover states or uses targets smaller than 44px on touch devices
-
-### Nice to Have
-- [ ] Pointer and hover media queries used for input adaptation -> Suggestion: use @media (pointer: coarse) to enlarge targets and simplify interactions on touch devices
-- [ ] Safe area padding for notched devices -> Suggestion: add env(safe-area-inset-*) padding to fixed elements and full-bleed layouts
-- [ ] Fluid spacing with clamp() matching fluid typography scale -> Suggestion: scale margins and padding proportionally with typography for consistent visual rhythm
+See `checklists.md` §1 for the full Should-Pass/Nice-to-Have tri-tier checklist across all chapters.
 
 ---
 
 ## RED FLAGS
+
+**Last reviewed: 2026-07**
 
 | Flag | Severity | What It Indicates | Fix |
 |------|----------|-------------------|-----|
@@ -126,62 +98,29 @@ Signs this knowledge applies:
 | Fixed pixel breakpoints matching specific devices (320px, 768px, 1024px) | High | Breakpoints will not age well as new devices appear; indicates device-thinking instead of content-thinking | Set breakpoints where the content actually breaks by resizing the browser and noting where the layout fails |
 | Content hidden on mobile via display:none | High | Mobile users lose access to content; "mobile users deserve less" thinking | Adapt the content presentation for mobile (collapse, reorder, summarize) instead of removing it |
 | Fixed-width containers (width: 960px) | High | Layout will overflow or have dead space at unexpected viewport widths | Use max-width with percentage or fluid widths: `width: min(100%, 960px)` or `max-width: 960px; width: 100%` |
-| Images without srcset or responsive strategy | Medium | Mobile users download unnecessarily large images; wastes bandwidth and slows load times | Add srcset with multiple resolutions and sizes attribute describing intended display size |
-| No touch target sizing consideration | Medium | Interactive elements may be too small to tap reliably, causing user frustration | Apply minimum 44x44px hit areas for all interactive elements on touch devices |
-| Viewport units without clamp() guardrails | Medium | Text or spacing becomes unreadably small on narrow screens or excessively large on wide screens | Wrap viewport-unit values in clamp() to set minimum and maximum bounds |
+
+See `checklists.md` §2 Red Flags Master Table for the complete list across all chapters.
 
 ---
 
 ## IMPLEMENTATION CHECKLIST
 
-### Before Starting
-- [ ] Identify the content and its natural reflow points by resizing the browser window
-- [ ] Determine the primary input methods (touch, pointer, or both)
-- [ ] Identify which components are reusable and may appear in different container widths
-- [ ] Audit images and media for responsive delivery needs (multiple resolutions, art direction)
+Before starting, identify the content's natural reflow points by resizing the browser window,
+determine the primary input methods (touch, pointer, or both), and audit images and media for
+responsive delivery needs. While building, start with the smallest screen so every piece of content
+and functionality is accessible at the narrowest supported width, add complexity via min-width media
+queries as the viewport grows (each breakpoint should add layout, not remove content), and set those
+breakpoints where the content itself starts to look awkward rather than at device widths. Implement
+fluid typography with `clamp()` so text scales smoothly instead of jumping at breakpoints, use
+container queries so reusable components adapt to their container width rather than only the
+viewport, deliver images via `srcset`/`sizes` so the browser can choose an appropriately sized file,
+and adapt interactions for input method with `pointer`/`hover` media queries so touch devices get
+larger targets and no hover-dependent content. After, test at every width from 320px to the widest
+supported, confirm nothing was lost between viewport sizes (adapted is fine, removed is not), check
+that images load at an appropriate resolution for the device, and test on a notched device or
+simulator to verify safe-area handling on fixed elements.
 
-### During Design
-- [ ] Step 1: Start with the smallest screen -- design the mobile layout first
-  - Verify: Every piece of content and functionality is accessible at the narrowest supported width
-- [ ] Step 2: Add complexity via min-width media queries as the viewport grows
-  - Verify: Each breakpoint adds layout (multi-column, sidebar, expanded nav) rather than removing content
-- [ ] Step 3: Set breakpoints where the content breaks, not at device widths
-  - Verify: Resize the browser slowly; add a breakpoint wherever the layout starts to look awkward
-- [ ] Step 4: Implement fluid typography using clamp()
-  - Verify: Text scales smoothly between breakpoints without jumps
-  ```css
-  /* Base: 16px, scales to 20px */
-  font-size: clamp(1rem, 0.75rem + 1.25vw, 1.25rem);
-  /* Heading: 24px, scales to 40px */
-  font-size: clamp(1.5rem, 0.5rem + 3vw, 2.5rem);
-  ```
-- [ ] Step 5: Use container queries for reusable components
-  - Verify: Components adapt based on their container width, not just the viewport
-  ```css
-  .card-container { container-type: inline-size; }
-  @container (min-width: 400px) { .card { /* wider layout */ } }
-  ```
-- [ ] Step 6: Implement responsive images with srcset and sizes
-  - Verify: Browser downloads appropriately sized images for the viewport and pixel density
-  ```html
-  <img srcset="small.jpg 400w, medium.jpg 800w, large.jpg 1200w"
-       sizes="(min-width: 800px) 50vw, 100vw"
-       src="medium.jpg" alt="...">
-  ```
-- [ ] Step 7: Adapt interactions for input method
-  - Verify: Touch devices get larger targets and no hover-dependent content
-  ```css
-  @media (pointer: coarse) { .btn { min-height: 44px; min-width: 44px; } }
-  @media (pointer: fine) { .btn { min-height: 32px; } }
-  @media (hover: none) { .tooltip-trigger { /* show info inline, not on hover */ } }
-  ```
-
-### After Design
-- [ ] Test at every width from 320px to widest supported, watching for overflow or awkward reflow
-- [ ] Test with touch simulation: verify all interactive elements are tappable without precision
-- [ ] Verify no content is lost between viewport sizes (adapted is fine, removed is not)
-- [ ] Check images load at appropriate resolution for the device (not oversized on mobile)
-- [ ] Test on a notched device or simulator to verify safe area handling on fixed elements
+See `checklists.md` §5 Implementation Quick-Start for the full step-by-step sequence.
 
 ---
 
@@ -239,38 +178,16 @@ Provide multiple image sizes via srcset and let the browser choose. A 400px-wide
 
 Design for the content, not the device. Breakpoints should happen where the content needs them, not where a particular phone or tablet screen starts and stops. The interface should adapt its behavior -- layout, interaction model, information density -- not just its size. A phone user deserves the same capabilities as a desktop user, just presented for their context. Start with the smallest screen. Build up. Let the content tell you where it needs to change.
 
-### CHECKER Mode
-When reviewing an existing design, verify:
-- [ ] CSS uses min-width (mobile-first) media queries, not max-width
-- [ ] Breakpoints correspond to content needs, not device dimensions
-- [ ] All interactive elements meet 44x44px minimum on touch devices
-- [ ] No horizontal scrolling at any supported viewport width
-- [ ] No content removed on mobile -- only adapted
-- [ ] Typography scales fluidly with clamp() rather than jumping at breakpoints
-- [ ] Images are served responsively via srcset/sizes or picture element
-- [ ] Hover-dependent content has a non-hover alternative
-
 **Severity Classification:**
 | Violation Type | Severity | Rationale |
 |----------------|----------|-----------|
 | Desktop-first (max-width) responsive strategy | Critical | Produces fragile mobile experiences that break as new devices emerge |
 | Content removed on mobile via display:none | Critical | Mobile users lose access to functionality; violates progressive enhancement |
 | No horizontal scroll prevention | Critical | Horizontal scrolling on mobile is a fundamental usability failure |
-| Touch targets below 44x44px | High | Users can't reliably interact with the interface on touch devices |
-| Fixed device-based breakpoints | High | Layout breaks on non-standard viewport widths; doesn't age well |
-| No responsive images | Medium | Wastes bandwidth on mobile; may appear blurry on high-DPI displays |
-| No fluid typography | Medium | Abrupt size jumps at breakpoints feel jarring; missed opportunity for polish |
 
-### APPLIER Mode
-When creating or modifying a design, ensure:
-- [ ] Start every layout from the narrowest supported width and build up
-- [ ] Use min-width media queries exclusively for responsive behavior
-- [ ] Set breakpoints by resizing the browser and noting where content breaks
-- [ ] Implement fluid typography: `font-size: clamp(1rem, 0.75rem + 1.25vw, 1.25rem)` for body, scale headings proportionally
-- [ ] Use container queries for any component that may appear in multiple container widths
-- [ ] Provide srcset with at least 3 sizes for content images
-- [ ] Test with both pointer: coarse and pointer: fine to verify input adaptation
-- [ ] Add env(safe-area-inset-*) padding to any fixed or full-bleed elements
+Reviewing and applying draw on the same criteria in both directions: start every layout from the
+narrowest supported width, use min-width media queries exclusively, and set breakpoints by resizing
+the browser rather than by device dimensions.
 
 ---
 
@@ -319,14 +236,14 @@ When creating or modifying a design, ensure:
 
 ## COMMON MISTAKES
 
+**Last reviewed: 2026-07**
+
 | Mistake | Why It Happens | Correct Approach |
 |---------|----------------|------------------|
 | Starting with the desktop layout and adding max-width queries to "fix" mobile | Desktop is the developer's primary working environment; it feels natural to start there | Start with the mobile layout; add min-width queries to layer on complexity as space allows |
-| Using Bootstrap default breakpoints (576px, 768px, 992px, 1200px) without question | Framework provides defaults and developer assumes they are universal best practice | Resize the browser and find where your specific content breaks; those are your breakpoints |
 | Hiding content on mobile with display:none | Quick fix when content doesn't fit; assumption that mobile users need less | Adapt the content: collapse into accordions, reorder priority, use progressive disclosure |
-| Setting font-size with raw viewport units (font-size: 4vw) | Developer wants fluid text but doesn't know about clamp() | Use clamp() to set minimum and maximum bounds: `font-size: clamp(1rem, 0.75rem + 1.25vw, 1.25rem)` |
-| Using only viewport media queries for component layout | Developer isn't yet aware of container queries or browser support concerns | Use container queries for reusable components; they're supported in all modern browsers |
 | Serving a single image size to all devices | Simplicity; developer doesn't want to generate multiple image sizes | Use srcset with at least 3 sizes (small, medium, large) and a sizes attribute |
 | Ignoring touch target sizing | Testing only with a mouse where small targets are easy to click | Apply minimum 44x44px to all interactive elements on touch devices via @media (pointer: coarse) |
-| Relying on hover states for essential information | Desktop-centric design patterns; hover feels natural with a mouse | Provide non-hover alternatives; use @media (hover: none) to show information inline instead of on hover |
 | Using fixed-width containers (width: 960px) | Legacy pattern from fixed-width design era | Use `width: min(100%, 960px)` or `max-width: 960px` with `width: 100%` |
+
+See `checklists.md` §4 Common Mistakes Master Table for the complete list across all chapters.

@@ -63,97 +63,64 @@
 
 ## DETECTION CHECKLIST
 
-Signs this chapter's knowledge applies:
-
-### Visual Symptoms
-- [ ] Colors in the design feel random, clashing, or without clear relationship
-- [ ] Design looks flat or lifeless despite having color present
-- [ ] Text hierarchy feels weak even with different sizes — secondary text competes with primary
-- [ ] Call-to-action elements blend into surroundings rather than standing out
-- [ ] Shadows and highlights on buttons/elements use pure black overlays, making them look dull
-- [ ] Background color choice seems arbitrary (e.g., bright background on a content-heavy page)
-- [ ] Design mood does not match its purpose (e.g., a calming site using jarring complementary saturated colors)
-
-### CSS/HTML Patterns to Look For
-- [ ] `color: #000` for body text and `color: #888` for secondary text (neutral grays with no warmth/coolness)
-- [ ] `box-shadow` or gradients using pure black (`#000`) instead of darker shades of the base color
-- [ ] `background-color` set to a bright saturated hue on a text-heavy page
-- [ ] Link colors that are not blue (or not clearly differentiated) on a high-traffic site
-- [ ] Accent colors that match the dominant background color (no contrast to draw attention)
-- [ ] More than 4-5 unrelated hues without a visible color scheme relationship
-
-### Developer Statements That Trigger This
-- "I just picked colors that looked nice together"
-- "I don't know why the design feels off -- the layout is fine"
-- "How do I choose a color palette?"
-- "Should my CTA button be red or green?"
-- "The client wants it to feel 'warm' / 'exclusive' / 'natural' but I don't know what colors to use"
-- "I'm designing for users in [foreign country] -- what colors should I avoid?"
+This chapter's knowledge applies whenever colors feel random or clashing, the design's mood doesn't
+match its purpose, or functional colors (links, errors, CTAs) violate web conventions — a palette
+assembled by picking hues that "look nice together" with no color-wheel relationship, or shadows and
+highlights built from flat black overlays instead of hue-shifted tones. The tell in conversation: "I
+just picked colors that looked nice together" or "the client wants it to feel 'warm' / 'exclusive' /
+'natural' but I don't know what colors to use" — color chosen by instinct rather than psychological,
+cultural, or formal relationship.
 
 ---
 
 ## DESIGN REVIEW CRITERIA
 
-### Must Pass (Critical)
-- [ ] Color scheme has an identifiable relationship (monochromatic, analogous, complementary, split-complementary, triadic, or tetradic) -> Fail if: colors appear randomly chosen with no color wheel relationship
-- [ ] Accent/action colors contrast with their surroundings -> Fail if: CTA buttons or alerts blend into the dominant color scheme and are not visually distinct
-- [ ] Color conventions are respected for functional elements -> Fail if: red is used for success messages, green for errors, or blue text is used for non-links on a standard site
-- [ ] Background color is appropriate for content density -> Fail if: bright saturated background is used on a text-heavy, content-rich page
+**Must pass:** The color scheme has an identifiable relationship — monochromatic, analogous,
+complementary, split-complementary, triadic, or tetradic (fail if colors appear randomly chosen with
+no color-wheel relationship); accent and action colors contrast with their surroundings (fail if CTA
+buttons or alerts blend into the dominant color scheme and aren't visually distinct); color
+conventions are respected for functional elements (fail if red is used for success messages, green
+for errors, or blue text appears on non-link content); and background color is appropriate for
+content density (fail if a bright saturated background is used on a text-heavy, content-rich page).
 
-### Should Pass (Important)
-- [ ] Warm/cool color relationships are used to establish visual depth and hierarchy -> Warning if: all colors are neutral grays with no temperature variation
-- [ ] Shadows and highlights use hue-shifted colors rather than pure black/white overlays -> Warning if: gradients and shadows are created by mixing with pure black only
-- [ ] Color choices consider cultural context of target audience -> Warning if: designing for international audience with no cultural color research
-
-### Nice to Have
-- [ ] Typography hierarchy is reinforced with warm/cool color dimension (not just size/weight) -> Suggestion: use a warm dark color for primary text and a cool lighter color for secondary text
-- [ ] Color palette evokes a mood consistent with the brand/purpose -> Suggestion: review mood patterns (mysterious, active, muted, natural) to align palette with intent
+See `checklists.md` §1 for the full Should-Pass/Nice-to-Have tri-tier checklist across all
+chapters.
 
 ---
 
 ## RED FLAGS
 
+**Last reviewed: 2026-07**
+
 | Flag | Severity | What It Indicates | Fix |
 |------|----------|-------------------|-----|
-| Pure black (#000) text on pure white (#FFF) with no color variation | Medium | Missed opportunity for depth and dimension; harsh contrast | Use warm dark grays for primary text, cool grays for secondary; leverage hue relationships |
 | Red used prominently in a performance/analytical context (quizzes, tests, dashboards) | Critical | Red overloads the prefrontal cortex, reducing rational decision-making and performance | Replace with blue or green in performance contexts; reserve red for errors/urgency only |
 | Blue used for non-link text on a standard website | High | Users will try to click blue text expecting a link | Reserve blue text exclusively for links, or use a clearly different shade |
 | Bright saturated background on a content-heavy page | High | Causes visual fatigue and reduces readability | Use white, off-white, or dark backgrounds for content-heavy pages; reserve bright backgrounds for splash pages |
 | Accent color matches the dominant palette color | High | Functional accent elements (alerts, CTAs) will not stand out | Choose accent colors that contrast with the dominant scheme; consider complementary hues |
-| No cultural color research for international audience | Medium | Colors may carry unintended religious, political, or mourning associations | Research flag colors, religious colors, wedding/funeral colors, holiday colors, and sports team colors for the target culture |
-| Shadows/highlights created with pure black overlay | Medium | Elements look flat and lifeless compared to hue-shifted alternatives | Use color wheel relationships for highlights (warmer) and shadows (cooler) relative to base color |
+
+See `checklists.md` §2 Red Flags Master Table for the complete list across all chapters.
 
 ---
 
 ## IMPLEMENTATION CHECKLIST
 
-### Before Starting
-- [ ] Identify the purpose and desired mood of the design (active, calm, exclusive, natural, muted)
-- [ ] Determine the target audience and their cultural context
-- [ ] Identify the target medium (web, mobile, print) and content density (splash page vs. content-heavy)
-- [ ] Research cultural color associations if designing for an unfamiliar audience (flags, religion, holidays, sports)
+Before starting, identify the design's purpose and desired mood (active, calm, exclusive, natural,
+muted), the target audience and their cultural context, the target medium and content density, and
+research cultural color associations if the audience is unfamiliar. While designing, choose a
+background color appropriate to content density (white or off-white for content-heavy sites, dark
+for exclusivity, bright only for low-content splash pages), select a base hue aligned with the
+intended mood, build the palette from a color-wheel relationship — monochromatic, analogous,
+complementary, split-complementary, triadic, or tetradic — and generate tints and shades for depth.
+Assign functional roles to colors following web conventions (red for error/urgency, green for
+success/progress, yellow for highlights, blue for links), verifying they contrast with the rest of
+the scheme and aren't ambiguous, then apply warm/cool relationships to reinforce hierarchy and use
+hue-shifted shadows and highlights instead of pure black or white overlays. Afterward, squint at the
+design to confirm accents and CTAs still stand out, check that the overall color feeling matches the
+intended mood, verify users will correctly interpret functional colors, and confirm the palette
+carries no unintended meaning for the target cultural audience.
 
-### During Design
-- [ ] Step 1: Choose a background color appropriate to content density
-  - Verify: White/off-white for content-heavy sites; dark for exclusive/nightlife; bright only for low-content splash pages
-- [ ] Step 2: Select a base hue that aligns with the desired mood and context
-  - Verify: Color's psychological and cultural associations match the design's purpose
-- [ ] Step 3: Build a color scheme using the color wheel (monochromatic, analogous, complementary, split-complementary, triadic, or tetradic)
-  - Verify: Selected colors have a clear geometric relationship on the color wheel
-- [ ] Step 4: Create tints and shades of your base colors for variety and depth
-  - Verify: Lighter versions (tints) and darker versions (shades) maintain the hue relationship
-- [ ] Step 5: Assign functional roles to colors following web conventions (red = error/urgency, green = success/progress, yellow = highlights/attention, blue = links)
-  - Verify: Functional colors contrast with the overall scheme and are not ambiguous
-- [ ] Step 6: Apply warm/cool color relationships to establish hierarchy in typography and UI elements
-  - Verify: Primary elements use warmer/lighter colors that pop; secondary elements use cooler/darker colors that recede
-- [ ] Step 7: Use hue-shifted shadows and highlights instead of pure black/white overlays on buttons and graphics
-  - Verify: Shadows skew cooler than base color; highlights skew warmer; neither is just black or white
-
-### After Design
-- [ ] Squint test: Do accent colors and CTAs still stand out when you blur/squint at the design?
-- [ ] Mood check: Does the overall color feeling match the intended mood (active, calm, exclusive, natural)?
-- [ ] Convention check: Will users correctly interpret functional colors (links, errors, success, highlights)?
-- [ ] Context check: Would the colors carry unintended meaning for the target cultural audience?
+See `checklists.md` §5 Implementation Quick-Start for the full step-by-step sequence.
 
 ---
 
@@ -219,35 +186,16 @@ Match color to context: use red for urgency/action/food contexts where you want 
 
 Color is contextual: the same color can have opposite effects depending on the situation, culture, and surrounding colors. Effective color usage requires understanding three layers -- psychological/biological responses (warm excites, cool calms, red overloads the prefrontal cortex), cultural associations (vary by audience), and formal color relationships on the color wheel (how colors interact creates harmony, tension, depth, and mood). Rather than relying on intuition alone, developers should use these frameworks to make intentional color decisions.
 
-### CHECKER Mode
-When reviewing an existing design, verify:
-- [ ] Colors follow an identifiable color wheel relationship (monochromatic, analogous, complementary, split-complementary, triadic, tetradic)
-- [ ] Functional colors follow web conventions (red = error/urgency, green = success, yellow = highlight, blue = link)
-- [ ] Warm/cool relationships are used to create depth and hierarchy, not just size/weight differences
-- [ ] Background color is appropriate for content density and audience
-- [ ] Accent colors contrast sufficiently with dominant palette to draw attention where intended
-- [ ] Color choices are appropriate for the cultural context of the target audience
-- [ ] Shadows and highlights use hue variation, not just pure black/white
-
 **Severity Classification:**
 | Violation Type | Severity | Rationale |
 |----------------|----------|-----------|
 | Red used in performance/analytical context | Critical | Research shows red reduces prefrontal cortex function, directly harming user performance |
 | Functional colors reversed (red for success, green for errors) | Critical | Violates deeply ingrained web conventions, causes user confusion |
 | No identifiable color relationship in palette | High | Design will feel amateur and disjointed; colors clash without structure |
-| Blue text used for non-links | High | Users will attempt to click; violates foundational web usability convention |
-| Pure black for all shadows/contrast | Medium | Missed opportunity for richness; design feels flat but is functional |
-| No cultural color consideration for international audience | Medium | Risk of unintended offense or miscommunication |
 
-### APPLIER Mode
-When creating or modifying a design, ensure:
-- [ ] Start with purpose/mood identification before picking any colors
-- [ ] Choose a color scheme type from the color wheel as a structural foundation
-- [ ] Map colors to functional roles (background, primary text, secondary text, links, CTAs, errors, success, highlights)
-- [ ] Use warm colors to make elements pop/advance and cool colors to make elements recede
-- [ ] Create tints and shades for depth rather than relying on black/white mixing
-- [ ] Verify accent colors contrast with their surroundings to serve their purpose
-- [ ] Research cultural associations when audience is unfamiliar
+Reviewing and applying draw on the same criteria in both directions: start from a color-wheel
+relationship rather than intuition, respect functional web conventions for red/green/blue, and match
+color psychology to context before finalizing a palette.
 
 ---
 
@@ -299,14 +247,14 @@ When creating or modifying a design, ensure:
 
 ## COMMON MISTAKES
 
+**Last reviewed: 2026-07**
+
 | Mistake | Why It Happens | Correct Approach |
 |---------|----------------|------------------|
-| Using pure black (#000) for text and shadows throughout | Developers default to black as "the darkest color"; it is the simplest option | Use hue-shifted dark colors for text and hue-shifted cooler colors for shadows; pure black nearly does not exist in nature |
 | Using red prominently in performance-based interfaces (quizzes, analytics, dashboards) | Red feels bold and attention-grabbing | Red overloads the prefrontal cortex and reduces rational performance; use blue or green in analytical contexts |
 | Choosing colors individually by preference with no color wheel relationship | Developers lack color theory training and rely on intuition | Start with a formal color scheme (monochromatic, analogous, complementary, etc.) and adjust from there |
 | Using blue text for non-link content | Blue seems like a nice readable color | Blue is the universal web convention for links; users will try to click it |
-| Bright saturated background on a content-rich site | Bright colors make an immediate impact | Bright backgrounds cause fatigue on content-heavy pages; reserve for splash/landing pages with minimal content |
-| Using all colors in a palette equally | Developer thinks every color in the scheme deserves equal representation | Pick one or two dominant colors; use others sparingly as accents to draw attention to specific elements |
 | Ignoring cultural color associations when designing for international audience | Developer assumes their own cultural associations are universal | Research the target culture's color associations (flags, religion, holidays, sports) before finalizing the palette |
-| Using a completely monochromatic scheme with no accent | Monochromatic feels "safe" | A completely monochromatic scheme can be boring; add at least one accent color from outside the scheme for CTAs or key actions |
 | Assuming complementary colors are always jarring | Developer avoids complementary schemes for gentle/natural sites | Complementary colors can be gentle when muted, desaturated, or tinted; see Yoga Haven example (red-brown + green) |
+
+See `checklists.md` §4 Common Mistakes Master Table for the complete list across all chapters.

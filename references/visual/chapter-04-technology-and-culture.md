@@ -45,99 +45,63 @@
 
 ## DETECTION CHECKLIST
 
-Signs this chapter's knowledge applies:
-
-### Visual Symptoms
-- [ ] Design mimics a specific past trend (Web 2.0 gradients, skeuomorphism) without understanding why that style existed
-- [ ] Website is visually polished but invisible to search engines
-- [ ] Design uses Flash or image-heavy layouts that lock away textual content from crawlers
-- [ ] Style choices feel arbitrary or disconnected from the product's audience and context
-- [ ] Interface elements copied from another platform without adapting to current technology constraints
-
-### CSS/HTML Patterns to Look For
-- [ ] Content locked inside Flash, canvas, or image files instead of semantic HTML
-- [ ] Missing or generic `<title>` tags (e.g., "Home Page," "Welcome to Adobe GoLive")
-- [ ] No `<meta description>` tag or one that doesn't describe page content
-- [ ] Non-descriptive URLs (e.g., `example.com/?p=34` instead of human-readable slugs)
-- [ ] Images with missing or non-descriptive `alt` attributes and filenames
-- [ ] No heading hierarchy (missing H1, or multiple H1 tags, or skipped heading levels)
-- [ ] Keyword-stuffed hidden text or links styled to match background color
-
-### Developer Statements That Trigger This
-- "I just copied that gradient/rounded-corner style because it looks modern"
-- "The site looks great but we're not getting any organic traffic"
-- "SEO is a marketing thing, not a design thing"
-- "I built the whole site in Flash because it looks better"
-- "I don't know why we chose this visual style, it just seemed popular"
+This chapter's knowledge applies whenever a design style is copied without understanding the
+technological and cultural forces that produced it, or when a visually polished site is invisible
+to search engines — content locked inside Flash, canvas, or image files instead of semantic HTML,
+generic title tags, or non-descriptive URLs. The tell in conversation: "I just copied that
+gradient/rounded-corner style because it looks modern" or "SEO is a marketing thing, not a design
+thing" — treating style as arbitrary surface choice and findability as someone else's job, rather
+than recognizing both as core design responsibilities shaped by the medium's actual constraints.
 
 ---
 
 ## DESIGN REVIEW CRITERIA
 
-### Must Pass (Critical)
-- [ ] Content is in semantic HTML, not locked in Flash/images/canvas → Fail if: primary textual content is inaccessible to search engine crawlers
-- [ ] Every page has a unique, descriptive `<title>` tag containing target keyphrases → Fail if: title is generic ("Home Page"), missing, or duplicated across pages
-- [ ] URLs are human-readable and keyword-relevant → Fail if: URLs use query parameters or numeric IDs instead of descriptive slugs
-- [ ] Design style choices are grounded in current technological capabilities and cultural context → Fail if: style is a surface-level copy of a past trend with no understanding of why it existed
+**Must pass:** Content is in semantic HTML rather than locked in Flash, images, or canvas (fail if
+primary textual content is inaccessible to search engine crawlers); every page has a unique,
+descriptive `<title>` tag containing target keyphrases (fail if the title is generic, missing, or
+duplicated across pages); URLs are human-readable and keyword-relevant (fail if they use query
+parameters or numeric IDs instead of descriptive slugs); and design style choices are grounded in
+current technological capabilities and cultural context (fail if the style is a surface-level copy
+of a past trend with no understanding of why it existed).
 
-### Should Pass (Important)
-- [ ] `<meta description>` tag present (~200 chars) accurately describing page content → Warning if: missing or boilerplate
-- [ ] Images use descriptive filenames and `alt` attributes → Warning if: filenames are generic (e.g., `IMG_001.jpg`) or `alt` is empty
-- [ ] Heading hierarchy (H1-H6) is logical and contains relevant keywords → Warning if: H1 is used for logo, headings skip levels, or no H1 present
-- [ ] `<em>` and `<strong>` tags used for emphasis on important terms → Warning if: important keywords never receive semantic emphasis
-
-### Nice to Have
-- [ ] Anchor text of internal links is descriptive and keyword-relevant → Suggestion: use "Bike Shop in Chicago" rather than "Click here"
-- [ ] Analytics installed to track keyword performance → Suggestion: set up Google Analytics to discover surprising keyword opportunities
-- [ ] Design embraces current CSS capabilities (CSS3 gradients, rounded corners, shadows) natively rather than relying on image hacks → Suggestion: leverage what the current technology makes easy
+See `checklists.md` §1 for the full Should-Pass/Nice-to-Have tri-tier checklist across all
+chapters.
 
 ---
 
 ## RED FLAGS
 
+**Last reviewed: 2026-07**
+
 | Flag | Severity | What It Indicates | Fix |
 |------|----------|-------------------|-----|
 | Entire site built in Flash or rendered as images | Critical | Content is invisible to search engines and inaccessible to browser Find | Rebuild in semantic HTML/CSS; use Flash/canvas only for supplementary interactive elements |
 | Title tag says "Home Page" or "Untitled Document" | Critical | Massive missed SEO opportunity; pages won't rank for any relevant terms | Write unique, keyphrase-rich title tags for every page |
-| Design copies a trend's surface look without understanding its origins | High | Creates a "veneer" that lacks authenticity and cultural relevance | Research the technological and cultural forces behind the style; adapt principles, not appearances |
 | URLs use query strings like `?p=34` | High | Loses keyword relevance in URL, which strongly influences ranking | Implement human-readable, keyword-containing URL slugs |
 | Hidden text or links stuffed with keywords | Critical | Google will detect and penalize this; could result in site being delisted | Remove all hidden SEO tricks; focus on legitimate content and coding practices |
-| No `meta description` on key pages | Medium | Search engines may display unhelpful snippets; reduced click-through rates | Write ~200-character descriptions containing target keyphrases |
-| Images named `IMG_0042.jpg` with empty alt tags | Medium | Missing free traffic from Google Image Search; poor accessibility | Rename files descriptively (e.g., `mountain-bike-schwinn-blue.jpg`) and write descriptive alt text |
+
+See `checklists.md` §2 Red Flags Master Table for the complete list across all chapters.
 
 ---
 
 ## IMPLEMENTATION CHECKLIST
 
-### Before Starting
-- [ ] Identify the technological context: what medium, what platform capabilities, what browser/device constraints exist?
-- [ ] Research the cultural context: what audience, what era, what values does the design need to express?
-- [ ] Determine target keyphrases: use Google Keyword Tool or analytics data to find phrases with realistic search volume for your site's authority level
-- [ ] Audit existing analytics (if available) for surprising keyword successes to build upon
+Before starting, identify the technological context (medium, platform capabilities, browser and
+device constraints), research the cultural context (audience, era, values the design needs to
+express), determine target keyphrases using keyword-research tools or existing analytics data, and
+audit any existing analytics for surprising keyword successes to build on. During design, ground
+style choices in current technology and culture rather than copying a past trend's surface
+appearance (can you articulate why the choices fit your context, beyond "it looks nice"?), build
+content in semantic HTML with a proper heading hierarchy, write unique keyphrase-rich `<title>`
+tags and human-readable URLs for every page, add `<meta description>` tags and descriptive image
+filenames/alt text, use descriptive anchor text on internal links, and lean on current CSS
+capabilities instead of image workarounds. After design, run a crawler test to confirm a search
+bot can access and index all important content, confirm analytics is installed to track keyword
+performance, and check that the design feels authentic to its technological and cultural moment
+rather than a copy of another era.
 
-### During Design
-- [ ] Step 1: Ground your style choices in current technology and culture, not in copying a past trend's surface appearance
-  - Verify: Can you articulate *why* your style choices fit your context, beyond "it looks nice"?
-- [ ] Step 2: Build content in semantic HTML — use proper heading hierarchy (single H1, logical H2-H6), `<em>`, `<strong>`, and `<p>` tags
-  - Verify: Disable CSS and confirm content is readable and logically structured
-- [ ] Step 3: Write unique, keyphrase-rich `<title>` tags for every page
-  - Verify: Each page's title contains its primary target keyphrase and is unique across the site
-- [ ] Step 4: Set human-readable, keyword-containing URLs
-  - Verify: URLs read as plain English describing the page content
-- [ ] Step 5: Write `<meta description>` tags (~200 characters) for each page
-  - Verify: Descriptions accurately summarize page content and contain target keyphrases
-- [ ] Step 6: Use descriptive image filenames and `alt` attributes
-  - Verify: Every `<img>` has a descriptive `alt` and the filename includes relevant keywords
-- [ ] Step 7: Ensure internal links use descriptive anchor text
-  - Verify: No "click here" links; anchor text describes the destination content
-- [ ] Step 8: Leverage current CSS capabilities (CSS3 gradients, border-radius, box-shadow) rather than image workarounds
-  - Verify: Visual effects are achieved with CSS where possible, reducing load time and improving maintainability
-
-### After Design
-- [ ] Squint test: does the design feel authentic to its technological and cultural moment, or like a copy of another era?
-- [ ] Crawler test: can a search engine bot access and index all important content?
-- [ ] Analytics check: is Google Analytics (or equivalent) installed to track keyword performance over time?
-- [ ] Link-building plan: do you have a strategy for generating inbound links through quality content (blog, guest posts, link bait)?
+See `checklists.md` §5 Implementation Quick-Start for the full step-by-step sequence.
 
 ---
 
@@ -203,34 +167,17 @@ Site generates genuine, useful content through blogging, guest posts on high-aut
 
 Design styles are not arbitrary — they emerge from the confluence of medium, technology, and culture. The Impressionists painted the way they did because of photography's arrival and the cultural shift of a rising middle class, not because they lacked skill. Web 2.0's gradient-heavy style emerged from Apple's Aqua interface (enabled by Quartz/OpenGL technology) meeting a young, casual startup culture. Copying a style's surface without understanding its origins creates only a veneer. Additionally, since design is fundamentally about conveying information, ensuring that information is findable (through SEO) is a core design responsibility, not a separate marketing concern.
 
-### CHECKER Mode
-When reviewing an existing design, verify:
-- [ ] Style choices can be justified by current technological capabilities and cultural context, not just trend-following
-- [ ] All textual content is in semantic HTML accessible to search crawlers
-- [ ] Title tags, URLs, meta descriptions, headings, image alt/filenames are optimized for target keyphrases
-- [ ] No black-hat SEO tactics (hidden text, keyword stuffing, purchased links)
-- [ ] Heading hierarchy is logical (single H1, progressive H2-H6)
-- [ ] Internal link anchor text is descriptive, not "click here"
-
 **Severity Classification:**
 | Violation Type | Severity | Rationale |
 |----------------|----------|-----------|
 | Content locked in Flash/images (inaccessible to crawlers) | Critical | Entire site invisible to search engines; zero organic traffic potential |
-| Missing/generic title tags | Critical | Strongest single on-page SEO signal wasted |
 | Black-hat SEO tactics (hidden text, link schemes) | Critical | Risk of Google penalty or delisting |
 | Surface-copying a trend without contextual understanding | High | Creates inauthentic veneer; design won't age well or resonate |
-| Non-descriptive URLs | High | Strong ranking signal lost |
-| Missing meta descriptions | Medium | Reduced click-through from search results |
-| Non-descriptive image filenames/alt text | Medium | Missed Image Search traffic and accessibility |
 
-### APPLIER Mode
-When creating or modifying a design, ensure:
-- [ ] Research and articulate the technological and cultural forces relevant to your project before choosing a style
-- [ ] Build all content in semantic HTML with proper heading hierarchy
-- [ ] Optimize every page's title tag, URL, meta description for target keyphrases
-- [ ] Use current CSS capabilities (CSS3) to achieve visual effects natively
-- [ ] Plan a content and link-building strategy (blog, guest posts, link bait)
-- [ ] Install analytics to track keyword performance and discover opportunities
+Reviewing and applying draw on the same criteria in both directions: ground every style choice in
+the technology and culture that actually produced it, keep all content in crawler-accessible
+semantic HTML, and treat findability — titles, URLs, meta descriptions, headings — as a design
+responsibility rather than a separate marketing task.
 
 ---
 
@@ -284,15 +231,14 @@ When creating or modifying a design, ensure:
 
 ## COMMON MISTAKES
 
+**Last reviewed: 2026-07**
+
 | Mistake | Why It Happens | Correct Approach |
 |---------|----------------|------------------|
 | Copying a style's surface appearance without understanding why it exists | It's faster and the "look" seems to be what matters | Study the technological and cultural forces that produced the style; create designs that respond to your own context |
 | Building entire sites in Flash for visual impact | Flash enabled richer visuals than early HTML/CSS | Use semantic HTML/CSS; content must be crawler-accessible; CSS3 now supports most visual effects |
 | Treating SEO as separate from design | Designers focus on aesthetics; SEO seems like a marketing task | SEO is part of the designer's responsibility — design conveys information, and findability determines if it reaches anyone |
 | Using generic title tags ("Home Page") | Default CMS behavior; seems unimportant | Write unique, keyphrase-rich titles for every page — it's the strongest on-page ranking signal |
-| Using non-descriptive URLs | Default CMS/framework behavior (`?p=34`) | Configure human-readable, keyword-containing URL slugs |
-| Naming images `IMG_001.jpg` with empty alt text | Direct from camera; alt text seems optional | Rename descriptively (`mountain-bike-schwinn-blue.jpg`); write meaningful alt text |
 | Keyword stuffing and hidden text | Desire for quick SEO gains | Google detects and penalizes these tactics; focus on legitimate content and link-earning |
-| Targeting only high-volume keyphrases | Assumption that more searches = better | Start with achievable low-volume phrases; build authority before competing on high-volume terms |
-| Ignoring analytics data for keyword strategy | Assumed they already knew their best keywords | Install analytics; check which keywords already drive traffic; build on unexpected successes |
-| Using `<em>` and `<strong>` purely for visual styling | Confusion between semantic and visual emphasis | Use semantic tags intentionally for words that are genuinely important and keyword-relevant |
+
+See `checklists.md` §4 Common Mistakes Master Table for the complete list across all chapters.

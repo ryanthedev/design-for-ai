@@ -248,6 +248,8 @@ Governance complexity that outpaces the system's actual scale is a tax, not a be
 
 ## RED FLAGS
 
+**Last reviewed: 2026-07**
+
 | Signal | What it indicates |
 |--------|------------------|
 | Components that bypass the token tier (hard-coded hex) | Token discipline hasn't been enforced; theming will break |

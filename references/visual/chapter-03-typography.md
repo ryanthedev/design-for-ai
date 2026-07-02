@@ -66,50 +66,32 @@
 
 ## DETECTION CHECKLIST
 
-Signs this chapter's knowledge applies:
-
-### Visual Symptoms
-- [ ] Body text appears muddy, blurry, or illegible at small screen sizes
-- [ ] Text blocks have uneven "color" -- visible dark spots and light patches when you squint
-- [ ] Serifs look blurred or indistinct on screen at body copy sizes
-- [ ] Letterforms display moire-like artifacts or fuzzy curves on screen
-- [ ] A well-known classic typeface (e.g., Garamond) looks poor on the web at body sizes
-
-### CSS/HTML Patterns to Look For
-- [ ] Use of print-optimized typefaces (e.g., Garamond, Bodoni) for body text on screen
-- [ ] Font sizes below 30px using custom display/decorative fonts on ~100-150 ppi screens
-- [ ] Using a screen-designed font (e.g., Chicago, Verdana) in print materials
-- [ ] No font-family fallback stack defined in CSS
-- [ ] Typeface choices that ignore the target rendering medium
-
-### Developer Statements That Trigger This
-- "I picked Garamond for the body text because it's a classic"
-- "Comic Sans is just an ugly font, there's no reason to ever use it"
-- "I don't know why this font looks so bad on screen -- it looks great in the design comp"
-- "I just picked a font that looked nice in the font picker"
-- "All serif fonts are basically the same, right?"
+This chapter's knowledge applies whenever a typeface is chosen without regard for the medium it
+will render in — body text that appears muddy or illegible at small screen sizes, text blocks with
+visible dark spots and light patches when squinted at, or a well-known classic typeface like
+Garamond looking poor on the web at body sizes. The tell in conversation: "I picked Garamond for
+the body text because it's a classic" or "I just picked a font that looked nice in the font
+picker" — treating typeface choice as pure aesthetic preference rather than a decision that must
+match the rendering medium's structural constraints.
 
 ---
 
 ## DESIGN REVIEW CRITERIA
 
-### Must Pass (Critical)
-- [ ] Typeface is appropriate for its rendering medium (screen vs print) -> Fail if: using a print-optimized humanist serif (e.g., Garamond) at body copy sizes on ~100-150 ppi screens
-- [ ] Body text typeface produces even texture -> Fail if: squint test reveals dark blotches and light gaps (uneven visual weight distribution)
-- [ ] Typeface letterfit allows proper kerning -> Fail if: awkward gaps or collisions between common letter pairs are visible
+**Must pass:** The typeface is appropriate for its rendering medium (fail if a print-optimized
+humanist serif like Garamond is used at body copy sizes on ~100-150 ppi screens); body text
+produces even texture (fail if the squint test reveals dark blotches and light gaps from uneven
+visual weight); and the typeface's letterfit allows proper kerning (fail if awkward gaps or
+collisions appear between common letter pairs).
 
-### Should Pass (Important)
-- [ ] Typeface has sufficient x-height for screen readability -> Warning if: lowercase letters appear small relative to capitals at body sizes on screen
-- [ ] Typeface structural axis aligns with pixel grid -> Warning if: using an old-style typeface with an angled axis for body text on screen (subtle curves lost at small sizes)
-- [ ] Font has appropriate stroke modulation for its context -> Warning if: unmodulated strokes create heavy areas where strokes meet (like Comic Sans)
-
-### Nice to Have
-- [ ] Typeface has a documented history that matches the design's intended mood and context -> Suggestion: research the typeface's origins and intended use
-- [ ] Font stack includes well-chosen fallbacks that share structural characteristics -> Suggestion: match x-height, weight, and width in fallback fonts
+See `checklists.md` §1 for the full Should-Pass/Nice-to-Have tri-tier checklist across all
+chapters.
 
 ---
 
 ## RED FLAGS
+
+**Last reviewed: 2026-07**
 
 | Flag | Severity | What It Indicates | Fix |
 |------|----------|-------------------|-----|
@@ -117,36 +99,26 @@ Signs this chapter's knowledge applies:
 | Uneven text "color" visible when squinting at text blocks | Critical | Poor visual weight management in chosen typeface | Switch to a typeface with better-managed visual weight (e.g., Helvetica over Comic Sans) |
 | Comic Sans used for body text or formal communications | High | Font designed for aliased low-res display in speech bubbles, not high-res body text | Replace with a typeface suited to the actual context and medium |
 | Screen-designed font (Verdana, Georgia) used in high-end print design | High | Font was optimized for pixel grids, not high-resolution print | Use a print-optimized typeface like Garamond, Bodoni, or Baskerville |
-| Font chosen without consideration of rendering technology (anti-aliasing, resolution) | Medium | Disconnect between typeface design intentions and display context | Evaluate whether the target medium supports the subtleties of the chosen typeface |
-| Display/decorative typeface used for body copy | Medium | Decorative type is designed for large sizes and short text | Reserve decorative type for headlines; use a readable text face for body |
+
+See `checklists.md` §2 Red Flags Master Table for the complete list across all chapters.
 
 ---
 
 ## IMPLEMENTATION CHECKLIST
 
-### Before Starting
-- [ ] Identify the target medium (screen at ~100-150 ppi, high-DPI screen, print)
-- [ ] Determine the purpose: body text, headlines, display, UI elements
-- [ ] Identify the emotional tone/mood the typography should convey
-- [ ] Understand font availability constraints (web-safe, embedded via Typekit/Google Fonts, or bundled)
+Before starting, identify the target medium (screen at ~100-150 ppi, high-DPI screen, or print),
+the purpose (body text, headlines, display, UI elements), the emotional tone typography should
+convey, and any font availability constraints. During design, choose a typeface whose history and
+intended medium match the context, evaluate its structural properties against that medium
+(vertical axis, sharp serifs, and adequate x-height for screen body text; stroke modulation and
+fine detail for print), test visual weight with a squint test at actual rendering size, check
+letterfit and kerning at common letter combinations (e.g., "pet fox", "AVA"), and set up a font
+fallback stack that shares structural properties with the primary choice. After design, confirm
+the squint test shows even gray texture with no dark blotches or light holes, that the typeface
+renders cleanly at the smallest size used, and that the choice is defensible — you can explain why
+this typeface works in this medium — across target devices and resolutions.
 
-### During Design
-- [ ] Step 1: Choose a typeface whose history and intended medium match your context
-  - Verify: Research when and for what purpose the typeface was designed
-- [ ] Step 2: Evaluate the typeface's structural properties against your medium
-  - Verify: For screen body text, confirm vertical axis, sharp serifs, and adequate x-height; for print, confirm stroke modulation and fine details render at target resolution
-- [ ] Step 3: Test visual weight and texture at actual rendering size
-  - Verify: Squint test -- text block should appear as uniform gray without dark blotches or light holes
-- [ ] Step 4: Check letterfit and kerning at common letter combinations
-  - Verify: No awkward gaps or collisions between letter pairs (test with words like "pet fox", "AVA", "To")
-- [ ] Step 5: Set up appropriate font fallback stack
-  - Verify: Fallback fonts share similar x-height, weight, and structural properties
-
-### After Design
-- [ ] Squint test: body text blocks appear as even gray texture, no dark/light patches
-- [ ] Typeface renders cleanly at the smallest size used in the design
-- [ ] Font choice is defensible based on medium-form relationship (you can explain why this typeface works here)
-- [ ] Tested across target devices/resolutions to confirm readability
+See `checklists.md` §5 Implementation Quick-Start for the full step-by-step sequence.
 
 ---
 
@@ -212,30 +184,17 @@ Choose a typeface with well-managed visual weight. Look for even stroke weight d
 
 Throughout history, the forms of letters have been directly shaped by the tools and materials used to create them -- from the wedge-shaped stylus creating cuneiform, to the flat brush producing Roman capitals, to the pixel grid producing Chicago. Understanding this medium-form relationship is the key to making informed typographic choices: always match a typeface to the constraints and capabilities of the medium in which it will be rendered.
 
-### CHECKER Mode
-When reviewing an existing design, verify:
-- [ ] The chosen typeface was designed for (or is compatible with) the target rendering medium
-- [ ] Body text produces even texture when viewed with a squint test
-- [ ] Letterfit and kerning produce consistent spacing without awkward gaps or collisions
-- [ ] Typeface structural properties (axis, stroke modulation, x-height, serif style) align with the rendering technology's capabilities
-- [ ] Font is used in a context consistent with its design intentions
-
 **Severity Classification:**
 | Violation Type | Severity | Rationale |
 |----------------|----------|-----------|
 | Print typeface used for screen body text (or vice versa) | Critical | Medium-form mismatch directly impairs readability |
 | Uneven visual weight / poor texture in body text | Critical | Destroys readability -- the primary function of body text |
 | Poor letterfit / kerning problems | High | Creates awkward spacing that disrupts reading flow |
-| Typeface used outside its intended context | High | Produces inappropriate emotional response (Comic Sans on a formal letter) |
-| Insufficient x-height for screen rendering | Medium | Reduces legibility at small sizes but may be acceptable at larger sizes |
 
-### APPLIER Mode
-When creating or modifying a design, ensure:
-- [ ] Research each typeface candidate's history, intended medium, and structural properties before selecting
-- [ ] For screen body text at ~100-150 ppi: favor typefaces with vertical axis, sharp serifs, larger x-height, and open counters
-- [ ] For print body text: feel free to use classic humanist serifs with modulated strokes and subtle details
-- [ ] Test texture by squinting at representative text blocks in the actual target medium
-- [ ] At sizes below 30px on current screens, stick with web-standard fonts optimized for screen display
+Reviewing and applying draw on the same criteria in both directions: match every typeface to its
+rendering medium's structural constraints, verify texture and letterfit before committing to body
+text, and reserve display or historically specific typefaces for contexts consistent with their
+design intentions.
 
 ---
 
@@ -281,6 +240,8 @@ When creating or modifying a design, ensure:
 
 ## COMMON MISTAKES
 
+**Last reviewed: 2026-07**
+
 | Mistake | Why It Happens | Correct Approach |
 |---------|----------------|------------------|
 | Using Garamond for web body text | Developer knows it's a respected classic typeface | Use Georgia or another screen-optimized serif for body text; save Garamond for print or large display sizes on screen |
@@ -288,5 +249,5 @@ When creating or modifying a design, ensure:
 | Choosing fonts based purely on aesthetic preview | Font picker shows typefaces at display sizes where any font looks decent | Always test at actual rendering size in the actual target medium; what looks good in a font picker may fail at 14px on screen |
 | Treating all serif fonts as equivalent | Lack of awareness that serif categories (humanist, transitional, geometric) have different structural properties | Learn typeface classifications; transitional serifs (Georgia) have vertical axes suited to screen, humanist serifs (Garamond) have angled axes suited to print |
 | Using geometric sans-serifs (Futura) for body text on screen | Attracted to clean geometric forms | Geometric forms with perfect circles render poorly on pixel grids at body sizes; use realist sans-serifs (Arial, Helvetica) instead |
-| Ignoring font fallback stacks | Assuming embedded fonts will always load | Always define CSS fallback fonts that share structural properties with the primary choice |
-| Using print fonts in digital interfaces | Seeing the typeface used beautifully in print and wanting to replicate that | Recognize that print and screen are fundamentally different media with different rendering constraints |
+
+See `checklists.md` §4 Common Mistakes Master Table for the complete list across all chapters.

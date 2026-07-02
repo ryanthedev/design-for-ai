@@ -54,145 +54,66 @@
 
 ## DETECTION CHECKLIST
 
-Signs this knowledge applies:
-
-### Visual Symptoms
-- [ ] Buttons look identical in all states, no visible change on hover, focus, or active
-- [ ] No visible focus indicator when tabbing through the interface
-- [ ] Form inputs have no labels, only placeholder text
-- [ ] Error messages appear as generic "Something went wrong" with no guidance
-- [ ] Empty states show only "No results" with no explanation or next steps
-- [ ] All buttons have the same visual weight regardless of importance
-- [ ] Loading states are absent. The UI freezes or shows nothing during async operations
-
-### CSS/HTML/JS Patterns to Look For
-- [ ] `outline: none` or `outline: 0` in CSS without a replacement focus style
-- [ ] `<input placeholder="Email">` with no associated `<label>` element
-- [ ] Buttons with no `:disabled`, `:hover`, or `:focus` styles defined
-- [ ] Click handlers with no loading state management (`isLoading`, `disabled` during fetch)
-- [ ] Modals implemented without focus trapping or `inert` on background content
-- [ ] `tabindex` values greater than 0 (disrupts natural tab order)
-- [ ] Error messages not associated with inputs via `aria-describedby`
-
-### Developer Statements That Trigger This
-- "Focus rings are ugly, so I removed them"
-- "We'll add error handling later"
-- "The placeholder text explains what to enter"
-- "Users will figure out what to do"
-- "We just need a spinner while it loads"
-- "It's just a delete button, we don't need a confirmation"
+This reference applies whenever an interface leaves users guessing about state -- buttons that look
+identical whether resting, hovered, or disabled, no visible focus indicator when tabbing through the
+page, or form inputs relying on placeholder text as their only label. It also applies to the
+CSS/HTML/JS tells behind those symptoms: `outline: none` with no replacement focus style, click
+handlers with no loading-state management, or modals implemented without focus trapping. The
+developer statement that gives it away: "Focus rings are ugly, so I removed them" -- treating a
+state signal as a cosmetic nuisance.
 
 ---
 
 ## DESIGN REVIEW CRITERIA
 
-### Must Pass (Critical)
-- [ ] All interactive elements have visible focus indicators -> Fail if: `outline: none` is used without a replacement focus style
-- [ ] All 8 states designed for primary interactive elements (default, hover, focus, active, disabled, loading, error, success) -> Fail if: buttons or inputs only have default and hover styles
-- [ ] Touch targets are minimum 44x44px -> Fail if: icon buttons or links have a tappable area smaller than 44x44px
-- [ ] Form inputs have associated `<label>` elements -> Fail if: inputs rely on placeholder text alone for labeling
-- [ ] Destructive actions have undo or confirmation -> Fail if: delete or send actions execute immediately with no recovery path
+Must pass: all interactive elements have visible focus indicators, which fails whenever
+`outline: none` is used without a replacement focus style; all 8 states (default, hover, focus,
+active, disabled, loading, error, success) are designed for primary interactive elements, which
+fails whenever a button or input only has default and hover styles; touch targets are a minimum of
+44x44px, which fails whenever an icon button or link has a smaller tappable area; form inputs have
+associated `<label>` elements, which fails whenever a field relies on placeholder text alone for
+labeling; and destructive actions have undo or confirmation, which fails whenever a delete or send
+action executes immediately with no recovery path.
 
-### Should Pass (Important)
-- [ ] `:focus-visible` used instead of `:focus` for keyboard-only focus rings -> Warning if: all focus styles visible on mouse click, creating visual noise
-- [ ] Error messages include what happened, why, and how to fix it -> Warning if: errors show only "Error" or a status code
-- [ ] Loading states use skeleton screens over spinners for content areas -> Warning if: full-page spinner used where content structure is predictable
-- [ ] Empty states teach the interface, not just say "nothing here" -> Warning if: empty state is a single line of text with no call to action
-- [ ] Modal dialogs trap focus and use `inert` on background content -> Warning if: user can Tab behind an open modal or interact with background elements
-
-### Nice to Have
-- [ ] Optimistic UI for low-risk actions (toggling, favoriting, marking read) -> Suggestion: update the UI immediately and sync in background
-- [ ] Progressive disclosure for complex forms -> Suggestion: break long forms into steps or reveal advanced options on demand
-- [ ] Micro-animations for state transitions (150-300ms) -> Suggestion: animate between states to help users track what changed
+See `checklists.md` §1 for the full Should-Pass/Nice-to-Have tri-tier checklist across all chapters.
 
 ---
 
 ## RED FLAGS
 
+**Last reviewed: 2026-07**
+
 | Flag | Severity | What It Indicates | Fix |
 |------|----------|-------------------|-----|
 | `outline: none` or `*:focus { outline: 0 }` without replacement | Critical | Keyboard users can't see where focus is; accessibility violation | Remove the rule or replace with a visible `:focus-visible` style (2px+ solid, 3:1 contrast) |
 | Form inputs with placeholder text but no `<label>` | Critical | Label disappears on input; screen readers may not announce the field purpose | Add a visible `<label>` above each input; keep placeholder for format hints only |
-| Buttons with no disabled or loading state | High | Users can double-submit forms or trigger duplicate actions | Disable button and show loading indicator during async operations |
 | Modals without focus trapping | High | Keyboard users can Tab into background content and get lost | Implement focus trap inside modal; add `inert` attribute to background; restore focus on close |
 | All buttons styled identically (no visual hierarchy) | High | Users can't distinguish primary actions from secondary or destructive ones | Style primary, secondary, and destructive buttons differently using color, weight, and fill |
-| Missing error states on form inputs | High | Users can't tell what went wrong or how to fix it | Add inline error messages with `aria-describedby`, explain the problem and how to resolve it |
-| Delete or destructive actions with no confirmation | Medium | Accidental data loss with no recovery path | Add undo toast (preferred) or confirmation dialog before executing destructive actions |
+
+See `checklists.md` §2 Red Flags Master Table for the complete list across all chapters.
 
 ---
 
 ## IMPLEMENTATION CHECKLIST
 
-### Before Starting
-- [ ] Identify all interactive elements in the design (buttons, links, inputs, toggles, menus, modals)
-- [ ] Determine which actions are destructive, async, or high-consequence
-- [ ] Define the 8 states for each interactive element type
-- [ ] Establish a focus indicator style that meets 3:1 contrast and 2px+ width
+Before starting, list every interactive element in the design (buttons, links, inputs, toggles,
+menus, modals), flag which actions are destructive, async, or high-consequence, and establish a
+focus indicator style that meets 3:1 contrast and 2px+ width. While designing, work through all 8
+states for each element type -- default (must communicate affordance), hover (subtle, pointer-only),
+focus (`:focus-visible`, 2px+ solid at 3:1 contrast), active (distinct from hover, tactile), disabled
+(muted with an explanation, not just grayed out), loading (button text and control disabled during
+the async call), error (inline, associated via `aria-describedby`, explaining what/why/how to fix),
+and success (visible for at least 2 seconds) -- and apply the same rigor to forms (visible labels
+above inputs, validation on blur rather than every keystroke, format hints before errors occur) and
+to focus management (never strip outlines without a visible alternative, tab order follows visual
+order, modals trap focus and restore it on close, composite widgets use roving tabindex). Prefer
+optimistic UI or skeleton screens over generic spinners wherever the content shape is predictable or
+the action is low-risk and reversible. After, tab through the entire interface to confirm every
+element is reachable with a visible focus state, trigger every action to confirm it gives feedback,
+submit forms with invalid data to confirm errors are clear and actionable, and open every modal to
+confirm focus is trapped and restored on close.
 
-### During Design
-
-#### The 8 States Model
-- [ ] Step 1: **Default** — design the resting appearance; it must communicate affordance (this is interactive)
-  - Verify: element looks clickable/tappable without hovering over it
-- [ ] Step 2: **Hover** — subtle visual change on pointer devices (darken, lift, underline)
-  - Verify: hover style is visible but not dramatic; does not apply on touch devices
-- [ ] Step 3: **Focus** — keyboard navigation indicator using `:focus-visible`
-  - Verify: focus ring is 2px+ solid, 3:1 contrast ratio against adjacent background
-- [ ] Step 4: **Active** — pressed/clicked state (scale down slightly, darken further)
-  - Verify: distinct from hover; gives tactile feedback that the press registered
-- [ ] Step 5: **Disabled** — visually muted with reduced opacity or grayed out; explain why
-  - Verify: `aria-disabled="true"` used; tooltip or adjacent text explains why disabled
-- [ ] Step 6: **Loading** — spinner, progress bar, or skeleton replaces the action trigger
-  - Verify: button text changes (e.g., "Save" to "Saving...") and button is disabled during load
-- [ ] Step 7: **Error** — red/warm border or background with inline error message
-  - Verify: error message associated via `aria-describedby`; message explains what, why, and how to fix
-- [ ] Step 8: **Success** — confirmation that the action completed (checkmark, green flash, toast)
-  - Verify: success feedback is visible for at least 2 seconds; does not require user action to dismiss
-
-#### Form Design Rules
-- [ ] Labels above inputs, not beside or placeholder-only
-  - Verify: every `<input>`, `<select>`, and `<textarea>` has a visible `<label>` element
-- [ ] Validate on blur, not on every keystroke
-  - Verify: validation fires when user leaves a field, not while they are still typing
-- [ ] Show format expectations before errors occur (e.g., "MM/DD/YYYY" hint text)
-  - Verify: expected format visible as helper text below the input before the user types
-- [ ] Error messages follow the pattern: what happened, why, how to fix
-  - Verify: "Password must be at least 8 characters" not just "Invalid password"
-- [ ] Use `aria-describedby` to associate error and helper text with inputs
-  - Verify: screen reader announces the error message when input receives focus
-- [ ] Group related inputs with `<fieldset>` and `<legend>`
-  - Verify: radio groups, checkbox groups, and address fields are wrapped in fieldset
-
-#### Focus Management
-- [ ] Never remove focus outlines without providing a visible alternative
-  - Verify: search codebase for `outline: none` and `outline: 0`; ensure replacements exist
-- [ ] Use `:focus-visible` for keyboard-only focus rings
-  - Verify: clicking a button with a mouse does not show a focus ring; tabbing to it does
-- [ ] Focus rings: 2px+ solid, 3:1 contrast ratio against adjacent background
-  - Verify: test focus ring against both light and dark background areas
-- [ ] Tab order follows visual order (no `tabindex` values > 0)
-  - Verify: Tab through the page; focus moves left-to-right, top-to-bottom matching visual layout
-- [ ] Modal: trap focus inside, restore focus on close, use `inert` on background
-  - Verify: Tab and Shift+Tab cycle within modal; Escape closes; focus returns to trigger element
-- [ ] Component groups: roving tabindex (arrow keys within, Tab between)
-  - Verify: in tab lists, toolbars, and radio groups, arrow keys move focus; Tab exits the group
-
-#### Loading Patterns (Best to Worst)
-- [ ] 1. **Optimistic UI** — update the interface immediately, sync with server in background
-  - Verify: used for low-risk, reversible actions (likes, toggles, marking as read)
-- [ ] 2. **Skeleton screens** — show the shape of content while it loads
-  - Verify: skeleton matches the layout of the actual content; used for predictable content structures
-- [ ] 3. **Progress indicators** — show how far along the operation is
-  - Verify: used for operations with measurable progress (file uploads, multi-step processes)
-- [ ] 4. **Spinners** — generic loading indicator
-  - Verify: used only when content structure is unpredictable and progress is not measurable
-
-### After Design
-- [ ] Tab through the entire interface — every interactive element is reachable and has a visible focus state
-- [ ] Trigger every action — each one provides feedback (loading, success, or error)
-- [ ] Submit forms with invalid data — every error is clear, specific, and actionable
-- [ ] Test on touch devices — all targets are at least 44x44px
-- [ ] Open and close every modal — focus is trapped inside and restored on close
+See `checklists.md` §5 Implementation Quick-Start for the full step-by-step sequence.
 
 ---
 
@@ -250,37 +171,16 @@ On open: move focus to the first focusable element inside the modal, add `inert`
 
 Every interactive element must communicate its current state. Users should never wonder "did that work?", "can I click this?", or "what went wrong?" Design for the full lifecycle of an interaction, not just the happy path. The eight states (default, hover, focus, active, disabled, loading, error, success) aren't nice-to-haves. They're fundamental requirements of a usable interface.
 
-### CHECKER Mode
-When reviewing an existing design, verify:
-- [ ] Every interactive element has visible focus indicators (no `outline: none` without replacement)
-- [ ] Primary interactive elements have all 8 states designed and implemented
-- [ ] Touch targets meet the 44x44px minimum
-- [ ] Form inputs have associated labels and descriptive error messages
-- [ ] Destructive actions have confirmation or undo
-- [ ] Modal dialogs trap focus and use `inert` on background
-- [ ] Loading states provide meaningful feedback (skeleton screens preferred over spinners)
-- [ ] Empty states guide users toward action
-
 **Severity Classification:**
 | Violation Type | Severity | Rationale |
 |----------------|----------|-----------|
 | No visible focus indicators | Critical | Keyboard and assistive technology users can't navigate the interface |
 | Missing form labels | Critical | Screen readers can't announce field purpose; users lose context while typing |
 | No loading or success feedback on actions | High | Users can't tell if their action worked, leading to duplicate submissions |
-| Touch targets below 44x44px | High | Mobile users can't reliably interact with the element |
-| No error recovery on destructive actions | High | Accidental data loss with no path to recovery |
-| Spinners used where skeleton screens would work | Medium | Functional but gives less context about what's loading |
-| No empty state guidance | Medium | Users are stuck but not blocked; they may figure it out eventually |
 
-### APPLIER Mode
-When creating or modifying a design, ensure:
-- [ ] Define the 8 states for every interactive element before building
-- [ ] Start with focus management: visible `:focus-visible` rings, logical tab order
-- [ ] Design error states first — they reveal edge cases and requirements
-- [ ] Use optimistic UI for low-risk reversible actions; skeleton screens for content loading
-- [ ] Label every form input visibly; use placeholder only for supplementary hints
-- [ ] Add `aria-describedby` to associate helper text and error messages with inputs
-- [ ] Confirm or allow undo on every destructive action
+Reviewing and applying draw on the same criteria in both directions: define the 8 states before
+building, start with focus management and logical tab order, and label every input visibly rather
+than leaning on placeholder text.
 
 ---
 
@@ -327,12 +227,14 @@ When creating or modifying a design, ensure:
 
 ## COMMON MISTAKES
 
+**Last reviewed: 2026-07**
+
 | Mistake | Why It Happens | Correct Approach |
 |---------|----------------|------------------|
 | Removing focus outlines globally with `*:focus { outline: none }` | Developer finds browser focus rings visually distracting | Use `:focus-visible` to show focus rings only during keyboard navigation; style them intentionally |
 | Using placeholder text as the only input label | Placeholder seems cleaner and saves vertical space | Add visible `<label>` elements above inputs; use placeholder only for format hints |
 | Designing only the happy path (default and hover) | Deadlines pressure teams to skip edge cases | Design error, loading, disabled, and empty states before building; these reveal requirements early |
-| Using the same button style for all actions | Developer uses a single `.btn` class for everything | Create a button hierarchy: primary (filled), secondary (outlined), tertiary (text), destructive (red) |
-| Showing a full-page spinner for all loading states | Spinner is the simplest implementation | Use skeleton screens for predictable content; optimistic UI for quick actions; reserve spinners for unpredictable loads |
 | Implementing modals without focus management | Developer focuses on visual overlay, not keyboard behavior | Trap focus inside the modal; set background `inert`; restore focus to trigger on close; handle Escape key |
 | Generic error messages ("Something went wrong") | Developer catches errors but doesn't differentiate them | Map error types to specific messages: what happened, why, and how the user can fix it |
+
+See `checklists.md` §4 Common Mistakes Master Table for the complete list across all chapters.

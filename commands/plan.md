@@ -11,7 +11,7 @@ This command obeys the shared contract in `docs/workflow-conventions.md` (the li
 
 ---
 
-## STOP - Read the Input First
+## Read the Input First
 
 `$ARGUMENTS` is either a **research-doc path** or a **brief description**:
 
@@ -24,7 +24,7 @@ A research doc carries confirmed intent. **Do not re-derive the brief from scrat
 
 ---
 
-## STOP - Scan the Design State (sets the entry stage)
+## Scan the Design State (sets the entry stage)
 
 Before classifying, detect which design artifacts already exist. This decides where the plan *enters* the lifecycle — you do not re-plan work that is already done.
 
@@ -43,9 +43,9 @@ State the entry stage explicitly: "DESIGN.md is locked — resuming at the Desig
 
 ---
 
-## STOP - Quick Classification
+## Quick Classification
 
-Read the brief and make an instant complexity call.
+Read the brief and make an instant complexity call before any other work — the track determines everything downstream.
 
 | Signal in the brief | Track |
 |---|---|
@@ -63,7 +63,7 @@ These steps produce the confirmed problem statement that anchors all downstream 
 
 ### 1. Clarify gaps
 
-Load `Skill(clarify)`. Ask questions via `AskUserQuestion` until the answers are decisive and no new gaps remain. A research doc usually answers most of this — clarify **only its open questions** (missing brand context, vague mood words, undefined audience, scope faults).
+Load `Skill(clarify)`. A research doc usually answers most of this — clarify **only its open questions**. Route each gap by shape: a genuinely decisive pick with self-contained 2-4 options (e.g., "which device class — phone, TV, or in-car?") → `AskUserQuestion`. An open-ended content gap (missing brand context, vague mood words, undefined audience, scope faults) → ask in conversation as end-turn markdown; the answer is prose the user has to elaborate, not a button they can tap, and a dialog can't hold it any better than the problem statement below can. Keep asking, in whichever channel fits each gap, until the answers are decisive and no new gaps remain.
 
 **Cap: 5 rounds.** If still unclear at the cap, state your remaining assumptions explicitly and ask the user to object.
 
@@ -75,7 +75,7 @@ Write:
 - **Constraints:** non-negotiable boundaries (brand, device class, timeline, platform)
 - **Success criteria:** how we know the design is done (in design terms — readable, on-brand, accessible, the journey works)
 
-Confirm via `AskUserQuestion`: "Does this capture what you want to design?" Corrections → update and re-confirm. New gaps → re-enter clarify on those gaps. This becomes the plan's `## Context`. **No plan writing begins until the problem statement is confirmed.**
+Render the statement as markdown in conversation and end the turn asking "Does this capture what you want to design?" — the user replies in their own words. Content confirmations happen in conversation, not in a dialog: the conversation is the only surface that renders the full statement (dialog previews truncate, and the user can't correct nuance through option buttons). Corrections → update and re-confirm. New gaps → re-enter clarify on those gaps. This becomes the plan's `## Context`. **No plan writing begins until the problem statement is confirmed.**
 
 ---
 
@@ -120,7 +120,7 @@ Order the phases so each phase's gating artifact is produced before any phase th
 
 1. **Decompose (skeleton).** For each of the 1-2 phases write only: name, `**Stage:**` (Discover or Design), one-line goal, `**Doctrine:**` (matched names from the stage map, verified against the resolver in `docs/pillar-taxonomy.md §5`; `none -- [reason]` valid, omission not), Difficulty. For 2 phases add `**Depends on:**` and `**Produces:**` (the artifact phase 1 hands phase 2 — JOURNEY.md, DESIGN.md, tokens). Write this skeleton to the plan file.
 
-2. **Skeleton checkpoint** (2 phases only). `AskUserQuestion` — "Does the split look right? Review it in the preview." Options "Looks right" / "Adjust", **`preview` REQUIRED on both**: the identical split as markdown (each phase's name + stage + goal, and the artifact handoff between them). The preview is the only guaranteed-visible surface. 1 phase → skip.
+2. **Skeleton checkpoint** (2 phases only). Render the split as markdown in conversation (each phase's name + stage + goal, and the artifact handoff between them) and end the turn asking "Does the split look right?" — the user replies free-form. The skeleton must be the turn's final message, with no tool calls after it: the conversation is the only surface that renders it in full, and nothing is written to disk yet, so there is nothing to chain into. 1 phase → skip.
 
 3. **Detail each phase**, in order, one short pass each. Start with a one-line reframe — `Phase N: [name]. Stage: [Discover|Design]. Consumes: [upstream artifact, or "research doc"]. Must produce: [Produces]. Difficulty: X.` — then resolve each `**Doctrine:**` name via the resolver in `docs/pillar-taxonomy.md §5`, `Read()` the file, and apply it to inform Edge cases and Done-when — then fill the body using the phase template below.
 
@@ -140,7 +140,7 @@ Quick stays compressed: under 3 minutes from invocation to handoff.
 
 For multi-surface products and redesigns, run the full staged decomposition **inline** (this plugin keeps planning in the command — there is no separate planning skill). Stages: DECOMPOSE → DETAIL → CROSS-CUT → SAVE → CHECK → PRESENT → HANDOFF. Each writes to the plan file in place.
 
-**Thinking effort:** planning benefits from max effort. If not already at max, suggest the user raise it before proceeding.
+**Thinking effort:** planning is where the reasoning lives — it benefits from **high** effort. If the session is running lower, suggest the user raise it before proceeding. (Build runs the other way: dispatched build agents run at default effort — the plan already carries the reasoning; see `commands/build.md`.)
 
 ### DECOMPOSE — fix the shape first
 
@@ -153,9 +153,7 @@ For each phase write: **Name** + one-line goal · **Stage:** (Discover/Design) �
 - **YAGNI:** each phase must produce an artifact meaningful to `build` and verifiable by the review agent. If a stage isn't needed (no data surfaces → no `data-viz` phase), drop it.
 - **Phase cap: 7.** More than 7 → split into multiple plans.
 
-**Skeleton checkpoint.** The skeleton travels INSIDE the `AskUserQuestion` `preview` field — Write results render collapsed and prose is skipped under tool-chaining. Do NOT write the file first.
-
-`AskUserQuestion` — "Does the N-phase decomposition look right? Review the skeleton in the preview." Options "Looks right" / "Adjust", **`preview` REQUIRED on both**, carrying the identical skeleton:
+**Skeleton checkpoint.** Catching a wrong decomposition here is far cheaper than after the bodies are written. End the turn with the full skeleton rendered as markdown in conversation, asking "Does the N-phase decomposition look right?" — the user replies free-form. Two rules make this checkpoint structural rather than skippable: the skeleton is the turn's final message, with no tool calls after it (nothing is written to disk yet, so there is nothing to chain into — dialog previews truncate multi-phase content and collapsed Write output doesn't count as presentation); and the plan file is written only after approval (next paragraph) — a skeleton the user never saw cannot become a plan.
 
 ```markdown
 ## Skeleton: N phases
@@ -165,7 +163,7 @@ For each phase write: **Name** + one-line goal · **Stage:** (Discover/Design) �
 DAG: 1 → 2 → 3 → {4, 5}    gates: JOURNEY.md before Design; DESIGN.md locked before tokens
 ```
 
-On "Adjust": revise, re-ask with the updated skeleton. After "Looks right": write the skeleton to the plan file (header + Context + Constraints + Chosen Approach, then one header per phase). Built progressively; recoverable if interrupted. Do not commit.
+On "adjust"-type replies: revise, re-present the updated skeleton the same way. After approval: write the skeleton to the plan file (header + Context + Constraints + Chosen Approach, then one header per phase). Built progressively; recoverable if interrupted. Do not commit.
 
 ### DETAIL — one phase at a time
 
@@ -185,7 +183,7 @@ Derive once every phase body exists. Verification plan: one item per done-when a
 
 Assign `**Model:**` and `**Gate:**` per phase, then validate the whole file against the schema.
 
-- **Model:** `opus` for DNA/identity creation and full-product decomposition; `sonnet` for most stage phases; `haiku` for a single mechanical artifact update.
+- **Model:** the ladder is **fable** (judgment-heavy: DNA/identity creation, full-product decomposition, novel cross-surface design) → **sonnet** (the default — handles most well-specified stage phases fast and cheap) → **haiku** (mechanical: a single doc/spec/token update). **`opus` stays a valid override only** — use it when fable is unavailable or the user explicitly asks for it, never as a default choice.
 - **Gate:** **Full** for the DNA phase (it locks DESIGN.md — the law-once-locked artifact) and for multi-surface Design phases introducing new seams; **Minimal** for a single doc/spec update; **Standard** otherwise.
 - **Doctrine validation:** every phase has `**Doctrine:**`; every name exists in the resolver in `docs/pillar-taxonomy.md §5`; no workflow commands (research, plan, mock, build, clarify); a Design/Discover phase with `none` justifies why no doctrine matches. A name absent from the resolver → STOP and ask the user.
 
@@ -196,7 +194,7 @@ Assign `**Model:**` and `**Gate:**` per phase, then validate the whole file agai
 ```markdown
 ### Phase N: [Name]
 **Stage:** [Discover | Design]
-**Model:** [haiku | sonnet | opus]
+**Model:** [fable | sonnet | haiku]
 **Doctrine:** [matched names from the resolver, or `none -- [reason]`]
 **Gate:** [Full | Standard | Minimal]
 
@@ -229,10 +227,10 @@ Assign `**Model:**` and `**Gate:**` per phase, then validate the whole file agai
 
 ## CHECK (all tracks)
 
-Dispatch a sonnet subagent to review the saved plan with fresh eyes. Never skip.
+Dispatch a fable subagent to review the saved plan with fresh eyes — the plan is the highest-leverage artifact in the pipeline, and one fable pass here is cheap insurance. Never skip.
 
 ```
-Agent: sonnet, "Review design plan"
+Agent: fable, "Review design plan"
 Prompt: Review .design-foundations/plans/<plan>.md for structural issues.
 
 Checklist:
@@ -246,7 +244,8 @@ Checklist:
 - Doctrine: every phase has a Doctrine field; each name exists in the resolver (docs/pillar-taxonomy.md §5); matches the
   stage; no workflow commands.
 - Resume: if entry was mid-lifecycle, the skipped stages' artifacts actually exist; no redone work.
-- Gate/Model: every phase has Gate (Full/Standard/Minimal) and Model populated, matching risk.
+- Gate/Model: every phase has Gate (Full/Standard/Minimal) populated, matching risk, and Model
+  populated from the ladder (fable/sonnet/haiku — opus only as an explicit override, never a default).
 
 Output: PASS or FINDINGS with specific fixes.
 ```
@@ -257,7 +256,7 @@ PASS → proceed. FINDINGS → fix; **structural fixes (phase order, DAG, gate i
 
 ## PRESENT and HANDOFF (all tracks)
 
-Print the plan summary as markdown in conversation — phases with stages, goals, matched doctrine, done-when, the gate order — then `AskUserQuestion`: "Does this look right?" Options "Approve" / "Request changes", **`preview` REQUIRED on both** (the identical summary) — the user won't open the saved file and Write results render collapsed.
+End the turn with the full plan summary rendered as markdown in conversation — every phase with its stage, goal, matched doctrine, done-when items, and the gate order — closing with "Does this look right? Anything to add or change?" The user replies in their own words. The summary must be the turn's final message, with no tool calls after it: the conversation is the only surface that renders a multi-phase plan in full — the user won't open the saved file, and Write results render collapsed.
 
 Changes → update; structural changes re-run CHECK; minor changes re-present.
 

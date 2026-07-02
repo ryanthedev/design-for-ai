@@ -326,6 +326,8 @@ When auditing an existing design system or token implementation:
 
 ## COMMON MISTAKES
 
+**Last reviewed: 2026-07**
+
 | Mistake | What it produces | Fix |
 |---------|-----------------|-----|
 | Alias tokens that just rename globals | A two-tier system masquerading as three; theming still breaks | Map globals to semantic intent, not just new names |

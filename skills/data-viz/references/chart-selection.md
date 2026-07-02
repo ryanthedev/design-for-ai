@@ -174,6 +174,8 @@ From Cairo (*How Charts Lie*, 2019). Use as a detection and audit checklist.
 
 ## COMMON MISTAKES
 
+**Last reviewed: 2026-07**
+
 | Mistake | Why it happens | Correct approach |
 |---------|----------------|------------------|
 | Pie chart with 8+ slices | Feels "complete" | Use a sorted horizontal bar chart; group small slices into "Other" |

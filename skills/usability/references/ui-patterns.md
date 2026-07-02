@@ -68,6 +68,8 @@ Decide by content volume, criticality, and comparison need:
 
 ## Common mistakes
 
+**Last reviewed: 2026-07**
+
 | Mistake | Why it happens | Correct approach |
 |---------|----------------|------------------|
 | Hamburger menu on a 2–3 section app | Cargo-culting a mobile convention | Show the sections directly (Fitts/recognition); hide nav only when count justifies it (Hick) |

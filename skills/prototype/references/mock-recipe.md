@@ -264,6 +264,8 @@ If the mock includes deliberate animation (scroll reveals, entrance transitions)
 
 ## COMMON MISTAKES
 
+**Last reviewed: 2026-07**
+
 | Mistake | Correction |
 |---------|-----------|
 | Hardcoding hex values instead of using tokens | Always reference `var(--token-name)` — the point is to verify the token system, not bypass it |

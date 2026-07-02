@@ -119,6 +119,8 @@ an AI interface. The point is to stop applying a pillar to a substrate it no lon
 
 ## Common mistakes
 
+**Last reviewed: 2026-07**
+
 - **Treating AI-native guidance as settled.** It isn't. Prescribing confidently on an unsettled
   question is the headline failure mode (see `ai-native-caveats.md`).
 - **Abandoning usability inside an agent UI.** The fixed parts — input box, controls, confirm step

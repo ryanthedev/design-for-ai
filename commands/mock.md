@@ -13,7 +13,7 @@ This command obeys the shared contract in `docs/workflow-conventions.md` (the li
 
 ---
 
-## STOP - Read the Input First
+## Read the Input First
 
 `$ARGUMENTS` is the **plan path** (e.g. `.design-foundations/plans/2026-06-20-acme.md`).
 
@@ -108,6 +108,14 @@ Agent tool:
     - .html: [.html path(s) from Step 1]
     - DESIGN.md / JOURNEY.md at the project root if present.
 
+    ## Dual-blind review — run BOTH assessments
+    Assessment A: your cross-pillar critique. Assessment B: the
+    deterministic detector — run `node scripts/detect.mjs [.html path(s)
+    from Step 1]` FIRST, redirected to a file you do not read until
+    Assessment A's findings are frozen (your protocol's isolation rule).
+    A skipped detector on a rendered .html is a FAILED review run; no
+    rendered artifact → detector N/A, not a failure.
+
     ## Output
     Write the cross-pillar findings report to:
     .design-foundations/build/[plan-slug]-mock-review.md
@@ -129,9 +137,9 @@ This is the evidence the user signs off (or rejects) the direction on.
 
 ---
 
-## STOP — Sign-off Gate (MANDATORY — do not proceed silently)
+## Sign-off Gate
 
-`mock` does NOT auto-advance to `build`. Present the evidence, then **ask the user to decide the direction.** This gate is a user decision — never resolve it yourself, never proceed without an explicit answer.
+`mock` does NOT auto-advance to `build` — the direction commits real build cost, so only the user can decide whether it's right. Present the evidence, then ask the user to decide, and wait for an explicit answer: this is a genuine two-option decision on evidence already shown in conversation (Step 3), which is exactly what `AskUserQuestion` is for.
 
 Ask:
 

@@ -18,6 +18,11 @@
 //   --scheme   light|dark|both               schemes to emit         (default both)
 //   --prefix   <string>                      custom-property prefix  (default none)
 //   --json                                   emit JSON instead of CSS
+//
+// Also importable (side-effect free): the hue-walk hook for dealer.mjs —
+// GOLDEN_ANGLE, hueWalk(baseHue, step), hueName(h), HUE_NAMES.
+
+import { pathToFileURL } from "node:url";
 
 // ---------- OKLCH <-> sRGB (Björn Ottosson's OKLab) ----------
 
@@ -173,12 +178,18 @@ const HARMONIES = {
 
 const FUNCTIONAL = { error: 25, success: 145, warning: 85, info: 240 };
 
-const HUE_NAMES = [
+// Golden-angle hue walk: successive steps land maximally far from every
+// prior hue — the dealer (dealer.mjs) uses this to spread candidate hues.
+export const GOLDEN_ANGLE = 137.50776405003785;
+export const hueWalk = (baseHue, step) =>
+  (((baseHue + step * GOLDEN_ANGLE) % 360) + 360) % 360;
+
+export const HUE_NAMES = [
   [15, "red"], [45, "orange"], [70, "amber"], [105, "yellow"], [140, "lime"],
   [165, "green"], [195, "teal"], [230, "cyan"], [265, "blue"], [295, "violet"],
   [330, "purple"], [350, "pink"], [360, "red"],
 ];
-const hueName = (h) => HUE_NAMES.find(([max]) => ((h % 360) + 360) % 360 <= max)[1];
+export const hueName = (h) => HUE_NAMES.find(([max]) => ((h % 360) + 360) % 360 <= max)[1];
 
 // ---------- CLI ----------
 
@@ -297,18 +308,22 @@ function emitCss(schemes, args) {
   return lines.join("\n");
 }
 
-const args = parseArgs(process.argv.slice(2));
-const modes = args.scheme === "both" ? ["light", "dark"] : [args.scheme];
-const schemes = Object.fromEntries(modes.map((m) => [m, buildScheme(m, args)]));
+// Run the CLI only when executed directly — importing (e.g. from dealer.mjs)
+// must be side-effect free.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  const args = parseArgs(process.argv.slice(2));
+  const modes = args.scheme === "both" ? ["light", "dark"] : [args.scheme];
+  const schemes = Object.fromEntries(modes.map((m) => [m, buildScheme(m, args)]));
 
-if (args.json) {
-  console.log(JSON.stringify({ seed: args.seedNote, chroma: args.chroma, harmony: args.harmony, schemes }, null, 2));
-} else {
-  console.log(emitCss(schemes, args));
-}
+  if (args.json) {
+    console.log(JSON.stringify({ seed: args.seedNote, chroma: args.chroma, harmony: args.harmony, schemes }, null, 2));
+  } else {
+    console.log(emitCss(schemes, args));
+  }
 
-const failures = Object.values(schemes).flatMap((s) => s.report.filter((r) => !r.pass));
-if (failures.length) {
-  console.error(`\n${failures.length} contrast pair(s) below target — see report.`);
-  process.exit(2);
+  const failures = Object.values(schemes).flatMap((s) => s.report.filter((r) => !r.pass));
+  if (failures.length) {
+    console.error(`\n${failures.length} contrast pair(s) below target — see report.`);
+    process.exit(2);
+  }
 }

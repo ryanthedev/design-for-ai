@@ -20,6 +20,7 @@ concerns. The plugin manifest has no `skills` array — skills are auto-discover
 4. [The cite-the-principle house rule](#4-the-cite-the-principle-house-rule)
 5. [Dependency direction (cite-down, never up)](#5-dependency-direction-cite-down-never-up)
 6. [The per-skill eval gate](#6-the-per-skill-eval-gate)
+7. [Tells & red-flag table re-audit convention](#7-tells--red-flag-table-re-audit-convention)
 
 ---
 
@@ -136,3 +137,29 @@ Every pillar skill passes this gate in its authoring phase before it is consider
 Baseline-first discipline (skill-craft): author the skill *after* writing the evals, so the
 documented baseline failures are the spec. The harness is the test suite for this markdown
 plugin — never hand-fill a compliance verdict; the skill-eval MCP tools compute them.
+
+## 7. Tells & red-flag table re-audit convention
+
+Any tells list or red-flag table in this plugin's doctrine — `references/visual/ai-tells.md`'s
+checklists and tables, `deceptive-patterns`' ban-list, or any future pillar's severity table —
+decays. The Space Grotesk case is the load-bearing example: Anthropic's Oct 2025 cookbook
+recommended it, the same document flagged it as a convergence risk, and by May 2026 the ecosystem
+banned it outright (~7 months, theadpharm.com) — "the 'I tried' upgrade." An escape-hatch aesthetic
+invented to dodge one round of tells (cream+serif+terracotta; dark+acid-green) becomes the next
+round's tell once enough builders reach for it. Rules "calibrate; they don't create taste," and
+"without [a] reflective loop, taste hardens into inertia" (designative.info, 2026) — the frozen
+list, not the practice of listing, is the failure mode.
+
+Convention:
+
+- **Every tells or red-flag table carries `Last reviewed: YYYY-MM`** immediately above or below its
+  heading.
+- **Re-audit trigger:** re-check a table's content whenever (a) six months have passed since its
+  last review, or (b) a cited example is directly contradicted by a newer, dated source (as Space
+  Grotesk was) — whichever comes first.
+- **An undated table is presumptively stale.** A REVIEW agent or spot-check treats a missing
+  `Last reviewed:` line as a finding, the same way a de-prescription sweep treats an undated
+  ban-list-style enumeration as a finding elsewhere in this plugin.
+- **Re-auditing means dating, not deleting.** Confirm the entries still hold, correct or remove
+  what's decayed (Space Grotesk moves from "recommended" to "banned," it doesn't just vanish), and
+  bump the date. The convention outlives any single list.
