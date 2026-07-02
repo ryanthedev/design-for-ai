@@ -8,7 +8,7 @@ Based on *Design for Hackers* by David Kadavy. Nine chapters of design theory, d
 
 ## A design-foundations system
 
-As of **v3.1.0**, this is a **design-foundations system** with two front doors: a four-stage workflow that takes any design idea from brief to viewable artifact, and eight pillar skills that can be invoked directly for focused questions.
+As of **v4.2.0**, this is a **design-foundations system** with one front door: a four-stage workflow that takes any design idea from brief to viewable artifact. Design knowledge lives as doctrine reference files the workflow loads deterministically — plus a `prototype` skill you can invoke directly to render a mock.
 
 ## The workflow
 
@@ -20,38 +20,20 @@ Start with an idea — vague is fine. The workflow takes it from brief to gated,
 
 | Command | What happens |
 |---------|-------------|
-| **research** | Facilitates the design brief: who's it for, what should it feel like, what's the job it does. Saves a research doc. |
-| **plan** | Turns the brief into a phased design plan: Discover (journey/IA/flows) → Design (DNA/tokens/system/words). Assigns pillar skills per phase, sets design done-when criteria. |
+| **research** | Facilitates the design brief: who's it for, what should it feel like, what's the job it does — and catches taste signals (fonts you lean toward, colors you'd never ship) as pins for the DNA deal. Saves a research doc; an optional verification pass (a grill, then a zero-context cold read) flips it draft → confirmed. |
+| **plan** | Turns the brief into a phased design plan: Discover (journey/IA/flows) → Design (DNA/tokens/system/words). Assigns doctrine per phase, sets design done-when criteria. |
 | **mock** | Renders a throwaway-fidelity prototype from the plan direction and runs a cheap cross-pillar validation on the real pixels. Gates on your sign-off before committing to the full build. |
 | **build** | Executes the approved plan phase by phase — each phase: `BUILD → REVIEW → commit` with dispatched subagents, design execution evidence (contrast/tokens/heuristic), and a final trust report. |
 
-The pillar skills are the workflow's doctrine library: each `build` phase's agents load the matched pillar skills, so a cross-pillar review of real rendered pixels becomes a workflow stage, not a trigger guess.
+The doctrine files are the workflow's knowledge library: each `mock` and `build` phase's dispatched agents resolve the applicable doctrine names and `Read()` every file before executing, so a cross-pillar review of real rendered pixels is a workflow stage, not a trigger guess. Review is dual-blind — an isolated cross-pillar critique and a deterministic AI-tell detector (`scripts/detect.mjs`) gather findings separately and synthesize after both finish.
 
-### The core: one command, the visual modes
+### The doctrine domains
 
-```
-/design-for-ai
-```
+Eight domains, loaded per-phase by the workflow (not directly invocable):
 
-Tell it what you need. It figures out the mode.
-
-| Mode | What happens |
-|------|-------------|
-| **design** | Interviews you about purpose, audience, and personality, then generates a unique design DNA: brand archetype → aesthetic-family remix → three named candidates with real contrast-checked palettes → a DESIGN.md that gets locked before any code is written |
-| **surface** | Picks layout patterns and style tokens for a device class — phone, TV, watch, in-car, kiosk, voice, e-ink — from each surface's input, distance, and attention constraints |
-| **fonts** | Picks typefaces by analyzing the rendering medium, letter structure, and pairing compatibility, not by reaching for Inter |
-| **color** | Builds a palette from color science: color wheel relationships, warm/cool depth, hue-shifted shadows, colorblind safety |
-| **audit** | Runs a 10-section design review. Names the problem, cites the principle, shows the fix — and dispatches the `usability` skill for operability findings |
-| **enhance** | Decides *what to reach for* to uplift a site: which library buys a wanted effect (motion, scroll, 3D), gated on register and cost. Library-agnostic: names categories and current examples, never pins a version |
-| **polish** | Final pass: motion timing, all 8 interaction states, responsive behavior, and the AI-tells sweep |
-
-### The pillar skills
-
-Each is its own skill — trigger it by asking about its concern. No `/`-prefix needed; Claude routes by what you say. All pillars are also loaded per-phase by the workflow's dispatched agents — the two roles are orthogonal.
-
-| Pillar | Reach for it when… |
-|--------|--------------------|
-| **usability** | "is this usable", "where do users get stuck", a heuristic evaluation, a UX law (Fitts/Hick/Miller), affordances, cognitive load, picking a nav/form/table/feedback pattern. The keystone the others cite |
+| Domain | Concern |
+|--------|---------|
+| **usability** | whether users can *operate* it — Nielsen 10, UX laws (Fitts/Hick/Miller), affordances, cognitive load. The keystone the others cite |
 | **content-design** | the *words* are the interface — UX writing, microcopy, error/empty/button copy, voice & tone |
 | **data-viz** | encoding *data* — which chart, dashboards, data-ink/chartjunk, truthful encoding, chart accessibility |
 | **deceptive-patterns** | dark patterns, manipulative UX, an ethical design review, regulatory exposure (DSA/FTC). The twin of the AI-tells ban-list |
@@ -60,26 +42,11 @@ Each is its own skill — trigger it by asking about its concern. No `/`-prefix 
 | **design-systems** | a look → a *machine* — design tokens, atomic components, governance. Extends DESIGN.md |
 | **ai-native** | agent/LLM-interface design — agent UX, generative UI, no-fixed-screen interfaces. Principle-derived; **no settled canon yet** |
 
-### Direct mode
+Visual doctrine (design DNA, surfaces, fonts, color, motion, interaction, responsive, audit, enhance, polish) lives in `references/visual/` and is resolved the same way.
 
-```
-/design-for-ai fonts
-/design-for-ai surface
-/design-for-ai audit
-/design-for-ai enhance
-/design-for-ai polish
-```
+### Your taste is a pin, not a suggestion
 
-### Or just talk
-
-```
-/design-for-ai the typography feels wrong
-/design-for-ai review this landing page
-/design-for-ai this looks like every other AI site
-/design-for-ai which animation library should I reach for
-```
-
-The router matches your words to the right mode. If it can't tell, it asks.
+The composition dealer exists to stop the *model* from choosing — model choice converges to the same few looks. Your choice is the opposite force. Pin any axis before the deal (`--pin family=neo-brutalist --pin hue=teal`) and the dealer deals only what you left open; pick a candidate at converge and swap individual axes (font, hue, chroma, signature) without losing the rest; react to the mock with a one-loop "Swap an axis" at the sign-off gate.
 
 ## What changes
 
@@ -89,11 +56,12 @@ The difference: every design decision traces back to a principle. Not taste. Not
 
 ## Why the designs come out different every time
 
-LLMs sample the statistical center of their training data. That's why every AI site converges on the same look. The design mode breaks this by construction, not by prompting harder:
+LLMs sample the statistical center of their training data. That's why every AI site converges on the same look. The DNA pipeline breaks this by construction, not by prompting harder:
 
 - **Archetypes, not vibes.** Your answers map to one of 12 brand archetypes, which constrains a set of aesthetic families (Editorial Minimalism, Terminal-Core, Neo-Brutalist, Art Deco, Soft Futurism...), each with named fonts, color strategies, and motion vocabularies.
+- **The deal, not the prior.** A seeded dealer (`scripts/dealer.mjs`) deals each of five candidates its aesthetic family, layout discipline, hue, and signature — the axis nothing else spreads. Known AI-tell combinations are banned cells the dealer never emits. Axes you pin are yours; the dealer deals the rest.
 - **Remix, don't clone.** A design DNA takes its base from one family and borrows one or two axes from another: type from here, color strategy from there. The combinations don't exist as a cluster in any training data.
-- **Real palettes, not invented hexes.** A bundled OKLCH generator (`skills/design-for-ai/scripts/palette.mjs`) builds 12-step neutral and accent ramps with WCAG contrast solved by construction: light and dark, harmony-derived secondary accents, functional colors.
+- **Real palettes, not invented hexes.** A bundled OKLCH generator (`scripts/palette.mjs`) builds 12-step neutral and accent ramps with WCAG contrast solved by construction: light and dark, harmony-derived secondary accents, functional colors.
 - **A signature move.** Every DNA includes one specific decision a template would never contain.
 
 ## Install
@@ -105,7 +73,7 @@ LLMs sample the statistical center of their training data. That's why every AI s
 
 Update: `/plugin update design-for-ai@rtd`
 
-The current version is **3.1.0** — the `research → plan → mock → build` workflow on top of the multi-skill design-foundations system. The install path is unchanged: all skills (the core, eight pillars, and the workflow commands) are auto-discovered from the plugin's `skills/` and `commands/` directories.
+The current version is **4.2.0** — the `research → plan → mock → build` workflow on a deterministic doctrine-read model, with user-pinnable DNA axes and a verified-brief research pass. The install path is unchanged: the four workflow commands, two agents, and four skills (`prototype`, `clarify`, `usability`, `data-viz`) are auto-discovered from the plugin's `commands/`, `agents/`, and `skills/` directories.
 
 ## License
 
