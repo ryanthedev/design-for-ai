@@ -447,3 +447,10 @@ Summary: The four commands + both agents now speak the fable/sonnet/haiku model 
 - [x] Committed
 Commit: 2e2a7d3
 Summary: ai-tells.md now carries a copy/content tells section (6 observable-check tells), a dated checkable-signatures table (purple triplet, 0.1 shadows, Tailwind/shadcn binary check, both escape-hatch clusters, Space Grotesk), the decay doctrine + Last reviewed dates on all 7 tables, and the over-correction guard; foundations-standards.md §7 documents the re-audit convention. This file is the SOURCE OF TRUTH Phase 6's detect.mjs will port — every tell states an observable check.
+
+### Phase 2: De-prescriptify sweep (Gate: Standard)
+- [x] BUILD: Discovery + design + implementation complete — 24 doctrine files trimmed (chapter-01 hand-done as exemplar, rest via the same fully-specified transform); content-survival preserved
+- [x] REVIEW: fail→pass (2 attempts) — 1st FAIL caught 4 undated ban-lists in skills/*/references/ files (outside prose scope but inside DW-2.2's wording); fixed with 4 additive date lines
+- [x] Committed
+Commit: c72f27d
+Summary: The doctrine library is de-prescriptified for Fable 5 — exhaustive ban-lists trimmed to principle + dated examples, over-elaborated blocks cut, imperative-cap headers converted to reasoned gates, verification leaned toward screenshot-grounded checks. Named principles/citations/worked examples all survive; ethics prohibitions and usability heuristic tables kept intact; every remaining ban-list carries a Last reviewed date. This demonstrates the de-prescription convention future authors follow.
