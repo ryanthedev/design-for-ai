@@ -174,6 +174,8 @@ Don't collapse these. Deciding to clarify and blurting out the first question th
 
 ## Anti-Patterns
 
+**Last reviewed: 2026-07**
+
 | Pattern | Problem | Instead |
 |---------|---------|---------|
 | Proceeding without checking | Default execution bias — wrong design direction is expensive | Run detection as a separate pass first |

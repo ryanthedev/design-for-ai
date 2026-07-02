@@ -15,7 +15,7 @@
 7. [Colorblind safety and chart accessibility](#colorblind-safety-and-chart-accessibility)
 8. [Gestalt in data visualization](#gestalt-in-data-visualization)
 9. [Dashboard principles (Few)](#dashboard-principles-few)
-10. [Critical caveats](#critical-caveats)
+10. [Caveats that keep the rules honest](#caveats-that-keep-the-rules-honest)
 
 ---
 
@@ -291,7 +291,7 @@ Small multiples: a series of charts with the same encoding (same axes, same scal
 
 ---
 
-## CRITICAL CAVEATS
+## Caveats that keep the rules honest
 
 | Caveat | What it corrects |
 |--------|-----------------|

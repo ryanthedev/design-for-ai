@@ -48,87 +48,62 @@
 
 ## DETECTION CHECKLIST
 
-Signs this chapter's knowledge applies:
-
-### Visual Symptoms
-- [ ] Colors on screen look noticeably different from printed output
-- [ ] Data visualization pie chart or map has categories that appear visually weighted unevenly despite being qualitative
-- [ ] Monochromatic color palette has values that are nearly indistinguishable at the dark or light end
-- [ ] Web graphic colors don't match surrounding CSS background color
-- [ ] Red/green UI indicators are indistinguishable for some users
-
-### CSS/HTML Patterns to Look For
-- [ ] Hex color values that seem arbitrary with no system (e.g., random 6-character strings with no relationship)
-- [ ] Using HSL/HSB hue shifts for quantitative data visualization with constant saturation/lightness
-- [ ] Images saved with Adobe RGB ICC profiles embedded, used on the web alongside CSS colors
-- [ ] No colorblindness testing for status indicators that rely solely on red/green
-
-### Developer Statements That Trigger This
-- "Why doesn't the printed logo match the website?"
-- "I just picked colors from the HSB picker that looked different enough"
-- "The hex codes are confusing, I just use a color picker every time"
-- "My data visualization looks fine to me but some users complain"
-- "I set the same lightness value in HSL but the colors don't look equally light"
+This chapter's knowledge applies whenever color decisions cross media, encode data, or serve as the
+sole signal for meaning — printed output that doesn't match on-screen colors, a monochromatic
+palette whose values blur together at the extremes, or red/green status indicators some users can't
+distinguish. The tell in conversation: "why doesn't the printed logo match the website?" or "my data
+visualization looks fine to me but some users complain" — color chosen by eye in one gamut or model
+without accounting for how it translates to another, or to how roughly 10% of male users actually
+perceive it.
 
 ---
 
 ## DESIGN REVIEW CRITERIA
 
-### Must Pass (Critical)
-- [ ] Color-dependent UI indicators also use shape, position, or text as redundant cues --> Fail if: color is the only differentiator for critical information (affects ~10% of male users)
-- [ ] Data visualization uses perceptually uniform color differences --> Fail if: qualitative chart categories have visually unequal perceptual weight, or quantitative scale has non-monotonic perceived lightness
-- [ ] Web images that must match CSS background colors are saved without ICC profiles (or in sRGB) --> Fail if: image colors visibly mismatch surrounding CSS colors on color-managed browsers
+**Must pass:** Color-dependent UI indicators also use shape, position, or text as a redundant cue
+(fail if color is the only differentiator for critical information, which affects roughly 10% of
+male users); data visualization uses perceptually uniform color differences (fail if qualitative
+chart categories carry unequal perceptual weight, or a quantitative scale's perceived lightness is
+non-monotonic); and web images that must match CSS background colors are saved without ICC profiles,
+or in sRGB (fail if image colors visibly mismatch surrounding CSS colors in color-managed browsers).
 
-### Should Pass (Important)
-- [ ] Cross-media color workflow uses ICC profiles and gamut-aware conversions --> Warning if: RGB colors are sent directly to print without CMYK conversion or gamut checking
-- [ ] Hex color adjustments follow a systematic approach (understanding RGB channels) --> Warning if: color tweaks are made by random trial-and-error in hex values
-
-### Nice to Have
-- [ ] Developer can mentally navigate the hexadecimal color cube for quick adjustments --> Suggestion: learn the 0, 3, 6, 9, C, F progression and RGB channel relationships
-- [ ] Lab color space is used when perceptual lightness consistency matters --> Suggestion: use Colorbrewer or Lab-based color chooser for data-driven graphics
+See `checklists.md` §1 for the full Should-Pass/Nice-to-Have tri-tier checklist across all
+chapters.
 
 ---
 
 ## RED FLAGS
+
+**Last reviewed: 2026-07**
 
 | Flag | Severity | What It Indicates | Fix |
 |------|----------|-------------------|-----|
 | Red and green used as sole differentiators for status (pass/fail, go/stop) | Critical | Inaccessible to ~10% of males with red-green colorblindness | Add redundant cues: icons, shapes, text labels, or position |
 | HSB/HSL hue rotation used for quantitative data palette | High | Perceptual lightness varies wildly across hues; data will be misread | Use Lab-based color palette or Colorbrewer for perceptually uniform scales |
 | Adobe RGB-profiled images placed on CSS-colored backgrounds on the web | High | Color-managed browsers (Safari, Firefox on Mac) will mismatch image and CSS colors | Save web images in sRGB without ICC profile, or strip the profile |
-| Monochromatic HSL palette with equal lightness steps for data classes | Medium | Last two or three classes may be visually indistinguishable due to HSL's perceptual inaccuracy | Use Lab lightness values to ensure perceptually distinct steps |
-| Expecting printed CMYK output to exactly match on-screen RGB colors | Medium | RGB and CMYK gamuts differ; some RGB blues/greens cannot be reproduced in CMYK | Use soft-proofing with ICC profiles; accept closest perceptual match |
-| Picking hex colors entirely at random with no understanding of channel structure | Low | Wastes time and produces inconsistent palettes | Learn hexadecimal RGB cube navigation (0, 3, 6, 9, C, F progression) |
+
+See `checklists.md` §2 Red Flags Master Table for the complete list across all chapters.
 
 ---
 
 ## IMPLEMENTATION CHECKLIST
 
-### Before Starting
-- [ ] Identify the target medium(s): screen only (web/app), print only, or cross-media
-- [ ] Determine if data visualization is involved and whether data is qualitative or quantitative
-- [ ] Determine if colorblindness accessibility is required (it almost always should be)
-- [ ] Identify which color model you will work in (hex/RGB for web, CMYK for print, HSB/HSL for ideation, Lab for perceptual accuracy)
+Before starting, identify the target medium — screen, print, or cross-media — and whether data
+visualization is involved, and if so whether the data is qualitative or quantitative. Determine
+whether colorblindness accessibility is required (it almost always is), and choose the color model
+that fits the task: hex/RGB for web, CMYK for print, HSB/HSL for ideation, Lab for perceptual
+accuracy. While designing, select colors with perceptually uniform lightness for any data
+visualization, verifying via each category's Lab L value or using Colorbrewer directly, and convert
+cross-media colors through ICC profiles, checking for out-of-gamut warnings along the way. Save web
+images in sRGB without an attached ICC profile so they match surrounding CSS colors, test for
+colorblindness with a simulator or Photoshop's proof setting, and when adjusting hex values work
+from RGB channel understanding rather than random trial-and-error. Afterward, confirm the
+colorblindness simulation passes for deuteranopia and protanopia, soft-proof any print output
+against the target printer's ICC profile, and verify the data visualization's colors remain
+perceptually distinguishable and the web graphics match CSS colors in both color-managed and
+non-color-managed browsers.
 
-### During Design
-- [ ] Step 1: Choose a color model appropriate to the task
-  - Verify: Web work uses hex/RGB or HSL; print work uses CMYK; perceptually critical work references Lab
-- [ ] Step 2: If creating data visualizations, select colors with perceptually uniform lightness
-  - Verify: For qualitative data, all category colors have similar perceptual lightness (check via Lab L value). For quantitative data, lightness progresses monotonically. Use Colorbrewer if possible.
-- [ ] Step 3: If working cross-media, convert colors between gamuts using ICC profiles
-  - Verify: Check for out-of-gamut warnings in design software (e.g., Adobe Illustrator's gamut warning)
-- [ ] Step 4: For web images, save in sRGB color space
-  - Verify: Images that must match CSS colors are saved without an ICC profile attached (or with sRGB profile for standalone images)
-- [ ] Step 5: Test for colorblindness compatibility
-  - Verify: Use Photoshop's colorblindness proof setting or a web-based simulator; ensure no information is conveyed by color alone
-- [ ] Step 6: When adjusting hex colors, use channel understanding rather than random guessing
-  - Verify: Can articulate which RGB channel was changed and why (e.g., "bumped Green to reduce redness")
-
-### After Design
-- [ ] Colorblindness simulation test passes for deuteranopia and protanopia
-- [ ] If cross-media, soft-proof the print output using ICC profiles for the target printer/paper
-- [ ] Data visualization colors are perceptually distinguishable and appropriately weighted
-- [ ] Web graphics match CSS colors when viewed in both color-managed and non-color-managed browsers
+See `checklists.md` §5 Implementation Quick-Start for the full step-by-step sequence.
 
 ---
 
@@ -194,31 +169,16 @@ Use ICC profiles throughout the workflow. Design in sRGB for web. When convertin
 
 Color is electromagnetic radiation that the human visual system interprets through three types of cone cells processed via opponent channels (red-green, blue-yellow, light-dark). Different color models (RGB, CMYK, HSB, HSL, Lab, Munsell) represent this perceptual reality with varying degrees of accuracy, and each output medium (screen, print) has its own gamut of reproducible colors. Understanding this science is essential for making reliable, accessible, and perceptually accurate color decisions in design.
 
-### CHECKER Mode
-When reviewing an existing design, verify:
-- [ ] Colorblindness accessibility: no information conveyed by color alone; redundant cues present
-- [ ] Perceptual uniformity: data visualization colors have appropriate perceptual lightness relationships (equal for qualitative, monotonic for quantitative)
-- [ ] Gamut awareness: cross-media designs have been converted and proofed using ICC profiles
-- [ ] Web color consistency: images match CSS colors (no ICC profile mismatch on web graphics)
-- [ ] Hex color system: color values follow a logical, systematic structure rather than random choices
-
 **Severity Classification:**
 | Violation Type | Severity | Rationale |
 |----------------|----------|-----------|
 | Color-only status indicators with no redundant cues | Critical | Excludes ~10% of male users who are red-green colorblind |
 | Perceptually misleading data visualization colors | High | Misrepresents data, leading to incorrect user conclusions |
 | ICC profile mismatch causing web image/CSS color discrepancy | High | Visible inconsistency in color-managed browsers (Safari, Firefox on Mac) |
-| Cross-media color sent without gamut conversion | Medium | Printed output will differ from screen in unpredictable ways |
-| Arbitrary hex values with no systematic approach | Low | Inefficiency and inconsistent palette, but not functionally broken |
 
-### APPLIER Mode
-When creating or modifying a design, ensure:
-- [ ] Choose the right color model for the task (RGB/hex for web, CMYK for print, Lab for perceptual accuracy, HSB for intuitive picking)
-- [ ] Use redundant visual cues (shape, text, position) alongside color for all status/meaning communication
-- [ ] Use perceptually uniform color spaces (Lab or Colorbrewer) for data-driven graphics
-- [ ] Work in sRGB for web images; strip ICC profiles from images that must match CSS colors
-- [ ] Use ICC profiles and soft-proofing for cross-media color workflows
-- [ ] Navigate hex colors systematically using RGB channel understanding
+Reviewing and applying draw on the same criteria in both directions: pair color with a redundant
+cue whenever it carries meaning, choose perceptually uniform palettes for data, and route
+cross-media color through ICC profiles rather than assuming numeric values translate.
 
 ---
 
@@ -270,13 +230,14 @@ When creating or modifying a design, ensure:
 
 ## COMMON MISTAKES
 
+**Last reviewed: 2026-07**
+
 | Mistake | Why It Happens | Correct Approach |
 |---------|----------------|------------------|
 | Using HSB/HSL hue rotation for data visualization palettes | HSB/HSL pickers make it easy to select "different" colors by moving the hue slider | Use Lab-based selection or Colorbrewer to ensure perceptual uniformity |
-| Assuming HSL Lightness is perceptually accurate | The name "Lightness" implies perceptual accuracy, but HSL distorts the visible color range | Use Lab L value for true perceptual lightness; HSL Lightness is a mathematical, not perceptual, property |
 | Using only color to communicate meaning (red = bad, green = good) | It seems culturally obvious and visually clean | Always add redundant cues: shapes, icons, text labels, positional encoding |
 | Expecting printed colors to match screen colors | Colors look the same to the designer on screen | Understand RGB vs. CMYK gamut differences; use ICC profiles and soft-proofing |
 | Saving web images with Adobe RGB or other ICC profiles attached | Designer works in Adobe RGB for its wider gamut | Save web images in sRGB; strip ICC profiles from images that need to match CSS colors |
 | Treating hex codes as opaque magic strings | Hex notation seems arbitrary without understanding base-16 and RGB channels | Learn that #RRGGBB maps to three 0-255 channels; practice the 0,3,6,9,C,F progression |
-| Using the same HSL lightness step for a monochromatic palette | Equal numeric HSL Lightness steps seem like they should produce equally distinguishable colors | Last steps often become indistinguishable; verify perceptual distinctness via Lab conversion |
-| Ignoring colorblindness because "it's rare" | Developers assume their own vision is universal | Red-green colorblindness affects up to 10% of males; always test with simulation tools |
+
+See `checklists.md` §4 Common Mistakes Master Table for the complete list across all chapters.

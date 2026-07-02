@@ -276,6 +276,8 @@ Tooltips and "Learn more" links are the lowest tier of disclosure. Reserve toolt
 
 ## ANTI-PATTERNS
 
+**Last reviewed: 2026-07**
+
 | Anti-pattern | Why it fails | Fix |
 |--------------|-------------|-----|
 | **"Oops"** on error messages | Diminishes real problems; feels dismissive | State what happened, no personality wrapper on errors |

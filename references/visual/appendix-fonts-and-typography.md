@@ -57,127 +57,65 @@
 
 ## DETECTION CHECKLIST
 
-Signs this chapter's knowledge applies:
-
-### Visual Symptoms
-- [ ] Font pairing looks awkward -- neither harmonious nor contrasting, but somewhere in between
-- [ ] Body text has uneven texture when squinting at a block of text
-- [ ] Two fonts set at the same point size appear drastically different in visual size
-- [ ] Text looks "cheap" or "amateur" despite reasonable layout and color choices
-- [ ] Justified text has visible rivers of white space running through it
-- [ ] Bold or italic text looks clunky, with closed-up counters or distorted letterforms
-- [ ] Small caps look emaciated compared to surrounding capital letters
-- [ ] Straight/dagger quotation marks instead of curly smart quotes
-- [ ] Double hyphens (--) used instead of proper em or en dashes
-- [ ] Textures or images placed inside letterforms making them illegible
-
-### CSS/HTML Patterns to Look For
-- [ ] More than 2 `font-family` declarations for text content (excluding code)
-- [ ] Two serif fonts or two sans-serif fonts used for different text roles
-- [ ] `text-align: justify` without hyphenation support
-- [ ] Faux Bold button used in Photoshop instead of actual bold font weight
-- [ ] `font-stretch` property used to compress or expand type
-- [ ] `font-variant: small-caps` without an authentic small-caps font loaded
-- [ ] Straight `"` and `'` characters instead of `&ldquo;` `&rdquo;` `&lsquo;` `&rsquo;`
-- [ ] Double hyphens `--` instead of `&ndash;` or `&mdash;`
-- [ ] Two spaces after periods
-- [ ] Missing `line-height` or value outside 1.2-1.4em range for body copy
-- [ ] Both paragraph indentation AND paragraph spacing used simultaneously
-
-### Developer Statements That Trigger This
-- "I just picked two fonts that looked nice separately"
-- "I'm not sure which fonts go together"
-- "The text looks fine but something about it feels amateur"
-- "Should I use serif or sans-serif?"
-- "The bold/italic looks wrong but I don't know why"
-- "How do I make justified text look good?"
-- "Should I use one space or two after a period?"
+This reference applies whenever type choices feel amateur despite reasonable layout and color -- a
+font pairing that lands in the uncanny valley between harmony and contrast, uneven texture when
+squinting at a block of text, or straight quotes and double hyphens standing in for proper
+typographic characters. It also applies to the CSS/HTML tells behind those symptoms: more than two
+`font-family` declarations for text content, `text-align: justify` with no hyphenation support, or a
+Faux Bold button used in place of an authentic bold font weight. The developer statement that gives
+it away: "I just picked two fonts that looked nice separately" -- pairing by individual appeal rather
+than by structural compatibility.
 
 ---
 
 ## DESIGN REVIEW CRITERIA
 
-### Must Pass (Critical)
-- [ ] No fake bold (artificially bolded via software outline) --> Fail if: Bold text has thick, clunky serifs and closed-up counters compared to authentic bold weight
-- [ ] No fake italic (artificially slanted via software) --> Fail if: Italic text is simply a slanted version of the roman face rather than a custom-drawn italic or oblique
-- [ ] No type distortion (stretching/compressing) --> Fail if: Letterforms appear horizontally stretched or compressed, disrupting stroke modulation
-- [ ] Font pairing uses compatible letter structures --> Fail if: Two fonts with conflicting letter structures (e.g., humanist paired with realist) without deliberate extreme contrast
-- [ ] Maximum two font families for text content --> Fail if: Three or more distinct font families used for body/heading text (logos and code fonts excluded)
-- [ ] Serif + sans-serif pairing rule followed --> Fail if: Two different serif fonts or two different sans-serif fonts paired for body/heading roles without clear justification
+Must pass: no fake bold or fake italic -- a software outline used in place of an authentic bold
+weight fails whenever it produces thick, clunky serifs and closed-up counters, and a software-slanted
+italic fails whenever it is simply a tilted roman face rather than a custom-drawn italic or oblique;
+no type distortion, which fails whenever letterforms are horizontally stretched or compressed and
+their stroke modulation is disrupted; font pairing uses compatible letter structures, which fails
+when two fonts with conflicting structures (e.g., humanist paired with realist) are combined without
+deliberate extreme contrast; and no more than two font families for text content, following the
+serif + sans-serif rule, which fails when three or more families appear in body/heading text or when
+two serifs (or two sans-serifs) are paired without justification.
 
-### Should Pass (Important)
-- [ ] Smart/curly quotes used instead of straight quotes --> Warning if: Straight `"` or `'` used in running text
-- [ ] Proper dashes used --> Warning if: Double hyphens `--` used instead of en dash or em dash
-- [ ] One space after periods, not two --> Warning if: Double spaces after sentence-ending periods
-- [ ] Body text uses ragged right alignment on web --> Warning if: `text-align: justify` used without hyphenation support
-- [ ] Leading/line-height between 1.2em and 1.4em for body copy --> Warning if: Line-height outside this range for paragraph text
-- [ ] Paragraph changes indicated by EITHER indentation OR spacing, not both --> Warning if: Both `text-indent` and `margin-bottom` used on paragraphs
-
-### Nice to Have
-- [ ] Ligatures enabled for display/heading text --> Suggestion: Use `font-variant-ligatures` CSS property for large titles
-- [ ] Hanging punctuation on blockquotes --> Suggestion: Hang quotation marks into the margin for a crisper text-block edge
-- [ ] Drop caps hung into margins rather than constrained within text block --> Suggestion: Compensate for negative spaces by hanging cap edges into margins
-- [ ] Authentic small caps used for acronyms --> Suggestion: Use `@font-face` with a true small-caps font variant
-- [ ] Prime marks used for feet/inches instead of smart quotes --> Suggestion: Use `&prime;` and `&Prime;` for measurements
+See `checklists.md` §1 for the full Should-Pass/Nice-to-Have tri-tier checklist across all chapters.
 
 ---
 
 ## RED FLAGS
+
+**Last reviewed: 2026-07**
 
 | Flag | Severity | What It Indicates | Fix |
 |------|----------|-------------------|-----|
 | Fake bold (Faux Bold in Photoshop or missing bold font weight) | Critical | Artificially outlined letterforms that close up counters and destroy subtlety | Load the actual bold weight of the font; use `font-weight: bold` in CSS which auto-selects correct file |
 | Fake italic (software-slanted text) | Critical | Distorted letterforms that lack the craft of true italic/oblique designs | Load the actual italic font file; use `font-style: italic` in CSS |
 | Stretched or compressed type | Critical | Disrupted stroke modulation and destroyed letterforms | Use a condensed/extended variant that was specifically designed (e.g., Helvetica Condensed instead of squished Helvetica) |
-| Textures/images placed inside letterforms | Critical | Letterform edges compete with texture/color changes, rendering text illegible | Place text over solid or low-contrast backgrounds; use outline for busy backgrounds |
-| Two fonts of same classification paired (e.g., two serifs) | High | Visual confusion without enough contrast to justify the added complexity | Replace one with the complementary classification (serif + sans-serif) |
 | Font pairing with mismatched letter structures | High | Neither harmonious nor contrasting -- the "uncanny valley" of font pairing | Match letter structures (both humanist, both geometric, etc.) OR go to deliberate extreme contrast |
-| Fonts with incompatible character widths | High | Visual conflict even when letter structures match | Compare the lowercase `n` of both fonts; ensure character widths are similar |
-| Fonts with incompatible textures (darkness/smoothness mismatch) | Medium | Text blocks look inconsistent when both fonts are viewed together | Match texture darkness and smoothness/roughness between paired fonts |
-| Justified text without hyphenation on web | Medium | Rivers of white space, uneven letter/word spacing, inconsistent texture | Use `text-align: left` (ragged right) instead |
-| Both paragraph indent AND paragraph spacing used | Medium | Overkill creates awkward irregular chunks of white space | Choose one method: indent (~1em) OR spacing (~0.8em), never both |
-| Outline on type that straddles the letterform edge | Medium | Outline intrudes on letterforms, reducing legibility | Place outlines outside the letterforms only |
+
+See `checklists.md` §2 Red Flags Master Table for the complete list across all chapters.
 
 ---
 
 ## IMPLEMENTATION CHECKLIST
 
-### Before Starting
-- [ ] Identify the purpose and mood of the design (friendly, serious, sophisticated, modern, classic)
-- [ ] Determine target medium (web, print, mobile) -- this affects serif vs. sans-serif defaults
-- [ ] Decide how many font roles you need (body only? body + headings? body + headings + accent?)
+Before starting, name the design's purpose and mood, determine the target medium (web, print,
+mobile -- this flips the serif/sans-serif default), and decide how many font roles are needed (body
+only, body + headings, or body + headings + accent). While selecting fonts, choose a primary body
+font appropriate to the medium, identify its letter structure (humanist, geometric, or realist), and
+either match that structure in a second font for harmony or commit to deliberate extreme contrast --
+verifying with the lowercase `n` test that texture, darkness, and character width stay compatible,
+and settling on one serif paired with one sans-serif as the default pairing rule. While setting body
+copy, use 1.2-1.4em leading (1.0-1.1em for bulleted lists), ragged-right alignment on the web, and
+either paragraph indentation (~1em) or paragraph spacing (~0.8em) but never both, plus proper
+typographic characters throughout (smart quotes, real dashes, prime marks for measurements). After,
+run the squint test for even texture, confirm every bold/italic/small-caps instance is an authentic
+font file rather than a software fake, and check that the pairing reads as either clear harmony or
+deliberate contrast rather than an awkward middle ground.
 
-### During Design -- Font Selection
-- [ ] Step 1: Choose a primary body text font appropriate to your medium
-  - Verify: For web, sans-serif fonts are generally more readable at body sizes; for print, serif faces are preferred
-- [ ] Step 2: Identify the letter structure of your primary font (humanist, geometric, or realist)
-  - Verify: Compare the lowercase `n` -- humanist has organic shoulder curve, geometric has symmetrical arch, realist is in between
-- [ ] Step 3: If pairing a second font, match letter structures for harmony OR choose extreme contrast
-  - Verify: Compare the `n` of both fonts side by side; they should share the same structural philosophy OR be dramatically different
-- [ ] Step 4: Verify texture compatibility -- check darkness and smoothness match
-  - Verify: Squint at blocks of both fonts; they should have similar overall darkness and similar smooth/rough character
-- [ ] Step 5: Verify character width compatibility
-  - Verify: Compare the width of the lowercase `n` in both fonts at the same x-height
-- [ ] Step 6: Pair one serif with one sans-serif (the rule), or use deliberate extreme contrast as the exception
-  - Verify: You have at most two font families; they are from different classifications
-
-### During Design -- Body Copy Settings
-- [ ] Step 7: Set line-height (leading) to 1.2-1.4em for body copy (1.0-1.1em for bulleted lists)
-  - Verify: Text block has even, readable texture when viewed as a whole
-- [ ] Step 8: Set text alignment to ragged right (flush left) for web
-  - Verify: No `text-align: justify` unless hyphenation is supported
-- [ ] Step 9: Use either paragraph indentation (~1em) OR paragraph spacing (~0.8em), not both
-  - Verify: First paragraph of a section has no indent; subsequent paragraphs use chosen method consistently
-- [ ] Step 10: Use proper typographic characters -- smart quotes, proper dashes, prime marks
-  - Verify: No straight quotes, no double hyphens, no keyboard `'` for apostrophes in running text
-
-### After Design
-- [ ] Squint test: Does the body text have an even texture throughout?
-- [ ] All bold and italic text uses authentic font weights (not faux bold/italic)?
-- [ ] Font pairing creates either clear harmony or deliberate contrast, not an awkward middle ground?
-- [ ] No type has been distorted (stretched, compressed, outlined intrusively, or textured)?
-- [ ] Widows and orphans minimized (use `&nbsp;` before final word of paragraphs)?
-- [ ] Ligatures considered for large display text (titles, headers)?
+See `checklists.md` §5 Implementation Quick-Start for the full step-by-step sequence.
 
 ---
 
@@ -243,41 +181,16 @@ Choose fonts by the same type designer. Designers have consistent philosophies a
 
 Typography is fundamentally about communication. Every typographic decision -- from font selection to dash usage -- should serve the goal of clear, smooth information delivery. Font pairings succeed through either deliberate harmony (matching letter structures, texture, and character width) or deliberate contrast (dramatically different attributes), but fail in the ambiguous middle ground. Respecting the craftsmanship of type designers means using authentic font variants and following established typographic conventions rather than relying on software shortcuts.
 
-### CHECKER Mode
-When reviewing an existing design, verify:
-- [ ] Font pairing uses compatible letter structures (both humanist, both geometric, both realist) or deliberate extreme contrast
-- [ ] No more than two font families for text content (one serif, one sans-serif)
-- [ ] All bold, italic, and small-caps text uses authentic font variants, not software-generated fakes
-- [ ] No type has been stretched, compressed, or distorted
-- [ ] Body text has even texture (squint test)
-- [ ] Proper typographic characters used (smart quotes, proper dashes, correct prime marks)
-- [ ] Body copy line-height between 1.2-1.4em
-- [ ] Web body text uses ragged right alignment (not justified without hyphenation)
-- [ ] Paragraphs use EITHER indent OR spacing, not both
-- [ ] No textures or images placed inside letterforms
-
 **Severity Classification:**
 | Violation Type | Severity | Rationale |
 |----------------|----------|-----------|
 | Fake bold/italic/small caps | Critical | Destroys letterform subtlety and reduces legibility |
 | Type distortion (stretch/compress) | Critical | Ruins carefully designed stroke modulation and form |
-| Textures/images inside type | Critical | Makes letterforms illegible |
 | Incompatible font pairing (uncanny valley) | High | Creates visual tension that undermines professionalism |
-| Wrong classification pairing (two serifs/two sans-serifs) | High | Confusing and doesn't justify added complexity |
-| Justified web text without hyphenation | Medium | Creates rivers and uneven texture |
-| Straight quotes/wrong dashes | Medium | Signals amateur typography to trained eyes |
-| Double spaces after periods | Low | Outdated typewriter convention |
 
-### APPLIER Mode
-When creating or modifying a design, ensure:
-- [ ] Select body font appropriate to medium (sans-serif for web, serif for print as defaults)
-- [ ] Identify letter structure category of chosen font (humanist, geometric, realist)
-- [ ] Pair second font from same structure category (harmony) or with extreme contrast
-- [ ] Verify texture, character width, and darkness compatibility using the `n` test
-- [ ] Load authentic font files for all weights and styles needed
-- [ ] Set leading to 1.2-1.4em for body, 1.0-1.1em for lists
-- [ ] Use ragged right for web body text
-- [ ] Implement proper typographic characters throughout
+Reviewing and applying draw on the same criteria in both directions: identify letter structure
+before pairing, load authentic weights and styles rather than faking them, and treat texture
+evenness as the final check either way.
 
 ---
 
@@ -336,22 +249,14 @@ When creating or modifying a design, ensure:
 
 ## COMMON MISTAKES
 
+**Last reviewed: 2026-07**
+
 | Mistake | Why It Happens | Correct Approach |
 |---------|----------------|------------------|
 | Picking fonts by decorative classification alone | Popular classification systems (old style, transitional, modern, etc.) describe decorative traits but not personality or structural compatibility | Focus on letter structure (humanist, geometric, realist) for understanding mood and pairing compatibility |
 | Pairing two fonts that are "sort of similar" | Designers intuitively seek similarity but stop short of true structural harmony | Commit fully to harmony (matching letter structures) or contrast (dramatically different); avoid the uncanny valley |
 | Using Faux Bold in Photoshop/design tools | The button is right there and seems to work | Always load and use the authentic bold weight of the font |
-| Using software-generated italic | Desktop publishing programs offer one-click italic that just slants the font | Load the authentic italic (or oblique) version of the font |
 | Justifying web body text | It looks "neater" with aligned edges | Use ragged right (flush left); CSS lacks hyphenation support, creating rivers |
-| Using two spaces after periods | Learned in typing class; feels ingrained | One space. The extra space pokes holes in the text block and interrupts reading flow |
 | Using straight quotes from keyboard | Keyboard produces `"` and `'` by default | Use smart quotes: `&ldquo;` `&rdquo;` `&lsquo;` `&rsquo;` |
-| Using `"` for feet/inches | Looks like the right character | Use prime `&prime;` for feet and double prime `&Prime;` for inches |
-| Using double hyphens for dashes | Typewriter convention carried forward | Use spaced en dash `&ndash;` (recommended) or em dash `&mdash;` |
-| Both indenting AND spacing paragraphs | "More is better" instinct for separating paragraphs | Choose ONE: indent (~1em) OR spacing (~0.8em), never both |
-| Indenting the first paragraph of a section | Treating all paragraphs the same | Don't indent the opening paragraph of a section; it's the first, so no separation needed |
-| Stretching/compressing type to fit a space | Trying to make text fit a specific area | Use a font variant specifically designed for that width (e.g., Helvetica Condensed) |
-| Placing textures/images inside letterforms | Photoshop filters make it easy; seems creative | Almost always a bad idea; letterform edges compete with texture edges |
-| Outline on type that straddles letterform edge | Default outline setting in vector programs | Choose the option that places the outline OUTSIDE the letterforms only |
-| Using Times New Roman as a go-to serif | It's universally available and familiar | Use Georgia instead -- specifically designed for screen readability; Times New Roman was designed to save space in a newspaper |
-| Using monospaced fonts (Courier New, Monaco) for body text | Available on every system | Monospaced fonts create uneven texture; reserve for code samples only |
-| Ignoring x-height differences between paired fonts | Setting both at same point size and assuming they'll match | Check visual size at same point size; adjust sizes to achieve visual harmony based on x-height |
+
+See `checklists.md` §4 Common Mistakes Master Table for the complete list across all chapters.

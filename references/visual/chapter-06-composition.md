@@ -51,55 +51,33 @@
 
 ## DETECTION CHECKLIST
 
-Signs this chapter's knowledge applies:
-
-### Visual Symptoms
-- [ ] Layout feels "off" — nothing pulls the eye in or holds attention
-- [ ] All elements feel equally weighted; no clear focal point
-- [ ] Elements feel disjointed — no visual cohesion or recurring motifs
-- [ ] Design feels flat with no sense of depth or layering
-- [ ] The viewer's eye wanders off the design rather than being recycled through it
-- [ ] Page or screen feels cluttered despite having reasonable content volume
-- [ ] Important content is buried; users miss key information
-
-### CSS/HTML Patterns to Look For
-- [ ] All elements have similar font-size, color weight, and spacing — no dominance hierarchy
-- [ ] No consistent shape language (mixing rounded and sharp corners arbitrarily)
-- [ ] No use of box-shadow, z-index layering, or opacity to create foreground/background depth
-- [ ] Elements lack alignment to shared invisible axes or grid lines
-- [ ] No repeating visual motif (icon style, spacing rhythm, color pattern)
-- [ ] Mouseover/hover states do not change foreground/background relationship
-
-### Developer Statements That Trigger This
-- "Everything on the page feels equally important"
-- "The layout works but something feels wrong — it's boring"
-- "Users aren't looking at the most important thing on the page"
-- "The design looks random even though I used a grid"
-- "I don't know how to make the design feel cohesive"
-- "The page doesn't hold your attention"
+This chapter's knowledge applies whenever a composition lacks a clear entry point or fails to hold
+the eye — elements feel equally weighted with no focal point, no sense of depth or layering, and no
+recurring visual motif tying pieces together, so the eye wanders off the design rather than being
+recycled through it. The tell in conversation: "everything on the page feels equally important" or
+"the layout works but something feels wrong — it's boring," often paired with CSS where every
+element shares the same font-size, color weight, and spacing with no dominance hierarchy.
 
 ---
 
 ## DESIGN REVIEW CRITERIA
 
-### Must Pass (Critical)
-- [ ] Dominant element exists — one element is clearly the first thing the eye is drawn to --> Fail if: all elements compete equally for attention with no clear focal point
-- [ ] Directional flow is present — the eye is guided through the composition rather than getting stuck or leaving --> Fail if: no implicit or explicit lines, alignment, or shapes guide the viewer's eye between elements
-- [ ] Foreground/background relationship exists — there is a sense of depth or layering --> Fail if: all elements sit on the same visual plane with no depth cues (size, shadow, color intensity, detail)
+**Must pass:** A dominant element exists — one element is clearly the first thing the eye is drawn
+to (fail if all elements compete equally for attention with no clear focal point); directional flow
+is present — the eye is guided through the composition rather than getting stuck or leaving (fail if
+no implicit or explicit lines, alignment, or shapes guide the viewer's eye between elements); a
+foreground/background relationship exists — there is a sense of depth or layering (fail if all
+elements sit on the same visual plane with no depth cues such as size, shadow, color intensity, or
+detail).
 
-### Should Pass (Important)
-- [ ] Similarity is used — recurring shapes, colors, or visual characteristics create cohesion --> Warning if: elements use unrelated shapes, colors, or styles with no visual echo
-- [ ] Contrast supports hierarchy — differences in size, color, or value direct attention intentionally --> Warning if: contrast is accidental or undermines the intended reading order
-- [ ] Reading direction is respected — most important content is positioned where the eye enters (top-left for Western audiences) --> Warning if: critical content is placed in low-attention zones (bottom-right) without strong directional forces leading to it
-
-### Nice to Have
-- [ ] Rhythm is present — repeating visual patterns create a sense of visual music --> Suggestion: add consistent spacing, repeating icon styles, or regular visual beats
-- [ ] Texture variation adds visual interest and depth --> Suggestion: introduce subtle texture differences to distinguish foreground from background
-- [ ] Eye "recycling" — compositional forces keep the viewer's eye circulating within the design --> Suggestion: use directional cues to redirect the eye back into the composition at exit points
+See `checklists.md` §1 for the full Should-Pass/Nice-to-Have tri-tier checklist across all
+chapters.
 
 ---
 
 ## RED FLAGS
+
+**Last reviewed: 2026-07**
 
 | Flag | Severity | What It Indicates | Fix |
 |------|----------|-------------------|-----|
@@ -107,43 +85,28 @@ Signs this chapter's knowledge applies:
 | Eye exits the composition immediately with nothing pulling it back | Critical | Composition fails to "recycle" the viewer's eye | Add directional forces (lines, alignment, shape groupings) that redirect the eye back into the composition |
 | All elements identical in shape, size, and color with no contrast | High | No visual interest; composition is monotonous | Introduce contrast in at least one dimension (size, color, value, texture) |
 | Important content placed in low-attention area without directional cues | High | F-pattern reading direction ignored; users miss key content | Move important content to top-left or create strong directional forces leading to it |
-| No foreground/background relationship; everything on same visual plane | Medium | Design feels flat and lacks depth | Use size, color, shadows, detail level, or overlapping to create depth layers |
-| Shapes, colors, and styles are all different with no recurring motif | Medium | Lack of similarity makes design feel chaotic and unrelated | Establish a shape language and color palette; repeat elements to build cohesion |
-| Hover/interactive states don't change visual layering | Medium | Users lack affordance cues about what is clickable | Pop interactive elements into foreground on hover via color change, shadow, or scale |
+
+See `checklists.md` §2 Red Flags Master Table for the complete list across all chapters.
 
 ---
 
 ## IMPLEMENTATION CHECKLIST
 
-### Before Starting
-- [ ] Identify the purpose and primary message of the design
-- [ ] Determine the reading direction of your target audience (left-to-right, top-to-bottom for Western)
-- [ ] Identify 1-3 most important elements that need viewer attention
-- [ ] Understand the medium and context (web page, mobile screen, logo, print)
+Before starting, identify the design's purpose and primary message, the target audience's reading
+direction, the one to three elements that most need viewer attention, and the medium and context
+(web page, mobile screen, logo, print). While designing, establish dominance first — make the most
+important element visually dominant through size, color, value, white space, or placement, and
+verify by squinting at the design that the dominant element is still the first thing visible — then
+create foreground/background relationships so elements sit on at least two or three distinct visual
+planes, apply similarity through recurring shapes and colors, build rhythm through repeated visual
+beats, establish direction so the eye's traced path flows logically through the hierarchy, apply
+contrast so key elements pop without becoming monotonous, and add texture only where it reinforces
+depth. Afterward, re-run the squint test, trace the eye path to confirm it circulates through the
+composition rather than exiting, check that the most important content sits in the top-left zone for
+web (F-pattern), and audit whether recurring motifs and contrast still support the intended
+hierarchy.
 
-### During Design
-- [ ] Step 1: Establish dominance — make the most important element visually dominant through size, color, value, white space, or placement
-  - Verify: Squint at the design; the dominant element should be the first thing visible
-- [ ] Step 2: Create foreground/background relationships — use size, detail, color, shadows, or overlapping to establish depth layers
-  - Verify: Elements feel like they exist on at least 2-3 different visual planes
-- [ ] Step 3: Apply similarity — use recurring shapes, colors, line qualities, and textures to create visual cohesion
-  - Verify: Elements echo each other; a consistent shape language or motif is recognizable
-- [ ] Step 4: Build rhythm — repeat design elements or characteristics at regular intervals to create visual "beats"
-  - Verify: Scanning the design reveals a predictable, pleasing pattern of repetition
-- [ ] Step 5: Establish direction — use explicit lines, implicit alignment, shape groupings, or progressive sizing to guide the eye through the composition
-  - Verify: Trace the eye's path; it should flow logically through the content hierarchy
-- [ ] Step 6: Apply contrast — use differences in size, color, value, texture, or shape to make important elements stand out and create visual interest
-  - Verify: Key elements pop against their surroundings; the design is not monotonous
-- [ ] Step 7: Add texture where appropriate — use visual texture to create depth, interest, and differentiation between areas
-  - Verify: Texture variation supports foreground/background relationships
-
-### After Design
-- [ ] Squint test: dominant element is still the first thing visible when details blur
-- [ ] Eye recycling test: trace the eye path — does it circulate through the composition or exit?
-- [ ] F-pattern check (for web): is the most important content in the top-left zone?
-- [ ] Similarity audit: do recurring visual motifs create a sense of cohesion?
-- [ ] Contrast check: does contrast support the intended hierarchy, not undermine it?
-- [ ] Depth check: is there a clear foreground/background relationship?
+See `checklists.md` §5 Implementation Quick-Start for the full step-by-step sequence.
 
 ---
 
@@ -209,35 +172,16 @@ Create foreground/background/midground relationships using size, detail, color i
 
 Composition is the arrangement of elements and their interrelationships within a design. A successful composition attracts the viewer's eye, guides it throughout, and "recycles" it so the viewer keeps looking. Six interrelated design principles — dominance, similarity, rhythm, texture, direction, and contrast — work together to make compositions compelling, and the presence of one principle often enables or reinforces another.
 
-### CHECKER Mode
-When reviewing an existing design, verify:
-- [ ] One element is clearly dominant — it acts as the visual anchor and entry point
-- [ ] The eye is guided through the composition by directional forces (alignment, lines, shape groupings)
-- [ ] Similarity creates cohesion — recurring shapes, colors, or textures echo throughout
-- [ ] Contrast supports hierarchy — differences draw attention to the right things
-- [ ] Foreground/background relationships create depth and indicate interactivity
-- [ ] Rhythm is present — repeating visual elements create a sense of pattern
-- [ ] The eye "recycles" within the composition rather than exiting
-
 **Severity Classification:**
 | Violation Type | Severity | Rationale |
 |----------------|----------|-----------|
 | No dominant element | Critical | Viewer has no entry point; composition fails to engage |
 | No directional flow | Critical | Eye wanders off the design; content is not consumed in intended order |
 | No foreground/background depth | High | Design feels flat; interactive affordances are absent |
-| No similarity or cohesion | High | Design feels chaotic and unrelated |
-| No contrast | Medium | Design is monotonous; hierarchy is unclear |
-| No rhythm | Low | Design may still function but lacks visual interest and scannability |
 
-### APPLIER Mode
-When creating or modifying a design, ensure:
-- [ ] Establish one dominant element as the visual anchor first
-- [ ] Create at least foreground and background layers for depth
-- [ ] Use a consistent shape language and color palette for similarity
-- [ ] Build rhythm through repeating visual motifs and consistent spacing
-- [ ] Guide the eye with directional forces — alignment, lines, progressive sizing
-- [ ] Use contrast to reinforce hierarchy and create visual interest
-- [ ] Position critical content for the expected reading direction (top-left for Western web)
+Reviewing and applying draw on the same criteria in both directions: establish dominance before any
+other principle, build depth and cohesion together, and let contrast and rhythm reinforce hierarchy
+rather than compete with it.
 
 ---
 
@@ -287,13 +231,14 @@ When creating or modifying a design, ensure:
 
 ## COMMON MISTAKES
 
+**Last reviewed: 2026-07**
+
 | Mistake | Why It Happens | Correct Approach |
 |---------|----------------|------------------|
 | Making everything equally prominent | Developer treats all content as equally important | Establish a clear hierarchy — one dominant element, subordinate supporting elements |
 | Ignoring reading direction for web layouts | Developer places content based on visual balance alone, not scan patterns | Respect the F-pattern: most important content top-left, scannable content down the left side |
-| Using contrast inconsistently, accidentally drawing the eye to unimportant elements | Developer adds a bright color or large element for aesthetic reasons without considering its compositional weight | Every contrast decision should support the intended hierarchy; audit what the eye is drawn to |
 | Mixing unrelated shapes and styles across a design | Developer designs each element independently | Establish a shape language (rounded vs. angular, etc.) and apply it consistently for similarity |
-| Centering an element directly on a grid line when diagonal direction is needed | Developer snaps everything to grid intersections | Offset elements slightly from grid lines to maintain implied diagonal direction rather than creating stagnant vertical/horizontal anchoring |
 | Relying solely on grid placement without directional forces | Developer assumes a grid system alone creates good composition | Grid determines position; direction, dominance, and other principles determine how the eye moves between those positions |
 | No hover or interactive state changes for web elements | Developer styles elements identically in all states | Use foreground/background shift on hover — color change, shadow, scale — to signal interactivity |
-| Using texture uniformly or not at all | Developer applies the same treatment to all surfaces | Vary texture intentionally to create depth and differentiate foreground from background areas |
+
+See `checklists.md` §4 Common Mistakes Master Table for the complete list across all chapters.

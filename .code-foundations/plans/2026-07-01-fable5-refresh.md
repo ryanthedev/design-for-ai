@@ -440,3 +440,10 @@ sweeps, `validate_skill`, script smoke runs with fixtures, and the Phase 8 eval 
 - [x] Committed
 Commit: 303b5a0
 Summary: The four commands + both agents now speak the fable/sonnet/haiku model ladder (opus = explicit override) with build-side resolution fallbacks and an effort doctrine; imperative STOP/CRITICAL/MANDATORY headers are calm rationale-stating gates; AskUserQuestion is confined to decisive 2-4-option picks while open-ended checkpoints are conversational. This establishes the ladder/effort/gate vocabulary that Phases 2-8 and future plans reuse.
+
+### Phase 3: Tells catalog refresh (Gate: Full)
+- [x] BUILD: Discovery + design + implementation complete — extended ai-tells.md (preserving its existing tell categories/severity model) + foundations-standards.md
+- [x] REVIEW: pass (all 4 DW verified with executed greps; edge cases — signatures stay context-dependent, pre-existing content preserved — confirmed)
+- [x] Committed
+Commit: 2e2a7d3
+Summary: ai-tells.md now carries a copy/content tells section (6 observable-check tells), a dated checkable-signatures table (purple triplet, 0.1 shadows, Tailwind/shadcn binary check, both escape-hatch clusters, Space Grotesk), the decay doctrine + Last reviewed dates on all 7 tables, and the over-correction guard; foundations-standards.md §7 documents the re-audit convention. This file is the SOURCE OF TRUTH Phase 6's detect.mjs will port — every tell states an observable check.

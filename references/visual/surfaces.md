@@ -155,6 +155,8 @@ Read it as: the surface tells you *what layouts and tokens are physically allowe
 
 ## Red flags — surface mismatches
 
+**Last reviewed: 2026-07**
+
 | Flag | Surface it breaks | Constraint violated | Fix |
 |------|-------------------|---------------------|-----|
 | Hover-revealed content or actions | Touch, TV, voice, e-ink | No hover state exists | Make it visible or tap/focus-triggered; `@media (hover: none)` fallback |

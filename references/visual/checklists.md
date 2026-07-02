@@ -16,6 +16,10 @@ Quick-reference consolidation of all checklists, red flags, decision trees, and 
 
 ## 1. Full Design Review Checklist
 
+**Last reviewed: 2026-07.** Screenshot-grounded review of the rendered mock takes priority over
+working this list top-to-bottom — use these as the named checks worth confirming when a rendered
+surface looks off, not as a pre-ship tick-box gate.
+
 ### Typography Checks
 
 **Must Pass (Critical)**
@@ -158,6 +162,8 @@ Quick-reference consolidation of all checklists, red flags, decision trees, and 
 ---
 
 ## 2. Red Flags Master Table
+
+**Last reviewed: 2026-07**
 
 | Red Flag | Severity | Source | Fix |
 |----------|----------|--------|-----|
@@ -466,6 +472,8 @@ START: List all information pieces and their relative importance/relationships
 ---
 
 ## 4. Common Mistakes Master Table
+
+**Last reviewed: 2026-07**
 
 | Mistake | Why It Happens | Correct Approach | Source |
 |---------|----------------|------------------|--------|

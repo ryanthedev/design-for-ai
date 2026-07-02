@@ -42,80 +42,57 @@
 
 ## DETECTION CHECKLIST
 
-Signs this chapter's knowledge applies:
-
-### Visual Symptoms
-- [ ] Product has no consistent visual design but team is debating fonts and colors
-- [ ] Design feels disconnected from the product's actual purpose or user needs
-- [ ] Visual design investment seems disproportionate to the product's competitive context
-- [ ] No user personas, use cases, or wireframes exist before visual design work begins
-
-### CSS/HTML Patterns to Look For
-- [ ] Visual styling applied before information architecture is defined
-- [ ] Design details (gradients, shadows, custom fonts) added to a product that hasn't validated its core use cases
-- [ ] No wireframe or skeleton layout preceding the styled version
-
-### Developer Statements That Trigger This
-- "I just need to make it look pretty"
-- "Should I invest in design or just ship with Bootstrap defaults?"
-- "Our product works great but looks terrible -- is that a problem?"
-- "Let me pick some nice colors and fonts and we'll be done"
-- "Design doesn't matter for our product, it's all about functionality"
+This chapter's knowledge applies whenever visual design work starts before anyone has defined who
+it's for or why — a team debating fonts and colors with no personas, use cases, or wireframes in
+place, or a design that feels disconnected from the product's actual purpose despite looking
+polished. The tell in conversation: "I just need to make it look pretty" or "should I invest in
+design or just ship with Bootstrap defaults?" — treating visual design as the whole of design
+rather than one layer that should follow from user and product understanding.
 
 ---
 
 ## DESIGN REVIEW CRITERIA
 
-### Must Pass (Critical)
-- [ ] Visual design decisions are informed by product purpose and user needs -> Fail if: design choices were made purely on aesthetic preference with no consideration of user context
-- [ ] UX process preceded visual design (some form of personas, use cases, or wireframes) -> Fail if: visual styling was the first and only design activity
-- [ ] Level of visual design investment matches the product's competitive context -> Fail if: over-investing in visual polish for a utility tool, or under-investing for a consumer product tied to personal identity
+**Must pass:** Visual design decisions are informed by product purpose and user needs (fail if
+choices were made purely on aesthetic preference with no consideration of user context); a UX
+process — some form of personas, use cases, or wireframes — preceded visual design (fail if visual
+styling was the first and only design activity); and the level of visual design investment matches
+the product's competitive context (fail if over-investing in visual polish for a utility tool, or
+under-investing for a consumer product tied to personal identity).
 
-### Should Pass (Important)
-- [ ] Visual design supports (rather than conflicts with) usability -> Warning if: visual flourishes interfere with core functionality
-- [ ] Content and usability considerations are reflected in the visual design -> Warning if: visual design was created in isolation from content strategy
-
-### Nice to Have
-- [ ] Design demonstrates awareness of multiple "layers" (product goals, culture, technology, user needs) -> Suggestion: document the design rationale connecting visual choices to these layers
+See `checklists.md` §1 for the full Should-Pass/Nice-to-Have tri-tier checklist across all
+chapters.
 
 ---
 
 ## RED FLAGS
 
+**Last reviewed: 2026-07**
+
 | Flag | Severity | What It Indicates | Fix |
 |------|----------|-------------------|-----|
 | Visual design work begins with no user personas or use cases defined | Critical | Design is disconnected from user needs; likely to miss the mark | Create even simple personas and use cases before any visual work |
 | Team debates visual details (fonts, colors) while core UX is undefined | High | Premature optimization of visuals; the "skeleton" should come first | Wireframe the layout and information architecture first |
-| Product treats visual design as purely decorative ("make it pretty") | High | Misunderstands design as surface-level; misses the multi-layer nature | Educate team that design is the manifestation of many layers, not just appearance |
 | Competitor with better design is eroding market share but team ignores visual design | High | Underestimating design as competitive advantage (anti-Craigslist scenario) | Assess whether product category demands visual design investment |
-| Massive visual design investment for a pure utility product with no competitors | Medium | Over-investment; design resources could be better spent on functionality | Right-size design investment to competitive landscape and user relationship |
+
+See `checklists.md` §2 Red Flags Master Table for the complete list across all chapters.
 
 ---
 
 ## IMPLEMENTATION CHECKLIST
 
-### Before Starting
-- [ ] Identify the product's purpose and the problem it solves
-  - Verify: Can you state in one sentence what the product does and why users need it?
-- [ ] Assess the competitive landscape and how visual design factors into differentiation
-  - Verify: Do you know whether this product category rewards visual design (like shoes) or tolerates "good enough" (like hammers)?
-- [ ] Determine how closely the product is tied to the user's personal identity
-  - Verify: Is this something users carry, display publicly, or associate with their identity?
+Before starting, identify the product's purpose and the problem it solves (can you state in one
+sentence what it does and why users need it?), assess the competitive landscape to see whether
+this product category rewards visual design or tolerates "good enough," and determine how closely
+the product ties to the user's personal identity. During design, create user personas even if
+simple, define use cases for the most common interactions, build wireframes that establish layout
+and information architecture without any visual styling, and only then apply visual design to that
+wireframe structure so choices support the use cases and personas. After design, confirm visual
+design enhances rather than hinders usability, that the investment level matches the competitive
+context, and that the product's multiple layers — goals, user needs, culture, technology — are all
+represented in the final result.
 
-### During Design
-- [ ] Step 1: Create user personas (even simple ones)
-  - Verify: Each persona has a name, occupation, quote expressing their need, and key needs listed
-- [ ] Step 2: Define use cases for the most common user interactions
-  - Verify: Each use case has a description, user quote, and requirements
-- [ ] Step 3: Create wireframes to establish layout and information architecture
-  - Verify: Wireframes show where everything goes without visual styling details (no fonts, colors, or imagery)
-- [ ] Step 4: Apply visual design to the wireframe structure
-  - Verify: Visual choices support the use cases and serve the personas' needs
-
-### After Design
-- [ ] Visual design enhances rather than hinders usability
-- [ ] Design investment level is appropriate for the product's competitive context
-- [ ] The multiple "layers" of design (product goals, user needs, culture, technology) are all represented in the final result
+See `checklists.md` §5 Implementation Quick-Start for the full step-by-step sequence.
 
 ---
 
@@ -167,29 +144,16 @@ Recognize that design is "the manifestation of many different layers." Visual ch
 
 Design is not merely visual appearance -- it is the manifestation of many layers including product purpose, user needs, competitive context, culture, and technology. Visual design is one component of user experience design, intertwined with content and usability. The appropriate level of visual design investment depends on the product's context: how personal it is, how competitive the landscape is, and whether design itself can be a differentiator.
 
-### CHECKER Mode
-When reviewing an existing design, verify:
-- [ ] Visual design decisions can be traced back to user needs and product purpose
-- [ ] A UX process (personas, use cases, wireframes) informed the visual design
-- [ ] The level of visual design investment is appropriate for the product's competitive context
-- [ ] Visual design supports rather than undermines content and usability
-- [ ] The design reflects awareness of its multiple "layers" (not just surface aesthetics)
-
 **Severity Classification:**
 | Violation Type | Severity | Rationale |
 |----------------|----------|-----------|
 | No UX process before visual design | Critical | Design without user understanding is guesswork; the structure will likely fail users |
 | Visual design conflicts with usability | Critical | Beauty that impedes function defeats the purpose of design |
 | Design investment mismatched to context | High | Wasted resources or missed competitive opportunity |
-| Visual choices have no traceable rationale | Medium | Suggests decoration rather than intentional design |
 
-### APPLIER Mode
-When creating or modifying a design, ensure:
-- [ ] Define user personas before making any visual decisions
-- [ ] Identify primary use cases to understand what the design must support
-- [ ] Create wireframes to establish information architecture before visual styling
-- [ ] Assess competitive landscape to right-size visual design investment
-- [ ] Connect every major visual choice to a product goal, user need, or contextual factor
+Reviewing and applying draw on the same criteria in both directions: trace every visual choice
+back to user needs and product purpose, run the UX process before any visual styling, and
+calibrate investment to the product's competitive context rather than applying design uniformly.
 
 ---
 
@@ -232,11 +196,14 @@ When creating or modifying a design, ensure:
 
 ## COMMON MISTAKES
 
+**Last reviewed: 2026-07**
+
 | Mistake | Why It Happens | Correct Approach |
 |---------|----------------|------------------|
 | Treating design as purely visual/decorative | Developers associate "design" with surface patterns, graphic styling, or button appearance | Understand design as the manifestation of many layers: product goals, user needs, culture, technology, and visual appearance |
 | Skipping personas and use cases | Feels like bureaucratic overhead; developers want to jump to building | Even a 5-minute persona (name, occupation, quote, needs) dramatically focuses design decisions |
 | Over-investing in visual design for a utility product | Assumes all products need polished visual design to succeed | Assess competitive landscape; Craigslist proves "good enough" works when solving a real pain point |
 | Under-investing in visual design for a personal/identity product | Assumes functionality alone will win | Products tied to personal identity (carried publicly, fashion-adjacent) demand design investment -- see Apple iPod example |
-| Getting caught up in visual details during wireframing | Wireframing tools make it easy to add styling; developers want to see "finished" work | Keep wireframes deliberately rough; the goal is layout and structure, not visual treatment |
 | Conflating visual design with user experience design | Sees them as synonymous | Visual design is one component of UX, which also includes usability, content, information architecture, and more |
+
+See `checklists.md` §4 Common Mistakes Master Table for the complete list across all chapters.

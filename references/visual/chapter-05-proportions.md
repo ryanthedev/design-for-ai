@@ -39,84 +39,59 @@
 
 ## DETECTION CHECKLIST
 
-Signs this chapter's knowledge applies:
-
-### Visual Symptoms
-- [ ] Layout feels "off" but developer cannot articulate why -- elements seem randomly sized
-- [ ] Elements within a composition have no clear size relationship to each other or to the canvas
-- [ ] Margins and padding appear arbitrary with no geometric relationship to content area
-- [ ] Design lacks visual interest despite having the right colors and shapes
-- [ ] Two compositions with same shapes and colors look drastically different in quality
-
-### CSS/HTML Patterns to Look For
-- [ ] Arbitrary pixel values for widths, heights, margins with no proportional relationship (e.g., width: 347px; margin: 23px)
-- [ ] Container aspect ratios that are purely accidental rather than intentional
-- [ ] Element sizes that jump erratically without a consistent scale factor
-- [ ] Icon or image sizes chosen without a systematic size progression
-- [ ] Margins that are identical on all sides when asymmetric proportional margins would be more engaging
-
-### Developer Statements That Trigger This
-- "I just eyeballed the sizes until they looked okay"
-- "The layout works but something feels wrong about the spacing"
-- "I read that everything should be based on the golden ratio"
-- "I don't know how to decide how big to make these elements relative to each other"
-- "My margins are all 20px because I didn't know what else to use"
+This chapter's knowledge applies whenever a layout feels "off" but the developer cannot articulate
+why — elements with no clear size relationship to each other or the canvas, margins and padding
+that appear arbitrary, or two compositions using the same shapes and colors that read as
+drastically different in quality. The tell in conversation: "I just eyeballed the sizes until they
+looked okay" or "I read that everything should be based on the golden ratio" — either ignoring
+proportional relationships entirely or over-applying a single ratio as a rigid formula rather than
+treating proportion as one flexible tool among several.
 
 ---
 
 ## DESIGN REVIEW CRITERIA
 
-### Must Pass (Critical)
-- [ ] Key dimensional relationships (canvas, content areas, major elements) reflect an intentional proportional system --> Fail if: major element sizes are arbitrary values with no proportional relationship to each other or the canvas
-- [ ] Proportional choices are used as guidelines, not rigid formulas --> Fail if: design sacrifices usability or aesthetics to force exact golden ratio compliance
+**Must pass:** Key dimensional relationships — canvas, content areas, major elements — reflect an
+intentional proportional system (fail if major element sizes are arbitrary values with no
+proportional relationship to each other or the canvas); and proportional choices are used as
+guidelines, not rigid formulas (fail if the design sacrifices usability or aesthetics to force
+exact golden-ratio compliance).
 
-### Should Pass (Important)
-- [ ] Element sizes relate to each other through a consistent ratio or scale --> Warning if: more than 3 different unrelated sizing ratios are in use simultaneously
-- [ ] Canvas/container proportions are intentionally chosen --> Warning if: container aspect ratio is purely accidental (e.g., whatever the content pushed it to)
-- [ ] Margins establish geometric relationship between content and canvas --> Warning if: all margins are identical when asymmetric proportional margins would create better visual interest
-
-### Nice to Have
-- [ ] Size progressions follow a varied scale (consistent multiplication factor) --> Suggestion: use a factor like 0.75 to create a descending scale of sizes for icons, type, or recurring elements
-- [ ] Proportional choices are documented for the design system --> Suggestion: record the ratio(s) used so future design decisions stay consistent
+See `checklists.md` §1 for the full Should-Pass/Nice-to-Have tri-tier checklist across all
+chapters.
 
 ---
 
 ## RED FLAGS
+
+**Last reviewed: 2026-07**
 
 | Flag | Severity | What It Indicates | Fix |
 |------|----------|-------------------|-----|
 | Every dimension is a golden ratio calculation | Critical | Cargo-cult proportions; treating golden ratio as magic formula | Use a mix of simple ratios (2:3, 3:4) as flexible guidelines; prioritize what looks good over mathematical purity |
 | All spacing/sizing values are completely arbitrary | High | No proportional system in use; sizing is ad hoc | Choose a base ratio (e.g., 3:4) and derive key dimensions from it |
 | Claims design "uses the golden ratio" but canvas itself has a different proportion | Medium | Superficial understanding; golden ratio overlaid retroactively | If using golden ratio, start with the canvas proportions, not just internal elements |
-| Elements sized identically when variety would improve composition | Medium | Missed opportunity for proportional relationships to create visual hierarchy | Introduce size variety using a consistent ratio between elements |
-| Margins are equal on all sides | Low | Missed opportunity for Tschichold-style proportional margins that create geometric relationship | Use diagonal-line method or proportional margins for more visual interest |
+
+See `checklists.md` §2 Red Flags Master Table for the complete list across all chapters.
 
 ---
 
 ## IMPLEMENTATION CHECKLIST
 
-### Before Starting
-- [ ] Identify the purpose/mood of the design and the target medium (web, mobile, print)
-- [ ] Determine the canvas/viewport dimensions you are designing for
-- [ ] Choose a proportional system: golden ratio (1:1.618), root 2 (1:1.41), 2:3 (0.66), or 3:4 (0.75)
-- [ ] Note: simpler ratios (2:3, 3:4) are easier to calculate and equally effective
+Before starting, identify the design's purpose, mood, and target medium, determine the canvas or
+viewport dimensions, and choose a proportional system — golden ratio (1:1.618), root 2 (1:1.41),
+2:3, or 3:4 — noting that the simpler ratios are just as effective and easier to calculate. During
+design, set canvas and container proportions intentionally using the chosen ratio, determine
+margins and content area using a proportional method such as Tschichold's diagonal-line technique,
+size major elements relative to each other and the canvas by a consistent factor, build a varied
+scale for recurring elements (icons, headings, images) by repeatedly multiplying by the ratio
+factor, and place elements on a grid derived from the same system. After design, run a squint test
+to confirm the composition has clear, varied proportional hierarchy, compare against an
+equal-sized-elements version to check the proportional version reads as more engaging, and confirm
+the proportions served as guidelines rather than a straitjacket — adjusted wherever usability or
+aesthetics demanded it.
 
-### During Design
-- [ ] Step 1: Set the canvas/container proportions intentionally using your chosen ratio
-  - Verify: the aspect ratio of the main container reflects a deliberate proportional choice
-- [ ] Step 2: Determine margins and content area using proportional methods (e.g., Tschichold's diagonal-line technique)
-  - Verify: content area has the same aspect ratio as the page/screen, and margins create geometric relationship with the canvas
-- [ ] Step 3: Size major elements (images, cards, sections) using your chosen ratio relative to each other and the canvas
-  - Verify: element sizes relate by a consistent factor (e.g., each 0.75x the previous)
-- [ ] Step 4: For recurring elements of different sizes (icons, headings, images), create a varied scale by repeatedly multiplying by your ratio factor
-  - Verify: the scale produces a coherent progression (e.g., 400, 300, 225, 169...)
-- [ ] Step 5: Place elements on a grid derived from your proportional system
-  - Verify: element edges and centers align with grid intersections
-
-### After Design
-- [ ] Squint test: does the composition have clear visual hierarchy with varied, interesting proportional relationships?
-- [ ] Compare against a version with equal-sized elements -- is the proportional version more visually engaging?
-- [ ] Verify proportions are guidelines, not prisons -- adjust where usability or aesthetics demand it
+See `checklists.md` §5 Implementation Quick-Start for the full step-by-step sequence.
 
 ---
 
@@ -168,29 +143,16 @@ Understand that attractive proportions lie in a range between the golden ratio (
 
 Proportion is the hidden geometric skeleton that makes designs feel harmonious. There is no single "magic" ratio -- the golden ratio is one of several pleasing proportions, and many claims about its universal presence in nature and art are exaggerated or false. The practical path is to choose a simple ratio (2:3, 3:4, or golden ratio), use it consistently for sizing and spacing relationships, and treat it as a guideline rather than a rigid formula.
 
-### CHECKER Mode
-When reviewing an existing design, verify:
-- [ ] Major element sizes relate to each other through identifiable ratios (not arbitrary values)
-- [ ] Canvas/container proportions are intentional, not accidental
-- [ ] Margins create geometric relationship between content and container
-- [ ] Size progressions (icons, type, images) follow a consistent scale factor
-- [ ] Proportional system is used as a guideline, not forced rigidly
-
 **Severity Classification:**
 | Violation Type | Severity | Rationale |
 |----------------|----------|-----------|
 | Completely arbitrary sizing with no proportional relationships | High | Misses a fundamental tool for creating visual harmony |
 | Rigid golden ratio dogma overriding aesthetics/usability | High | Treating proportion as magic formula rather than guideline |
 | Uniform margins when proportional margins would improve design | Medium | Missed opportunity for geometric harmony |
-| No consistent scale for recurring element sizes | Medium | Elements feel disconnected from each other |
 
-### APPLIER Mode
-When creating or modifying a design, ensure:
-- [ ] Select a proportional system appropriate to the medium (2:3, 3:4, or golden ratio)
-- [ ] Derive canvas, content area, and major element dimensions from this ratio
-- [ ] Create a varied scale for recurring elements by repeatedly multiplying by the ratio factor
-- [ ] Use proportional grid for element placement
-- [ ] Allow proportions to guide, not dictate -- override when aesthetics or usability require it
+Reviewing and applying draw on the same criteria in both directions: derive canvas, content, and
+element dimensions from one chosen ratio, build recurring elements on a consistent scale, and let
+the ratio guide rather than dictate the final result.
 
 ---
 
@@ -235,12 +197,14 @@ When creating or modifying a design, ensure:
 
 ## COMMON MISTAKES
 
+**Last reviewed: 2026-07**
+
 | Mistake | Why It Happens | Correct Approach |
 |---------|----------------|------------------|
 | Treating the golden ratio as a guaranteed formula for beauty | Pop-culture mythology and countless blog posts repeat this claim | Use it as one tool among several; no ratio guarantees beauty |
-| Claiming the Parthenon/Mona Lisa/nautilus "prove" the golden ratio | Confirmation bias -- people overlay golden ratio rectangles on anything and declare a match | Actually measure; most famous examples do not precisely match the golden ratio |
 | Using only the golden ratio when simpler ratios would work better | Not knowing about 2:3 or 3:4 as equally valid alternatives | Choose the simplest ratio that works; 2:3 and 3:4 are easier to calculate and implement |
 | Forcing proportions rigidly at the expense of the design | Believing mathematical perfection equals visual perfection | Use proportions as flexible guidelines; override when aesthetics or usability demand it |
 | Ignoring proportions entirely, using arbitrary sizes | Not knowing proportional systems exist, or thinking they are too complex | Start simple: pick one ratio and derive a few key dimensions from it |
-| Making all elements the same size for "consistency" | Confusing consistency with uniformity | Varied sizes with proportional relationships create more visual interest than uniformity |
 | Applying golden ratio to internal elements but not the canvas | Starting with details before establishing the overall framework | Start with canvas proportions, then derive internal dimensions |
+
+See `checklists.md` §4 Common Mistakes Master Table for the complete list across all chapters.

@@ -36,6 +36,10 @@
 
 ## THE 9 PATTERN CATEGORIES
 
+**Last reviewed: 2026-07.** This is an ethics ban-list, not an aesthetic one — the 9 categories
+stay bans regardless of model generation; only the regulatory-status and example rows are subject
+to the re-audit convention (`docs/foundations-standards.md` §7).
+
 ### 1. Urgency and false scarcity
 
 **What it is:** Creating or exaggerating time pressure or limited availability to accelerate decisions before the user can deliberate.
@@ -344,6 +348,8 @@ Active and pending regulation relevant to deceptive pattern audits:
 ---
 
 ## COMMON MISTAKES
+
+**Last reviewed: 2026-07**
 
 | Mistake | Why it happens | Correct approach |
 |---------|----------------|-----------------|

@@ -183,6 +183,8 @@ Use these when auditing content in an existing product:
 
 ## COMMON MISTAKES
 
+**Last reviewed: 2026-07**
+
 | Mistake | Why it happens | Correct approach |
 |---------|----------------|------------------|
 | "Submit" as a default CTA | Generic placeholder never replaced | Label the action and outcome: "Create account", "Send message", "Save changes" |

@@ -17,7 +17,7 @@ or prescriptive claim, and surface the canon gap in the deliverable.
 
 ## Red flags
 
-Stop and reframe when you catch yourself (or the user) doing any of these:
+**Last reviewed: 2026-07.** Reframe when you catch yourself (or the user) doing any of these:
 
 - **Presenting AI-native advice as settled best practice.** It is not. There is no canon to appeal
   to. Say "current thinking holds…" not "the rule is…".
@@ -79,6 +79,8 @@ goal-delegated part. Don't reinvent usability inside it.
 The honest move, always, is to make the weight visible so the reader can discount appropriately.
 
 ## Common mistakes
+
+**Last reviewed: 2026-07**
 
 - **Over-claiming.** The pillar's headline risk. When unsure, present trade-offs, not a verdict.
 - **Treating emerging sources as canon.** Wilson/Dibia/Smashing are signposts, not scripture.

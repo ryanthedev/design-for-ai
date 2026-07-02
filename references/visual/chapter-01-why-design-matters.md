@@ -39,84 +39,52 @@
 
 ## DETECTION CHECKLIST
 
-Signs this chapter's knowledge applies:
-
-### Visual Symptoms
-- [ ] Design feels superficial -- visually decorated but lacking coherent intent
-- [ ] Website or app looks "template-ish" with no connection between visual style and purpose
-- [ ] Design is either under-designed (sloppy, rushed) or over-designed (inappropriately polished for its context)
-- [ ] Visual look and information organization feel disconnected from each other
-- [ ] Design choices appear arbitrary with no underlying rationale
-
-### CSS/HTML Patterns to Look For
-- [ ] Heavy use of decorative elements (gradients, shadows, borders) with no functional purpose
-- [ ] Visual styling applied inconsistently, suggesting design was an afterthought
-- [ ] Information architecture and visual hierarchy feel misaligned
-- [ ] Copy-pasted design patterns from other sites without adapting to this site's purpose
-
-### Developer Statements That Trigger This
-- "I'll just make it look nice at the end"
-- "Design doesn't really matter, the functionality is what counts"
-- "I found a cool CSS effect, let me add it"
-- "Just pick a template and we're done"
-- "Users only care about features, not how it looks"
-- "I'm not a designer, I just need it to work"
+This chapter's knowledge applies whenever a design feels superficial or "template-ish" — visual
+style disconnected from purpose, decoration with no functional rationale, or a look copy-pasted
+from another product without adapting it to this one. The tell in conversation: "I'll just make it
+look nice at the end" or "just pick a template and we're done" — design treated as a final coat of
+paint rather than a layer considered from the start.
 
 ---
 
 ## DESIGN REVIEW CRITERIA
 
-### Must Pass (Critical)
-- [ ] Design has a clearly identifiable purpose/intention -> Fail if: no one can articulate what the design is trying to achieve or what emotion/action it should evoke
-- [ ] Visual design and information design are coherent -> Fail if: visual look says one thing (e.g., playful) while information structure says another (e.g., dense corporate), or vice versa
-- [ ] Design is appropriate to its context -> Fail if: design is inappropriately polished for a simple tool, or too casual for a financial/medical application (Fogg study: users distrust "designed by a marketing team" look)
+**Must pass:** Design has a clearly identifiable purpose/intention (fail if no one can articulate
+what it's trying to achieve or evoke); visual design and information design are coherent (fail if
+the visual look says one thing while the information structure says another); design is
+appropriate to its context (Fogg: users distrust both "sloppy" and "designed by a marketing team"
+looks — appropriateness beats maximum polish).
 
-### Should Pass (Important)
-- [ ] Multiple layers of design (purpose, medium, aesthetics) are considered and aligned -> Warning if: only surface-level visual choices were made without considering purpose or technological constraints
-- [ ] Design builds credibility and trust -> Warning if: users would describe it as "not very professional looking" or "sloppy" (per Fogg's findings)
-
-### Nice to Have
-- [ ] Design demonstrates awareness of medium-specific constraints and turns them into features -> Suggestion: like the Pantheon's coffers, let technology constraints inform aesthetic choices
-- [ ] Design creates emotional resonance appropriate to its purpose -> Suggestion: test whether first-time visitors have the intended emotional reaction
+See `checklists.md` §1 for the full Should-Pass/Nice-to-Have tri-tier checklist across all
+chapters.
 
 ---
 
 ## RED FLAGS
 
+**Last reviewed: 2026-07**
+
 | Flag | Severity | What It Indicates | Fix |
 |------|----------|-------------------|-----|
 | Design treated as final step after all functionality is built | Critical | "Veneer" approach -- design is disconnected from product soul | Integrate design thinking from the start; define purpose/intention before visual choices |
-| Purely decorative elements with no functional rationale | High | "Drawing ponies" -- mimicking surface patterns without understanding underlying principles | Remove decoration; understand *why* each design element exists |
-| Visual style borrowed wholesale from another product/context | High | Design is inappropriate for this specific purpose and audience | Define your own purpose, audience, and constraints; let design emerge from those layers |
 | Users describe site as looking like "it was put together in five minutes" | Critical | Failing the credibility heuristic -- 46% of credibility judgments are design-based | Invest in visual quality and information organization (together = ~75% of credibility signals) |
 | Design looks "too polished" or "designed by a marketing team" | High | Inappropriately slick design triggers user skepticism | Calibrate design quality to match context and authenticity expectations |
-| Information is "badly presented" despite attractive visuals | High | Visual layer addressed but information design layer ignored | Reorganize content structure; ensure information hierarchy matches visual hierarchy |
+
+See `checklists.md` §2 Red Flags Master Table for the complete list across all chapters.
 
 ---
 
 ## IMPLEMENTATION CHECKLIST
 
-### Before Starting
-- [ ] Identify the purpose and intention of the design (What should users feel? What should they do? What should they trust?)
-- [ ] Identify the medium and technology constraints (HTML/CSS, mobile, print, etc.)
-- [ ] Identify the target audience and their expectations for this type of product
-- [ ] Determine what level of design polish is *appropriate* (not maximum -- appropriate)
+Before any visual work: name the purpose (what should users feel, do, trust?), the medium
+constraints, the audience, and the appropriate polish level. While designing: define the layers
+(purpose, medium, aesthetics), make information-design decisions before visual ones, and check
+that no layer contradicts another (the Pantheon's coffers standard — structural necessity doubling
+as aesthetic value). After: run the credibility check ("would a stranger call this professional and
+well organized?") and the pony test ("could this adapt to a different context, or did I just copy a
+surface pattern?").
 
-### During Design
-- [ ] Step 1: Define the design's "layers" -- purpose, medium/technology, and aesthetic goals
-  - Verify: Can you articulate how each layer supports the others?
-- [ ] Step 2: Make information design decisions -- how content is organized and structured
-  - Verify: Information structure is clear and logically organized (28%+ of credibility signals)
-- [ ] Step 3: Make visual design decisions that align with purpose and medium
-  - Verify: Visual choices serve the purpose rather than decorating over it
-- [ ] Step 4: Ensure all layers work in harmony -- no layer contradicts another
-  - Verify: Purpose, technology, and aesthetics reinforce each other (like the Pantheon's coffers serving both structural and visual roles)
-
-### After Design
-- [ ] Credibility check: Would a stranger describe this as "professional looking" and "well organized"?
-- [ ] Appropriateness check: Does the level of polish match the context? (Not over-designed, not under-designed)
-- [ ] "Pony test": Could you adapt this design to a different context, or did you just copy a surface pattern?
-- [ ] Layer harmony check: Do purpose, medium, and aesthetic choices reinforce each other?
+See `checklists.md` §5 Implementation Quick-Start for the full step-by-step sequence.
 
 ---
 
@@ -168,29 +136,16 @@ Both visual design AND information design are treated as first-class concerns. C
 
 Design is not surface decoration but the "fundamental soul of a human-made creation" expressed through interconnected layers: purpose, medium/technology, and aesthetics. These layers must work in harmony for a design to achieve emotional impact, credibility, and usability. Understanding these layers holistically -- rather than copying surface patterns ("drawing ponies") -- is what separates genuine design from veneer.
 
-### CHECKER Mode
-When reviewing an existing design, verify:
-- [ ] Design has a clear, articulated purpose that drives all other decisions
-- [ ] Visual design and information design work together (not one neglected for the other)
-- [ ] Design is appropriate to its context -- neither under-designed nor inappropriately over-polished
-- [ ] Technology constraints are embraced as design opportunities, not fought against
-- [ ] All design layers reinforce each other rather than contradicting
-
-**Severity Classification:**
+**Severity when a layer is missing:**
 | Violation Type | Severity | Rationale |
 |----------------|----------|-----------|
 | No identifiable design purpose | Critical | Without purpose, all other layers lack direction -- the design is rudderless |
 | Visual design present but information design neglected | High | Together they account for ~75% of credibility; missing either one undermines trust |
 | Design inappropriate to context (over/under-polished) | High | Fogg's study shows users distrust both sloppy and inappropriately polished design |
-| Technology constraints ignored rather than leveraged | Medium | Missed opportunity to create authentic design that emerges from the medium |
 
-### APPLIER Mode
-When creating or modifying a design, ensure:
-- [ ] Start with purpose: define the intention and emotional impact before making visual choices
-- [ ] Account for medium: understand what HTML/CSS (or your technology) enables and constrains
-- [ ] Make aesthetic choices that serve purpose and work within medium constraints
-- [ ] Design information structure with the same care as visual styling
-- [ ] Calibrate polish level to be appropriate for the context and audience
+Reviewing and applying draw on the same criteria in both directions: start with purpose before any
+visual choice, treat information structure with the same care as visual styling, and calibrate
+polish to context rather than maximizing it.
 
 ---
 
@@ -231,12 +186,14 @@ When creating or modifying a design, ensure:
 
 ## COMMON MISTAKES
 
+**Last reviewed: 2026-07**
+
 | Mistake | Why It Happens | Correct Approach |
 |---------|----------------|------------------|
 | Treating design as a final polish step | Engineering-first culture separates "building" from "designing" | Integrate design thinking from project inception; define purpose before building |
-| Adding visual decoration to compensate for weak design | Mistaking decoration for design; trying to make things "look nice" | Remove unnecessary decoration; ensure every visual element serves the purpose |
 | Copying successful designs wholesale | Assumes what works for one product works for another | Derive design from your own purpose, audience, and medium constraints |
 | Neglecting information design while polishing visual design | Visual design is more obvious and "fun"; information architecture feels like a content problem | Treat information organization as a first-class design concern (28%+ of credibility) |
 | Over-polishing to signal quality | Assumes more polish always equals more trust | Calibrate polish to context; inappropriately polished designs trigger "designed by a marketing team" skepticism |
-| Following do's and don'ts lists without understanding why | Lists are easy to follow but don't build understanding | Learn the underlying layers (purpose, medium, aesthetics) so you can make original, contextual decisions |
 | Only learning to "draw ponies" -- mastering one visual trick | One technique can seem impressive in limited contexts | Build broad understanding of design layers so you can adapt to any situation |
+
+See `checklists.md` §4 Common Mistakes Master Table for the complete list across all chapters.

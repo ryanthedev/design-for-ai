@@ -52,109 +52,60 @@
 
 ## DETECTION CHECKLIST
 
-Signs this knowledge applies:
-
-### Visual Symptoms
-- [ ] Elements appear and disappear instantly with no transition
-- [ ] Page or view changes feel abrupt, with no sense of where content came from or went
-- [ ] Animations feel bouncy, rubbery, or gimmicky
-- [ ] Multiple elements animate simultaneously creating visual chaos
-- [ ] Scroll-triggered animations cause visible stuttering or frame drops
-- [ ] Loading states show a blank screen or spinner for extended periods
-- [ ] Modals or panels snap open/closed without transition
-
-### CSS/JS Patterns to Look For
-- [ ] Animating `width`, `height`, `padding`, `margin`, `top`, `left` instead of `transform`
-- [ ] No `@media (prefers-reduced-motion: reduce)` query anywhere in the codebase
-- [ ] `transition: all` used broadly instead of targeting specific properties
-- [ ] Animation durations above 500ms without clear justification
-- [ ] `scroll` event listeners driving animations without `IntersectionObserver`
-- [ ] `ease` or `linear` easing used for UI transitions (default, not intentional)
-- [ ] Bounce or elastic easing curves in production UI
-
-### Developer Statements That Trigger This
-- "I added some animations to make it feel more polished"
-- "The transition feels slow/fast but I don't know what duration to use"
-- "Users are complaining about motion sickness on our site"
-- "The page feels janky when I scroll"
-- "I don't know when to use transitions vs animations"
-- "Should I animate this with CSS or JavaScript?"
+This reference applies whenever motion feels either absent or wrong -- elements that appear and
+disappear instantly with no transition, page changes that feel abrupt with no sense of where content
+came from, or animations that feel bouncy, rubbery, and gimmicky. It also applies to the CSS/JS tells
+behind those symptoms: animating `width`, `height`, `padding`, `margin`, `top`, or `left` instead of
+`transform`, or no `@media (prefers-reduced-motion: reduce)` query anywhere in the codebase. The
+developer statement that gives it away: "I added some animations to make it feel more polished" --
+motion added for polish rather than to communicate a state change.
 
 ---
 
 ## DESIGN REVIEW CRITERIA
 
-### Must Pass (Critical)
-- [ ] Only `transform` and `opacity` are animated (no `width`, `height`, `padding`, `margin`, `top`, `left`) -> Fail if: any layout-triggering property is animated
-- [ ] `prefers-reduced-motion` is respected -> Fail if: no `@media (prefers-reduced-motion: reduce)` exists in the codebase
-- [ ] No bounce or elastic easing in production UI -> Fail if: cubic-bezier curves overshoot 1.0 on the y-axis for standard UI transitions
-- [ ] Every animation serves a communicative purpose -> Fail if: removing the animation loses no information or spatial context
+Must pass: only `transform` and `opacity` are animated, which fails whenever any layout-triggering
+property (`width`, `height`, `padding`, `margin`, `top`, `left`) is animated instead; `prefers-reduced-motion`
+is respected, which fails whenever no `@media (prefers-reduced-motion: reduce)` query exists in the
+codebase; no bounce or elastic easing appears in production UI, which fails whenever a cubic-bezier
+curve overshoots 1.0 on the y-axis for a standard UI transition; and every animation serves a
+communicative purpose, which fails whenever removing the animation loses no information or spatial
+context.
 
-### Should Pass (Important)
-- [ ] Timing follows the 100/300/500 rule (micro 100ms, standard 300ms, complex 500ms) -> Warning if: durations are arbitrary or all the same value
-- [ ] Easing uses exponential curves (ease-out-quart/quint/expo) for entries -> Warning if: using default `ease` or `linear` for UI transitions
-- [ ] Lists and groups use staggered reveals -> Warning if: all items in a group animate simultaneously
-- [ ] State transitions (hover, active, focus) are smooth -> Warning if: interactive states snap without transition
-
-### Nice to Have
-- [ ] Exit animations mirror entry animations in reverse -> Suggestion: use ease-in for exits to complement ease-out entries
-- [ ] Loading states use skeleton screens instead of spinners -> Suggestion: skeleton screens reduce perceived wait time more effectively
-- [ ] Scroll-triggered reveals use IntersectionObserver -> Suggestion: avoids scroll listener performance overhead
+See `checklists.md` §1 for the full Should-Pass/Nice-to-Have tri-tier checklist across all chapters.
 
 ---
 
 ## RED FLAGS
+
+**Last reviewed: 2026-07**
 
 | Flag | Severity | What It Indicates | Fix |
 |------|----------|-------------------|-----|
 | Animating `width`, `height`, `margin`, `padding`, `top`, `left` | Critical | Triggers layout recalculation every frame, causing jank | Use `transform: translate()` for position, `transform: scale()` for size, `grid-template-rows: 0fr/1fr` for collapse |
 | No `prefers-reduced-motion` support | Critical | Users with vestibular disorders may experience nausea or disorientation | Add `@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }` |
 | Bounce or elastic easing on UI elements | High | Feels dated, artificial, and unprofessional; distracts from content | Replace with exponential ease-out: `cubic-bezier(0.16, 1, 0.3, 1)` |
-| Animations longer than 500ms without justification | High | Feels sluggish and blocks user interaction; users perceive the UI as slow | Follow the 100/300/500 rule; only exceed 500ms for staggered orchestrations |
 | Scroll-driven animations using `scroll` event listeners | High | Main-thread scroll listeners cause jank and dropped frames | Use `IntersectionObserver` for reveal-on-scroll or CSS `scroll-timeline` where supported |
-| Multiple animations competing for attention simultaneously | Medium | User can't focus; animations cancel each other's communicative value | Orchestrate with stagger delays so animations play in meaningful sequence |
-| `transition: all 0.3s ease` used globally | Medium | Unintended properties animate (color, background), and default `ease` is rarely the right curve | Target specific properties: `transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), opacity 300ms cubic-bezier(0.16, 1, 0.3, 1)` |
+
+See `checklists.md` §2 Red Flags Master Table for the complete list across all chapters.
 
 ---
 
 ## IMPLEMENTATION CHECKLIST
 
-### Before Starting
-- [ ] Identify which state changes need to be communicated (entry, exit, reorder, loading, error)
-- [ ] Determine the animation tier: micro-interaction (100ms), standard transition (300ms), or complex orchestration (500ms)
-- [ ] Verify `prefers-reduced-motion` handling exists in the project
-- [ ] Confirm only `transform` and `opacity` will be animated
+Before starting, identify which state changes need to be communicated (entry, exit, reorder,
+loading, error), determine the animation tier (micro-interaction at 100ms, standard transition at
+300ms, or complex orchestration at 500ms), and confirm `prefers-reduced-motion` handling exists in
+the project. While animating, apply the 100/300/500 rule to set duration, choose the easing curve to
+match the motion's direction (ease-out for entries, ease-in for exits, ease-in-out for toggles --
+never bounce or elastic), animate only GPU-composited properties (`transform` and `opacity`) and
+verify in DevTools that no layout or paint is triggered, orchestrate grouped animations with 50-80ms
+stagger delays so the eye follows a clear path, and mirror entry animations in reverse for exits so
+elements don't simply vanish. After, test with `prefers-reduced-motion: reduce` enabled in OS
+settings, verify no jank at 60fps in the Performance panel, confirm every animation still answers
+"what changed?" and remove any that don't, and test on the lowest-spec target device.
 
-### During Design
-- [ ] Step 1: Apply the 100/300/500 rule to determine duration
-  - 100ms: button press, toggle, hover feedback, checkbox
-  - 300ms: panel open/close, tab switch, card flip, dropdown
-  - 500ms: page transitions, staggered list reveals, complex orchestrations
-  - Verify: Duration feels responsive, not sluggish or abrupt
-- [ ] Step 2: Choose the correct easing curve
-  - ease-out for entries (element arriving, decelerating into place): `cubic-bezier(0.16, 1, 0.3, 1)`
-  - ease-in for exits (element leaving, accelerating away): `cubic-bezier(0.7, 0, 0.84, 0)`
-  - ease-in-out for toggles and position changes: `cubic-bezier(0.65, 0, 0.35, 1)`
-  - NEVER: bounce (`cubic-bezier(0.68, -0.55, 0.265, 1.55)`) or elastic curves
-  - Verify: Motion feels natural, fast at the start or end, never uniform
-- [ ] Step 3: Animate only GPU-composited properties
-  - Use `transform: translateY(20px)` + `opacity: 0` for entry states
-  - Use `transform: scale(0.95)` + `opacity: 0` for modal/overlay entries
-  - Verify: DevTools Performance panel shows no layout/paint triggered by animation
-- [ ] Step 4: Orchestrate grouped animations with stagger
-  - Add `transition-delay` or `animation-delay` with 50-80ms increments per item
-  - First item enters immediately; subsequent items follow in sequence
-  - Verify: Eye follows a clear path through the group
-- [ ] Step 5: Handle exit animations
-  - Mirror entry in reverse: if entry is fade+translate-up, exit is fade+translate-down
-  - Use ease-in for exits (accelerating away)
-  - Verify: Elements do not simply vanish; user understands where they went
-
-### After Design
-- [ ] Test with `prefers-reduced-motion: reduce` enabled in OS settings
-- [ ] Verify no jank at 60fps using browser DevTools Performance panel
-- [ ] Confirm every animation answers "what changed?" and remove any that don't
-- [ ] Test on lowest-spec target device to confirm smooth performance
+See `checklists.md` §5 Implementation Quick-Start for the full step-by-step sequence.
 
 ---
 
@@ -212,36 +163,16 @@ A skeleton screen renders placeholder shapes matching the layout of the incoming
 
 Motion should communicate, not decorate. Every animation should answer "what changed?" for the user. If removing an animation loses no information, it was decorative. Purposeful motion establishes spatial relationships (where did that element come from?), communicates state changes (what just happened?), guides attention (what should I look at?), and reduces cognitive load (how does this relate to what I saw before?).
 
-### CHECKER Mode
-When reviewing an existing design, verify:
-- [ ] All animated properties are GPU-composited (`transform`, `opacity` only)
-- [ ] `prefers-reduced-motion` is handled with a media query
-- [ ] No bounce or elastic easing curves are used
-- [ ] Every animation communicates a state change or spatial relationship
-- [ ] Durations follow the 100/300/500 rule
-- [ ] Easing curves are exponential (not default `ease` or `linear`)
-- [ ] Grouped elements use staggered timing
-- [ ] Exit animations exist where entry animations exist
-
 **Severity Classification:**
 | Violation Type | Severity | Rationale |
 |----------------|----------|-----------|
 | Animating layout properties (width, height, margin, padding, top, left) | Critical | Causes jank, dropped frames, and poor performance on all devices |
 | No prefers-reduced-motion support | Critical | Accessibility violation; can cause vestibular distress in affected users |
 | Decorative animation with no communicative purpose | High | Adds visual noise, increases cognitive load, slows perceived performance |
-| Bounce or elastic easing in production UI | High | Feels dated and unprofessional; extra motion is disorienting |
-| Durations outside 100-500ms range without justification | Medium | Too fast feels abrupt; too slow feels sluggish |
-| Default ease or linear easing on UI transitions | Medium | Missed opportunity for natural-feeling motion; linear feels mechanical |
 
-### APPLIER Mode
-When creating or modifying a design, ensure:
-- [ ] Start by identifying what state changes need to be communicated before adding any animation
-- [ ] Use the 100/300/500 rule to set duration based on interaction complexity
-- [ ] Choose easing: ease-out for entries, ease-in for exits, ease-in-out for toggles
-- [ ] Animate only `transform` and `opacity`
-- [ ] Add stagger delays (50-80ms) for grouped elements
-- [ ] Implement `prefers-reduced-motion` before shipping
-- [ ] Test at 60fps on lowest-spec target device
+Reviewing and applying draw on the same criteria in both directions: identify the state change before
+adding any animation, animate only `transform` and `opacity`, and implement `prefers-reduced-motion`
+before shipping.
 
 ---
 
@@ -292,13 +223,14 @@ When creating or modifying a design, ensure:
 
 ## COMMON MISTAKES
 
+**Last reviewed: 2026-07**
+
 | Mistake | Why It Happens | Correct Approach |
 |---------|----------------|------------------|
 | Animating `width`, `height`, or `margin` for transitions | Developer thinks of size/position changes literally | Use `transform: scale()` for size, `transform: translate()` for position, and `grid-template-rows` for collapse |
 | Using bounce or elastic easing everywhere | Tutorials and animation libraries default to playful curves | Use exponential ease-out (`cubic-bezier(0.16, 1, 0.3, 1)`) for all standard UI motion |
 | Adding animation to everything at once | Developer wants the site to "feel alive" | Animate only state changes that need communication; start with entry animations and interactive feedback |
-| Same duration for all animations | Developer picks one value and applies it everywhere | Match duration to complexity: 100ms for micro, 300ms for standard, 500ms for complex orchestrations |
 | No exit animations | Developer only thinks about elements appearing, not disappearing | Elements should exit with the reverse of their entry. Use ease-in and remove from DOM after `transitionend` |
-| Using `transition: all` | Seems like a convenient shorthand | Explicitly list properties: `transition: transform 300ms ease-out, opacity 300ms ease-out` to avoid unintended animations |
 | Ignoring prefers-reduced-motion | Developer isn't aware of the preference or considers it edge-case | It's a critical accessibility requirement; add a global media query that disables or reduces all motion |
-| Using setTimeout instead of transitionend | Developer doesn't know about transition events | Listen for `transitionend` or `animationend` events to sequence animations reliably |
+
+See `checklists.md` §4 Common Mistakes Master Table for the complete list across all chapters.
