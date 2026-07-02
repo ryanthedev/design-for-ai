@@ -255,6 +255,15 @@ Agent tool:
     - DESIGN.md / JOURNEY.md at the project root if present (the contract the
       surface should honor).
 
+    ## Dual-blind review — run BOTH assessments
+    Assessment A: your cross-pillar critique. Assessment B: the
+    deterministic detector — run `node scripts/detect.mjs [.html/mock
+    path(s) from BUILD's report]` FIRST, redirected to a file you do not
+    read until Assessment A's findings are frozen (your protocol's
+    isolation rule). A skipped detector on a rendered .html is a FAILED
+    review run; no rendered artifact (spec-only phase) → detector N/A,
+    not a failure.
+
     [if the phase has a **Doctrine:** field with names other than `none`:]
     ## Doctrine
     Look up each name in docs/pillar-taxonomy.md §5, then Read() the file

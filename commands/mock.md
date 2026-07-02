@@ -108,6 +108,14 @@ Agent tool:
     - .html: [.html path(s) from Step 1]
     - DESIGN.md / JOURNEY.md at the project root if present.
 
+    ## Dual-blind review — run BOTH assessments
+    Assessment A: your cross-pillar critique. Assessment B: the
+    deterministic detector — run `node scripts/detect.mjs [.html path(s)
+    from Step 1]` FIRST, redirected to a file you do not read until
+    Assessment A's findings are frozen (your protocol's isolation rule).
+    A skipped detector on a rendered .html is a FAILED review run; no
+    rendered artifact → detector N/A, not a failure.
+
     ## Output
     Write the cross-pillar findings report to:
     .design-foundations/build/[plan-slug]-mock-review.md

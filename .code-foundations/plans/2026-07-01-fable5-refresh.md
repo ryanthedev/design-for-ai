@@ -461,3 +461,10 @@ Summary: The doctrine library is de-prescriptified for Fable 5 — exhaustive ba
 - [x] Committed
 Commit: a77ccce
 Summary: The DNA pipeline is now ground→diverge→critique→converge→gate. Each of 5 candidates anchors to two named distinct references (collision format); a criteria-bound critique (distinctiveness/register/tells-scan) runs over ALL candidates before selection; convergence offers synthesis-across-candidates + one loop-back (pick-one stays legal); register is a per-surface-moment dial; "honest default" framing removed. A `composition: <dealt>` slot awaits Phase 5's dealer — that is the seam. NOTE for Phase 7: behavioral-principles.md:225 contains "honest defaults" (a legitimate ethics term, NOT the removed DNA framing) — Phase 7's `grep 'honest default'` will hit it; distinguish and leave it.
+
+### Phase 5: Composition dealer (Gate: Full)
+- [x] BUILD: Discovery + design + implementation complete — scripts/dealer.mjs + dealer.test.mjs (19 tests), additive palette.mjs hue-walk hook, dealer contract in design-dna.md
+- [x] REVIEW: pass — independently re-ran everything (byte-identical determinism via diff, 2000-seed banned-cell sweep = 0 emissions, forced exhaustion = clean exit 3, no Math.random/Date.now, palette.mjs CLI unchanged); own suite 19/19
+- [x] Committed
+Commit: 94e1c67
+Summary: The composition dealer is live — deterministic seeded (project|date via xmur3→mulberry32), deals family + composition-discipline (1-9 DESIGN_VARIANCE dial) + golden-angle hue + signature per candidate; used-dna.json replay ledger; 6 AI-tell cells banned (102 legal cells, unexhaustable); clean exhaustion error. The model now justifies/executes the dealt hand. dealer JSON is the seam Phase 8's eval scores; detect.mjs (Phase 6) is the other Phase 8 instrument.
