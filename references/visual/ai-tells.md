@@ -78,6 +78,20 @@ Signs this knowledge applies:
 - [ ] Everything fades in from below with the same timing
 - [ ] Hover effects on everything with no hierarchy of importance
 
+### Copy/Content Tells
+Source: Impeccable's deterministic text-tell rules (`em-dash-overuse`, `marketing-buzzword`,
+`numbered-section-markers`, `aphoristic-cadence`, `theater-slop-phrase` — pbakaus/impeccable,
+Apache-2.0, local read 2026-07-01, cited by name only — no code ported; Phase 6 ports a subset
+with full attribution) plus superdesign.dev and dev.to/olehvolos (2026-06) for the microcopy
+template. Roughly a fifth of Impeccable's 44-rule catalog is copy/content, a category this file
+had none of before this pass.
+- [ ] Em-dash overuse — 5+ em-dashes (—) or double-hyphens in body copy; occasional literary use is fine, density is the tell
+- [ ] Marketing buzzword stacking — stock SaaS phrases ("streamline your workflow," "unleash the power," "best-in-class," "industry-leading," "seamlessly integrate") standing in for a specific claim
+- [ ] Aphoristic cadence — manufactured-contrast sentences ("Not a dashboard. A decision engine.") or short-rebuttal pairs ("Fast. No compromises."), 3+ times in the same body of copy
+- [ ] Theater-slop phrasing — dismissing something as "___ theater" (compliance theater, security theater) instead of stating plainly what it does or doesn't do
+- [ ] Numbered-section markers as decoration — 01 / 02 / 03 used as section labels with no functional ordering purpose, 3+ sequential occurrences
+- [ ] Generic microcopy template — hero headline + subheading + CTA button immediately followed by a logo strip or testimonial row, where every line of copy could be swapped into a different product with no edit
+
 ### Developer Statements That Trigger This
 - "I asked AI to make it look modern and clean"
 - "It looks great but also looks like every other site I've seen lately"
@@ -108,6 +122,8 @@ Signs this knowledge applies:
 
 ## RED FLAGS
 
+**Last reviewed: 2026-07**
+
 | Flag | Severity | What It Indicates | Theory Violation | Fix |
 |------|----------|-------------------|-----------------|-----|
 | Inter/Roboto as primary font | High | No typography decision was made | Ch 3: typeface must match medium AND context AND mood | Choose a font that reflects the design's purpose and personality |
@@ -117,6 +133,24 @@ Signs this knowledge applies:
 | Same spacing everywhere | Medium | No hierarchy through white space | Ch 7: white space is the most powerful hierarchy signal | Use proportional spacing — tight within groups, generous between |
 | Dark mode + neon accents | Medium | "Cool" aesthetic substituting for design decisions | Ch 1: design is purpose + medium + aesthetics, not surface styling | Choose light or dark based on content needs and audience |
 | Gradient text on metrics | Low | Decorative pattern masking lack of data hierarchy | Ch 7: hierarchy through weight > size > color, not decoration | Use solid colors; establish hierarchy through proportion |
+
+### Checkable Signatures (2026)
+
+**Last reviewed: 2026-07**
+
+These sharpen the pattern-level flags above into evidence a detector (or a human) can check directly
+— a hex to grep, an opacity range, a binary yes/no — instead of a visual impression. They are dated
+examples of the same convergence principle, not a new frozen ban-list: see Decay Doctrine below for
+why the escape-hatch rows exist and how they get re-audited.
+
+| Signature | Observable Check | Severity | Source (dated) |
+|-----------|-------------------|----------|-----------------|
+| Purple-indigo-violet triplet | Hex `#6366F1` (indigo-500), `#8B5CF6` (violet-500), or `#A855F7` (purple-500) — or the matching Tailwind utility classes — used as an accent, gradient, or heading color on white/`#F9FAFB` | High | superdesign.dev, 2026-06-15 (updated 2026-06-26) |
+| Uniform 0.1-opacity shadow | `box-shadow`/`drop-shadow` alpha in the 0.08–0.12 range applied identically across 3+ elements with no depth variation | Medium | superdesign.dev, 2026-06 |
+| Unmodified Tailwind/shadcn defaults | Binary check: do the shipped `--radius`, spacing scale, and shadow CSS variables differ from shadcn/ui's generated defaults? No diff = tell | High | dev.to/olehvolos, 2026-06-02 (names Lovable, v0, Bolt as the tools shipping this look unmodified) |
+| Cream+serif+terracotta cluster | Background near `#F4F1EA` + high-contrast serif display + terracotta accent, co-occurring | Medium — escape-hatch, decaying (register-legitimate in some editorial/luxury contexts; see THIS VS THAT) | Anthropic frontend-design plugin SKILL.md (277k+ installs; fetched 2026), one of three named "default aesthetic clusters" |
+| Dark+acid-green (or vermilion) cluster | Near-black background (`#0a0a0a`–`#1a1a1a`) + a single bright acid-green or vermilion accent as the sole differentiator | Medium — escape-hatch, decaying | Anthropic frontend-design plugin SKILL.md, same source |
+| Space Grotesk as primary/display font | `font-family` includes "Space Grotesk" | High — reversed from a 2025 recommendation, see Decay Doctrine | Anthropic cookbook, Oct 2025 (recommended) → theadpharm.com, 2026-05 (banned: "the 'I tried' upgrade") |
 
 ---
 
@@ -208,6 +242,29 @@ Left-align body text for readability. Use asymmetric layouts where a dominant el
 
 The problem with AI-generated design isn't that it's bad. It's that it's all the same. When every AI converges on the same "clean, modern" aesthetic, that aesthetic becomes a signal of laziness, not quality. Design should be intentional: every visual choice traceable to purpose (Ch 1), audience (Ch 2), and medium (Ch 3). An authored design makes choices a generic system wouldn't make.
 
+### Decay Doctrine
+
+Tells decay. Anthropic's own Oct 2025 cookbook recommended Space Grotesk for a "Code aesthetic" and
+flagged it as a convergence risk in the same document; ecosystem practice caught up within roughly
+seven months (theadpharm.com, 2026-05) and now bans it outright — "the 'I tried' upgrade." The same
+pattern repeats structurally: an escape-hatch aesthetic invented to dodge one generation of tells
+(cream+serif+terracotta; dark+acid-green — see Checkable Signatures above) becomes, once enough
+builders reach for it, the next generation's tell. A tells list is a snapshot of the current default,
+not a permanent ban.
+
+Two consequences for how this file is used and maintained:
+
+- **Every table in this file carries `Last reviewed: 2026-07`.** Treat any undated tells or red-flag
+  table anywhere in this plugin's doctrine as presumptively stale — the re-audit convention (cadence,
+  what counts as a trigger, how a stale list gets flagged) lives in `docs/foundations-standards.md`.
+- **Guard against over-correction becoming the new tell.** An anti-slop pass that pushes every output
+  toward the same "edgy" register — the same escape-hatch cluster, the same forced asymmetry — is
+  itself a uniform failure mode; it has moved the convergence point, not removed it. Review verifies
+  variance *across* a body of outputs (does project A look different from project B?), not only each
+  output's distance from the AI-default baseline in isolation. A design that avoids every hex in the
+  Checkable Signatures table but is indistinguishable from the last three projects that also avoided
+  them has not passed (developersdigest.tech, 2026).
+
 ### CHECKER Mode
 When reviewing an existing design, verify:
 - [ ] The design has a stated aesthetic direction beyond "clean and modern"
@@ -218,6 +275,9 @@ When reviewing an existing design, verify:
 - [ ] The design wouldn't be immediately believed if someone said "AI made this"
 
 **Severity Classification:**
+
+**Last reviewed: 2026-07**
+
 | Violation Type | Severity | Rationale |
 |----------------|----------|-----------|
 | No aesthetic direction (defaults to "clean and modern") | Critical | Absence of design decisions; every subsequent choice will be generic |
@@ -241,6 +301,8 @@ When creating or modifying a design, ensure:
 
 ## THIS VS THAT
 
+**Last reviewed: 2026-07**
+
 | Confusion Point | This File Says | Not This |
 |-----------------|----------------|----------|
 | "AI design is always bad" | AI design is technically competent but generic; the issue is convergence, not quality. Every AI produces the same output, so it becomes a recognizable signal | AI-generated designs are inherently low quality or broken |
@@ -253,6 +315,8 @@ When creating or modifying a design, ensure:
 ---
 
 ## DESIGN DECISION TABLE
+
+**Last reviewed: 2026-07**
 
 | Decision Point | Options | This File Recommends | When |
 |----------------|---------|---------------------|------|
@@ -268,6 +332,8 @@ When creating or modifying a design, ensure:
 
 ## TECHNIQUE REFERENCE
 
+**Last reviewed: 2026-07**
+
 | Technique | What It Does | When to Use | How to Apply |
 |-----------|-------------|-------------|--------------|
 | AI Slop Test | Reveals whether a design is distinguishable from generic AI output | After completing any AI-assisted design | Ask: "If I told someone AI made this, would they believe me immediately?" If yes, identify which tells are present and address them |
@@ -280,6 +346,8 @@ When creating or modifying a design, ensure:
 ---
 
 ## COMMON MISTAKES
+
+**Last reviewed: 2026-07**
 
 | Mistake | Why It Happens | Correct Approach |
 |---------|----------------|------------------|

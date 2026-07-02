@@ -433,4 +433,10 @@ sweeps, `validate_skill`, script smoke runs with fixtures, and the Phase 8 eval 
   deliverable.
 ---
 ## Execution Log
-_To be filled during /code-foundations:build_
+
+### Phase 1: Orchestration refresh (Gate: Standard)
+- [x] BUILD: Discovery + design + implementation complete — mirrored the code-foundations orchestration refresh (verified reference commits present) onto design-for-ai's commands + agents
+- [x] REVIEW: fail→pass (2 attempts) — 1st FAIL caught an internal contradiction (plan.md clarify loop used AskUserQuestion for open-ended gaps, contradicting the conversational-confirmation rationale two paragraphs later); fixed by routing open-ended content gaps to conversation while keeping AskUserQuestion for genuinely option-shaped picks
+- [x] Committed
+Commit: 303b5a0
+Summary: The four commands + both agents now speak the fable/sonnet/haiku model ladder (opus = explicit override) with build-side resolution fallbacks and an effort doctrine; imperative STOP/CRITICAL/MANDATORY headers are calm rationale-stating gates; AskUserQuestion is confined to decisive 2-4-option picks while open-ended checkpoints are conversational. This establishes the ladder/effort/gate vocabulary that Phases 2-8 and future plans reuse.
