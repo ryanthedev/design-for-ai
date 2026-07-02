@@ -20,7 +20,7 @@ This command obeys the shared contract in `docs/workflow-conventions.md` (the li
 - **Plain text (not a path):** treat it as the brief and proceed.
 - **Empty:** ask the user what they want to design.
 
-A research doc carries confirmed intent. **Do not re-derive the brief from scratch** — read it, then fill only the gaps.
+A research doc carries confirmed intent. **Do not re-derive the brief from scratch** — read it, then fill only the gaps. A research doc's `## Taste signals` section, when present, carries dealer pins — copy them into the DNA phase's `**Constraints:**` verbatim rather than re-eliciting them.
 
 ---
 

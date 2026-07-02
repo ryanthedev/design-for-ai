@@ -68,6 +68,8 @@ Each question should make the problem space smaller. A loose framework for what 
 
 **References** — Are there existing products, designs, or screenshots that feel right (or wrong)? Competitors they admire or want to avoid? A mood board or screenshot they can share?
 
+**Taste** — Aesthetic instincts surface on their own: a font leaning (serif or sans, expressive or neutral), a color they love or can't stand, dense versus airy, anything they'd want locked in before design starts. Catch these as they come up — don't run a menu. They become dealer pins later.
+
 You don't need to cover all of these. Some briefs are simple. Follow the thread the user gives you.
 
 ---
@@ -123,10 +125,55 @@ Don't force a template. Write what emerged from the conversation in a form that'
 
 **Always include at the top:**
 - One-sentence summary of what this is
-- Date and status (draft / confirmed)
+- Date and status (**draft** on save; **confirmed** only through Verification below)
 - Open questions (anything that needs resolution in planning or the design DNA step)
 
+If taste signals surfaced, record them under a `## Taste signals` heading — plan carries them into the design DNA step as dealer pins.
+
 If the user has no existing brand, list "visual identity / design DNA" as an open question — the core `design` mode resolves this during planning.
+
+---
+
+## Verification (optional, before confirming)
+
+Once the doc is saved, make an offer: "want me to try to break this before we call it confirmed?" If yes — a grill, then a cold read. Skip it when the brief is simple or the user is done — the doc just stays **draft**.
+
+### The Grill
+
+Switch stances — you're no longer facilitating, you're trying to break the brief. Hunt for the question whose answer would change what's written: two mood words that contradict ("warm AND authoritative" — which one leads on a real screen?), an audience that doesn't match the device, a reference that contradicts the stated feel, a JTBD the page inventory can't serve, an unstated brand constraint (a logo hue that quietly vetoes the palette), the riskiest assumption left untested.
+
+- One question at a time. Wait for the answer before asking the next.
+- Pair every question with your recommended answer — the user reacts faster to a position than to a blank.
+- If a reference image or a quick search can answer it, look it up instead of asking.
+- Fold answers into the document as they land.
+
+Stop when two consecutive questions change nothing.
+
+### The Cold Read
+
+You wrote the doc with the whole conversation in your head, so you can't see where it leans on context that isn't on the page. Dispatch a fresh subagent that has none of it — no conversation summary, no intent framing; the file path is the entire briefing:
+
+```
+Agent tool:
+- description: "Cold-read design brief"
+- run_in_background: false
+- prompt: |
+    Read .design-foundations/research/<file>.md. You have no other context about
+    it, and the next reader won't either — it feeds /design-for-ai:plan in a
+    fresh session. Report, as a short severity-ranked list (or "clean"):
+    - Questions you'd have to ask before you could plan from this doc
+    - Mood or feel words a designer couldn't act on — would two designers
+      produce the same feel from them?
+    - Internal contradictions (mood vs mood, audience vs device, references
+      vs stated feel, JTBD vs page inventory)
+    - Constraints the doc implies but never states
+    - Mismatches between the open-questions list and the body (open items the
+      body actually resolves; unresolved questions the body raises but the
+      list omits)
+    Do not propose solutions or redesign anything. Findings only.
+```
+
+Fold trivial findings into the doc directly; take substantive ones back to the user — they may become one more round of grill. When the cold read comes back clean, or every finding is resolved or consciously accepted, flip status to **confirmed**.
 
 ---
 

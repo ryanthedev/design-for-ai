@@ -139,7 +139,7 @@ This is the evidence the user signs off (or rejects) the direction on.
 
 ## Sign-off Gate
 
-`mock` does NOT auto-advance to `build` — the direction commits real build cost, so only the user can decide whether it's right. Present the evidence, then ask the user to decide, and wait for an explicit answer: this is a genuine two-option decision on evidence already shown in conversation (Step 3), which is exactly what `AskUserQuestion` is for.
+`mock` does NOT auto-advance to `build` — the direction commits real build cost, so only the user can decide whether it's right. Present the evidence, then ask the user to decide, and wait for an explicit answer: this is a genuine three-option decision on evidence already shown in conversation (Step 3), which is exactly what `AskUserQuestion` is for.
 
 Ask:
 
@@ -147,12 +147,16 @@ Ask:
 Direction check — does this mock prove the right design direction?
 
 - [ ] Approve → proceed to the full build
+- [ ] Swap an axis → tune one dimension (hue, chroma, font, or signature), then re-check here
 - [ ] Adjust → loop back to plan/Design with these findings
 ```
 
 | User decision | Action |
 |---|---|
 | **Approve** | Chain to build: `/design-for-ai:build [plan path]`. State: "Direction approved — running the gated build." |
+| **Swap an axis** | Ask which axis: hue, chroma, font, or signature — never composition or family (wanting a different composition cell is a re-deal, a plan-loop matter, not a swap). Edit DESIGN.md first: for hue/chroma, re-run `scripts/palette.mjs` and paste the fresh tokens + contrast report; for font/signature, update the token entries directly. Update the **Pins:** line either way. Re-confirm the lock, re-render the mock once via Steps 1-2, and re-present at this same gate. |
 | **Adjust / reject** | Loop back: `/design-for-ai:plan [plan path]`, carrying the review findings (especially Critical/Major) so the next pass addresses them. State: "Direction not yet right — looping to plan/Design with the findings; not proceeding to build." |
+
+One swap loop only. If the re-rendered mock still isn't right, the axis wasn't the problem — the direction is; route to Adjust on the next pass instead of swapping again.
 
 **Never proceed to `build` without an explicit Approve.** A rejected (or unanswered) direction loops to `plan` — there is no silent proceed (workflow-conventions.md §5; this command's reason for being).
