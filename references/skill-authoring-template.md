@@ -1,9 +1,11 @@
-# Pillar skill-authoring template
+# Skill-authoring template
 
-The reusable procedure Phases 2–6 follow to author each pillar skill. It operationalizes
-`docs/foundations-standards.md` (the rules) and `docs/pillar-taxonomy.md` (the per-pillar scope). Author
-*through* `oberskills:skill-craft` best practices — baseline-first, measure don't guess — not
-just `validate_skill` after the fact.
+The reusable procedure for authoring any of the 4 surviving skills (`clarify`, `prototype`,
+`usability`, `data-viz`). Doctrine reference files in `references/` are plain Markdown — they
+do not use SKILL.md or YAML frontmatter and are not covered here. This template operationalizes
+`docs/foundations-standards.md` (the rules) and `docs/pillar-taxonomy.md` (scope + resolver).
+Author *through* `oberskills:skill-craft` best practices — baseline-first, measure don't guess —
+not just `validate_skill` after the fact.
 
 ---
 
@@ -20,41 +22,53 @@ just `validate_skill` after the fact.
 ## 1. Checklist (do these in order)
 
 Baseline-first: write the evals before the skill, so the documented failures are the spec.
+Applies to the 4 surviving skills only (`clarify`, `prototype`, `usability`, `data-viz`).
+Doctrine reference files in `references/` are plain Markdown — skip this checklist for those.
 
-- [ ] **Scope.** Read the pillar's row in `docs/pillar-taxonomy.md`: its concern (SRP), its "fires on"
-      triggers, its "not for X (use Y)" exclusions, and which pillars it may cite (cite-down only).
-- [ ] **Source.** Read the backing grug research for this pillar (named in the taxonomy row).
+- [ ] **Scope.** Read the skill's row in `docs/pillar-taxonomy.md`: its concern (SRP), its "fires on"
+      keywords (for `prototype`), its "not for X (use Y)" exclusions, and which doctrine it may cite.
+- [ ] **Source.** Read the backing grug research for this skill's domain (named in the taxonomy row).
       Pull the principles/laws/patterns the skill will cite. Cite-the-principle on every claim.
 - [ ] **Baseline evals.** Author ≥3 evals (`evals.json`); run `run_eval` with
       `configurations: ["without_skill"]` to document what Claude misses without the skill.
-- [ ] **Stub the surface.** Create `skills/<pillar>/SKILL.md` with frontmatter (§2) + the body
+- [ ] **Stub the surface.** Create `skills/<name>/SKILL.md` with frontmatter (§2) + the body
       skeleton (§3), and empty `references/<file>.md` stubs (§4). Wire routing in SKILL.md only.
 - [ ] **Author.** Fill the body and references from the research. SKILL.md body < 500 lines;
       depth goes in references. Apply the dependency direction (cite usability down, never up).
-- [ ] **Validate.** `validate_skill skills/<pillar>` → 0 errors / 0 warnings. Fix all warnings.
-- [ ] **Trigger-test.** `test_triggers` — positive queries fire it; near-miss queries (the
-      "not for" set) do NOT. If it misfires, `optimize_description` until both directions pass.
-- [ ] **Keystone eval (usability only, exercised Phase 6).** `run_eval` with-skill vs
-      without-skill; with-skill beats baseline on the graded assertions.
-- [ ] **Cross-refs.** If the pillar cites a sibling (e.g. journey → usability laws,
-      deceptive-patterns → ai-tells), make the link resolve and point the correct direction.
-- [ ] **Register the skill** (Phase 6 integration): confirm it is discovered from `skills/` and,
-      if a manifest `skills` array is later introduced, add the entry there.
+- [ ] **Validate.** `validate_skill skills/<name>` → 0 errors / 0 warnings. Fix all warnings.
+- [ ] **Trigger-test.** For `prototype` (user-invocable: true): positive queries fire it; near-miss
+      queries do NOT. For `clarify`, `usability`, `data-viz` (user-invocable: false): confirm they
+      do not appear in the slash menu and do not auto-trigger. Run `optimize_description` if needed.
+- [ ] **Keystone eval (usability).** `run_eval` with-skill vs without-skill; with-skill beats baseline.
+- [ ] **Cross-refs.** If the skill cites doctrine (e.g. usability laws), make the link resolve
+      and point the correct direction (cite-down, never up).
+- [ ] **Verify discovery.** Confirm the skill directory is discovered from `skills/` at plugin load.
 
 ## 2. Copy-paste frontmatter block
 
+For `prototype` (`user-invocable: true` — publicly invocable):
 ```yaml
 ---
-name: <pillar-name>
-description: "<Verb-first capabilities>. Use when <triggers/contexts>. Not for: <near-miss exclusions — the sibling pillars / core modes that share keywords>."
+name: prototype
+description: "<Verb-first capabilities>. Use when <triggers/contexts>. Not for: <near-miss exclusions>."
 user-invocable: true
-argument-hint: "[context]"
+argument-hint: "[page name or spec, fidelity: wireframe|styled]"
+---
+```
+
+For de-triggered skills (`usability`, `data-viz`) and internal workflow skills (`clarify`):
+```yaml
+---
+name: <skill-name>
+description: "<Verb-first capabilities>. Use when <triggers/contexts>. Not for: <near-miss exclusions>."
+user-invocable: false
+disable-model-invocation: true   # omit for clarify (internal, not fully suppressed)
 ---
 ```
 
 Rules (from `docs/foundations-standards.md` §1–§2): `name` == directory name; `description` ≤ 1024
 chars, third person, no XML tags, capability nouns not process steps, near-miss "Not for:" clause
-present. The "Not for:" clause is copied from the pillar's taxonomy row — it is the
+present. The "Not for:" clause is copied from the skill's taxonomy row — it is the
 anti-cannibalization contract.
 
 ## 3. SKILL.md body skeleton
@@ -101,11 +115,12 @@ TRIGGERS, PRODUCES, NEXT CAPABILITY NEEDED, CSO KEYWORDS). Routing belongs in SK
 
 ## 5. Definition of done
 
-A pillar skill is done when **all** hold (the per-skill eval gate, `docs/foundations-standards.md` §6):
+A skill is done when **all** hold (the per-skill eval gate, `docs/foundations-standards.md` §6):
 
 - `validate_skill` = 0 errors / 0 warnings.
-- `test_triggers` passes both directions (fires on-topic; quiet on near-miss / no cannibalization).
+- Trigger direction verified: `prototype` fires on-topic and stays quiet on near-misses;
+  `usability`/`data-viz`/`clarify` do not appear in the slash menu and do not auto-trigger.
 - `run_eval` passes its graded assertions (keystone `usability`; others as budget allows).
 - Description ≤ 1024 chars with the near-miss "Not for:" clause.
 - Every recommendation in the skill cites its principle; citations point down (never up), no cycle.
-- Cross-skill links resolve.
+- Cross-skill and cross-doctrine links resolve.

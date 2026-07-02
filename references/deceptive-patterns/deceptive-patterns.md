@@ -1,13 +1,6 @@
----
-name: deceptive-patterns
-description: "Detects, classifies, and proposes honest alternatives to dark patterns (deceptive design patterns) — manipulative techniques that exploit user psychology against user intent. Use when asking whether a checkout flow, pricing page, unsubscribe flow, subscription process, or cookie banner is deceptive or manipulative, or for an ethical design review. Pattern types: false scarcity, fake urgency, countdown timers, roach motels, confirmshaming, trick questions, hidden costs, drip pricing, friction asymmetry, fake reviews, bait-and-switch, disguised ads, manipulative cookie consent. Also covers regulatory exposure (GDPR, EU DSA, FTC click-to-cancel, Digital Fairness Act) (Brignull Deceptive Patterns; Nodder Evil by Design; Monteiro Ruined by Design). Not for: visual aesthetic tells like glassmorphism or Inter defaults (use core audit/ai-tells); legitimate persuasion, engagement, or retention design (use behavioral); the flow or journey a user moves through (use journey); accessibility failures (use usability)."
-user-invocable: true
-argument-hint: "[flow, feature, or pattern to audit]"
----
-
 Deceptive patterns are design choices that use the product's power against its own users — exploiting the same psychological mechanisms that honest design employs, but in service of the company's goals at the user's expense. The work here is identification, classification, severity assessment, regulatory exposure, and the honest alternative. Every finding cites its pattern category and, where relevant, the mechanism being exploited.
 
-Cross-reference: `skills/design-for-ai/references/ai-tells.md` is the structural twin — a ban-list of aesthetic tells (visual patterns that signal AI-generated defaults). This skill is the ethical twin — a ban-list of manipulation tells. Same format, different domain.
+Cross-reference: `${CLAUDE_PLUGIN_ROOT}/references/visual/ai-tells.md` is the structural twin — a ban-list of aesthetic tells (visual patterns that signal AI-generated defaults). This skill is the ethical twin — a ban-list of manipulation tells. Same format, different domain.
 
 ## When this applies
 

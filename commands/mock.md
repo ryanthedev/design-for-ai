@@ -114,7 +114,7 @@ Agent tool:
     Return: DESIGN-REVIEW [PASS|FAIL] and the report path.
 ```
 
-The review-agent triages the surface, dispatches only applicable pillars (visual + usability always; others only when their signal is present), and synthesizes ONE severity-ranked report. On the no-screenshot path it critiques structure and notes the missing pixel evidence — graceful, never an error.
+The review-agent triages the surface, reads only applicable doctrine (visual + usability always; others only when their signal is present), and synthesizes ONE severity-ranked report. On the no-screenshot path it critiques structure and notes the missing pixel evidence — graceful, never an error.
 
 ---
 

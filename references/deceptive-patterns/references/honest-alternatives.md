@@ -1,6 +1,6 @@
 # Honest alternatives — ethical counterparts to each dark pattern category
 
-**Source:** Brignull *Deceptive Patterns* (2023); Eyal *Indistractable* (2019, partial counter to *Hooked*); Monteiro *Ruined by Design* (2019); Norman *Emotional Design* (2003); WCAG 2.2; Tesler's law (`skills/usability/references/usability-principles.md`); the behavioral skill (`skills/behavioral/`) for the positive framework of each mechanism.
+**Source:** Brignull *Deceptive Patterns* (2023); Eyal *Indistractable* (2019, partial counter to *Hooked*); Monteiro *Ruined by Design* (2019); Norman *Emotional Design* (2003); WCAG 2.2; Tesler's law (`skills/usability/references/usability-principles.md`); the behavioral doctrine (`${CLAUDE_PLUGIN_ROOT}/references/behavioral/`) for the positive framework of each mechanism.
 
 **Purpose:** Every dark pattern has an honest version that pursues the same business goal without exploiting the user. This file is the constructive layer of the deceptive-patterns skill. An audit that only names the pattern without the alternative is ethics washing (Monteiro: designers have responsibility for what they design, not just the intent behind it).
 

@@ -1,38 +1,39 @@
-# Pillar taxonomy — the 8 design-foundations skills
+# Pillar taxonomy — design doctrine and the 4 surviving skills
 
-The map every later phase consumes: the 8 pillar skills, their single concern (SRP), their
-disjoint trigger scopes, the "not for X (use Y)" disambiguation that prevents cannibalization,
-and the cite-down dependency direction. Rules live in `foundations-standards.md`; this is the
-*who-owns-what*. Scope boundaries may shift slightly as pillars are authored — re-confirmed at
-Phase 6 integration (plan uncertainty note).
+The map every later phase consumes: the 8 doctrine domains, their single concern (SRP), the
+"not for X (use Y)" disambiguation that prevents cannibalization, and the cite-down dependency
+direction. Six domains live as reference files in `references/`; two (`usability`, `data-viz`)
+remain as de-triggered skills in `skills/`. Rules live in `foundations-standards.md`; this is the
+*who-owns-what*.
 
-**Dual role (v3.1.0 workflow).** Each pillar plays two roles simultaneously and neither overrides
-the other. (1) **Doctrine library** — the `research → plan → mock → build` workflow loads pillars
-per-phase via `Skill(<name>)` inside the dispatched agents, so every workflow phase gets the
-right domain checklist without the user having to invoke anything. (2) **Directly triggerable**
-— all pillars remain `user-invocable: true`; a user can invoke any pillar standalone for a
-narrow question ("is this chart lying?" → `data-viz`; "audit dark patterns" → `deceptive-patterns`)
-without running the full workflow. The workflow loads pillars by name regardless of their trigger
-status — triggering and workflow-loading are orthogonal.
+**Doctrine model (v4.0.0).** The workflow loads all design knowledge **deterministically by
+`Read()`** — never by `Skill()` auto-trigger. Plans and dispatch blocks carry semantic doctrine
+names; the §5 resolver table maps each name to its on-disk path; agents `Read()` the file before
+executing the phase. Six domains (`content-design`, `behavioral`, `journey`, `deceptive-patterns`,
+`design-systems`, `ai-native`) live as plain reference files in `references/` — they are not
+skills. Two (`usability`, `data-viz`) remain as skills in `skills/` with `user-invocable: false`
+and `disable-model-invocation: true` — they do not auto-trigger but are fully `Read()`-able via
+the resolver. The complete skills list is four: `clarify`, `prototype`, `usability`, `data-viz`.
 
-The existing `skills/design-for-ai/` core is **not** a pillar — it keeps the visual/aesthetic
-DNA, surface, and the index. The 7 core modes (design, surface, fonts, color, audit, enhance,
-polish) are the disambiguation targets the pillars point *away from*.
+The visual doctrine (`references/visual/`) is **not** a pillar — it covers visual/aesthetic
+DNA, surface, and the design toolkit. The 7 core modes (design, surface, fonts, color, audit,
+enhance, polish) are the disambiguation targets the pillars point *away from*.
 
 ---
 
 ## Table of Contents
 
-1. [The 8 pillars at a glance](#1-the-8-pillars-at-a-glance)
+1. [The 8 doctrine domains at a glance](#1-the-8-doctrine-domains-at-a-glance)
 2. [Disjoint trigger scopes (the anti-cannibalization contract)](#2-disjoint-trigger-scopes-the-anti-cannibalization-contract)
 3. [Dependency direction (cite-down, never up)](#3-dependency-direction-cite-down-never-up)
 4. [Build order](#4-build-order)
+5. [Doctrine resolver (name → path)](#5-doctrine-resolver-name--path--single-source-of-truth)
 
 ---
 
-## 1. The 8 pillars at a glance
+## 1. The 8 doctrine domains at a glance
 
-| # | Pillar (skill name) | Single concern (SRP) | Backing grug research | Phase |
+| # | Domain (doctrine name) | Single concern (SRP) | Backing grug research | Phase |
 |---|---------------------|----------------------|-----------------------|-------|
 | 1 | `usability` | Can the user operate it — principles (Gestalt, UX laws, Nielsen 10, Norman, WCAG) that adjudicate UI patterns (nav/forms/search/data/feedback/action/disclosure/onboarding) + heuristic evaluation | `usability-foundations-research` | 2 (keystone) |
 | 2 | `content-design` | The words ARE the interface — voice/tone as a language system, microcopy patterns (error/empty/button), content-first process | `design-pillar-landscape-research` | 3 |
@@ -96,3 +97,62 @@ Keystone first (everything cites it), then independents, then the paired and fro
 3. **Phase 4** — `deceptive-patterns` + `behavioral` (paired: same tools, opposite intent; both cite usability).
 4. **Phase 5** — `journey` + `design-systems` (journey cites usability; design-systems extends DESIGN.md).
 5. **Phase 6** — `ai-native` (no canon, principle-derived) + whole-system integration + cannibalization sweep.
+
+## 5. Doctrine resolver (name → path) — single source of truth
+
+The overhaul (v3.2 doctrine model) loads doctrine **deterministically by `Read()`**, not by
+auto-trigger. Plans and dispatch blocks carry semantic **doctrine names**; this table is the ONE
+place that maps each name to its on-disk file. Commands (Phase 3) and both agents (Phase 4) resolve
+names here, then `Read()` the path. **The name set below is the canonical vocabulary** — Phases 3–5
+must spell doctrine names exactly as the left column does.
+
+**Path convention.** Paths are repo-root-relative (verifiable with `test -e` from the plugin root).
+At runtime, consumers prefix them with `${CLAUDE_PLUGIN_ROOT}/` (e.g.
+`${CLAUDE_PLUGIN_ROOT}/references/visual/design-dna.md`).
+
+**Two-file rule.** Where a name historically spanned two files, the **primary** is the file the
+deleted core mode read *first*; the **companion** is listed in Notes and may also be `Read()` when
+the phase needs the full pair. This applies to `color` and `fonts`.
+
+**Survivors note.** `usability` and `data-viz` carry `disable-model-invocation: true` +
+`user-invocable: false` (they no longer auto-trigger or appear in the slash menu) — but their
+`SKILL.md` files remain fully `Read()`-able, which is how this resolver loads them.
+
+### Pillar doctrine (collapsed from skills → references)
+
+| Doctrine name | Path | Notes |
+|---------------|------|-------|
+| `content-design` | `references/content-design/content-design.md` | UX writing / microcopy / voice & tone. Sub-refs in `references/content-design/references/`. |
+| `behavioral` | `references/behavioral/behavioral.md` | Persuasion, Fogg model, habit loops, emotional design (honest mechanism). |
+| `journey` | `references/journey/journey.md` | JTBD, journey maps, IA, flows, page specs; ships JOURNEY.md companion. |
+| `deceptive-patterns` | `references/deceptive-patterns/deceptive-patterns.md` | Dark-pattern ban-list; structural twin of `ai-tells`. |
+| `design-systems` | `references/design-systems/design-systems.md` | Token tiers, atomic components, governance; extends DESIGN.md. |
+| `ai-native` | `references/ai-native/ai-native.md` | Agent / LLM-interface design; principle-derived, no settled canon. |
+
+### Survivor skills (still skills, de-triggered)
+
+| Doctrine name | Path | Notes |
+|---------------|------|-------|
+| `usability` | `skills/usability/SKILL.md` | Keystone; cited by other doctrine. `Read()`-able despite suppression flags. |
+| `data-viz` | `skills/data-viz/SKILL.md` | Truthful data encoding / charts. `Read()`-able despite suppression flags. |
+
+### Visual sub-topics (reconstitute the deleted core router's modes)
+
+| Doctrine name | Path | Notes |
+|---------------|------|-------|
+| `design-dna` | `references/visual/design-dna.md` | The `design` mode's DNA-generation protocol + DESIGN.md template. |
+| `color` | `references/visual/chapter-08-color-science.md` | **Primary.** Companion: `references/visual/chapter-09-color-theory.md` (color theory / schemes). Read both for a full color pass. |
+| `fonts` | `references/visual/chapter-03-typography.md` | **Primary.** Companion: `references/visual/appendix-fonts-and-typography.md` (font selection/config). Read both for a full type pass. |
+| `surface` | `references/visual/surfaces.md` | Device-class layout patterns + token deltas (phone, TV, watch, in-car, kiosk, voice, e-ink). |
+| `motion` | `references/visual/motion.md` | Motion / animation principles. |
+| `interaction` | `references/visual/interaction.md` | Interaction / state design. |
+| `responsive` | `references/visual/responsive.md` | Width-scaling rules within the screen-web continuum. |
+| `ai-tells` | `references/visual/ai-tells.md` | Generic / AI-generated-look ban-list; twin of `deceptive-patterns`. |
+| `libraries` | `references/visual/libraries.md` | The `enhance` mode's animation/3D library decision guide. |
+| `archetypes` | `references/visual/archetypes.md` | Brand archetype map for DNA generation. |
+| `foundations` | `references/visual/foundations.md` | Register + foundations established before DNA. |
+| `techniques` | `references/visual/techniques.md` | Applied visual techniques catalog. |
+| `checklists` | `references/visual/checklists.md` | Decision trees + the visual audit checklist (`audit`/`polish`). |
+
+> Additions are append-only — Phases 3/4 may surface a needed doctrine; add a row, never renumber or
+> rename existing names (downstream prompts match on them).

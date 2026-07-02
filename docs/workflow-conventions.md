@@ -99,11 +99,11 @@ A phase passes the heuristic gate when the design-review-agent's cross-pillar sy
 
 ## 4. Pillar dispatch conventions
 
-The workflow commands load pillars by name — `Skill(usability)`, `Skill(journey)`, etc. — as part of each phase. The pillars remain auto-triggerable by their descriptions (user decision; see plan decision log).
+Workflow agents load doctrine **deterministically by `Read()`**, not by `Skill()` invocation. Each plan phase carries semantic doctrine names (e.g. `journey`, `behavioral`, `usability`); the dispatched agents resolve those names to on-disk paths using the `docs/pillar-taxonomy.md` §5 resolver table, then `Read()` each file before executing the phase artifact.
 
 **Dispatch order within a phase (convention, not law):**
-1. Load the phase's assigned pillar skill(s) via `Skill()`
-2. Execute the phase artifact using the pillar's procedure
+1. Resolve each doctrine name via `docs/pillar-taxonomy.md` §5, then `Read()` each resolved path
+2. Execute the phase artifact using the doctrine content loaded
 3. Validate with design execution evidence (contrast/token/heuristic per §3)
 4. Dispatch the design-review-agent for independent cross-pillar critique
 5. Resolve Critical findings; log Major; commit
