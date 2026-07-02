@@ -397,7 +397,7 @@ sweeps, `validate_skill`, script smoke runs with fixtures, and the Phase 8 eval 
 | Impeccable's Apache-2.0 license permits subset port with attribution | HIGH (LICENSE read 2026-07-01: Apache-2.0; port must reference license + state modifications) | P6 | Write rules from scratch against Phase 3's catalog (same source of truth) |
 | A static (no-browser) detector subset ≥12 rules is portable | MEDIUM (~46 check functions in `cli/engine/rules/checks.mjs`, incl. static/DOM variant pairs; static share unconfirmed) | P6 | Accept fewer static rules + add browser-based checks via the existing mcp-browser connection |
 | code-foundations refresh diffs (7b8d974, d8ed1d9, be0926a) are final | MEDIUM (their verify phase still running at plan time) | P1 | Re-diff against `refresh/fable-sonnet-5` HEAD at build time and mirror the final shape |
-| Seeded composition dealing reduces detected/perceived genericness | LOW (zero outcome evidence anywhere — the research's central gap) | P8 measures it | Report null honestly; pivot to reference-grounding + critique as primary mechanism |
+| Seeded composition dealing reduces detected/perceived genericness | ~~LOW (zero outcome evidence anywhere — the research's central gap)~~ **MEASURED 2026-07-02 (P8): POSITIVE at aggregate** — refreshed arm 13 detector hits vs old 18 AND won blind distinctiveness 2/3 briefs (success criterion met). QUALIFIED: 1/3 briefs (ledgerline) regressed on BOTH axes via a `nested-cards`×5 execution spike; not per-brief dominant; small N (3 briefs, 1 gen each). | P8 measures it | ~~Report null~~ Result was positive; follow-up FN-1 filed for the nested-cards execution leak |
 | Fable 5's default tells overlap the documented catalog | MEDIUM (Claude Design "inherits the slop fingerprint", single source) | P8 fingerprint | Extend catalog + detector with what the fingerprint actually finds |
 | De-prescription improves (not degrades) doctrine adherence on Fable 5 | MEDIUM (official guidance, verbatim, but design-skill extrapolation is inference) | P8 A/B partially covers | Restore targeted prescription where the eval shows regression |
 
@@ -431,6 +431,29 @@ sweeps, `validate_skill`, script smoke runs with fixtures, and the Phase 8 eval 
 - Tells decay is now doctrine: this plan's own signature list (purple triplet, Space Grotesk…)
   carries `Last reviewed: 2026-07` and is expected to rot — the convention, not the list, is the
   deliverable.
+
+## Follow-ups (from Phase 8 eval, 2026-07-02)
+- **FN-1 — nested-cards execution guard.** Phase 8's eval found `nested-cards` is BOTH the #1 Fable 5
+  default (fingerprint: 6/6 unprompted mocks, 42 hits) AND the rule that sank the refreshed arm on the
+  ledgerline brief (8 vs 5 hits, driven by nested-cards×5; also lost the blind judgment). The dealer
+  fixes composition *selection* but execution can still reintroduce the tell — kitsch at the execution
+  layer, localized. Add a nested-cards check to the converge step of `references/visual/design-dna.md`
+  (Phase 4 pipeline) and/or make `detect.mjs`'s nested-cards a top-priority review-gate blocker, so the
+  most common Fable 5 default is caught before a mock passes. Priority: MEDIUM (the aggregate result was
+  positive; this closes the one measured regression).
+- **FN-2 — re-run the A/B with more briefs.** N=3, single generation per arm, one judge model. The
+  positive verdict is directional, not a distribution. Re-run with ≥6 briefs and multiple generations
+  per arm before treating "the refresh reduces genericness" as settled.
+- **FN-3 — re-measure the Fable 5 fingerprint by 2026-10** (tells decay; nested-card dominance is the
+  current signature and will shift as the model updates).
+
+## Phase 8 outcome (2026-07-02)
+Verdict against the pre-committed success criterion (refreshed arm has strictly fewer total detector
+hits AND wins blind distinctiveness ≥2/3): **MET — positive but qualified.** NEW 13 detector hits < OLD
+18; NEW won blind distinctiveness 2/3. One brief (ledgerline) regressed on both axes (see FN-1). This is
+the field's first affirmative outcome evidence that an anti-generic mitigation actually works, tempered
+by a real per-brief exception and a small sample. Full results: grug `design-for-ai/fable5-refresh-eval-results-2026-07`;
+artifacts under `skills/design-for-ai-workspace/`.
 ---
 ## Execution Log
 
@@ -475,3 +498,10 @@ Summary: The composition dealer is live — deterministic seeded (project|date v
 - [x] Committed
 Commit: c8356eb
 Summary: Review is now dual-blind — Assessment A (fresh-context LLM critique + distinctiveness criterion) and Assessment B (detect.mjs deterministic detector) run isolated, synthesize after both finish; skipped detector = failed run (N/A carve-out for no-HTML). detect.mjs ports 16 static rules from Impeccable (Apache-2.0, attributed + modifications stated), sourced from ai-tells.md. This closes the kitsch-gate. detect.mjs is Phase 8's scoring instrument alongside dealer.mjs.
+
+### Phase 7: Descriptions, housekeeping, validation (Gate: Standard)
+- [x] BUILD: Discovery + design + implementation complete — clarify near-miss clause, plugin.json→4.1.0, CLAUDE.md tree+prose, workflow-conventions.md review terminology
+- [x] REVIEW: pass — validate_skill 0 errors ×4, plugin.json 4.1.0 with dual-blind+dealer mentions, CLAUDE.md tree has dealer.mjs+detect.mjs, references/visual/ clean of DNA "honest default" (2 ethics hits correctly preserved), prototype not over-scoped
+- [x] Committed
+Commit: fab6923
+Summary: Public surface consistent at v4.1.0 — all 4 skills validate clean with near-miss clauses, manifest + CLAUDE.md + docs reflect the dealer/detector/dual-blind/reshaped-pipeline reality. FOLLOW-UP (pre-existing, from v4.0.0 overhaul not this refresh): usability/data-viz/prototype near-miss clauses still name deleted core design/audit/color "skills" (now reference files) — needs a separate cleanup.

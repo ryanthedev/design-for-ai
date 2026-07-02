@@ -357,3 +357,29 @@ When creating or modifying a design, ensure:
 | Equating "different" with "good" | Developer picks an unusual font and wild colors to avoid AI tells | Distinctiveness must serve purpose and audience; unusual choices without rationale are just novelty (Ch 1-2) |
 | Treating AI tells as a checklist to tick off | Developer changes the font and colors but keeps identical structure and spacing | AI tells are symptoms of absent decisions; address the root cause (no aesthetic direction) not just the surface signals |
 | Thinking "clean and modern" is an aesthetic direction | It describes the absence of dirt and the presence of recency, not a visual personality | A real direction is specific enough that someone could disagree with it: "brutalist" has critics, "clean" doesn't |
+
+---
+
+## FINGERPRINT ADDENDUM — CLAUDE FABLE 5 DEFAULTS
+
+**Added: 2026-07-02 · Last reviewed: 2026-07 · Review by: 2026-10 (tells decay — re-measure)**
+
+The tell catalog above and the Anthropic "AI slop" cookbook were benchmarked on sonnet-4-6. This addendum records the *first measured fingerprint of Claude Fable 5's own defaults* — no prior source has it. It is empirical, not curated: N=6 UI mocks were generated from plain one-line briefs (pricing page, SaaS landing, analytics dashboard, login screen, settings page, blog index) in **fresh, doctrine-free `claude -p` contexts** (no design-for-ai skill, no `ai-tells.md`, run from a directory outside this repo so no project `CLAUDE.md` loaded), then scored with `scripts/detect.mjs`. Artifacts: `skills/design-for-ai-workspace/fingerprint/` (6 `.html`, 6 `detect-*.json`, `summary.json`).
+
+**What Fable 5 actually exhibits, by prevalence (files that fired the rule / 6):**
+
+| Rank | Tell (detect.mjs rule) | Prevalence | Total hits | Severity | Reading |
+|------|------------------------|------------|------------|----------|---------|
+| 1 | `nested-cards` (card inside a card) | **6 / 6** | 42 | high | The dominant Fable 5 default. Every single unprompted mock nested cards; the settings page alone fired it many times. This is the single highest-yield thing to design against. |
+| 2 | `overused-font` (Inter / Roboto / Open Sans etc.) | **4 / 6** | 4 | medium | Still reaches for the safe sans by default in two-thirds of outputs. |
+| 3 | `purple-triplet` (`#6366F1`/`#8B5CF6`/`#A855F7` family) | 2 / 6 | 3 | high | Present but NOT universal — the purple gradient is receding as a Fable 5 default vs. the sonnet-4-6 fingerprint, though it still surfaces. |
+| 3 | `em-dash-overuse` | 2 / 6 | 2 | medium | The copy tell shows up but at low density. |
+| 5 | `hero-eyebrow-chip` (eyebrow label above H1) | 1 / 6 | 1 | high | Occasional, not reflexive. |
+| 5 | `numbered-section-markers` | 1 / 6 | 1 | advisory | Rare. |
+
+**Top default tells named:** (1) **nested cards** — by a wide margin the defining structural tell of Fable 5's unprompted UI; (2) **overused safe sans** (Inter/Roboto family); (3) the **purple triplet**, now intermittent rather than reflexive.
+
+**Notes and honest limits.**
+- Detector-catchable tells only. `detect.mjs` is a static-analysis subset (16 rules); tells it does not encode (e.g. uniform spacing rhythm, generic imagery) are out of scope and undercounted here.
+- Per-file hit counts: settings 25, landing 12, pricing 10, dashboard 3, blog 2, login 1. Denser/component-heavier surfaces (settings, landing) express more tells; sparse surfaces (login) express almost none — genericness is partly a function of surface complexity, not just model default.
+- Small N (6), single generation each, one model snapshot. This is a fingerprint, not a distribution. **Tells decay** (per the decay doctrine above): re-measure by 2026-10. The nested-card dominance in particular is the current signature and should be re-checked as Fable 5 updates.
