@@ -1,6 +1,6 @@
 ---
 name: clarify
-description: "Decomposes underspecified design requests by classifying gaps (missing brand context, visual ambiguity, false premises, scope faults) and generating targeted clarifying questions. Produces a confirmed design brief before any design work begins."
+description: "Decomposes underspecified design requests by classifying gaps (missing brand context, visual ambiguity, false premises, scope faults) and generating targeted clarifying questions. Produces a confirmed design brief before any design work begins. For sharpening a design request that already exists; not for open-ended design brief discovery from a vague idea (use /design-for-ai:research)."
 user-invocable: false
 ---
 

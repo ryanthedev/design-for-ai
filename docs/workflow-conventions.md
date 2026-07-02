@@ -78,7 +78,7 @@ Design done-when items use measurable design signals, not vague completeness. Us
 
 ### Heuristic pass
 
-A phase passes the heuristic gate when the design-review-agent's cross-pillar synthesis returns no Critical findings and Major findings are either resolved or explicitly accepted with a rationale.
+A phase passes the heuristic gate when the design-review-agent's dual-blind synthesis — Assessment A (isolated cross-pillar critique) merged with Assessment B (`scripts/detect.mjs`, the deterministic detector) after both finish — returns no Critical findings and Major findings are either resolved or explicitly accepted with a rationale.
 
 | Severity | Gate behavior |
 |----------|--------------|
@@ -105,7 +105,7 @@ Workflow agents load doctrine **deterministically by `Read()`**, not by `Skill()
 1. Resolve each doctrine name via `docs/pillar-taxonomy.md` §5, then `Read()` each resolved path
 2. Execute the phase artifact using the doctrine content loaded
 3. Validate with design execution evidence (contrast/token/heuristic per §3)
-4. Dispatch the design-review-agent for independent cross-pillar critique
+4. Dispatch the design-review-agent for independent dual-blind review — Assessment A (cross-pillar critique) and Assessment B (`scripts/detect.mjs` deterministic detector) gather findings in isolation, synthesizing only after both finish
 5. Resolve Critical findings; log Major; commit
 
 **Pillar assignment to lifecycle stages:**
@@ -120,7 +120,7 @@ Workflow agents load doctrine **deterministically by `Read()`**, not by `Skill()
 | Design — words | `content-design` | Page specs updated with microcopy, labels, errors |
 | Design — data surfaces | `data-viz` | Chart/table specs in page specs |
 | Mock | core `prototype` | `mocks/<page>.html` + screenshot |
-| Review | `design-review-agent` dispatches applicable pillars | Cross-pillar findings report |
+| Review | `design-review-agent` runs dual-blind: Assessment A dispatches applicable pillars, Assessment B runs `scripts/detect.mjs` | Severity-ranked synthesis report |
 
 ---
 

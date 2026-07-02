@@ -334,7 +334,7 @@ infrastructure, not a skill).
 **Done when:**
 - [ ] DW-7.1: `validate_skill` returns 0 errors for each of the 4 skills; each description carries a not-for/near-miss clause.
 - [ ] DW-7.2: plugin.json = 4.1.0; description mentions dual-blind review and the dealt-composition pipeline; no stale claims.
-- [ ] DW-7.3: CLAUDE.md structure tree includes `scripts/dealer.mjs`, `scripts/detect.mjs`; `grep -rn 'honest default' references/ skills/ commands/ agents/ docs/ CLAUDE.md` returns nothing.
+- [ ] DW-7.3: CLAUDE.md structure tree includes `scripts/dealer.mjs`, `scripts/detect.mjs`; the removed DNA "honest default" candidate framing leaves no residue — `grep -rn 'honest default' references/visual/` returns nothing (the visual/DNA doctrine where the archetype lived). The two surviving hits in `references/behavioral/references/behavioral-principles.md` and `references/deceptive-patterns/deceptive-patterns.md` are the legitimate ethics term "honest defaults" (transparent/ethical default settings) — verified 2026-07-01 as a distinct concept, they stay.
 
 **Difficulty:** LOW
 **Uncertainty:** None significant.
@@ -386,7 +386,7 @@ sweeps, `validate_skill`, script smoke runs with fixtures, and the Phase 8 eval 
 - [ ] T4 (P4): DNA schema shows two-reference fields, critique pass, synthesis + loop-back, per-moment register, `composition` slot; "honest default" gone.
 - [ ] T5 (P5): dealer determinism (same seed byte-identical; seed+1 differs); exclusion + banned-cell tests; cell-space count stated. **Dirty:** exhausted cell space → dealer errors with a clear message, not a repeat deal.
 - [ ] T6 (P6): detect.mjs fixture pair (sloppy ≥3 hits / clean 0); A/B isolation language present; dispatch sites updated. **Dirty:** missing artifact → N/A path, not failure.
-- [ ] T7 (P7): validate_skill 4×0 errors; version 4.1.0; CLAUDE.md tree matches `find` output.
+- [ ] T7 (P7): validate_skill 4×0 errors; version 4.1.0; CLAUDE.md tree matches `find` output; `grep 'honest default' references/visual/` empty (DNA framing gone; the 2 ethics-domain hits stay).
 - [ ] T8 (P8): both arms generated from correct git refs; judge context isolation verifiable in transcripts; results memory written.
 
 ---
@@ -468,3 +468,10 @@ Summary: The DNA pipeline is now ground→diverge→critique→converge→gate. 
 - [x] Committed
 Commit: 94e1c67
 Summary: The composition dealer is live — deterministic seeded (project|date via xmur3→mulberry32), deals family + composition-discipline (1-9 DESIGN_VARIANCE dial) + golden-angle hue + signature per candidate; used-dna.json replay ledger; 6 AI-tell cells banned (102 legal cells, unexhaustable); clean exhaustion error. The model now justifies/executes the dealt hand. dealer JSON is the seam Phase 8's eval scores; detect.mjs (Phase 6) is the other Phase 8 instrument.
+
+### Phase 6: Dual-blind review (Gate: Full)
+- [x] BUILD: Discovery + design + implementation complete — scripts/detect.mjs (16 rules) + fixtures + detect.test.mjs (34 tests), design-review-agent.md A/B restructure, mock.md/build.md dispatch updates
+- [x] REVIEW: pass — re-ran detect.mjs on both fixtures (15 rules on sloppy / 0 on clean), N/A path (exit 3 status:na), both suites (34/34 + 19/19 no regression); attribution + isolation + distinctiveness + N/A carve-out all verified
+- [x] Committed
+Commit: c8356eb
+Summary: Review is now dual-blind — Assessment A (fresh-context LLM critique + distinctiveness criterion) and Assessment B (detect.mjs deterministic detector) run isolated, synthesize after both finish; skipped detector = failed run (N/A carve-out for no-HTML). detect.mjs ports 16 static rules from Impeccable (Apache-2.0, attributed + modifications stated), sourced from ai-tells.md. This closes the kitsch-gate. detect.mjs is Phase 8's scoring instrument alongside dealer.mjs.
