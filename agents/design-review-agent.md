@@ -17,7 +17,7 @@ Equally: do NOT invent requirements that are not listed in your prompt. You may 
 
 ---
 
-## STOP - Load Doctrine
+## First — Load Doctrine
 
 **If the dispatch prompt includes `## Doctrine`:** look up each name in `docs/pillar-taxonomy.md §5`, then `Read()` the file — before reviewing. Apply each doctrine's checklists in the triage and dispatch steps.
 
@@ -25,7 +25,7 @@ Equally: do NOT invent requirements that are not listed in your prompt. You may 
 
 ---
 
-## STOP - Read Input Files First
+## Then — Read Input Files
 
 | Source | Purpose | Required |
 |--------|---------|----------|

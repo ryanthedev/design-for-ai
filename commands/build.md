@@ -13,23 +13,25 @@ This command runs a per-phase gate machinery (BUILD → REVIEW → commit) for d
 
 ---
 
-## Crisis Invariants — NEVER SKIP
+## Invariants
 
-- **Worktree isolation** — never build on main/master; multi-phase commits there have no rollback.
-- **Load plan before any design work** — no plan = no done-when criteria = forgotten artifacts.
-- **One phase at a time** — parallel phases cause merge conflicts and lost context.
-- **BUILD before REVIEW** (Full and Standard gates) — REVIEW runs on every phase except Minimal.
-- **DESIGN.md locked before tokens/mocks; JOURNEY.md page specs before page mocks** (workflow-conventions.md §2).
-- **Evidence before commit** — Full/Standard: REVIEW must PASS; Minimal: design execution evidence is the gate.
-- **Reviewer gets NO intent-framing** — requirements + rendered artifact only.
-- **Mark a phase complete only when gates pass** — premature completion ships unverified design.
-- **Update the execution log** — it anchors later phases and debugs failed builds.
+Each of these exists because its absence has a specific failure mode:
+
+- **Worktree isolation** — building on main/master leaves multi-phase commits with no rollback boundary
+- **Load plan before any design work** — no plan means no done-when criteria, and artifacts get forgotten
+- **One phase at a time** — parallel phases cause merge conflicts and lost context
+- **BUILD before REVIEW** (Full and Standard gates) — REVIEW runs on every phase except Minimal
+- **DESIGN.md locked before tokens/mocks; JOURNEY.md page specs before page mocks** (workflow-conventions.md §2) — a token machine has nothing to systematize until the DNA is fixed
+- **Evidence before commit** — Full/Standard: REVIEW must PASS; Minimal: design execution evidence is the gate
+- **Reviewer gets NO intent-framing** — intent-framing collapses defect detection; requirements + rendered artifact only
+- **Mark a phase complete only when gates pass** — premature completion ships unverified design
+- **Update the execution log** — it anchors later phases and is what you debug a failed build from
 
 ---
 
 ## Phase 1: LOAD (Read Plan File)
 
-### Worktree Gate (MANDATORY — first check, non-negotiable)
+### Worktree Gate (first check)
 
 Clear this gate before any other work. Multi-phase commits on `main` have no rollback and pollute history.
 
@@ -43,10 +45,10 @@ git worktree list
 |-----------|--------|
 | Already in a worktree (`.git` is a file) | On a feature branch — proceed |
 | On feature branch, clean | Proceed (single-build mode) |
-| On `main`/`master`, clean | **Block — ask the user (below)** |
-| Dirty working tree | Ask: "Uncommitted changes. Stash, commit, or abort?" |
+| On `main`/`master`, clean | Ask the user (below) before proceeding |
+| Dirty working tree | Ask the user (below) before proceeding |
 
-**When on main/master, ask and do not proceed until resolved:**
+**On main/master or a dirty tree, resolve via `AskUserQuestion`** — both are decisive picks with 2-3 self-contained options, so the dialog is the right channel (unlike the content-review checkpoints in `commands/plan.md`, there's nothing here the user needs to read first):
 
 ```
 You're on [main]. Building a design plan requires an isolated workspace.
@@ -57,10 +59,19 @@ Worktree or feature branch?
 - [ ] Abort
 ```
 
+```
+Uncommitted changes in the working tree.
+
+Stash, commit, or abort?
+- [ ] Stash — set changes aside, restore after the build
+- [ ] Commit — commit them now, then proceed
+- [ ] Abort
+```
+
 - **Worktree:** `git worktree add .claude/worktrees/<plan-slug> -b feature/<plan-slug>`, copy the plan file in, `cd` into it. Run dependency setup only if the project has a lockfile (a design-doc plan usually does not).
 - **Feature branch:** `git checkout -b feature/<plan-topic>`.
 
-Record the workspace mode (worktree path + branch, or branch) for the REPORT merge instructions. **This gate is NON-NEGOTIABLE — never proceed on main/master under any circumstances.**
+Record the workspace mode (worktree path + branch, or branch) for the REPORT merge instructions. **Never proceed on main/master** — a multi-phase build committed there has no rollback boundary, and a failed phase leaves the default branch broken.
 
 ### Locate + Parse the Plan
 
@@ -71,7 +82,7 @@ Read the plan path from `$ARGUMENTS` (or `.design-foundations/plans/`). If none 
 3. **Done-when items per phase** — every `- [ ]` under each `**Done when:**` (passed verbatim to both agents).
 4. **`**Doctrine:**` per phase** — the doctrine names; become the `## Doctrine` block in each agent dispatch.
 5. **`**Gate:**` per phase** — Full / Standard / Minimal.
-6. **`**Model:**` per phase** — optional override.
+6. **`**Model:**` per phase** — optional override (ladder: fable/sonnet/haiku; `opus` valid only as an explicit override).
 7. **Edge cases per phase** — passed to REVIEW with DW-item verdict standing.
 
 ### Verify Plan is Ready
@@ -96,7 +107,18 @@ For each phase, read its `**Doctrine:**` field. Validate each name against the r
 
 ### Model Resolution
 
-Use the phase's `**Model:**` field if present, else omit (agents run on the active model). If a model is set, downgrade REVIEW one tier (prover-verifier asymmetry): opus→sonnet, sonnet→haiku, haiku→haiku.
+Use the phase's `**Model:**` field if present, else omit (agents run on the active model). The ladder is fable → sonnet → haiku (`opus` a valid override, resolved the same as fable — a legacy plan naming `opus` is not an error). If a model is set, downgrade REVIEW one tier (prover-verifier asymmetry — intentional):
+
+| BUILD model | REVIEW model |
+|-------------|--------------|
+| fable | sonnet |
+| opus | sonnet |
+| sonnet | haiku |
+| haiku | haiku (floor) |
+
+### Effort
+
+Dispatched BUILD/REVIEW agents run at **default** effort — the plan already carries the strategic reasoning from planning's high-effort pass (`commands/plan.md`); orchestration here is dispatch work, and the subagents think in their own contexts regardless of the orchestrator's setting.
 
 ### Gate Resolution
 
@@ -122,9 +144,17 @@ For each phase N (resolved gate + model):
 
 ## Phase 3: EXECUTE (Implement Phases)
 
-### CRITICAL: DO NOT DO THE DESIGN WORK DIRECTLY
+### The Orchestrator Dispatches; Agents Do the Design Work
 
-Dispatch subagents for ALL design and review work. Do NOT produce DESIGN.md / JOURNEY.md / tokens / mocks directly, do NOT critique a surface directly, do NOT skip a task, do NOT proceed when a blockedBy dependency is incomplete, do NOT mark a gate task complete when it returned FAIL. **Exception: you DO handle git commits directly.**
+You are the dispatcher. All design and review happens in subagents — direct production bypasses the gates that make the trust report honest, and direct exploration fills the orchestration context with artifacts the agents will re-read anyway. Concretely, during EXECUTE:
+
+- DESIGN.md / JOURNEY.md / tokens / mocks are produced only inside dispatched agents
+- A surface is critiqued only inside dispatched agents
+- Every task runs; a task is skipped only via a BUILD agent's SKIP status
+- A task starts only when its blockedBy list is empty
+- A gate task that returned FAIL is never marked complete
+
+**Exception: you handle git commits directly** — no subagent needed for git operations.
 
 | Sub-phase | Agent |
 |-----------|-------|

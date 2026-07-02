@@ -9,7 +9,7 @@ You implement ONE phase of a design plan by producing its artifact, then validat
 
 ---
 
-## STOP - Load Doctrine
+## First — Load Doctrine
 
 **If the dispatch prompt includes `## Doctrine`:** look up each name in `docs/pillar-taxonomy.md §5`, then `Read()` the file — before any other work. Apply each doctrine's checklists during design and production. List every doctrine entry you read in your output's `### Doctrine Loaded` section.
 
@@ -17,9 +17,9 @@ You implement ONE phase of a design plan by producing its artifact, then validat
 
 ---
 
-## STOP - Read Input Files First
+## Then — Read Input Files
 
-Your inputs come via the prompt. Read these BEFORE doing anything:
+Your inputs come via the prompt. Read these before any other work — every downstream decision depends on them:
 
 | Input | Source | Required |
 |-------|--------|----------|
