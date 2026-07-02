@@ -14,11 +14,12 @@
 6. [Register: A Per-Moment Dial](#register-a-per-moment-dial)
 7. [The Signature Move](#the-signature-move)
 8. [The Composition Dealer](#the-composition-dealer)
-9. [Diverge: Five Candidates](#diverge-five-candidates)
-10. [Critique: All Candidates, Before Any Choice](#critique-all-candidates-before-any-choice)
-11. [Converge: Pick, Synthesize, or Loop Once](#converge-pick-synthesize-or-loop-once)
-12. [DESIGN.md Template](#designmd-template)
-13. [The Gate](#the-gate)
+9. [Pins: The User's Axes](#pins-the-users-axes)
+10. [Diverge: Five Candidates](#diverge-five-candidates)
+11. [Critique: All Candidates, Before Any Choice](#critique-all-candidates-before-any-choice)
+12. [Converge: Pick, Synthesize, or Loop Once](#converge-pick-synthesize-or-loop-once)
+13. [DESIGN.md Template](#designmd-template)
+14. [The Gate](#the-gate)
 
 ---
 
@@ -118,7 +119,7 @@ One move, executed consistently, beats five gimmicks. The signature move is the 
 The verified root cause of generic output is that composition converges even when hue differs — nothing in a prompt-only pipeline spreads layout, so the model drifts to its statistical prior. The fix moves that selection out of the model entirely: a deterministic seeded dealer, `scripts/dealer.mjs`.
 
 ```
-node scripts/dealer.mjs --project <name> --date YYYY-MM-DD [--candidates 5] [--reroll 0]
+node scripts/dealer.mjs --project <name> --date YYYY-MM-DD [--candidates 5] [--reroll 0] [--pin <axis>=<value> ...]
 ```
 
 Per candidate it deals four things: **aesthetic family** (the 12 documented in `archetypes.md` Part B), **composition/layout discipline** (9 disciplines, each documented across scale, density, symmetry, hierarchy, ground, dominant element), **seed hue** (a golden-angle 137.5° walk from a seed-derived base — consecutive hands land maximally far apart, so five hands always span five named hue families), and **signature element**. The seed derives entirely from `--project` + `--date` (+ `--reroll`): the same arguments produce a byte-identical deal, forever — no clock, no randomness.
@@ -127,7 +128,7 @@ Per candidate it deals four things: **aesthetic family** (the 12 documented in `
 
 **The dial.** Each discipline carries a `variance` value with `DESIGN_VARIANCE`-compatible semantics — a 1–10 scale from centered/clean (1, Monolith Center) to asymmetric/modern (9, Fractured Grid) — so a dealt composition is legible as a dial position, not just a name.
 
-**Re-deal protocol.** If the user rejects a dealt hand, re-deal with `--reroll N+1` — never by editing the hand. Both deals stay recorded in `used-dna.json`, so the rejected cells remain excluded from future runs; rejection consumes cells rather than recycling them.
+**Re-deal protocol.** If the user rejects a dealt hand, re-deal with `--reroll N+1` — never by editing the hand. The re-deal can be surgical: pin what worked (`--pin`, next section) and reroll the rest. Both deals stay recorded in `used-dna.json`, so the rejected cells remain excluded from future runs; rejection consumes cells rather than recycling them. Hue, chroma, signature, or font changes the user asks for are converge-time swaps, not hand edits — the never-edit rule protects the cell from the model, not the hand from the user.
 
 **Exclusion and banned cells.** Dealt `(family, discipline)` cells land in a local `used-dna.json` ledger and are excluded from later deals with a different seed (re-running the *same* seed replays the recorded output verbatim). On top of exclusions, the known AI-tell cells from `ai-tells.md` — cyan-on-dark dashboard, purple-gradient centered hero, dark-default glowing hero, glassmorphism panel dashboard, dark+acid-green terminal, the cream+serif+terracotta cluster's home cell — ship as **banned cells** the dealer never emits. Only the exact tell cells are banned: a legal cell one step away (same family, different discipline — or the reverse) is legal, because the tell is the *combination*, not the ingredient. There is no uniform-card-grid discipline at all, so that layout tell is structurally unreachable. The cell space is 12 × 9 = 108 cells, 102 legal after bans — if exclusions ever leave fewer legal cells than requested candidates, the dealer errors clearly (exit 3) instead of repeating a cell.
 
@@ -137,12 +138,32 @@ Per candidate it deals four things: **aesthetic family** (the 12 documented in `
 
 ---
 
+## Pins: The User's Axes
+
+The dealer exists to stop the *model* from choosing — model choice converges to the distributional center. The user choosing is the opposite force: user taste is a point, not a distribution, so user choice is first-class. Before the deal, the user may pin any dealt axis (`--pin <axis>=<value>`, repeatable); the dealer deals the rest. The contract holds unchanged for the model — it justifies and executes every value, pinned or dealt, and still chooses nothing.
+
+| Axis | Legal values |
+|---|---|
+| `family` | the 12 deck ids (archetypes.md Part B) |
+| `discipline` | the 9 deck ids |
+| `hue` | a `palette.mjs` `HUE_NAMES` name, or a degree 0–360 |
+| `signature` | deck ids only — the CLI rejects free text and points to the converge-time swap |
+| `chroma` | `muted` / `balanced` / `vivid` |
+
+Fonts aren't dealt: a user-named font rides the TYPE line as a stated constraint, not a pin.
+
+Pins come from the research doc's `## Taste signals` first. When a user is present, ask before dealing — but only about axes they've shown interest in; five menus is a form, not a conversation. Decks of 9–12 exceed `AskUserQuestion`'s 4-option cap, so render them as compact inline tables and let the user pick by name (the candidate-presentation pattern from Converge). The asking has a scope: in a non-interactive dispatch (the build path — the agent can't prompt), pins come only from the research doc / plan Constraints, and unpinned axes are dealt without asking.
+
+How pins meet the deal: a pinned family rides all five hands while disciplines stay pairwise-distinct (mirrored for a pinned discipline). A numeric hue pin lands exact on every hand; a named hue pin spreads the five evenly within that band. Banned cells stay banned — a pinned family+discipline pair landing on an AI-tell cell exits 1 naming the tell; a pin can't launder a tell. A fully-pinned cell skips the ledger's exclusions (all five hands share it — deliberate repetition is the user's right); a half-pinned slice keeps them. Pinned axes appear as a top-level `pins` object in the output JSON, and the contract string gains "Pinned axes are user law — dealt around, never re-chosen." Pinning narrows the spread, and that's fine: the spread exists to escape the model's center, not the user's taste — critique still runs on every candidate.
+
+---
+
 ## Diverge: Five Candidates
 
-Generate five DNAs that are **meaningfully far apart** — five is enough spread to force past the first, most obvious idea without flooding the choice. Divergence is forced by three rules, not by candidate personas: a designated "safe option" slot just re-labels the distributional center and becomes the modal pick, which defeats the exercise. The five are peers.
+Generate five DNAs that are **meaningfully far apart** — five is enough spread to force past the first, most obvious idea without flooding the choice. Divergence is forced by three rules, not by candidate personas: a designated "safe option" slot just re-labels the distributional center and becomes the modal pick, which defeats the exercise. The five are peers. A user-pinned axis is shared by design, not clustering: five candidates on one pinned family still diverge on discipline, references, and stance.
 
 1. **Disjoint reference pairs.** Ten distinct references across the five candidates — no reference anchors two of them. If the same reference keeps volunteering itself, the model is orbiting its prior; reach further.
-2. **Hue-family spread.** The five collectively span **five distinct named hue families** — red/orange/amber/yellow/lime/green/teal/cyan/blue/violet/purple/pink (the `palette.mjs` `HUE_NAMES` set); no two candidates share one (≥60° apart in OKLCH unless brand assets lock a hue). When the composition dealer is in play, the seed hues arrive dealt (the golden-angle walk guarantees this spread) and the justification inverts: **write the one-line justification for why the dealt hue can serve this content** before running the palette script. Without the dealer, derive each seed hue from the content — subject matter, cultural associations (ch09), brand assets, dominant hues in the product's imagery — and write the justification before running the script: if you can't name why this hue serves this content, it's habit, not a choice. *Green/lime guard:* green is the model's most common default; a candidate seeds green/lime only on a named content cue (sustainability, money, growth, health/nature, a literal terminal), and at most one of the five.
+2. **Hue-family spread.** The five collectively span **five distinct named hue families** — red/orange/amber/yellow/lime/green/teal/cyan/blue/violet/purple/pink (the `palette.mjs` `HUE_NAMES` set); no two candidates share one (≥60° apart in OKLCH unless brand assets lock a hue or the user pins the hue). When the composition dealer is in play, the seed hues arrive dealt (the golden-angle walk guarantees this spread) and the justification inverts: **write the one-line justification for why the dealt hue can serve this content** before running the palette script. Without the dealer, derive each seed hue from the content — subject matter, cultural associations (ch09), brand assets, dominant hues in the product's imagery — and write the justification before running the script: if you can't name why this hue serves this content, it's habit, not a choice. *Green/lime guard:* green is the model's most common default; a candidate seeds green/lime only on a named content cue (sustainability, money, growth, health/nature, a literal terminal), and at most one of the five — a user-pinned green is a named cue by definition.
 3. **At least one structural inversion.** At least one candidate flips a structural assumption another candidate holds — light↔dark, dense↔airy, serif↔mono, symmetric↔broken. Same room, opposite stance, so the set can't cluster on one stance.
 
 For each candidate: list the legal base families from the confirmed archetype(s) (after content-pressure and structure-register filtering), derive the DNA under the remix rules, and give it a two-word name ("Quiet Ledger", "Phosphor Field", "Copper Dawn", "Tidal Press") — names force coherence and make the choice memorable.
@@ -189,6 +210,17 @@ Present all five spec blocks **in the message**, each with its critique verdict 
 2. **Synthesize.** Combine the strongest elements across candidates into a new DNA, under the remix rules — borrow limits still apply, one axis still dominates; a synthesis that takes one axis from each of four candidates is incoherent, not rich. Re-present the synthesis once as a full spec block with its own critique line before locking.
 3. **Loop back once.** If the critique pass shows the set clustering, or the user says none fit, run ONE fresh divergent round seeded by the findings: keep what critique marked strong, avoid the named weaknesses, re-ground the collisions that failed the tells scan. One loop, then converge — the DESIGN.md gate remains the only exit.
 
+**Swaps on the pick.** Picking a candidate doesn't mean taking it whole — some axes swap cleanly at converge:
+
+| Swappable | With |
+|---|---|
+| Display / body font | the family's documented stacks, or a font the user names |
+| Hue | a `HUE_NAMES` name or a degree — re-run `palette.mjs` for fresh swatches and contrast |
+| Chroma | muted / balanced / vivid — re-run `palette.mjs` |
+| Signature | another deck signature, or the user's own move |
+
+The composition cell is not swappable here — it's the axis the deal exists to spread; changing it is a re-deal. A swapped spec is re-presented once with a fresh critique line before lock, the same rule as synthesis. Swaps land in DESIGN.md's Pins line.
+
 A worked synthesis:
 
 > Critique found "Copper Dawn" strongest in type (Fraunces display, editorial confidence) but its palette drifting toward the terracotta escape-hatch cluster, while "Tidal Press" had the strongest color story (ink-blue analogous on cold paper) but timid type. The user says: "Copper Dawn's type on Tidal Press's palette." Synthesis: the base family stays Tidal Press's (color strategy + composition define the room — remix rule 4), type voice borrows from Copper Dawn, motion follows the base, dominant axis = type voice. New two-word name ("Inkset Dawn"), one re-present with a fresh critique line, then lock.
@@ -208,6 +240,7 @@ Written to the project root (or `docs/`) after convergence. This file is the **g
 **Grounding:** [X]'s [specific quality] + [Y]'s [specific quality]
 **DNA:** [base family] + [borrowed axis] from [family] · **Dominant axis:** [axis]
 **Composition:** <dealt> ([the dealer hand: family + discipline, variance dial, seed — from scripts/dealer.mjs])
+**Pins:** [axes the user pinned or swapped, or "none" — an absent line reads as none; pinned values are user law, and audit/polish treat drift from them like drift from any locked value]
 
 ## Direction
 [2-3 sentences: the feeling, who it serves, why this collision fits this content.]
