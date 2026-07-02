@@ -454,3 +454,10 @@ Summary: ai-tells.md now carries a copy/content tells section (6 observable-chec
 - [x] Committed
 Commit: c72f27d
 Summary: The doctrine library is de-prescriptified for Fable 5 — exhaustive ban-lists trimmed to principle + dated examples, over-elaborated blocks cut, imperative-cap headers converted to reasoned gates, verification leaned toward screenshot-grounded checks. Named principles/citations/worked examples all survive; ethics prohibitions and usability heuristic tables kept intact; every remaining ban-list carries a Last reviewed date. This demonstrates the de-prescription convention future authors follow.
+
+### Phase 4: Design pipeline restructure (Gate: Full)
+- [x] BUILD: Discovery + design + implementation complete — design-dna.md pipeline rebuilt; 5-candidate count + DESIGN.md template preserved, restructured around them
+- [x] REVIEW: pass (all 4 DW + 3 edge cases verified with grep + coherence read; TOC anchors resolve, no dangling refs)
+- [x] Committed
+Commit: a77ccce
+Summary: The DNA pipeline is now ground→diverge→critique→converge→gate. Each of 5 candidates anchors to two named distinct references (collision format); a criteria-bound critique (distinctiveness/register/tells-scan) runs over ALL candidates before selection; convergence offers synthesis-across-candidates + one loop-back (pick-one stays legal); register is a per-surface-moment dial; "honest default" framing removed. A `composition: <dealt>` slot awaits Phase 5's dealer — that is the seam. NOTE for Phase 7: behavioral-principles.md:225 contains "honest defaults" (a legitimate ethics term, NOT the removed DNA framing) — Phase 7's `grep 'honest default'` will hit it; distinguish and leave it.

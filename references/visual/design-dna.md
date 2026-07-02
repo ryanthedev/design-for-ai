@@ -13,11 +13,12 @@
 5. [Remix Rules](#remix-rules)
 6. [Register: A Per-Moment Dial](#register-a-per-moment-dial)
 7. [The Signature Move](#the-signature-move)
-8. [Diverge: Five Candidates](#diverge-five-candidates)
-9. [Critique: All Candidates, Before Any Choice](#critique-all-candidates-before-any-choice)
-10. [Converge: Pick, Synthesize, or Loop Once](#converge-pick-synthesize-or-loop-once)
-11. [DESIGN.md Template](#designmd-template)
-12. [The Gate](#the-gate)
+8. [The Composition Dealer](#the-composition-dealer)
+9. [Diverge: Five Candidates](#diverge-five-candidates)
+10. [Critique: All Candidates, Before Any Choice](#critique-all-candidates-before-any-choice)
+11. [Converge: Pick, Synthesize, or Loop Once](#converge-pick-synthesize-or-loop-once)
+12. [DESIGN.md Template](#designmd-template)
+13. [The Gate](#the-gate)
 
 ---
 
@@ -68,7 +69,7 @@ Every DNA specifies all four. Definitions of each family's position per axis are
 | **Composition** (layout discipline) | Grid character, density, radius, borders/shadows, symmetry, dominant element | "Swiss grid, hairline rules instead of cards, zero radius, flush-left" |
 | **Motion vocabulary** | Timing range, easing character, what's allowed to move, signature transition | "State-only, 150ms, sharp ease-out, value-count transitions" |
 
-**The composition slot is becoming a dealt token.** A seeded composition dealer (`scripts/dealer.mjs`, forthcoming) will deal each candidate's composition position deterministically — the schema carries `composition: <dealt>` and the model's job becomes justifying and executing the dealt hand. Until the dealer ships, the position is chosen under the remix rules and recorded in the same slot. Composition stays hue-independent either way: the same discipline works in any hue family.
+**The composition slot is a dealt token.** The seeded composition dealer (`scripts/dealer.mjs` — see [The Composition Dealer](#the-composition-dealer)) deals each candidate's composition position deterministically — the schema carries `composition: <dealt>` and the model justifies and executes the dealt hand rather than choosing it. Composition stays hue-independent: the same discipline works in any hue family.
 
 ---
 
@@ -112,12 +113,36 @@ One move, executed consistently, beats five gimmicks. The signature move is the 
 
 ---
 
+## The Composition Dealer
+
+The verified root cause of generic output is that composition converges even when hue differs — nothing in a prompt-only pipeline spreads layout, so the model drifts to its statistical prior. The fix moves that selection out of the model entirely: a deterministic seeded dealer, `scripts/dealer.mjs`.
+
+```
+node scripts/dealer.mjs --project <name> --date YYYY-MM-DD [--candidates 5] [--reroll 0]
+```
+
+Per candidate it deals four things: **aesthetic family** (the 12 documented in `archetypes.md` Part B), **composition/layout discipline** (9 disciplines, each documented across scale, density, symmetry, hierarchy, ground, dominant element), **seed hue** (a golden-angle 137.5° walk from a seed-derived base — consecutive hands land maximally far apart, so five hands always span five named hue families), and **signature element**. The seed derives entirely from `--project` + `--date` (+ `--reroll`): the same arguments produce a byte-identical deal, forever — no clock, no randomness.
+
+**The contract — the model's job inverts.** The model justifies and executes the dealt hand; it does not choose, veto, or quietly substitute. Where the pre-dealer pipeline asked "derive a composition from the content," the dealer asks "articulate why THIS family under THIS discipline in THIS hue serves this content, then execute it well." Divergence lives in the deal; taste lives in the execution. A hand that genuinely cannot serve the content is not silently overridden — it goes through the re-deal protocol below, on the record.
+
+**The dial.** Each discipline carries a `variance` value with `DESIGN_VARIANCE`-compatible semantics — a 1–10 scale from centered/clean (1, Monolith Center) to asymmetric/modern (9, Fractured Grid) — so a dealt composition is legible as a dial position, not just a name.
+
+**Re-deal protocol.** If the user rejects a dealt hand, re-deal with `--reroll N+1` — never by editing the hand. Both deals stay recorded in `used-dna.json`, so the rejected cells remain excluded from future runs; rejection consumes cells rather than recycling them.
+
+**Exclusion and banned cells.** Dealt `(family, discipline)` cells land in a local `used-dna.json` ledger and are excluded from later deals with a different seed (re-running the *same* seed replays the recorded output verbatim). On top of exclusions, the known AI-tell cells from `ai-tells.md` — cyan-on-dark dashboard, purple-gradient centered hero, dark-default glowing hero, glassmorphism panel dashboard, dark+acid-green terminal, the cream+serif+terracotta cluster's home cell — ship as **banned cells** the dealer never emits. Only the exact tell cells are banned: a legal cell one step away (same family, different discipline — or the reverse) is legal, because the tell is the *combination*, not the ingredient. There is no uniform-card-grid discipline at all, so that layout tell is structurally unreachable. The cell space is 12 × 9 = 108 cells, 102 legal after bans — if exclusions ever leave fewer legal cells than requested candidates, the dealer errors clearly (exit 3) instead of repeating a cell.
+
+**Honest limit.** The ledger is local — there is no shared server. Two users dealing with similar project names and dates can collide on the same cells: collisions are rare, not impossible. The exclusion guarantee is per-machine, per-ledger; treat cross-user uniqueness as probabilistic, backed by the size of the full hand space (cell × signature × continuous hue).
+
+**Downstream gotcha.** When the pipeline runs `palette.mjs` on a dealt hue (each hand carries a ready `paletteCommand`), remember it exits code 2 when a contrast pair misses 4.5:1 but still prints the CSS — read stdout even on a nonzero exit (`execFileSync` throws; catch and read `err.stdout`).
+
+---
+
 ## Diverge: Five Candidates
 
 Generate five DNAs that are **meaningfully far apart** — five is enough spread to force past the first, most obvious idea without flooding the choice. Divergence is forced by three rules, not by candidate personas: a designated "safe option" slot just re-labels the distributional center and becomes the modal pick, which defeats the exercise. The five are peers.
 
 1. **Disjoint reference pairs.** Ten distinct references across the five candidates — no reference anchors two of them. If the same reference keeps volunteering itself, the model is orbiting its prior; reach further.
-2. **Hue-family spread.** The five collectively span **five distinct named hue families** — red/orange/amber/yellow/lime/green/teal/cyan/blue/violet/purple/pink (the `palette.mjs` `HUE_NAMES` set); no two candidates share one (≥60° apart in OKLCH unless brand assets lock a hue). Derive each seed hue from the content — subject matter, cultural associations (ch09), brand assets, dominant hues in the product's imagery — and **write the one-line content justification before running the script**: if you can't name why this hue serves this content, it's habit, not a choice. *Green/lime guard:* green is the model's most common default; a candidate seeds green/lime only on a named content cue (sustainability, money, growth, health/nature, a literal terminal), and at most one of the five.
+2. **Hue-family spread.** The five collectively span **five distinct named hue families** — red/orange/amber/yellow/lime/green/teal/cyan/blue/violet/purple/pink (the `palette.mjs` `HUE_NAMES` set); no two candidates share one (≥60° apart in OKLCH unless brand assets lock a hue). When the composition dealer is in play, the seed hues arrive dealt (the golden-angle walk guarantees this spread) and the justification inverts: **write the one-line justification for why the dealt hue can serve this content** before running the palette script. Without the dealer, derive each seed hue from the content — subject matter, cultural associations (ch09), brand assets, dominant hues in the product's imagery — and write the justification before running the script: if you can't name why this hue serves this content, it's habit, not a choice. *Green/lime guard:* green is the model's most common default; a candidate seeds green/lime only on a named content cue (sustainability, money, growth, health/nature, a literal terminal), and at most one of the five.
 3. **At least one structural inversion.** At least one candidate flips a structural assumption another candidate holds — light↔dark, dense↔airy, serif↔mono, symmetric↔broken. Same room, opposite stance, so the set can't cluster on one stance.
 
 For each candidate: list the legal base families from the confirmed archetype(s) (after content-pressure and structure-register filtering), derive the DNA under the remix rules, and give it a two-word name ("Quiet Ledger", "Phosphor Field", "Copper Dawn", "Tidal Press") — names force coherence and make the choice memorable.
@@ -131,7 +156,7 @@ GROUNDING   [X]'s [specific quality] + [Y]'s [specific quality]
 
 TYPE        [display font] over [body font] — [one-line character]
 COLOR       seed [hue name] · [background approach] · [harmony] · swatches: #xxxxxx #xxxxxx #xxxxxx
-COMPOSITION <dealt> — from the seeded dealer (scripts/dealer.mjs, forthcoming); until it ships: [discipline chosen under remix rules]
+COMPOSITION <dealt> — [family + discipline + variance dial from the dealer hand] · justification: [why this hand serves this content]
 MOTION      [one-line vocabulary]
 REGISTER    [structure register] structure · expressive at: [moment(s), with amplitude]
 DNA         [base family] + [borrowed axis] from [family] · dominant: [axis]
@@ -182,7 +207,7 @@ Written to the project root (or `docs/`) after convergence. This file is the **g
 **Archetype:** [archetype] · **Register:** [structure register] structure · expressive at: [moment(s)]
 **Grounding:** [X]'s [specific quality] + [Y]'s [specific quality]
 **DNA:** [base family] + [borrowed axis] from [family] · **Dominant axis:** [axis]
-**Composition:** <dealt> ([dealer hand once scripts/dealer.mjs ships; until then, the chosen discipline])
+**Composition:** <dealt> ([the dealer hand: family + discipline, variance dial, seed — from scripts/dealer.mjs])
 
 ## Direction
 [2-3 sentences: the feeling, who it serves, why this collision fits this content.]
