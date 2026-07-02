@@ -273,6 +273,130 @@ test("test_palette_cli_unaffected_by_hook", () => {
   assert(/PASS/.test(out), "palette contrast report missing");
 });
 
+// ---------- pins (4.2.0) ----------
+
+test("test_pin_family_on_all_hands_distinct_disciplines", () => {
+  const out = JSON.parse(run(tmp(), [...BASE, "--pin", "family=neo-brutalist"]).stdout);
+  for (const h of out.hands) eq(h.family.id, "neo-brutalist", `hand ${h.index} family`);
+  eq(new Set(out.hands.map((h) => h.composition.id)).size, 5, "distinct disciplines");
+  eq(out.pins.family, "neo-brutalist", "pins echoed in output");
+  assert(/user law/.test(out.contract), "contract lacks the pinned-axes sentence");
+});
+
+test("test_pin_replay_byte_identical_and_distinct_ledger_entry", () => {
+  const dir = tmp();
+  const PIN = [...BASE, "--pin", "hue=teal"];
+  const a = run(dir, PIN);
+  const b = run(dir, PIN); // replayed from the ledger
+  assert(a.stdout === b.stdout, "pinned re-run is not byte-identical");
+  const plain = run(dir, BASE); // same project/date/reroll, no pins
+  assert(plain.stdout !== a.stdout, "unpinned deal replayed the pinned entry");
+  const ledger = JSON.parse(readFileSync(join(dir, "used-dna.json"), "utf8"));
+  eq(ledger.entries.length, 2, "pinned and unpinned deals are separate ledger entries");
+  rmSync(dir, { recursive: true });
+});
+
+test("test_no_pin_output_unchanged_golden", () => {
+  // The no-pin path must stay byte-compatible with the 4.1.0 dealer: no pins
+  // key, unchanged contract text, and the exact pre-pin deal for the BASE seed
+  // (values captured from the 4.1.0 dealer before --pin landed).
+  const out = JSON.parse(run(tmp(), BASE).stdout);
+  assert(!("pins" in out), "no-pin output gained a pins key");
+  assert(!/user law/.test(out.contract), "no-pin contract text changed");
+  eq(out.seed, "test|2026-07-01|0", "no-pin seed format");
+  eq(out.baseHue, 51.18, "no-pin baseHue drifted from the 4.1.0 golden value");
+  eq(JSON.stringify(cellsOf(out)), JSON.stringify([
+    "cinematic-dark::poster-bleed",
+    "neo-brutalist::fractured-grid",
+    "playful-geometric::frieze-bands",
+    "soft-futurism::swiss-modular",
+    "terminal-mono::monolith-center",
+  ]), "no-pin cells drifted from the 4.1.0 golden deal");
+  eq(JSON.stringify(out.hands.map((h) => h.signature.id)), JSON.stringify([
+    "single-diagonal", "border-interrupt-headings", "duotone-images",
+    "hard-offset-shadow", "baseline-ruler",
+  ]), "no-pin signatures drifted from the 4.1.0 golden deal");
+});
+
+test("test_pin_banned_cell_exits_1_naming_tell", () => {
+  const r = run(tmp(), [...BASE, "--pin", "family=warm-editorial", "--pin", "discipline=editorial-spread"]);
+  eq(r.status, 1, "banned-cell pin exit code");
+  assert(/banned/.test(r.stderr) && /ai-tells/.test(r.stderr), `stderr lacks the tell: ${r.stderr}`);
+});
+
+test("test_pin_unknown_axis_or_value_exits_1_with_legal_list", () => {
+  let r = run(tmp(), [...BASE, "--pin", "vibe=cozy"]);
+  eq(r.status, 1, "unknown axis exit code");
+  assert(/legal axes/.test(r.stderr) && /family, discipline, hue, signature, chroma/.test(r.stderr),
+    `stderr lacks the axis list: ${r.stderr}`);
+  r = run(tmp(), [...BASE, "--pin", "family=vaporwave"]);
+  eq(r.status, 1, "unknown family exit code");
+  assert(/legal values/.test(r.stderr) && /neo-brutalist/.test(r.stderr),
+    `stderr lacks the family list: ${r.stderr}`);
+});
+
+test("test_pin_hue_numeric_exact_on_all_hands", () => {
+  const out = JSON.parse(run(tmp(), [...BASE, "--pin", "hue=200"]).stdout);
+  for (const h of out.hands) eq(h.hue.deg, 200, `hand ${h.index} hue`);
+  eq(out.hands[0].hue.name, hueName(200), "hue name");
+});
+
+test("test_pin_hue_named_spreads_within_band", () => {
+  const out = JSON.parse(run(tmp(), [...BASE, "--pin", "hue=teal"]).stdout);
+  for (const h of out.hands) eq(h.hue.name, "teal", `hand ${h.index} hue family`);
+  eq(new Set(out.hands.map((h) => h.hue.deg)).size, 5, "hues spread within the band, not identical");
+});
+
+test("test_pin_signature_deck_id_only", () => {
+  const out = JSON.parse(run(tmp(), [...BASE, "--pin", "signature=duotone-images"]).stdout);
+  for (const h of out.hands) eq(h.signature.id, "duotone-images", `hand ${h.index} signature`);
+  const r = run(tmp(), [...BASE, "--pin", "signature=my-own-move"]);
+  eq(r.status, 1, "free-text signature must be rejected (converge-time swap, not a pin)");
+  assert(/converge-time swap/.test(r.stderr), `stderr lacks the redirect: ${r.stderr}`);
+});
+
+test("test_pin_chroma_in_palette_command", () => {
+  const out = JSON.parse(run(tmp(), [...BASE, "--pin", "chroma=vivid"]).stdout);
+  for (const h of out.hands)
+    assert(h.hue.paletteCommand.includes("--chroma vivid"), `hand ${h.index}: ${h.hue.paletteCommand}`);
+});
+
+test("test_pin_full_cell_overrides_exclusion_and_slice_exhausts", () => {
+  // A fully-pinned cell already in the ledger still deals — pin overrides
+  // exclusion; deliberate repetition is the user's right.
+  const dir = tmp();
+  const first = JSON.parse(run(dir, BASE).stdout);
+  const c = first.hands[0];
+  const r = run(dir, ["--project", "second", "--date", "2026-07-01",
+    "--pin", `family=${c.family.id}`, "--pin", `discipline=${c.composition.id}`]);
+  eq(r.status, 0, "fully-pinned previously-dealt cell was refused");
+  const out = JSON.parse(r.stdout);
+  for (const h of out.hands)
+    eq(`${h.family.id}::${h.composition.id}`, `${c.family.id}::${c.composition.id}`, "shared pinned cell");
+  eq(out.constraintTier, 0, "fully-pinned cell reports tier 0, not a distinctness tier");
+  rmSync(dir, { recursive: true });
+
+  // A half-pinned slice keeps exclusions: consume 6 of a family's 9 cells,
+  // then pin that family → 3 remain < 5 requested → exit 3 naming the pin.
+  const dir2 = tmp();
+  const emCells = legalCells().filter((x) => x.family === "editorial-minimalism").slice(0, 6);
+  const hands = emCells.map((x, i) => ({
+    index: i + 1,
+    family: FAMILIES.find((f) => f.id === x.family),
+    composition: DISCIPLINES.find((d) => d.id === x.discipline),
+    hue: { deg: 0, name: "red", paletteCommand: "" },
+    signature: SIGNATURES[0],
+  }));
+  writeFileSync(join(dir2, "used-dna.json"), JSON.stringify({
+    version: 1,
+    entries: [{ seed: "fixture|2026-01-01|0", output: { hands } }],
+  }));
+  const rx = run(dir2, [...BASE, "--pin", "family=editorial-minimalism"]);
+  eq(rx.status, 3, "half-pinned slice exhaustion exit code");
+  assert(/family=editorial-minimalism/.test(rx.stderr), `stderr lacks the pin: ${rx.stderr}`);
+  rmSync(dir2, { recursive: true });
+});
+
 // ---------- summary ----------
 
 console.log(`\n${passed} passed, ${failed} failed`);

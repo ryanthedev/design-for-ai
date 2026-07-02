@@ -14,6 +14,7 @@
 // Usage:
 //   node dealer.mjs --project test --date 2026-07-01 --candidates 5
 //   node dealer.mjs --project test --date 2026-07-01 --reroll 1   # user rejected the hand
+//   node dealer.mjs --project test --date 2026-07-01 --pin family=neo-brutalist --pin hue=teal
 //
 // Flags:
 //   --project    <string>       project name (required)
@@ -21,12 +22,17 @@
 //   --candidates <1-10>         hands to deal            (default 5)
 //   --reroll     <int>          re-deal counter; bump by 1 when a hand is rejected (default 0)
 //   --used       <path>         ledger file              (default ./used-dna.json)
+//   --pin        <axis>=<value> user-pinned axis, repeatable — family, discipline, hue
+//                               (name or degree), signature (deck id), chroma. The dealer
+//                               exists to stop the MODEL from choosing; the USER choosing is
+//                               anti-convergent, so pinned axes ride every hand and only the
+//                               unpinned axes are dealt (design-dna.md "Pins: The User's Axes").
 //
 // Exit codes: 0 deal/replay · 1 usage error · 3 cell-space exhaustion.
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { pathToFileURL } from "node:url";
-import { GOLDEN_ANGLE, hueWalk, hueName } from "./palette.mjs";
+import { GOLDEN_ANGLE, hueWalk, hueName, HUE_NAMES } from "./palette.mjs";
 
 // ---------- the cell space: families × composition disciplines ----------
 
@@ -182,6 +188,31 @@ export const allCells = () =>
 export const legalCells = () =>
   allCells().filter((c) => !BANNED_KEYS.has(cellKey(c.family, c.discipline)));
 
+// ---------- pins ----------
+
+export const PIN_AXES = ["family", "discipline", "hue", "signature", "chroma"];
+export const CHROMAS = ["muted", "balanced", "vivid"];
+
+// The 12 distinct hue-band names ("red" appears twice in HUE_NAMES for the wrap).
+const HUE_BAND_NAMES = [...new Set(HUE_NAMES.map(([, n]) => n))];
+
+// Band (lo, hi] for a named hue, from palette.mjs's HUE_NAMES thresholds.
+// "red" resolves to its low band [0, 15]; the wrap segment (350, 360] carries
+// the same name and is intentionally unused for pinned spreads.
+function hueBand(name) {
+  const i = HUE_NAMES.findIndex(([, n]) => n === name);
+  return { lo: i === 0 ? 0 : HUE_NAMES[i - 1][0], hi: HUE_NAMES[i][0] };
+}
+
+// Canonical seed. Pins participate in the key, so a pinned deal and an
+// unpinned deal sharing project/date/reroll are distinct ledger entries —
+// one string keys the PRNG, the replay lookup, and exclusion filtering.
+export function makeSeed({ project, date, reroll = 0, pins = {} }) {
+  const base = `${project}|${date}|${reroll}`;
+  const keys = Object.keys(pins).sort();
+  return keys.length ? `${base}|pin:${keys.map((k) => `${k}=${pins[k]}`).join(",")}` : base;
+}
+
 // ---------- seeded PRNG (xmur3 string hash → mulberry32) ----------
 
 export function xmur3(str) {
@@ -221,16 +252,18 @@ export class ExhaustionError extends Error {}
 
 // Backtracking pick of `count` cells under a distinctness constraint.
 // tier 1: pairwise-distinct families AND disciplines; tier 2: distinct
-// families; tier 3: distinct cells only. Finite by construction.
-function pickCells(pool, count, tier) {
+// families; tier 3: distinct cells only. Finite by construction. A pinned
+// axis is exempt from distinctness — every cell in the pool shares the
+// pinned value, so the constraint applies only to the dealt axes.
+function pickCells(pool, count, tier, pins = {}) {
   const chosen = [];
   const usedF = new Set(), usedD = new Set();
   const step = (start) => {
     if (chosen.length === count) return true;
     for (let i = start; i < pool.length; i++) {
       const c = pool[i];
-      if (tier <= 1 && usedD.has(c.discipline)) continue;
-      if (tier <= 2 && usedF.has(c.family)) continue;
+      if (tier <= 1 && !pins.discipline && usedD.has(c.discipline)) continue;
+      if (tier <= 2 && !pins.family && usedF.has(c.family)) continue;
       chosen.push(c); usedF.add(c.family); usedD.add(c.discipline);
       if (step(i + 1)) return true;
       chosen.pop(); usedF.delete(c.family); usedD.delete(c.discipline);
@@ -241,18 +274,35 @@ function pickCells(pool, count, tier) {
 }
 
 // Pure, deterministic core. `excluded` = [{family, discipline}] from the
-// ledger. Throws ExhaustionError when exclusions + bans leave fewer legal
-// cells than requested candidates.
-export function deal({ project, date, reroll = 0, candidates = 5, excluded = [] }) {
-  const seed = `${project}|${date}|${reroll}`;
+// ledger; `pins` = validated user pins (see parsePins). Throws
+// ExhaustionError when exclusions + bans + pins leave fewer legal cells
+// than needed. The no-pin output is byte-identical to the pre-pin dealer.
+export function deal({ project, date, reroll = 0, candidates = 5, excluded = [], pins = {} }) {
+  const seed = makeSeed({ project, date, reroll, pins });
   const rand = mulberry32(xmur3(seed)());
+  const pinned = Object.keys(pins).length > 0;
 
-  const excludedKeys = new Set(excluded.map((c) => cellKey(c.family, c.discipline)));
-  const available = legalCells().filter((c) => !excludedKeys.has(cellKey(c.family, c.discipline)));
+  const slice = legalCells().filter(
+    (c) =>
+      (!pins.family || c.family === pins.family) &&
+      (!pins.discipline || c.discipline === pins.discipline)
+  );
+  // A fully-pinned cell skips ledger exclusions — deliberate repetition is
+  // the user's right; a half-pinned slice keeps them.
+  const cellPinned = Boolean(pins.family && pins.discipline);
+  const excludedKeys = cellPinned
+    ? new Set()
+    : new Set(excluded.map((c) => cellKey(c.family, c.discipline)));
+  const available = slice.filter((c) => !excludedKeys.has(cellKey(c.family, c.discipline)));
 
-  if (available.length < candidates) {
+  // With a fully-pinned cell all hands share it, so one legal cell suffices.
+  const needed = cellPinned ? 1 : candidates;
+  if (available.length < needed) {
+    const pinNote = pinned
+      ? ` under pins ${Object.keys(pins).sort().map((k) => `${k}=${pins[k]}`).join(", ")}`
+      : "";
     throw new ExhaustionError(
-      `cell space exhausted: ${candidates} candidates requested but only ${available.length} ` +
+      `cell space exhausted${pinNote}: ${candidates} candidates requested but only ${available.length} ` +
       `legal cells remain (${FAMILIES.length}×${DISCIPLINES.length} = ${allCells().length} cells, ` +
       `${BANNED_CELLS.length} banned as AI tells, ${excludedKeys.size} excluded by used-dna.json). ` +
       `Point --used at a fresh ledger, prune old entries, or request fewer candidates.`
@@ -263,11 +313,17 @@ export function deal({ project, date, reroll = 0, candidates = 5, excluded = [] 
   const baseHue = rand() * 360;
   const pool = shuffled(available, rand);
   let cells = null, constraintTier = 0;
-  for (const tier of [1, 2, 3]) {
-    cells = pickCells(pool, candidates, tier);
-    if (cells) { constraintTier = tier; break; }
+  if (cellPinned) {
+    // One cell shared by every hand — distinctness is vacuous by construction.
+    cells = Array.from({ length: candidates }, () => pool[0]);
+    constraintTier = 0;
+  } else {
+    for (const tier of [1, 2, 3]) {
+      cells = pickCells(pool, candidates, tier, pins);
+      if (cells) { constraintTier = tier; break; }
+    }
   }
-  // tier 3 accepts any distinct cells, so `available.length >= candidates`
+  // tier 3 accepts any distinct cells, so `available.length >= needed`
   // guarantees success — but keep the guard honest.
   if (!cells) throw new ExhaustionError("no legal cell assignment found");
   const sigs = shuffled(SIGNATURES, rand);
@@ -275,8 +331,18 @@ export function deal({ project, date, reroll = 0, candidates = 5, excluded = [] 
   const familyById = Object.fromEntries(FAMILIES.map((f) => [f.id, f]));
   const disciplineById = Object.fromEntries(DISCIPLINES.map((d) => [d.id, d]));
 
+  const band = typeof pins.hue === "string" ? hueBand(pins.hue) : null;
+  const chroma = pins.chroma ?? "balanced";
+  const pinnedSig = pins.signature ? SIGNATURES.find((s) => s.id === pins.signature) : null;
+
   const hands = cells.map((c, i) => {
-    const hue = +hueWalk(baseHue, i).toFixed(2);
+    // Hue: numeric pin → exact on every hand; named pin → even spread within
+    // the band (no golden-angle walk); unpinned → the walk, as before.
+    const deg =
+      typeof pins.hue === "number" ? pins.hue
+      : band ? band.lo + ((i + 0.5) * (band.hi - band.lo)) / candidates
+      : hueWalk(baseHue, i);
+    const hue = +deg.toFixed(2);
     return {
       index: i + 1,
       family: familyById[c.family],
@@ -284,18 +350,19 @@ export function deal({ project, date, reroll = 0, candidates = 5, excluded = [] 
       hue: {
         deg: hue,
         name: hueName(hue),
-        paletteCommand: `node scripts/palette.mjs --seed ${hue} --chroma balanced --harmony mono`,
+        paletteCommand: `node scripts/palette.mjs --seed ${hue} --chroma ${chroma} --harmony mono`,
       },
-      signature: sigs[i % sigs.length],
+      signature: pinnedSig ?? sigs[i % sigs.length],
     };
   });
 
   return {
     seed,
     project, date, reroll, candidates,
+    ...(pinned ? { pins } : {}),
     baseHue: +baseHue.toFixed(2),
     goldenAngle: GOLDEN_ANGLE,
-    constraintTier, // 1 = distinct families+disciplines, 2 = distinct families, 3 = distinct cells
+    constraintTier, // 0 = fully-pinned cell (all hands share it), 1 = distinct families+disciplines, 2 = distinct families, 3 = distinct cells
     cellSpace: {
       families: FAMILIES.length,
       disciplines: DISCIPLINES.length,
@@ -307,7 +374,8 @@ export function deal({ project, date, reroll = 0, candidates = 5, excluded = [] 
     hands,
     contract:
       "The model justifies and executes this dealt hand — it does not re-choose. " +
-      "Rejected hand: re-deal with --reroll N+1; both deals stay recorded in used-dna.json.",
+      "Rejected hand: re-deal with --reroll N+1; both deals stay recorded in used-dna.json." +
+      (pinned ? " Pinned axes are user law — dealt around, never re-chosen." : ""),
   };
 }
 
@@ -335,9 +403,11 @@ export const ledgerExclusions = (ledger, seed) =>
 
 function parseArgs(argv) {
   const args = { candidates: 5, reroll: 0, used: "./used-dna.json" };
+  const pinSpecs = [];
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
-    if (a.startsWith("--")) args[a.slice(2)] = argv[++i];
+    if (a === "--pin") pinSpecs.push(argv[++i]);
+    else if (a.startsWith("--")) args[a.slice(2)] = argv[++i];
     else fail(`unexpected argument "${a}"`);
   }
   if (!args.project) fail("missing --project <name>");
@@ -347,7 +417,48 @@ function parseArgs(argv) {
     fail("--candidates must be an integer 1-10");
   args.reroll = parseInt(args.reroll, 10);
   if (!Number.isInteger(args.reroll) || args.reroll < 0) fail("--reroll must be an integer >= 0");
+  args.pins = parsePins(pinSpecs);
   return args;
+}
+
+// Validate --pin specs into a normalized pins object. Every rejection prints
+// the legal list for that axis, so a wrong guess teaches the right values.
+function parsePins(specs) {
+  const pins = {};
+  for (const spec of specs) {
+    const m = /^([a-z]+)=(.+)$/.exec(String(spec ?? ""));
+    if (!m) fail(`--pin expects <axis>=<value>, got "${spec}"`);
+    const [, axis, value] = m;
+    if (!PIN_AXES.includes(axis)) fail(`unknown pin axis "${axis}" — legal axes: ${PIN_AXES.join(", ")}`);
+    if (axis in pins) fail(`duplicate pin for axis "${axis}"`);
+    pins[axis] = value;
+  }
+  if (pins.family && !FAMILIES.some((f) => f.id === pins.family))
+    fail(`unknown family "${pins.family}" — legal values: ${FAMILIES.map((f) => f.id).join(", ")}`);
+  if (pins.discipline && !DISCIPLINES.some((d) => d.id === pins.discipline))
+    fail(`unknown discipline "${pins.discipline}" — legal values: ${DISCIPLINES.map((d) => d.id).join(", ")}`);
+  if (pins.signature && !SIGNATURES.some((s) => s.id === pins.signature))
+    fail(
+      `unknown signature "${pins.signature}" — legal values: ${SIGNATURES.map((s) => s.id).join(", ")}. ` +
+      `A signature of your own is a converge-time swap (design-dna.md), not a pin.`
+    );
+  if (pins.chroma && !CHROMAS.includes(pins.chroma))
+    fail(`unknown chroma "${pins.chroma}" — legal values: ${CHROMAS.join(", ")}`);
+  if (pins.hue !== undefined) {
+    const n = Number(pins.hue);
+    if (Number.isFinite(n)) pins.hue = ((n % 360) + 360) % 360;
+    else if (!HUE_BAND_NAMES.includes(pins.hue))
+      fail(`unknown hue "${pins.hue}" — a degree 0-360 or one of: ${HUE_BAND_NAMES.join(", ")}`);
+  }
+  if (pins.family && pins.discipline) {
+    const ban = BANNED_CELLS.find((c) => c.family === pins.family && c.discipline === pins.discipline);
+    if (ban)
+      fail(
+        `pinned cell ${pins.family} × ${pins.discipline} is a banned AI-tell cell — ${ban.tell}. ` +
+        `A pin cannot launder a tell; pick a neighboring cell (same family, different discipline, or the reverse).`
+      );
+  }
+  return pins;
 }
 
 function fail(msg) {
@@ -357,7 +468,7 @@ function fail(msg) {
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const args = parseArgs(process.argv.slice(2));
-  const seed = `${args.project}|${args.date}|${args.reroll}`;
+  const seed = makeSeed(args);
   const ledger = readLedger(args.used);
 
   // Same seed already dealt → replay the recorded output verbatim (idempotent,
